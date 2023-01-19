@@ -31,19 +31,10 @@
                 attrs="{'invisible': [('only_manage_by_spacefill','=',False)]}"                
                 readonly="1"/>
             </xpath>
-            <xpath expr="//button[@name='action_open_label_layout']" position="attributes">
-                <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
-            </xpath>
             <xpath expr="//button[@name='action_toggle_is_locked']" position="attributes">
                 <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
             </xpath>
-            <xpath expr="//button[@name='do_print_picking']" position="attributes">
-                <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
-            </xpath>
             <xpath expr="//button[@name='action_set_quantities_to_reservation']" position="attributes">
-                <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="attributes">
                 <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//button[@name='button_validate']" position="attributes">
