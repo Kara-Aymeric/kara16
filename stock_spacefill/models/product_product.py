@@ -109,10 +109,10 @@ class ProductProduct(models.Model):
                 product.create_spacefill_variant(instance,vals)
 
     def get_instance_spacefill(self):
-        setup = self.env['spacefill.config'].search([('company_id', '=',self.env.user.company_id.id)], limit=1)
+        setup = self.env['spacefill.config'].search([('company_id', '=',self.env.company.id)], limit=1)
         if not setup:
             raise ValidationError(_('Spacefill configuration is not set for this company'))
-        if len(self.env['res.company'].search([])) >1 and self.company_id.id != self.env.user.company_id.id:
+        if len(self.env['res.company'].search([])) >1 and self.company_id.id != self.env.company.id:
             raise ValidationError (_('Cannot export a product available for several company, you need to set a company on the product'))
         instance = API(setup.spacefill_api_url,
                        setup.spacefill_shipper_token)       
