@@ -36,7 +36,7 @@
             </xpath>
             <xpath expr="//button[@name='action_toggle_is_locked']" position="attributes">
                 <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
-            </xpath
+            </xpath>
             <xpath expr="//button[@name='button_validate']" position="attributes">
                 <attribute name="attrs">{'invisible':[('only_manage_by_spacefill', '=', True)]}</attribute>
             </xpath>
