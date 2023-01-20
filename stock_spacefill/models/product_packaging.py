@@ -32,11 +32,7 @@ class ProductPackaging(models.Model):
     
 
     def write(self, vals):
-        for productpackaging in self:
-              if productpackaging.search_count([('product_id','=',vals.get('product_id')),('spacefill_palett','=',True)]) == 1:
-                raise UserError(_('You can not have more than one SpaceFill Palett for a product'))
-              if productpackaging.search_count([('product_id','=',vals.get('product_id')),('spacefill_cardboard_box','=',True)]) == 1:
-                raise UserError(_('You can not have more than one SpaceFill CardBoard Box for a product'))      
+           
         res = super(ProductPackaging, self).write(vals)
         return res
     
