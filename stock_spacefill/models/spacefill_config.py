@@ -54,7 +54,7 @@ class SpacefillConfig(models.Model):
         res = super(SpacefillConfig, self).default_get(fields)
         if not self.search([('company_id', '=', self.env.company.id)]):
             #raise UserWarning(_('You cannot create a spacefill config for the same company as your user.'))
-            res['spacefill_api_url'] = 'https://api.spacefill.fr'
+            res['spacefill_api_url'] = 'https://api.spacefill.fr/v1/'
             res['spacefill_delay'] = 24
             res['spacefill_confirm_schedule'] = True
 
@@ -72,14 +72,14 @@ class SpacefillConfig(models.Model):
         contact_name= self.env.user.name if self.env.user.name else "NC"
         contact_email = self.env.user.email if self.env.user.email else "NC"
         contact_phone = self.env.user.phone if self.env.user.phone else "NC"  
-        contact_message = "Please contact me to discuss about the integration of my company in SPACEFILL"
-        body = html.escape("Message"+contact_message+"\n"+"Company: "+company+"\n"+"Contact name: "+contact_name+"\n"+"Contact email: "+contact_email+"\n"+"Contact phone: "+contact_phone)
+        contact_message = "<p>Please contact me to discuss about the integration of my company in SPACEFILL</p><br>"
+        body = _("<p>Message"+contact_message+"</p><br>"+"<p>Company: "+company+"<br>"+"Contact name: "+contact_name+"<br>"+"Contact email: "+contact_email+"<br>"+"Contact phone: "+contact_phone)
         #push better marketing way to Spacefill
         #send mail to Spacefill
         vals = {
                     'subject': 'SPACEFILL - ERP integration request',
                     'body_html': body,
-                    'email_to': 'contact@irokoo.fr',
+                    'email_to': 'ama@irokoo.fr',
                     'email_cc': contact_email,
                     'auto_delete': False,
                     'email_from': contact_email ,
