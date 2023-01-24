@@ -80,7 +80,7 @@ class StockPicking(models.Model):
     def action_server_synchronize_order(self):
         """ This method is called by the button 'update Spacill' in the form view of the picking."""
         self.cron_maj_status()
-        
+
         for picking in self:
                 if picking.picking_type_id.warehouse_id.is_exported and picking.state not in ['done','cancel']:
                         if picking.picking_type_code == 'incoming':            
@@ -135,10 +135,27 @@ class StockPicking(models.Model):
                 self.write({'status_spacefill': spacefill_statut.spacefill_statut})
                 self.message_post(body="Update SpaceFill Status : %s" % spacefill_statut.spacefill_statut)
             if spacefill_statut.is_default_done and (self.state != 'done' or self.state !='cancel'):
+                #initial_request_ids = self.env['stock.move.line'].search([('picking_id','=',int(data.get('edi_erp_id')))])
+                #for initial_request_id in initial_request_ids:
+                #   initial_request_id.unlink()
+
                 for line in data.get('order_items'):
                     product = self.env['product.product'].search([('item_spacefill_id', '=', line.get('master_item_id'))], limit=1)                    
-                    line_id = False
+            
+                    # ! qty is not the same if packaging_type is not the same 
+                    qty = int(line.get('actual_quantity')) if line.get('actual_quantity') else 0
                     if product:
+                        for package in product.packaging_ids:
+                            if package.package_type_id.is_spacefill_cardboard_box:
+                                spacefill_cardboard_box = True
+                                obj_cardbox= package
+                            elif package.package_type_id.is_spacefill_pallet:
+                                spacefill_pallet = True
+                                obj_pal = package
+                        if line.get("item_packaging_type")=="CARDBOARD_BOX" and spacefill_cardboard_box:
+                            qty = qty * obj_cardbox.qty
+                        elif line.get("item_packaging_type")=="PALLET" and spacefill_pallet:
+                            qty = qty * obj_pal.qty
                         if line.get('batch_name'):
                             lot = self.env['stock.lot'].search([('name', '=', line.get('batch_name')),('product_id','=',product.id),('company_id','=',self.company_id.id)], limit=1)
                             if not lot:
@@ -146,20 +163,11 @@ class StockPicking(models.Model):
                                                                                             'name': line['batch_name'],
                                                                                             'company_id': self.company_id.id,
                                                                                             'product_id': product.id
-                                                                                        })                               
-                            
-                            line_id = self.env['stock.move.line'].search([('picking_id','=',int(data.get('edi_erp_id'))),('product_id','=',product.id),('lot_id','=',lot.id)])
-                            if not line_id:
-                                    self.create_new_line(line, product,lot)
-                            else:
-                                    line_id.write({'qty_done': int(line.get('actual_quantity'))})
-                                    line_id.write({'lot_id': lot.id})
-                           
-
+                                                                                        })                         
+                            self.create_new_line(product,lot,qty)
                         else:
-                            line_id = self.env['stock.move.line'].search([('picking_id','=',int(data.get('edi_erp_id'))),('product_id','=',product.id)])
-                            line_id.write({'qty_done': int(line.get('actual_quantity'))})
-                        # add unknow item
+                            self.create_new_line(product,False,qty)
+
                     else:
                         self.message_post(body="Item %s is not found in Odoo" % line.get('master_item_id'))  
 
@@ -175,12 +183,12 @@ class StockPicking(models.Model):
                     self.write({'note':"<p>"+data.get('comment')+"</p>"})
 
             if spacefill_statut.is_default_cancel:
-               # to do : chekc if picking is canceled too
+               # to do : check if picking is canceled too
 
                return True
         return True
 
-    def create_new_line(self, line, product,lot):
+    def create_new_line(self,product,lot,qty):
         """
         Create a new line in the picking
         """
@@ -188,8 +196,8 @@ class StockPicking(models.Model):
         move_line_id = StockMoveLine.create({
             'picking_id': self.id,
             'product_id': product.id,
-            'qty_done': line.get('actual_quantity', 0),
-            'lot_id': lot.id,
+            'qty_done': qty,
+            'lot_id': lot.id if lot else False,
             'location_id': self.location_id.id,
             'location_dest_id': self.location_dest_id.id,
             'product_uom_id': product.uom_id.id,
@@ -228,7 +236,7 @@ class StockPicking(models.Model):
             raise UserError(_('The deadline date must be after the scheduled date'))
         if self.date_deadline  < date_delay:
             deadline_date= date_delay
-            self.message_post(body=_("The deadline date is before the delay of %s hours, the deadline date is trasnmitted to %s" % (setup.spacefill_delay, deadline_date)))
+            self.message_post(body=_("The deadline date is before the delay of %s hours, the deadline date is transmitted to %s" % (setup.spacefill_delay, deadline_date)))
         else:
             deadline_date = self.date_deadline
         
@@ -238,6 +246,10 @@ class StockPicking(models.Model):
         else:
             order_values = self.prepare_exit_vals(scheduled_date,deadline_date)
             item_url = 'logistic_management/orders/exit/'
+        #add config?
+        for line in self.move_line_ids:
+            if not line.product_id.is_exported:
+                    self.env['product.product'].search([('id','=',line.product_id.id)]).export_product_in_spacefill()
 
         vals= self.sanitize_lines(self.move_line_ids)
         for line in vals:
@@ -285,12 +297,16 @@ class StockPicking(models.Model):
         """Sanitize lines to have only one line by item and lot"""
         qty_by_item_lot={}
         for line in lines:
-            if line.reserved_uom_qty != 0 and line.product_id.item_spacefill_id: 
-                if line.product_id.id not in qty_by_item_lot:
-                    qty_by_item_lot[line.product_id.id] = {line.lot_name: {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id}}
-                if line.lot_name not in qty_by_item_lot[line.product_id.id].keys():
-                    qty_by_item_lot[line.product_id.id][line.lot_name] = {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id}
-                qty_by_item_lot[line.product_id.id][line.lot_name]['qty'] += line.reserved_uom_qty
+            if line.reserved_uom_qty != 0 and line.product_id.item_spacefill_id:
+                if self.picking_type_code == 'incoming':
+                    lot_name = line.lot_name
+                else:
+                    lot_name =self.env["stock.lot"].search([('id','=',line.lot_id.id)]).name #si external si internal prendre line.lot_name 
+                if line.product_id.id not in qty_by_item_lot:                    
+                    qty_by_item_lot[line.product_id.id] = {lot_name: {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id}}
+                if lot_name not in qty_by_item_lot[line.product_id.id].keys():
+                    qty_by_item_lot[line.product_id.id][lot_name] = {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id}
+                qty_by_item_lot[line.product_id.id][lot_name]['qty'] += line.reserved_uom_qty
             else:
                 self.message_post( body=_('Product %s is not exported or qty is 0 ,  please export it or add qty  and update this order' ) % line.product_id.name)
                 # to add : auto-export ?

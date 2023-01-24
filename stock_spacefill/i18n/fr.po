@@ -482,8 +482,8 @@ msgid "SpaceFill CardBoard Box"
 msgstr "Boîte en carton SpaceFill"
 
 #. module: stock_spacefill
-#: model:ir.model.fields,field_description:stock_spacefill.field_product_packaging__spacefill_palett
-msgid "SpaceFill Palett"
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_packaging__spacefill_pallet
+msgid "SpaceFill Pallet"
 msgstr "Palette SpaceFill"
 
 #. module: stock_spacefill

@@ -22,6 +22,7 @@ class ProductProduct(models.Model):
 
     is_exported=fields.Boolean('Spacefill Exported Product', copy=False)
     item_spacefill_id=fields.Char('Spacefill Product ID', copy=False)
+    force_to_update = fields.Boolean('Force to update', copy=False, default=False)
 
 
     def create_spacefill_variant(self,instance,vals):
@@ -113,7 +114,7 @@ class ProductProduct(models.Model):
         if not setup:
             raise ValidationError(_('Spacefill configuration is not set for this company'))
         if len(self.env['res.company'].search([])) >1 and self.company_id.id != self.env.company.id:
-            raise ValidationError (_('Cannot export a product available for several company, you need to set a company on the product'))
+            raise ValidationError (_('Cannot export a product available for several company, you need to set a company on the product & on the product packagings'))
         instance = API(setup.spacefill_api_url,
                        setup.spacefill_shipper_token)       
         return instance,setup
@@ -124,10 +125,14 @@ class ProductProduct(models.Model):
         if self.packaging_ids:
             for package in self.packaging_ids:
                 if package.package_type_id.is_spacefill_cardboard_box:
+                    if spacefill_cardboard_box:
+                        raise ValidationError(_('You can not have more than one cardboard box type'))
                     spacefill_cardboard_box = True
                     obj_cardbox= package
 
                 elif package.package_type_id.is_spacefill_pallet:
+                    if spacefill_pallet:
+                        raise ValidationError(_('You can not have more than one pallet type'))
                     spacefill_pallet = True
                     obj_pal = package
 
@@ -139,7 +144,8 @@ class ProductProduct(models.Model):
                     else:
                         self.message_post(
                                                 body=_('Cardboard box quantity by pallet is not an integer'),
-                                                )               
+                                                )
+                        raise ValidationError (_('Cannot export a product with a pallet quantity not divisible by the cardboard box quantity, correct the packaging configuration of the product %s') % (self.name))               
                     
                 else:
                     spacefill_mapping["each_quantity_by_pallet"] = int(obj_pal.qty)
@@ -241,9 +247,11 @@ class ProductProduct(models.Model):
             for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
                 if product.default_code != vals['default_code']:
                     raise UserError(_("You can't change the reference of the product, if this product is exported in Spacefill"))        
+
         if 'item_spacefill_id' not in vals or 'is_exported' not in vals:
             for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
-                product.export_product_in_spacefill()
+                product.export_product_in_spacefill()             
+    
         res= super(ProductProduct, self).write(vals)
         return res
 
@@ -259,6 +267,7 @@ class ProductProduct(models.Model):
                         raise ValidationError(_('The detailed type must be product'))
                     else:
                         return True
+    
     def unlink(self):
         for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
             # unbale to archive the item by the API

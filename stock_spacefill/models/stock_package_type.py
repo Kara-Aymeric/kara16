@@ -27,8 +27,8 @@ class StockPackageType(models.Model):
     
   
     def write(self, vals):
-        #if 'is_spacefill_cardboard_box' in vals and 'is_spacefill_pallet' in vals:
-        #    if vals.get('is_spacefill_cardboard_box') and vals.get('is_spacefill_pallet'):
-        #        raise UserError(_('You can not have a SpaceFill CardBoard Box and a SpaceFill Pallet at the same time'))
+        if 'is_spacefill_cardboard_box' in vals and 'is_spacefill_pallet' in vals:
+            if vals.get('is_spacefill_cardboard_box') and vals.get('is_spacefill_pallet'):
+                raise UserError(_('You can not have a SpaceFill CardBoard Box and a SpaceFill Pallet at the same time'))
         res = super(StockPackageType, self).write(vals)
         return res
