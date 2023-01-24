@@ -33,7 +33,7 @@ msgstr ""
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_api_url
 msgid "API base url"
-msgstr "URL de base de l'API"
+msgstr "URL de l'API"
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking_type__is_archive_by_default
@@ -111,7 +111,7 @@ msgstr "Créé sur"
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__draft_order_state
 msgid "DRAFT_ORDER_STATE"
-msgstr "BROUILLON"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__is_default_cancel
@@ -143,12 +143,12 @@ msgstr ""
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__done
 msgid "Done"
-msgstr "Fait"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__draft
 msgid "Draft"
-msgstr "Brouillon"
+msgstr ""
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/product_product.py:0
@@ -196,7 +196,7 @@ msgstr ""
 #: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
 #, python-format
 msgid "Great! Now all you have to do is wait for your attendees to show up!"
-msgstr "ÉCHEC DE L'ÉTAT DE LA COMMANDE"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__id
@@ -315,17 +315,17 @@ msgstr "PRÉPARATION TERMINÉE"
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
 msgid "PREPARATION STARTED"
-msgstr "LA PRÉPARATION A COMMENCÉ"
+msgstr "PRÉPARATION EN COURS"
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__preparation_finished_state
 msgid "PREPARATION_FINISHED_STATE"
-msgstr "PRÉPARATION TERMINEE"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__preparation_started_state
 msgid "PREPARATION_STARTED_STATE"
-msgstr "PRÉPARATION EN COURS"
+msgstr ""
 
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
@@ -371,12 +371,12 @@ msgstr "Produit créé dans Spacefill avec l'identifiant %s"
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Déplacements de produits (ligne de transfert de stock)"
+msgstr "Mouvements de produits (ligne de transfert de stock)"
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_product_packaging
 msgid "Product Packaging"
-msgstr "L'emballage du produit"
+msgstr "Emballage produit"
 
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.view_spacefill_product_product_form_inherits
@@ -386,7 +386,7 @@ msgstr "Produit Spacefill"
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_product_template
 msgid "Product Template"
-msgstr "Produit Spacefill"
+msgstr ""
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/product_product.py:0
@@ -398,7 +398,7 @@ msgstr "Produit mis à jour dans Spacefill avec l'identifiant %s"
 #: code:addons/stock_spacefill/models/spacefill_config.py:0
 #, python-format
 msgid "Products"
-msgstr "Des produits"
+msgstr "Produits"
 
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
@@ -418,7 +418,7 @@ msgstr "Inventaire"
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__assigned
 msgid "Ready"
-msgstr "Prêt"
+msgstr ""
 
 #. module: stock_spacefill
 #. openerp-web
@@ -453,7 +453,7 @@ msgstr "Statut Spacefill"
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_tree
 msgid "Sapcefill instance"
-msgstr "Spacefill en instance"
+msgstr "Spacefill instance"
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_stock_scrap
@@ -463,7 +463,7 @@ msgstr "Abandonner"
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_shipper_token
 msgid "Shipper company access Token"
-msgstr "Jeton d'acces de votre entrprise"
+msgstr "Jeton d'acces Entreprise"
 
 #. module: stock_spacefill
 #: model:ir.ui.menu,name:stock_spacefill.menu_root_spacefill
@@ -479,7 +479,7 @@ msgstr "Caractéristiques spaceFill"
 #: model:ir.model.fields,field_description:stock_spacefill.field_product_packaging__spacefill_cardboard_box
 #: model:ir.model.fields,field_description:stock_spacefill.field_stock_package_type__is_spacefill_cardboard_box
 msgid "SpaceFill CardBoard Box"
-msgstr "Boîte en carton SpaceFill"
+msgstr "Colis SpaceFill"
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_product_packaging__spacefill_pallet
@@ -505,7 +505,7 @@ msgstr "Configuration de SpaceFill"
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_erp_account_id
 msgid "SpaceFill Shipper company ID"
-msgstr "ID de l'entreprise de l'expéditeur SpaceFill"
+msgstr "ID SpaceFill Entreprise"
 
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_status_view_form
@@ -515,7 +515,7 @@ msgstr "Statut Spacefill"
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
 msgid "SpaceFill instance"
-msgstr "Spacefill en instance"
+msgstr "Spacefill instance"
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking__order_spacefill_id
@@ -540,7 +540,7 @@ msgstr "Spacefill produit exporté"
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_product_product__item_spacefill_id
 msgid "Spacefill Product ID"
-msgstr "Identifiant Prosuit"
+msgstr "Identifiant Produit Spacefill"
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_products_count
@@ -566,7 +566,7 @@ msgstr "Statut Spacefill"
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_stock_packaging_type_count
 msgid "Spacefill Stock Packaging Type"
-msgstr "Type d'emballage de stock de remplissage"
+msgstr "Type d'emballage logistique"
 
 #. module: stock_spacefill
 #: model:ir.actions.server,name:stock_spacefill.cron_update_inventory_from_spacefill_ir_actions_server
@@ -608,12 +608,12 @@ msgstr "Statut"
 #: code:addons/stock_spacefill/models/spacefill_config.py:0
 #, python-format
 msgid "Stock Packaging Type"
-msgstr "Type d'emballage en stock "
+msgstr "Type d'emballage"
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_stock_package_type
 msgid "Stock package type"
-msgstr "Type d'emballage en stock"
+msgstr "Type d'emballage"
 
 #. module: stock_spacefill
 #: model:ir.model.fields,help:stock_spacefill.field_spacefill_config__company_id
@@ -625,8 +625,8 @@ msgstr "L'entreprise est automatiquement définie à partir de vos préférences
 #, python-format
 msgid "The deadline date is before the delay of %s hours, the deadline date is "
 "trasnmitted to %s"
-msgstr "La date limite est antérieure au retard de %s heures, la date limite est"
-"transmis à %s"
+msgstr "La date limite est antérieure au délai de prévénance de %s heures, la date limite est"
+"transmise à %s"
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/stock_picking.py:0
 #, python-format
@@ -637,15 +637,15 @@ msgstr "La date limite doit être postérieure à la date prévue"
 #: code:addons/stock_spacefill/models/product_product.py:0
 #, python-format
 msgid "The detailed type must be product"
-msgstr "Le type détaillé doit être produit"
+msgstr "Le type d'article doit être Stockable"
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/stock_picking.py:0
 #, python-format
 msgid "The scheduled date is before the delay of %s hours, the scheduled date is "
 "transmitted to %s"
-msgstr "La date prévue est antérieure au retard de %s heures, la date prévue est"
-"transmis à %s"
+msgstr "La date prévue est antérieure au délai de prévénance de %s heures, la date prévue est"
+"transmise à %s"
 #. module: stock_spacefill
 #. openerp-web
 #: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
@@ -680,17 +680,17 @@ msgstr "DÉCHARGEMENT TERMINÉ"
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
 msgid "UNLOADING STARTED"
-msgstr "DÉCHARGEMENT COMMENCÉ"
+msgstr "DÉCHARGEMENT EN COURS"
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__unloading_finished_state
 msgid "UNLOADING_FINISHED_STATE"
-msgstr "DÉCHARGEMENT TERMINE"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__unloading_started_state
 msgid "UNLOADING_STARTED_STATE"
-msgstr "ÉTAT DE DÉCHARGEMENT COMMENCÉ"
+msgstr ""
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/stock_picking.py:0
@@ -713,12 +713,12 @@ msgstr "Utilisez le <b>fil d'Ariane</b> pour revenir à l'aperçu de votre kanba
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
 msgid "WAITING AVAILABILITY"
-msgstr "Disponibilité en attente"
+msgstr "ATTENTE DISPONIBILITÉ"
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__warehouse_needs_to_confirm_planned_execution_date_state
 msgid "WAREHOUSE_NEEDS_TO_CONFIRM_PLANNED_EXECUTION_DATE_STATE"
-msgstr "L'ENTREPÔT DOIT CONFIRMER LA DATE D'EXÉCUTION PRÉVUE"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__confirmed
@@ -733,7 +733,7 @@ msgstr ""
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__waiting_for_products_availability
 msgid "Waiting for products availability"
-msgstr "En attente"
+msgstr "En attente de disponibilités produits"
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_stock_warehouse
@@ -743,7 +743,7 @@ msgstr "Entrepôt"
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_stock_warehouse__spacefill_warehouse_account_id
 msgid "Warehouse ID"
-msgstr "Entrepôt ID"
+msgstr "Identifiant Entrepôt"
 
 #. module: stock_spacefill
 #: model:ir.model.fields,field_description:stock_spacefill.field_stock_warehouse__is_exported
@@ -775,7 +775,7 @@ msgstr "Quand aura lieu votre événement ? <b>Sélectionnez</b> les dates de d�
 #. module: stock_spacefill
 #: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_status_view_form
 msgid "Workflow"
-msgstr "Flux de travail"
+msgstr ""
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/stock_quant.py:0
@@ -787,7 +787,7 @@ msgstr "Vous n'êtes pas autorisé à faire l'inventaire pour cet emplacement !"
 #: code:addons/stock_spacefill/models/stock_scrap.py:0
 #, python-format
 msgid "You are not allowed to scrap for this warehouse !"
-msgstr "!Vous n'êtes pas autorisé à mettre rebus"
+msgstr "Vous n'êtes pas autorisé à mettre au rebus pour cet entrepot !"
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/stock_picking.py:0
@@ -802,14 +802,14 @@ msgstr "Vous ne pouvez pas valider un picking géré par Spacefill"
 msgid ""
 "You can not have a SpaceFill CardBoard Box and a SpaceFill Pallet at the "
 "same time"
-msgstr "Vous ne pouvez pas avoir une SpaceFill CardBoard Box et une SpaceFill Pallet à la"
+msgstr "Vous ne pouvez pas avoir Colis et Palette SpaceFill"
 "en même temps"
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/product_packaging.py:0
 #: code:addons/stock_spacefill/models/product_packaging.py:0
 #, python-format
 msgid "You can not have more than one SpaceFill CardBoard Box for a product"
-msgstr "Vous ne pouvez pas avoir plus d'une SpaceFill CardBoard Box pour un produit"
+msgstr "Vous ne pouvez pas avoir plus d'un colis Spacefill pour un produit"
 
 #. module: stock_spacefill
 #: code:addons/stock_spacefill/models/product_packaging.py:0
@@ -866,14 +866,14 @@ msgstr "poids brut livrable dans cet emballage"
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_spacefill_config
 msgid "spacefill.config"
-msgstr "spacefill.config"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_spacefill_statut
 msgid "spacefill.statuts"
-msgstr "spacefill.statut"
+msgstr ""
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_spacefill_update
 msgid "spacefill.update"
-msgstr "Mise à jour Spacefill"
+msgstr ""

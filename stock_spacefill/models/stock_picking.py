@@ -64,7 +64,7 @@ class StockPicking(models.Model):
     @api.model  
     def cron_maj_status(self):
         """This method is called by the cron 'update status Spacefill'."""
-        _logger.info('Start cron update status Spacefill')
+        _logger.info('Start cron task update status Spacefill')
         res= self.env['spacefill.update'].check_availability()
 
         pickings = self.env['stock.picking'].search([
@@ -75,7 +75,7 @@ class StockPicking(models.Model):
         for picking in pickings:
             if picking.only_manage_by_spacefill:
                 picking.update_status_spacefill_with_lot()
-        _logger.info('End cron update status Spacefill')
+        _logger.info('End cron task update status Spacefill')
            
     def action_server_synchronize_order(self):
         """ This method is called by the button 'update Spacill' in the form view of the picking."""

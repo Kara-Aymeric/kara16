@@ -30,5 +30,15 @@ class StockPackageType(models.Model):
         if 'is_spacefill_cardboard_box' in vals and 'is_spacefill_pallet' in vals:
             if vals.get('is_spacefill_cardboard_box') and vals.get('is_spacefill_pallet'):
                 raise UserError(_('You can not have a SpaceFill CardBoard Box and a SpaceFill Pallet at the same time'))
+        if 'is_spacefill_cardboard_box' in vals or 'is_spacefill_pallet' in vals:
+            for rec in self:
+                if rec.is_spacefill_pallet or rec.is_spacefill_cardboard_box:
+                    raise UserError(_('You can not modify SpaceFill CardBoard Box or a SpaceFill Pallet when products are exported'))
         res = super(StockPackageType, self).write(vals)
+        return res
+    def unlink(self):
+        for rec in self:
+            if rec.is_spacefill_cardboard_box or rec.is_spacefill_pallet:
+                raise UserError(_('You can not delete a SpaceFill CardBoard Box or a SpaceFill Pallet'))
+        res = super(StockPackageType, self).unlink()
         return res

@@ -105,8 +105,7 @@ class ProductProduct(models.Model):
                     "transfered_to_tms_at": None,
                     }
                 vals = product.prepare_dict_vals(spacefill_mapping)
-                vals = self.get_values(vals)
-
+                vals = product.get_values(vals)
                 product.create_spacefill_variant(instance,vals)
 
     def get_instance_spacefill(self):
