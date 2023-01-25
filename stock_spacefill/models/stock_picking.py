@@ -93,8 +93,9 @@ class StockPicking(models.Model):
                         if picking.picking_type_code == 'incoming':            
                             picking.export_order_entry_to_spacefill()
 
-                        elif picking.picking_type_code == 'outgoing':                                     
-                            picking.export_order_exit_to_spacefill()
+                        elif picking.picking_type_code == 'outgoing':
+                            if picking.products_availability_state == 'available':                                   
+                                picking.export_order_exit_to_spacefill()
                                             
                         elif picking.picking_type_code == 'internal':
                                              picking.message_post(
@@ -242,10 +243,11 @@ class StockPicking(models.Model):
         #if self.date_deadline  < self.scheduled_date:
         #    raise UserError(_('The deadline date must be after the scheduled date'))
         if self.date_deadline  < date_delay:
-            deadline_date= date_delay
+            deadline_date= scheduled_date
             self.message_post(body=_("The deadline date is before the delay of %s hours, the deadline date is transmitted to %s" % (setup.spacefill_delay, deadline_date)))
         else:
             deadline_date = self.date_deadline
+        
         
         if type =='ENTRY':
             order_values = self.prepare_entry_vals(scheduled_date,deadline_date)
