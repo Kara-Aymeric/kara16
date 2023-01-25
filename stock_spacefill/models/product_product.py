@@ -153,8 +153,8 @@ class ProductProduct(models.Model):
                 spacefill_mapping["pallet_width_in_cm"] = obj_pal.package_type_id.width if obj_pal.package_type_id.width else None
                 spacefill_mapping["pallet_length_in_cm"] = obj_pal.package_type_id.packaging_length if obj_pal.package_type_id.packaging_length else None
                 spacefill_mapping["pallet_height_in_cm"] = obj_pal.package_type_id.height if obj_pal.package_type_id.height else None
-                spacefill_mapping["pallet_gross_weight_in_kg"] = obj_pal.spacefill_pallet_weight if obj_pal.spacefill_pallet_weight else None
-                spacefill_mapping["pallet_net_weight_in_kg"] = obj_pal.spacefill_pallet_weight if obj_pal.spacefill_pallet_weight else None
+                spacefill_mapping["pallet_gross_weight_in_kg"] = int(obj_pal.spacefill_pallet_weight) if obj_pal.spacefill_pallet_weight > 0 else None
+                spacefill_mapping["pallet_net_weight_in_kg"] = int(obj_pal.spacefill_pallet_weight) if obj_pal.spacefill_pallet_weight > 0 else None
 
             if spacefill_cardboard_box:
                 # remplir les détails cardboard box
@@ -164,8 +164,8 @@ class ProductProduct(models.Model):
                 spacefill_mapping["cardboard_box_width_in_cm"] = obj_cardbox.package_type_id.width if obj_cardbox.package_type_id.width else None
                 spacefill_mapping["cardboard_box_length_in_cm"] = obj_cardbox.package_type_id.packaging_length if obj_cardbox.package_type_id.packaging_length else None
                 spacefill_mapping["cardboard_box_height_in_cm"] = obj_cardbox.package_type_id.height  if obj_cardbox.package_type_id.height else None
-                spacefill_mapping["cardboard_box_gross_weight_in_kg"] = obj_cardbox.spacefill_cardboard_box_weight if obj_cardbox.spacefill_cardboard_box_weight else None    
-                spacefill_mapping["cardboard_box_net_weight_in_kg"] = obj_cardbox.spacefill_cardboard_box_weight if obj_cardbox.spacefill_cardboard_box_weight else None
+                spacefill_mapping["cardboard_box_gross_weight_in_kg"] = int(obj_cardbox.spacefill_cardboard_box_weight) if obj_cardbox.spacefill_cardboard_box_weight > 0 else None    
+                spacefill_mapping["cardboard_box_net_weight_in_kg"] = int(obj_cardbox.spacefill_cardboard_box_weight) if obj_cardbox.spacefill_cardboard_box_weight > 0 else None
 
             
         return spacefill_mapping
