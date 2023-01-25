@@ -455,17 +455,19 @@ class StockPicking(models.Model):
                     return super(StockPicking, self).copy(default)
 
     def export_order_cancel_to_spacefill(self):
-        url = "logistic_management/orders" #/{order_id}/shipper_cancels_order_action/"        
-        spacefill_instance, setup = self.get_instance_spacefill()
-        res = spacefill_instance.call('POST',setup.spacefill_api_url + url +'/'+ str(self.order_spacefill_id) + '/shipper_cancels_order_action',None)
-        if isinstance(res, dict):
-                    self.message_post(
-                                    body=_('Order %s is Canceled to Spacefill' ) % self.order_spacefill_id
-                                    )
-        else:
-                raise UserError(
-                        _('Error from SpaceFill API : %s') % res)
-   
+        url = "logistic_management/orders" #/{order_id}/shipper_cancels_order_action/"     
+                  
+        if self.order_spacefill_id:
+            spacefill_instance, setup = self.get_instance_spacefill() 
+            res = spacefill_instance.call('POST',setup.spacefill_api_url + url +'/'+ str(self.order_spacefill_id) + '/shipper_cancels_order_action',None)
+            if isinstance(res, dict):
+                        self.message_post(
+                                        body=_('Order %s is Canceled to Spacefill' ) % self.order_spacefill_id
+                                        )
+            else:
+                    raise UserError(
+                            _('Error from SpaceFill API : %s') % res)
+    
     
     def action_put_in_pack(self):
         if self.only_manage_by_spacefill:

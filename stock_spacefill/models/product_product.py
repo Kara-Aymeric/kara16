@@ -153,8 +153,8 @@ class ProductProduct(models.Model):
                 spacefill_mapping["pallet_width_in_cm"] = obj_pal.package_type_id.width if obj_pal.package_type_id.width else None
                 spacefill_mapping["pallet_length_in_cm"] = obj_pal.package_type_id.packaging_length if obj_pal.package_type_id.packaging_length else None
                 spacefill_mapping["pallet_height_in_cm"] = obj_pal.package_type_id.height if obj_pal.package_type_id.height else None
-                spacefill_mapping["pallet_gross_weight_in_kg"] = obj_pal.package_type_id.gross_weight if obj_pal.package_type_id.gross_weight else None
-                spacefill_mapping["pallet_net_weight_in_kg"] = obj_pal.package_type_id.gross_weight if obj_pal.package_type_id.gross_weight else None
+                spacefill_mapping["pallet_gross_weight_in_kg"] = obj_pal.spacefill_pallet_weight if obj_pal.spacefill_pallet_weight else None
+                spacefill_mapping["pallet_net_weight_in_kg"] = obj_pal.spacefill_pallet_weight if obj_pal.spacefill_pallet_weight else None
 
             if spacefill_cardboard_box:
                 # remplir les détails cardboard box
@@ -164,8 +164,8 @@ class ProductProduct(models.Model):
                 spacefill_mapping["cardboard_box_width_in_cm"] = obj_cardbox.package_type_id.width if obj_cardbox.package_type_id.width else None
                 spacefill_mapping["cardboard_box_length_in_cm"] = obj_cardbox.package_type_id.packaging_length if obj_cardbox.package_type_id.packaging_length else None
                 spacefill_mapping["cardboard_box_height_in_cm"] = obj_cardbox.package_type_id.height  if obj_cardbox.package_type_id.height else None
-                spacefill_mapping["cardboard_box_gross_weight_in_kg"] = obj_cardbox.package_type_id.gross_weight if obj_cardbox.package_type_id.gross_weight else None    
-                spacefill_mapping["cardboard_box_net_weight_in_kg"] = obj_cardbox.package_type_id.gross_weight if obj_cardbox.package_type_id.gross_weight else None
+                spacefill_mapping["cardboard_box_gross_weight_in_kg"] = obj_cardbox.spacefill_cardboard_box_weight if obj_cardbox.spacefill_cardboard_box_weight else None    
+                spacefill_mapping["cardboard_box_net_weight_in_kg"] = obj_cardbox.spacefill_cardboard_box_weight if obj_cardbox.spacefill_cardboard_box_weight else None
 
             
         return spacefill_mapping
@@ -222,9 +222,9 @@ class ProductProduct(models.Model):
                                                 [('company_id', '=', company.id),('spacefill_warehouse_account_id' ,'=',line.get("warehouse_id"))], limit=1)
                             if warehouse:                        
                                 if line.get("batch_name"):
-                                    lot = self.env['stock.production.lot'].search([('name','=',line.get("batch_name")),('company_id', '=', company.id),('product_id','=', self.id)])
+                                    lot = self.env['stock.lot'].search([('name','=',line.get("batch_name")),('company_id', '=', company.id),('product_id','=', self.id)])
                                     if not lot:
-                                        lot = self.env['stock.production.lot'].create({'name': line.get("batch_name"), 'product_id': self.id, 'company_id': company.id})
+                                        lot = self.env['stock.lot'].create({'name': line.get("batch_name"), 'product_id': self.id, 'company_id': company.id})
                                     inventory= self.env['stock.quant'].with_context(inventory_mode=True).create({
                                                                                         'product_id': self.id,
                                                                                         'lot_id': lot.id,

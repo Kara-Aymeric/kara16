@@ -853,15 +853,6 @@ msgid "You cannot create a spacefill setup for the same company as your user."
 msgstr "Vous ne pouvez pas créer une configuration de remplissage d'espace pour la même entreprise que votre utilisateur
 "
 
-#. module: stock_spacefill
-#: model:ir.model.fields,field_description:stock_spacefill.field_stock_package_type__gross_weight
-msgid "gross weight"
-msgstr "poids brut"
-
-#. module: stock_spacefill
-#: model:ir.model.fields,help:stock_spacefill.field_stock_package_type__gross_weight
-msgid "gross weight shippable in this packaging"
-msgstr "poids brut livrable dans cet emballage"
 
 #. module: stock_spacefill
 #: model:ir.model,name:stock_spacefill.model_spacefill_config

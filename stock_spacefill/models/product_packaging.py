@@ -47,7 +47,7 @@ class ProductPackaging(models.Model):
         if self.product_id.is_exported and (self.product_id.purchased_product_qty >0 or self.product_id.sales_count > 0):
             raise ValidationError(_('You can not modify a product that is exported to SpaceFill and that has been sold or purchased'))
         res = super(ProductPackaging, self).write(vals)
-        self.product_id.force_to_update= True
+        self.product_id.force_to_update= True # case not covered by the trigger write on product
         return res
     
     
