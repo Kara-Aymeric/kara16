@@ -431,13 +431,13 @@ class StockPicking(models.Model):
                 if picking.check_spacefill_status():
                     self.env['spacefill.update'].create({'id_to_update':picking.id,'is_to_update':True,'triggered_from':'assign_picking'})
         return res
-    
+    """
     def button_validate(self):
         if self.only_manage_by_spacefill and not self.env.context.get('from_spacefill')==True:
             self.message_post(body="This picking is managed by Spacefill, you can't validate it")
         else:
             return super(StockPicking, self).button_validate()
-    
+    """
     def action_cancel(self):
         res = super(StockPicking, self).action_cancel()
         for picking in self:
