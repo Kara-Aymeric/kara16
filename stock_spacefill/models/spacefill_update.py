@@ -48,6 +48,8 @@ class SpacefillUpdate(models.Model):
             picking = self.env['stock.picking'].search([('id','=',id.id_to_update)])
             if picking.picking_type_id.warehouse_id.is_exported:
                 if picking.products_availability_state == 'available':
-                    #picking.action_server_synchronize_order()
-                    #id.is_to_update = True
+                    picking.action_server_synchronize_order()
+                    id.is_to_update = False
                     id.waiting_for_products_availability = False
+                    
+                    

@@ -76,10 +76,17 @@ class StockPicking(models.Model):
             if picking.only_manage_by_spacefill:
                 picking.update_status_spacefill_with_lot()
         _logger.info('End cron task update status Spacefill')
-           
+
+    def action_server_update_status(self):
+        """ This method is called by the button 'update status' in the form view of the picking."""
+        res= self.env['spacefill.update'].check_availability()
+        for picking in self:
+            if picking.only_manage_by_spacefill and picking.state not in ['done']:
+                picking.update_status_spacefill_with_lot()  
+
     def action_server_synchronize_order(self):
         """ This method is called by the button 'update Spacill' in the form view of the picking."""
-        self.cron_maj_status()
+        #self.cron_maj_status()
 
         for picking in self:
                 if picking.picking_type_id.warehouse_id.is_exported and picking.state not in ['done','cancel']:
@@ -122,71 +129,71 @@ class StockPicking(models.Model):
         filter={}
         setup = self.env['spacefill.config'].search([('company_id', '=',self.company_id.id)], limit=1)
         spacefill_instance = API(setup.spacefill_api_url,
-                       setup.spacefill_shipper_token)    
-        data = spacefill_instance.browse(setup.spacefill_api_url + url + str(self.order_spacefill_id) + '/')
-        if data and self.order_spacefill_id:
-            spacefill_statut = self.env['spacefill.statut'].search([('spacefill_statut', '=', data.get('status'))])
-        else:
-            spacefill_statut = False
-        if spacefill_statut:            
-            self = self.with_context(
-                _send_on_write="NO")
-            if self.status_spacefill != spacefill_statut.spacefill_statut:
-                self.write({'status_spacefill': spacefill_statut.spacefill_statut})
-                self.message_post(body="Update SpaceFill Status : %s" % spacefill_statut.spacefill_statut)
-            if spacefill_statut.is_default_done and (self.state != 'done' or self.state !='cancel'):
-                #initial_request_ids = self.env['stock.move.line'].search([('picking_id','=',int(data.get('edi_erp_id')))])
-                #for initial_request_id in initial_request_ids:
-                #   initial_request_id.unlink()
+                       setup.spacefill_shipper_token)
+        if self.order_spacefill_id:   
+            data = spacefill_instance.browse(setup.spacefill_api_url + url + str(self.order_spacefill_id) + '/')
+            if data:
+                spacefill_statut = self.env['spacefill.statut'].search([('spacefill_statut', '=', data.get('status'))])
+            else:
+                spacefill_statut = False
+            if spacefill_statut:            
+                self = self.with_context(
+                    _send_on_write="NO")
+                if self.status_spacefill != spacefill_statut.spacefill_statut:
+                    self.write({'status_spacefill': spacefill_statut.spacefill_statut})
+                    self.message_post(body="Update SpaceFill Status : %s" % spacefill_statut.spacefill_statut)
+                if spacefill_statut.is_default_done and (self.state != 'done' or self.state !='cancel'):
+                    #initial_request_ids = self.env['stock.move.line'].search([('picking_id','=',int(data.get('edi_erp_id')))])
+                    #for initial_request_id in initial_request_ids:
+                    #   initial_request_id.unlink()
 
-                for line in data.get('order_items'):
-                    product = self.env['product.product'].search([('item_spacefill_id', '=', line.get('master_item_id'))], limit=1)                    
-            
-                    # ! qty is not the same if packaging_type is not the same 
-                    qty = int(line.get('actual_quantity')) if line.get('actual_quantity') else 0
-                    if product:
-                        for package in product.packaging_ids:
-                            if package.package_type_id.is_spacefill_cardboard_box:
-                                spacefill_cardboard_box = True
-                                obj_cardbox= package
-                            elif package.package_type_id.is_spacefill_pallet:
-                                spacefill_pallet = True
-                                obj_pal = package
-                        if line.get("item_packaging_type")=="CARDBOARD_BOX" and spacefill_cardboard_box:
-                            qty = qty * obj_cardbox.qty
-                        elif line.get("item_packaging_type")=="PALLET" and spacefill_pallet:
-                            qty = qty * obj_pal.qty
-                        if line.get('batch_name'):
-                            lot = self.env['stock.lot'].search([('name', '=', line.get('batch_name')),('product_id','=',product.id),('company_id','=',self.company_id.id)], limit=1)
-                            if not lot:
-                                lot = self.env['stock.lot'].create({
-                                                                                            'name': line['batch_name'],
-                                                                                            'company_id': self.company_id.id,
-                                                                                            'product_id': product.id
-                                                                                        })                         
-                            self.create_new_line(product,lot,qty)
+                    for line in data.get('order_items'):
+                        product = self.env['product.product'].search([('item_spacefill_id', '=', line.get('master_item_id'))], limit=1)                    
+                
+                        # ! qty is not the same if packaging_type is not the same 
+                        qty = int(line.get('actual_quantity')) if line.get('actual_quantity') else 0
+                        if product:
+                            for package in product.packaging_ids:
+                                if package.package_type_id.is_spacefill_cardboard_box:
+                                    spacefill_cardboard_box = True
+                                    obj_cardbox= package
+                                elif package.package_type_id.is_spacefill_pallet:
+                                    spacefill_pallet = True
+                                    obj_pal = package
+                            if line.get("item_packaging_type")=="CARDBOARD_BOX" and spacefill_cardboard_box:
+                                qty = qty * obj_cardbox.qty
+                            elif line.get("item_packaging_type")=="PALLET" and spacefill_pallet:
+                                qty = qty * obj_pal.qty
+                            if line.get('batch_name'):
+                                lot = self.env['stock.lot'].search([('name', '=', line.get('batch_name')),('product_id','=',product.id),('company_id','=',self.company_id.id)], limit=1)
+                                if not lot:
+                                    lot = self.env['stock.lot'].create({
+                                                                                                'name': line['batch_name'],
+                                                                                                'company_id': self.company_id.id,
+                                                                                                'product_id': product.id
+                                                                                            })                         
+                                self.create_new_line(product,lot,qty)
+                            else:
+                                self.create_new_line(product,False,qty)
+
                         else:
-                            self.create_new_line(product,False,qty)
+                            self.message_post(body="Item %s is not found in Odoo" % line.get('master_item_id'))  
 
-                    else:
-                        self.message_post(body="Item %s is not found in Odoo" % line.get('master_item_id'))  
+                    self.with_context(skip_backorder=True, picking_ids_not_to_backorder=self.ids,from_spacefill=True).button_validate()
+                    """ 'effective_executed_at': '2022-10-26T11:00:00+00:00'"""
+                    date_effective = data.get('effective_executed_at')
+                    if date_effective:
+                        date_effective = datetime.strptime(date_effective[:19].replace('T',' '), '%Y-%m-%d %H:%M:%S')
+                        self.write({'date_done': date_effective})
+                    comment = data.get('comment')
+                    if comment:
+                        self.message_post(body=_("Spacefill operation comment: %s" % comment))
+                        self.write({'note':"<p>"+data.get('comment')+"</p>"})
 
-                self.with_context(skip_backorder=True, picking_ids_not_to_backorder=self.ids,from_spacefill=True).button_validate()
-                """ 'effective_executed_at': '2022-10-26T11:00:00+00:00'"""
-                date_effective = data.get('effective_executed_at')
-                if date_effective:
-                    date_effective = datetime.strptime(date_effective[:19].replace('T',' '), '%Y-%m-%d %H:%M:%S')
-                    self.write({'date_done': date_effective})
-                comment = data.get('comment')
-                if comment:
-                    self.message_post(body=_("Spacefill operation comment: %s" % comment))
-                    self.write({'note':"<p>"+data.get('comment')+"</p>"})
-
-            if spacefill_statut.is_default_cancel:
-               # to do : check if picking is canceled too
-
-               return True
-        return True
+                if spacefill_statut.is_default_cancel:
+                # to do : check if picking is canceled too
+                    return True
+                return True
 
     def create_new_line(self,product,lot,qty):
         """
