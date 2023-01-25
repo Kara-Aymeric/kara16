@@ -239,8 +239,8 @@ class StockPicking(models.Model):
         else:
             scheduled_date = self.scheduled_date
 
-        if self.date_deadline  < self.scheduled_date:
-            raise UserError(_('The deadline date must be after the scheduled date'))
+        #if self.date_deadline  < self.scheduled_date:
+        #    raise UserError(_('The deadline date must be after the scheduled date'))
         if self.date_deadline  < date_delay:
             deadline_date= date_delay
             self.message_post(body=_("The deadline date is before the delay of %s hours, the deadline date is transmitted to %s" % (setup.spacefill_delay, deadline_date)))
