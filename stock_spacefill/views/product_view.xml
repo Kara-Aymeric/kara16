@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+
+        <record id="view_spacefill_product_product_form_inherits" model="ir.ui.view">
+            <field name="name">product.product.form.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[4]" position="after">
+                    <page string="SpaceFill Attributes" >
+                        <form string="Product SpaceFill">
+                            <group col ="4">
+                                <field name="is_exported" readonly="1" />
+                                <field name="item_spacefill_id" readonly="1"/>
+                            </group>
+                        </form>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_common_view_form_inherits" model="ir.ui.view">
+            <field name="name">product.template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="is_products_exported"/>
+                </xpath>
+            </field>
+        </record>
+        
+        
+    
+        <record id="product_packaging_tree_view_inherits" model="ir.ui.view">
+            <field name="name">product.packaging.tree.inherits</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="product.product_packaging_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@name='packaging']/field[@name='name']" position="after">
+                    <field name="spacefill_cardboard_box_quantity_by_pallet" decoration-danger="spacefill_cardboard_box_quantity_by_pallet ==-1" optional="show"/>
+                    <field name="spacefill_pallet" optional="show"/>
+                    <field name="spacefill_cardboard_box"  optional="show"/>
+                    <field name="spacefill_pallet_weight" optional="hide"/>
+                    <field name="spacefill_cardboard_box_weight"  optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

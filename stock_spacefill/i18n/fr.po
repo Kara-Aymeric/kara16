@@ -1,0 +1,870 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_spacefill
+# * stock_spacefill
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-15 18:02+0000\n"
+"PO-Revision-Date: 2023-01-15 18:02+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,help:stock_spacefill.field_spacefill_statut__state
+msgid ""
+" * Draft: The transfer is not confirmed yet. Reservation doesn't apply.\n"
+" * Waiting another operation: This transfer is waiting for another operation before being ready.\n"
+" * Waiting: The transfer is waiting for the availability of some products.\n"
+"(a) The shipping policy is \"As soon as possible\": no product could be reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": not all the products could be reserved.\n"
+" * Ready: The transfer is ready to be processed.\n"
+"(a) The shipping policy is \"As soon as possible\": at least one product has been reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": all product have been reserved.\n"
+" * Done: The transfer has been processed.\n"
+" * Cancelled: The transfer has been cancelled."
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_api_url
+msgid "API base url"
+msgstr "URL de l'API"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking_type__is_archive_by_default
+msgid "Archive by default ?"
+msgstr "Archiver par défaut ?"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
+msgid "Ask you configuration informations ?"
+msgstr "Demander vos informations de configuration ?"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__is_ok_to_update
+msgid "Authorize update ?"
+msgstr "Autoriser la mise à jour ?"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "CANCELED"
+msgstr "ANNULÉ"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__canceled_order_state
+msgid "CANCELED_ORDER_STATE"
+msgstr "COMMANDE ANNULÉE"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "COMPLETED"
+msgstr "COMPLÉTÉE"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__completed_order_state
+msgid "COMPLETED_ORDER_STATE"
+msgstr "COMMANDE TERMINÉE"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__cancel
+msgid "Cancelled"
+msgstr "ANNULÉE"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "Cannot export a product available for several company, you need to set a "
+"company on the product"
+msgstr "Impossible d'exporter un produit disponible pour plusieurs sociétés, vous devez définir une"
+"entreprise sur le produit"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "Cardboard box quantity by pallet is not an integer"
+msgstr "La quantité de carton par palette n'est pas un nombre entier"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__company_id
+msgid "Company"
+msgstr "Société"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__create_uid
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__create_uid
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__create_date
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__create_date
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__create_date
+msgid "Created on"
+msgstr "Créé sur"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__draft_order_state
+msgid "DRAFT_ORDER_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__is_default_cancel
+msgid "Default Cancel"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__is_default_done
+msgid "Default Done"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__is_default_ready
+msgid "Default Ready"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__is_default_waiting
+msgid "Default Waiting"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__display_name
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__display_name
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__done
+msgid "Done"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#: code:addons/stock_spacefill/models/product_product.py:0
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Error from API : %s"
+msgstr "Erreur de l'API : %s"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Error from API :%s"
+msgstr "Erreur de l'API :%s"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Error from SpaceFill API : %s"
+msgstr "Erreur de l'API SpaceFill : %s"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "Error while updating item in Spacefill : %s"
+msgstr "Erreur lors de la mise à jour de l'élément dans Spacefill : %s"
+
+#. module: stock_spacefill
+#: model:ir.actions.server,name:stock_spacefill.ir_actions_server_update_export_variant_in_spacefill
+msgid "Export Product Product in Spacefill"
+msgstr "Exporter le produit Produit dans Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.actions.server,name:stock_spacefill.ir_actions_server_update_export_in_spacefill
+msgid "Export Product in Spacefill"
+msgstr "Exporter le produit dans Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__failed_order_state
+msgid "FAILED_ORDER_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "Great! Now all you have to do is wait for your attendees to show up!"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__id
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__id
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__id
+msgid "ID"
+msgstr "IDENTIFIANT"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "IN PROGRESS"
+msgstr "EN COURS"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,help:stock_spacefill.field_stock_picking__only_manage_by_spacefill
+#: model:ir.model.fields,help:stock_spacefill.field_stock_picking_type__only_manage_by_spacefill
+#: model:ir.model.fields,help:stock_spacefill.field_stock_warehouse__is_exported
+msgid "If checked, the warehouse will be managed by SpaceFill"
+msgstr "Si coché, l'entrepôt sera géré par SpaceFill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Internal transfert is not allowed for Spacefill warehouse"
+msgstr "Le transfert interne n'est pas autorisé pour l'entrepôt Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__is_to_update
+msgid "Is to update ?"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking__label_spacefill
+msgid "Label Spacefill"
+msgstr "Label Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config____last_update
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut____last_update
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__write_uid
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__write_uid
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__write_date
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__write_date
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour "
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking__status_spacefill
+msgid "Last order status"
+msgstr "Dernier statut de commande"
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "Let's create your first <b>event</b>."
+msgstr "Créons votre premier <b>événement</b>."
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_delay
+msgid "Notice period (in hours)"
+msgstr "Délai de préavis (en heures)"
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "Now that your event is ready, click here to move it to another stage."
+msgstr "Maintenant que votre événement est prêt, cliquez ici pour le déplacer vers une autre étape."
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__order_is_ready_to_be_executed_state
+msgid "ORDER_IS_READY_TO_BE_EXECUTED_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking__only_manage_by_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking_type__only_manage_by_spacefill
+msgid "Only manage by Spacefill"
+msgstr "Gérée uniquement par Spacefill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Order %s is Canceled to Spacefill"
+msgstr "La commande %s est annulée pour SpaceFill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Order %s is updated to Spacefill"
+msgstr "La commande %s est mise à jour vers Spacefill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Order is created to Spacefill ID :%s"
+msgstr "La commande est créée pour Spacefill ID :%s"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "PREPARATION FINISHED"
+msgstr "PRÉPARATION TERMINÉE"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "PREPARATION STARTED"
+msgstr "PRÉPARATION EN COURS"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__preparation_finished_state
+msgid "PREPARATION_FINISHED_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__preparation_started_state
+msgid "PREPARATION_STARTED_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
+msgid "Packaging Type"
+msgstr "Type d'emballage"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_picking_type
+msgid "Picking Type"
+msgstr "Type de Picking"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__id_to_update
+msgid "Picking id"
+msgstr "Picking id"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Please configure Spacefill first."
+msgstr "Veuillez d'abord configurer Spacefill."
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_product_product
+msgid "Product"
+msgstr "Produit"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid ""
+"Product %s is not exported to Spacefill : please export it and update this "
+"order"
+msgstr "Le produit %s n'est pas exporté vers Spacefill : veuillez l'exporter et mettre à jour"
+"la commande"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "Product Created in Spacefill with id %s"
+msgstr "Produit créé dans Spacefill avec l'identifiant %s"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Mouvements de produits (ligne de transfert de stock)"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_product_packaging
+msgid "Product Packaging"
+msgstr "Emballage produit"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_spacefill_product_product_form_inherits
+msgid "Product SpaceFill"
+msgstr "Produit Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_product_template
+msgid "Product Template"
+msgstr ""
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "Product Updated in Spacefill with id %s"
+msgstr "Produit mis à jour dans Spacefill avec l'identifiant %s"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/spacefill_config.py:0
+#, python-format
+msgid "Products"
+msgstr "Produits"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
+msgid "Products exported"
+msgstr "Produits exportés"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_purchase_order
+msgid "Purchase Order"
+msgstr "Bon de Commande"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_quant
+msgid "Quants"
+msgstr "Inventaire"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__assigned
+msgid "Ready"
+msgstr ""
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "Ready to <b>organize events</b> in a few minutes? Let's get started!"
+msgstr "Prêt à <b>organiser des événements</b> en quelques minutes ? Commençons!"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
+msgid ""
+"Return before 24h, This action will transfer this following informations : "
+"Company name, contact name, tel and email to SpaceFill."
+msgstr "Retour avant 24h, Cette action transférera les informations suivantes :"
+"Nom de l'entreprise, nom du contact, tél et e-mail à SpaceFill."
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__shipper_needs_to_suggest_new_planned_execution_date_state
+msgid "SHIPPER_NEEDS_TO_SUGGEST_NEW_PLANNED_EXECUTION_DATE_STATE"
+msgstr "L'expéditeur doit suggérer une nouvelle date d'exécution prévue"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de Commande"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_status_view_tree
+msgid "Sapcefill Status" 
+msgstr "Statut Spacefill"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_tree
+msgid "Sapcefill instance"
+msgstr "Spacefill instance"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_scrap
+msgid "Scrap"
+msgstr "Abandonner"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_shipper_token
+msgid "Shipper company access Token"
+msgstr "Jeton d'acces Entreprise"
+
+#. module: stock_spacefill
+#: model:ir.ui.menu,name:stock_spacefill.menu_root_spacefill
+msgid "SpaceFill"
+msgstr "Spacefill"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_spacefill_product_product_form_inherits
+msgid "SpaceFill Attributes"
+msgstr "Caractéristiques spaceFill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_packaging__spacefill_cardboard_box
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_package_type__is_spacefill_cardboard_box
+msgid "SpaceFill CardBoard Box"
+msgstr "Colis SpaceFill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_packaging__spacefill_pallet
+msgid "SpaceFill Pallet"
+msgstr "Palette SpaceFill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_package_type__is_spacefill_pallet
+msgid "SpaceFill Pallet"
+msgstr "Palette SpaceFill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_product__is_products_exported
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_template__is_products_exported
+msgid "SpaceFill Product(s)"
+msgstr "Produit Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.ui.menu,name:stock_spacefill.menu_setup
+msgid "SpaceFill Setup"
+msgstr "Configuration de SpaceFill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_erp_account_id
+msgid "SpaceFill Shipper company ID"
+msgstr "ID SpaceFill Entreprise"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_status_view_form
+msgid "SpaceFill Status"
+msgstr "Statut Spacefill"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
+msgid "SpaceFill instance"
+msgstr "Spacefill instance"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_picking__order_spacefill_id
+msgid "SpaceFill order ID"
+msgstr "ID de commande SpaceFill"
+
+#. module: stock_spacefill
+#: model:ir.ui.menu,name:stock_spacefill.spacefill_menu
+msgid "Spacefill"
+msgstr "Spacefill"
+
+#. module: stock_spacefill
+#: model:res.groups,name:stock_spacefill.group_spacefill_connector_users
+msgid "Spacefill Connector Users"
+msgstr "Utilisateurs du connecteur Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_product__is_exported
+msgid "Spacefill Exported Product"
+msgstr "Spacefill produit exporté"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_product_product__item_spacefill_id
+msgid "Spacefill Product ID"
+msgstr "Identifiant Produit Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_products_count
+msgid "Spacefill Products"
+msgstr "Produit Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.actions.act_window,name:stock_spacefill.act_spacefill_form
+msgid "Spacefill Setup"
+msgstr "Configuration Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.ui.menu,name:stock_spacefill.menu_spacefill_status
+msgid "Spacefill Status"
+msgstr "Statut Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.actions.act_window,name:stock_spacefill.action_spacefill_status
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__spacefill_statut
+msgid "Spacefill Statut"
+msgstr "Statut Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_stock_packaging_type_count
+msgid "Spacefill Stock Packaging Type"
+msgstr "Type d'emballage logistique"
+
+#. module: stock_spacefill
+#: model:ir.actions.server,name:stock_spacefill.cron_update_inventory_from_spacefill_ir_actions_server
+#: model:ir.cron,cron_name:stock_spacefill.cron_update_inventory_from_spacefill
+#: model:ir.cron,name:stock_spacefill.cron_update_inventory_from_spacefill
+msgid "Spacefill Update Odoo Inventory"
+msgstr "Spacefill Mettre à jour l'inventaire Odoo"
+
+#. module: stock_spacefill
+#: model:ir.actions.server,name:stock_spacefill.cron_update_spacefill_statut_ir_actions_server
+#: model:ir.cron,cron_name:stock_spacefill.cron_update_spacefill_statut
+#: model:ir.cron,name:stock_spacefill.cron_update_spacefill_statut
+msgid "Spacefill Update Order Statut"
+msgstr "Statut de la commande de mise à jour Spacefill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_wh_count
+msgid "Spacefill Warehouse"
+msgstr "Entrepôt Spacefill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "Spacefill configuration is not set for this company"
+msgstr ""
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Spacefill operation comment: %s"
+msgstr "La configuration de l'espace de remplissage n'est pas définie pour cette société"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_statut__state
+msgid "Status"
+msgstr "Statut"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/spacefill_config.py:0
+#, python-format
+msgid "Stock Packaging Type"
+msgstr "Type d'emballage"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_package_type
+msgid "Stock package type"
+msgstr "Type d'emballage"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,help:stock_spacefill.field_spacefill_config__company_id
+msgid "The company is automatically set from your user preferences."
+msgstr "L'entreprise est automatiquement définie à partir de vos préférences d'utilisateur."
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "The deadline date is before the delay of %s hours, the deadline date is "
+"trasnmitted to %s"
+msgstr "La date limite est antérieure au délai de prévénance de %s heures, la date limite est"
+"transmise à %s"
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "The deadline date must be after the scheduled date"
+msgstr "La date limite doit être postérieure à la date prévue"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "The detailed type must be product"
+msgstr "Le type d'article doit être Stockable"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "The scheduled date is before the delay of %s hours, the scheduled date is "
+"transmitted to %s"
+msgstr "La date prévue est antérieure au délai de prévénance de %s heures, la date prévue est"
+"transmise à %s"
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "This is the <b>name</b> your guests will see when registering."
+msgstr "Il s'agit du <b>nom</b> que vos invités verront lors de leur inscription."
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "Ticket types allow you to distinguish your attendees. Let's <b>create</b> a "
+"new one."
+msgstr "Les types de billets vous permettent de distinguer vos participants. <b>Créons</b> un"
+"nouveau."
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_picking
+msgid "Transfer"
+msgstr "Transfert"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__triggered_from
+msgid "Triggered From"
+msgstr "Déclenché à partir de"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "UNLOADING FINISHED"
+msgstr "DÉCHARGEMENT TERMINÉ"
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "UNLOADING STARTED"
+msgstr "DÉCHARGEMENT EN COURS"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__unloading_finished_state
+msgid "UNLOADING_FINISHED_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__unloading_started_state
+msgid "UNLOADING_STARTED_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "Update is not allowed at this step"
+msgstr "La mise à jour n'est pas autorisée à cette étape"
+
+#. module: stock_spacefill
+#: model:ir.actions.server,name:stock_spacefill.ir_actions_server_update_order_to_spacefill
+msgid "Update to Spacefill"
+msgstr "Mise à jour vers Spacefill"
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid "Use the <b>breadcrumbs</b> to go back to your kanban overview."
+msgstr "Utilisez le <b>fil d'Ariane</b> pour revenir à l'aperçu de votre kanban."
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.view_picking_form_inherit
+msgid "WAITING AVAILABILITY"
+msgstr "ATTENTE DISPONIBILITÉ"
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__spacefill_statut__warehouse_needs_to_confirm_planned_execution_date_state
+msgid "WAREHOUSE_NEEDS_TO_CONFIRM_PLANNED_EXECUTION_DATE_STATE"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__confirmed
+msgid "Waiting"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields.selection,name:stock_spacefill.selection__spacefill_statut__state__waiting
+msgid "Waiting Another Operation"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_update__waiting_for_products_availability
+msgid "Waiting for products availability"
+msgstr "En attente de disponibilités produits"
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_stock_warehouse
+msgid "Warehouse"
+msgstr "Entrepôt"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_warehouse__spacefill_warehouse_account_id
+msgid "Warehouse ID"
+msgstr "Identifiant Entrepôt"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_stock_warehouse__is_exported
+msgid "Warehouse managed by SpaceFill"
+msgstr "Entrepôt géré par SpaceFill"
+
+#. module: stock_spacefill
+#: model:ir.model.fields,field_description:stock_spacefill.field_spacefill_config__spacefill_confirm_schedule
+msgid "Warehouse needs to confirm scheduling"
+msgstr "L'entrepôt doit confirmer la planification"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/spacefill_config.py:0
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_view_form
+#, python-format
+msgid "Warehouses"
+msgstr "Entrepôts"
+
+#. module: stock_spacefill
+#. openerp-web
+#: code:addons/stock_spacefill/static/src/js/tours/event_tour.js:0
+#, python-format
+msgid ""
+"When will your event take place? <b>Select</b> the start and end dates "
+"<b>and click Apply</b>."
+msgstr "Quand aura lieu votre événement ? <b>Sélectionnez</b> les dates de début et de fin"
+"<b>et cliquez sur Appliquer</b>."
+
+#. module: stock_spacefill
+#: model_terms:ir.ui.view,arch_db:stock_spacefill.spacefill_status_view_form
+msgid "Workflow"
+msgstr ""
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_quant.py:0
+#, python-format
+msgid "You are not allowed to make inventory for this location !"
+msgstr "Vous n'êtes pas autorisé à faire l'inventaire pour cet emplacement !"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_scrap.py:0
+#, python-format
+msgid "You are not allowed to scrap for this warehouse !"
+msgstr "Vous n'êtes pas autorisé à mettre au rebus pour cet entrepot !"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "You can not duplicate a picking managed by Spacefill"
+msgstr "Vous ne pouvez pas valider un picking géré par Spacefill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_package_type.py:0
+#: code:addons/stock_spacefill/models/stock_package_type.py:0
+#, python-format
+msgid ""
+"You can not have a SpaceFill CardBoard Box and a SpaceFill Pallet at the "
+"same time"
+msgstr "Vous ne pouvez pas avoir Colis et Palette SpaceFill"
+"en même temps"
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_packaging.py:0
+#: code:addons/stock_spacefill/models/product_packaging.py:0
+#, python-format
+msgid "You can not have more than one SpaceFill CardBoard Box for a product"
+msgstr "Vous ne pouvez pas avoir plus d'un colis Spacefill pour un produit"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_packaging.py:0
+#: code:addons/stock_spacefill/models/product_packaging.py:0
+#, python-format
+msgid "You can not have more than one SpaceFill Palett for a product"
+msgstr ""
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/stock_picking.py:0
+#, python-format
+msgid "You can not validate a picking managed by Spacefill"
+msgstr "Vous ne pouvez pas avoir plus d'une palette SpaceFill pour un produit"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid ""
+"You can't change the reference of the product, if this product is exported "
+"in Spacefill"
+msgstr "Vous ne pouvez pas changer la référence du produit, si ce produit est exporté"
+"dans Spacefill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/product_product.py:0
+#, python-format
+msgid "You can't delete the product, if this product is exported in Spacefill"
+msgstr "Vous ne pouvez pas supprimer le produit, si ce produit est exporté dans Spacefill"
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/spacefill_config.py:0
+#, python-format
+msgid "You cannot change the company of a spacefill setup."
+msgstr "Vous ne pouvez pas modifier la société d'une configuration spacefill."
+
+#. module: stock_spacefill
+#: code:addons/stock_spacefill/models/spacefill_config.py:0
+#: code:addons/stock_spacefill/models/spacefill_config.py:0
+#, python-format
+msgid "You cannot create a spacefill setup for the same company as your user."
+msgstr "Vous ne pouvez pas créer une configuration de remplissage d'espace pour la même entreprise que votre utilisateur
+"
+
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_spacefill_config
+msgid "spacefill.config"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_spacefill_statut
+msgid "spacefill.statuts"
+msgstr ""
+
+#. module: stock_spacefill
+#: model:ir.model,name:stock_spacefill.model_spacefill_update
+msgid "spacefill.update"
+msgstr ""

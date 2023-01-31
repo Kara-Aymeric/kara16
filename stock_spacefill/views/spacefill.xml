@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="spacefill_view_form">
+			<field name="name">spacefill_view_form</field>
+			<field name="model">spacefill.config</field>
+			<field name="arch" type="xml">
+				<form string="SpaceFill instance">
+					<header>
+							<button name="create_spacefill_info_request" string="Ask you configuration informations ?" type="object"  class="btn-primary" confirm="Return before 24h, This action will transfer this following informations : Company name, contact name, tel and email to SpaceFill."/>
+					</header>
+					<sheet>						
+						<div class="oe_button_box" name="button_box">
+							<button name="action_list_wh"
+									type="object"
+									class="oe_stat_button"
+									icon="fa-pencil-square-o"					
+							>
+								<field name="spacefill_wh_count" widget="statinfo" string="Warehouses" />
+							</button>
+							<button name="action_list_products"
+									type="object"
+									class="oe_stat_button"
+									icon="fa-pencil-square-o"					
+							>
+								<field name="spacefill_products_count" widget="statinfo" string="Products exported" />
+							</button>
+							<button name="action_list_stock_packaging_type"
+									type="object"
+									class="oe_stat_button"
+									icon="fa-pencil-square-o"					
+							>
+								<field name="spacefill_stock_packaging_type_count" widget="statinfo" string="Packaging Type" />
+							</button>
+						</div>
+						<group>
+							<field name="spacefill_shipper_token" password="True"/>							
+							<field name="spacefill_api_url"/>
+							<field name="spacefill_erp_account_id"/>
+							<field name="spacefill_delay"/>
+							<field name ="spacefill_confirm_schedule" widget="boolean_toggle"/>
+							<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="spacefill_view_tree">
+			<field name="name">spacefill_view_tree</field>
+			<field name="model">spacefill.config</field>
+			<field name="arch" type="xml">
+				<tree string="Sapcefill instance">
+					<field name="spacefill_shipper_token" password="True"/>					
+					<field name="spacefill_api_url" />
+					<field name="spacefill_erp_account_id" />
+					<field name="spacefill_delay"/>
+					<field name="company_id" groups="base.group_multi_company"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="act_spacefill_form" model="ir.actions.act_window">
+			<field name="name">Spacefill Setup</field>
+			<field name="res_model">spacefill.config</field>
+			<field name="type">ir.actions.act_window</field>
+<!-- 			<field name="view_type">form</field>
+ -->			<field name="view_mode">tree,form</field>
+		</record>
+  	</data>
+</odoo>
+
