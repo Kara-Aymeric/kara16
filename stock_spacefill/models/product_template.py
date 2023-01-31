@@ -33,8 +33,9 @@ class ProductTemplate(models.Model):
 
     def write(self, vals):
         res = super(ProductTemplate, self).write(vals)
-        for product in self:
-                if product.is_products_exported:
-                    for variant in product.product_variant_ids:
-                         variant.export_product_in_spacefill()
+        if 'active' not in vals:
+            for product in self:
+                    if product.is_products_exported:
+                        for variant in product.product_variant_ids:
+                            variant.export_product_in_spacefill()
         return res

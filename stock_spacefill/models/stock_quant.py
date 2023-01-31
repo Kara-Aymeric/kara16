@@ -17,6 +17,16 @@ class StockQuant(models.Model):
             Check if current user is allowed to create inventories for exported locations.
         '''
         for inventory in self:
-            if inventory.location_id.warehouse_id and inventory.location_id.warehouse_id.is_exported \
-                    and not self.user_has_groups('stock_spacefill.group_spacefill_connector_users'):
-                raise UserError(_('You are not allowed to make inventory for this location !'))
+            if not self.env.context.get('from_spacefill') and inventory.location_id.warehouse_id and inventory.location_id.warehouse_id.is_exported:                   
+                            raise UserError(_('You are not allowed to make inventory for this location !'))
+# and not self.user_has_groups('stock_spacefill.group_spacefill_connector_users')
+
+    def action_apply_inventory(self):
+        '''
+            Check if current user is allowed to create inventories for exported locations.
+        '''
+        for inventory in self:
+            if not self.env.context.get('from_spacefill') and inventory.location_id.warehouse_id and inventory.location_id.warehouse_id.is_exported:                   
+                            raise UserError(_('You are not allowed to make inventory for this location !'))
+        res = super(StockQuant, self).action_apply_inventory()
+        return res

@@ -6,7 +6,7 @@
 
 """
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,ValidationError
 
 class StockScrap(models.Model):
     _inherit = 'stock.scrap'
@@ -17,6 +17,12 @@ class StockScrap(models.Model):
             Check if user can dispose
         '''
         for scrap in self:
-            if scrap.location_id.warehouse_id and scrap.location_id.warehouse_id.is_exported \
-                    and not self.user_has_groups('stock_spacefill.group_spacefill_connector_users'):
-                raise UserError(_('You are not allowed to scrap for this warehouse !'))
+            if not self.env.context.get('from_spacefill') and scrap.location_id.warehouse_id \
+                and scrap.location_id.warehouse_id.is_exported:
+                        raise UserError(_('You are not allowed to scrap for this warehouse !'))
+    
+    def action_validate(self):
+        if self:
+           return super(StockScrap, self).action_validate()       
+       
+#and not self.user_has_groups('stock_spacefill.group_spacefill_connector_users')

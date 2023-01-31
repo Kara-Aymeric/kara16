@@ -54,7 +54,7 @@ class ProductProduct(models.Model):
                                 body=_('Product Updated in Spacefill with id %s') % (res.get('id')),
                                                 )
                 else:
-                    raise ValidationError(_('Error from API : %s') % (res))
+                    raise ValidationError(_('Product : %s - Error from API : %s') % (self.name,res))
             except Exception as e:
                 raise ValidationError(_('Error while updating item in Spacefill : %s') % (e))
                        
@@ -113,7 +113,7 @@ class ProductProduct(models.Model):
         if not setup:
             raise ValidationError(_('Spacefill configuration is not set for this company'))
         if len(self.env['res.company'].search([])) >1 and self.company_id.id != self.env.company.id:
-            raise ValidationError (_('Cannot export a product available for several company, you need to set a company on the product & on the product packagings'))
+            raise ValidationError (_('Cannot export a product available for several company, you need to set a company on the product & on the product packagings :%s') % (self.name))
         instance = API(setup.spacefill_api_url,
                        setup.spacefill_shipper_token)       
         return instance,setup
@@ -149,23 +149,23 @@ class ProductProduct(models.Model):
                 else:
                     spacefill_mapping["each_quantity_by_pallet"] = int(obj_pal.qty)
 
-                spacefill_mapping["pallet_barcode"] = obj_pal.package_type_id.barcode if obj_pal.package_type_id.barcode else None
+                spacefill_mapping["pallet_barcode"] = obj_pal.barcode if obj_pal.barcode else None
                 spacefill_mapping["pallet_width_in_cm"] = obj_pal.package_type_id.width if obj_pal.package_type_id.width else None
                 spacefill_mapping["pallet_length_in_cm"] = obj_pal.package_type_id.packaging_length if obj_pal.package_type_id.packaging_length else None
                 spacefill_mapping["pallet_height_in_cm"] = obj_pal.package_type_id.height if obj_pal.package_type_id.height else None
-                spacefill_mapping["pallet_gross_weight_in_kg"] = None#int(obj_pal.spacefill_pallet_weight) if obj_pal.spacefill_pallet_weight > 0 else None
-                spacefill_mapping["pallet_net_weight_in_kg"] = None#int(obj_pal.spacefill_pallet_weight) if obj_pal.spacefill_pallet_weight > 0 else None
+                spacefill_mapping["pallet_gross_weight_in_kg"] = int(obj_pal.spacefill_pallet_weight) if obj_pal.spacefill_pallet_weight > 1 else None # to prevent API error
+                spacefill_mapping["pallet_net_weight_in_kg"] = int(obj_pal.spacefill_pallet_weight) if obj_pal.spacefill_pallet_weight > 1 else None
 
             if spacefill_cardboard_box:
                 # remplir les détails cardboard box
                 #cardBoardBox = values["cardBoardBox"]
                 spacefill_mapping["each_quantity_by_cardboard_box"] = int(obj_cardbox.qty)
-                spacefill_mapping["cardboard_box_barcode"] = obj_cardbox.package_type_id.barcode if obj_cardbox.package_type_id.barcode else None
+                spacefill_mapping["cardboard_box_barcode"] = obj_cardbox.barcode if obj_cardbox.barcode else None
                 spacefill_mapping["cardboard_box_width_in_cm"] = obj_cardbox.package_type_id.width if obj_cardbox.package_type_id.width else None
                 spacefill_mapping["cardboard_box_length_in_cm"] = obj_cardbox.package_type_id.packaging_length if obj_cardbox.package_type_id.packaging_length else None
                 spacefill_mapping["cardboard_box_height_in_cm"] = obj_cardbox.package_type_id.height  if obj_cardbox.package_type_id.height else None
-                spacefill_mapping["cardboard_box_gross_weight_in_kg"] = None#int(obj_cardbox.spacefill_cardboard_box_weight) if obj_cardbox.spacefill_cardboard_box_weight > 0 else None    
-                spacefill_mapping["cardboard_box_net_weight_in_kg"] = None#int(obj_cardbox.spacefill_cardboard_box_weight) if obj_cardbox.spacefill_cardboard_box_weight > 0 else None
+                spacefill_mapping["cardboard_box_gross_weight_in_kg"] = int(obj_cardbox.spacefill_cardboard_box_weight) if obj_cardbox.spacefill_cardboard_box_weight > 1 else None    
+                spacefill_mapping["cardboard_box_net_weight_in_kg"] = int(obj_cardbox.spacefill_cardboard_box_weight) if obj_cardbox.spacefill_cardboard_box_weight > 1 else None
 
             
         return spacefill_mapping
@@ -225,15 +225,15 @@ class ProductProduct(models.Model):
                                     lot = self.env['stock.lot'].search([('name','=',line.get("batch_name")),('company_id', '=', company.id),('product_id','=', self.id)])
                                     if not lot:
                                         lot = self.env['stock.lot'].create({'name': line.get("batch_name"), 'product_id': self.id, 'company_id': company.id})
-                                    inventory= self.env['stock.quant'].with_context(inventory_mode=True).create({
+                                    inventory= self.env['stock.quant'].with_context(inventory_mode=True,from_spacefill=True).create({
                                                                                         'product_id': self.id,
                                                                                         'lot_id': lot.id,
                                                                                         'location_id': warehouse.lot_stock_id.id,
                                                                                         'inventory_quantity': float(line.get("each_actual_quantity")),                                                                                                                                                               
-                                                                                    }).action_apply_inventory() # prefer _action_apply ?
+                                                                                    }).action_apply_inventory() # 
                                     self.message_post(body="Inventory updated from Spacefill")
                                 else:
-                                    inventory= self.env['stock.quant'].with_context(inventory_mode=True).create({
+                                    inventory= self.env['stock.quant'].with_context(inventory_mode=True,from_spacefill=True).create({
                                                                                         'product_id': self.id,
                                                                                         'location_id': warehouse.lot_stock_id.id,
                                                                                         'inventory_quantity': float(line.get("each_actual_quantity")),                                                                             
@@ -245,13 +245,13 @@ class ProductProduct(models.Model):
         if 'default_code' in vals:
             for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
                 if product.default_code != vals['default_code']:
-                    raise UserError(_("You can't change the reference of the product, if this product is exported in Spacefill"))        
-
-        if 'item_spacefill_id' not in vals or 'is_exported' not in vals:
-            for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
-                product.export_product_in_spacefill()             
-    
+                    raise UserError(_("You can't change the reference of the product, if this product is exported in Spacefill"))     
+        
         res= super(ProductProduct, self).write(vals)
+
+        if 'active' not in vals or  'item_spacefill_id' not in vals or 'is_exported' not in vals:
+            for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
+                product.export_product_in_spacefill()       
         return res
 
     def _constrains_mandatory_fields(self):
@@ -268,8 +268,8 @@ class ProductProduct(models.Model):
                         return True
     
     def unlink(self):
-        for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
-            # unbale to archive the item by the API
-            raise UserError(_("You can't delete the product, if this product is exported in Spacefill"))
+        #for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
+        #    # unbale to archive the item by the API
+        #    raise UserError(_("You can't delete the product, if this product is exported in Spacefill"))
         return super(ProductProduct, self).unlink()
  

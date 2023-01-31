@@ -1,22 +1,19 @@
 # -*- coding: utf-8 -*-
+#Copyright 2022 irOkoo
 {
-    'name': "stock_spacefill",
+    'name': "Spacefill",
  
     'summary': """
        SpaceFill connector""",
 
     'description': """
         Synchronize warehouse operations with SpaceFill.
-        Export and receive stock movements to SpaceFill
+        Export and receive stock movements with SpaceFill platform.
         
     """,
 
     'author': "irokoo",
-    'website': "http://www.irokoo.fr",
-
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
+    'website': "https://www.spacefill.fr",
     'category': 'Inventory',
     'version': '1.0',
     'license': 'AGPL-3',

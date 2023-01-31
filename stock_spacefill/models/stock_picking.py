@@ -89,7 +89,7 @@ class StockPicking(models.Model):
         #self.cron_maj_status()
 
         for picking in self:
-                if picking.picking_type_id.warehouse_id.is_exported and picking.state not in ['done','cancel']:
+                if picking.picking_type_id.warehouse_id.is_exported and picking.state not in ['draft','done','cancel']:
                         if picking.picking_type_code == 'incoming':            
                             picking.export_order_entry_to_spacefill()
 
@@ -179,8 +179,8 @@ class StockPicking(models.Model):
 
                         else:
                             self.message_post(body="Item %s is not found in Odoo" % line.get('master_item_id'))  
-
-                    self.with_context(skip_backorder=True, picking_ids_not_to_backorder=self.ids,from_spacefill=True).button_validate()
+                    #self.env.context.get('skip_sms')
+                    self.with_context(skip_backorder=True, picking_ids_not_to_backorder=self.ids,from_spacefill=True,skip_sms=True).button_validate()
                     """ 'effective_executed_at': '2022-10-26T11:00:00+00:00'"""
                     date_effective = data.get('effective_executed_at')
                     if date_effective:
@@ -242,7 +242,7 @@ class StockPicking(models.Model):
 
         #if self.date_deadline  < self.scheduled_date:
         #    raise UserError(_('The deadline date must be after the scheduled date'))
-        if self.date_deadline  < date_delay:
+        if not self.date_deadline or self.date_deadline  < date_delay:
             deadline_date= scheduled_date
             self.message_post(body=_("The deadline date is before the delay of %s hours, the deadline date is transmitted to %s" % (setup.spacefill_delay, deadline_date)))
         else:
@@ -257,6 +257,9 @@ class StockPicking(models.Model):
             item_url = 'logistic_management/orders/exit/'
         #add config?
         for line in self.move_line_ids:
+            if line.reserved_uom_qty == 0 or line.qty_done !=0:
+                raise UserError(_("You can't export a picking with a line with a quantity done or reserved"))               
+            
             if not line.product_id.is_exported:
                     self.env['product.product'].search([('id','=',line.product_id.id)]).export_product_in_spacefill()
 
@@ -431,17 +434,23 @@ class StockPicking(models.Model):
                 if picking.check_spacefill_status():
                     self.env['spacefill.update'].create({'id_to_update':picking.id,'is_to_update':True,'triggered_from':'assign_picking'})
         return res
-    """
+    
     def button_validate(self):
-        if self.only_manage_by_spacefill and not self.env.context.get('from_spacefill')==True:
+        if self.only_manage_by_spacefill and not self.env.context.get('from_spacefill'):
             self.message_post(body="This picking is managed by Spacefill, you can't validate it")
         else:
             return super(StockPicking, self).button_validate()
-    """
+    
+    def action_confirm(self):
+        res = super(StockPicking, self).action_confirm()
+        for picking in self:
+            if picking.picking_type_id.warehouse_id.is_exported:
+                    self.env['spacefill.update'].create({'id_to_update':picking.id,'is_to_update':True,'triggered_from':'confirm_picking'})
+        return res
     def action_cancel(self):
         res = super(StockPicking, self).action_cancel()
         for picking in self:
-            if picking.picking_type_id.warehouse_id.is_exported:
+            if picking.picking_type_id.warehouse_id.is_exported and picking.order_spacefill_id:
                 if picking.check_spacefill_status():
                     picking.export_order_cancel_to_spacefill()
                     picking.update_status_spacefill_with_lot()
@@ -449,20 +458,20 @@ class StockPicking(models.Model):
 
     def unlink(self):
         for picking in self:
-            if picking.picking_type_id.warehouse_id.is_exported:
+            if picking.picking_type_id.warehouse_id.is_exported and picking.order_spacefill_id:
                 if picking.check_spacefill_status():
                     picking.export_order_cancel_to_spacefill() 
                     picking.update_status_spacefill_with_lot()
         return super(StockPicking, self).unlink()
 
-
+    """
     def copy(self, default=None):
         for picking in self:
             if picking.only_manage_by_spacefill:
                     raise UserError(_('You can not duplicate a picking managed by Spacefill'))
             else:
                     return super(StockPicking, self).copy(default)
-
+    """
     def export_order_cancel_to_spacefill(self):
         url = "logistic_management/orders" #/{order_id}/shipper_cancels_order_action/"     
                   
