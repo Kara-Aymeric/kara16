@@ -13,13 +13,17 @@ class SaleOrder(models.Model):
         """ Allows you to search only for contacts with the supplier label """
         domain = []
         if self.env.company.trading_business:
-            domain = [('category_id.id', '=', self.env.ref('custom_sale.kara_res_partner_category_supplier', False))]
+            category_supplier = self.env.ref('custom_sale.kara_res_partner_category_supplier', False)
+            if category_supplier:
+                domain = [('category_id.id', '=', category_supplier.id)]
         return domain
 
     # @api.model
     def _get_customer_id_domain(self):
         """ Allows you to search only for contacts with the customer label """
-        return [('category_id.id', '=', self.env.ref('custom_sale.kara_res_partner_category_customer', False))]
+        category_customer = self.env.ref('custom_sale.kara_res_partner_category_customer', False)
+        if category_customer:
+            return [('category_id.id', '=', category_customer.id)]
 
     trading_business = fields.Boolean(string="Trading business", related="company_id.trading_business")
     supplier_order = fields.Boolean(string="Supplier order", store=True, compute="_compute_supplier_order")
