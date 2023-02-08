@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="kara_trading_report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//t[@t-set='display_discount']" position="after">
+            <t t-if="doc.access_commission and not doc.commission_order" t-set="display_commission" t-value="any([l.product_commission for l in doc.order_line])"/>
+        </xpath>
+        <th name="th_taxes" position="after">
+            <th t-if="display_commission" class="text-end">
+                <span>Commission / Article</span>
+            </th>
+        </th>
+        <xpath expr="//td[@name='td_taxes']" position="after">
+            <td t-if="display_commission" class="text-end">
+                <span t-field="line.product_commission" />
+            </td>
+        </xpath>
+        <xpath expr="//div[@name='total']/div/table" position="inside">
+            <!--Total commission -->
+            <tr t-if="display_commission" class="o_total">
+                <td>Of which commissions</td>
+                <td class="text-end">
+                    <span t-esc="'%.2f'% doc.commission_total"/> <span t-field="doc.currency_id.symbol"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>

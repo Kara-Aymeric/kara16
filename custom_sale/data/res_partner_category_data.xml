@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="kara_res_partner_category_supplier" model="res.partner.category">
+            <field name="name">Supplier</field>
+        </record>
+        <record id="kara_res_partner_category_customer" model="res.partner.category">
+            <field name="name">Customer</field>
+        </record>
+    </data>
+</odoo>

@@ -11,23 +11,13 @@
                     <div class="col-12 col-lg-6 o_setting_box" id="supplier_mail_template_id_setting">
                         <div class="o_setting_right_pane">
                             <label for="supplier_mail_template_id"/>
-                            <div class="text-muted">Modèle d'email a envoyer au fournisseur lorsqu'il s'agit d'un envoi de devis</div>
+                            <div class="text-muted">Email template to use when it is the first sending of the quote to the supplier</div>
                             <div class="row mt16">
-                                <label for="supplier_mail_template_id" string="Modèle" class="col-lg-4 o_light_label" />
+                                <label for="supplier_mail_template_id" string="Template" class="col-lg-4 o_light_label" />
                                 <field name="supplier_mail_template_id" class="oe_inline"/>
                             </div>
                         </div>
                     </div>
-<!--                    <div class="col-12 col-lg-6 o_setting_box" id="agent_mail_template_id_setting">
-                        <div class="o_setting_right_pane">
-                            <label for="agent_mail_template_id"/>
-                            <div class="text-muted">Modèle d'email a envoyer à l'agent principal lorsque l'agent commercial valide son devis.</div>
-                            <div class="row mt16">
-                                <label for="agent_mail_template_id" string="Modèle" class="col-lg-4 o_light_label" />
-                                <field name="agent_mail_template_id" class="oe_inline"/>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
             </xpath>
         </field>

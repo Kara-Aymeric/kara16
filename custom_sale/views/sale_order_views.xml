@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="kara_sale_view_order_form" model="ir.ui.view">
+        <field name="name">kara.sale.view.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button id="action_confirm" position="replace">
+                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirmer" class="btn-primary" type="object" attrs="{'invisible': ['|', ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>
+            </button>
+
+            <xpath expr="//button[@name='action_confirm'][2]" position="replace">
+                <button name="action_confirm" data-hotkey="v" string="Confirmer" type="object" attrs="{'invisible': ['|', ('supplier_order', '=', True), ('state', 'not in', ['draft'])]}"/>
+            </xpath>
+
+            <button id="create_invoice" position="before">
+                <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signé par client" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer la vente ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['sent'])]}"/>
+                <button id="action_invoiced_status" name="action_invoiced" string="Confirmer la livraison / facturation" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer la livraison / facturation ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'confirmed')]}"/>
+                <button id="action_payed_status" name="action_payed" string="Confirmer le paiement" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer le paiement ? Cette action confirmera également la commission associée" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'invoiced')]}"/>
+                <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signé par client" type="object" confirm="Êtes-vous sûr de confirmer la vente ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['draft'])]}"/>
+            </button>
+            <xpath expr="//button[1]" position="after">
+                <button name="action_create_sign_template" string="Generate template to sign" type="object"
+                        class="btn-primary" confirm="Are you sure you want to generate a template for electronic signature ?"
+                        attrs="{'invisible': ['|', ('e_supplier_quote', '=', False), '&amp;', ('sign_template_id', '!=', False), ('e_supplier_quote', '!=', False)]}" />
+            </xpath>
+
+            <xpath expr="//group[@name='partner_details']" position="replace">
+                <group name="partner_details">
+                    <field name="supplier_order" invisible="1" />
+                    <field name="trading_business" invisible="1" />
+                    <field name="delivery_set" invisible="1" />
+                    <field name="is_all_service" invisible="1" />
+                    <field name="recompute_delivery_price" invisible="1" />
+                    <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}" attrs="{'invisible': [('trading_business', '=', True)], 'required': [('trading_business', '!=', True)]}" />
+                    <field name="supplier_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}" attrs="{'invisible': [('trading_business', '!=', True)], 'required': [('trading_business', '=', True)]}" />
+                    <field name="partner_invoice_id" groups="account.group_delivery_invoice_address" context="{'default_type':'invoice'}" options="{&quot;always_reload&quot;: True}"/>
+                    <field name="partner_shipping_id" groups="account.group_delivery_invoice_address" context="{'default_type':'delivery'}" options="{&quot;always_reload&quot;: True}"/>
+                    <field name="customer_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"  options="{'always_reload': True}" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])], 'invisible': [('trading_business', '!=', True)], 'required': [('trading_business', '=', True)]}" />
+                </group>
+            </xpath>
+
+            <field name="state" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale" attrs="{'invisible': [('supplier_order', '=', True)]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed,invoiced,payed" attrs="{'invisible': [('supplier_order', '=', False)]}"/>
+            </field>
+
+            <xpath expr="//page[@name='other_information']//group[@name='sales_person']//field[@name='tag_ids']" position="after">
+                <field name="custom_report_name" readonly="1" />
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']//tree//field[@name='product_uom_qty']" position="before">
+                <field name="product_brand" />
+                <field name="packing_type" />
+            </xpath>
+
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page string="Signature" name="customer_signature">
+                    <group name="file_to_signed">
+                        <group string="PDF file to be signed by the client (electronic signature)">
+                            <field name="e_supplier_quote_filename" invisible="1"/>
+                            <field name="e_supplier_quote" filename="e_supplier_quote_filename"/>
+                        </group>
+                        <group string="Document signed (manual)">
+                            <field name="supplier_quote_filename" invisible="1"/>
+                            <field name="supplier_quote" filename="supplier_quote_filename"/>
+                        </group>
+                    </group>
+                    <group name="signature">
+                        <group string="Model (electronic signature)">
+                            <field name="sign_template_id" force_save="1"/>
+                            <field name="sign_request_id" />
+                        </group>
+                        <group string="Document signed (electronic signature)">
+                            <field name="e_supplier_quote_filename_signed" invisible="1"/>
+                            <field name="e_supplier_quote_signed" filename="e_supplier_quote_filename_signed"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

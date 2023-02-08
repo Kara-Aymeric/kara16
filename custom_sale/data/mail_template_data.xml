@@ -35,40 +35,5 @@
             <field name="lang">{{ object.partner_id.lang }}</field>
             <field name="auto_delete" eval="True"/>
         </record>
-
-<!--        <record id="email_template_agent_sale" model="mail.template">
-            <field name="name">Kara - Envoi devis de l'agent à l'agent principal</field>
-            <field name="model_id" ref="sale.model_sale_order"/>
-            <field name="subject">Agent:{{ object.user_id.name or 'n/a' }} / New order N° {{ object.name or 'n/a' }} pour {{ object.customer_id.name or 'n/a' }} - date</field>
-&lt;!&ndash;            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>&ndash;&gt;
-&lt;!&ndash;            <field name="partner_to">{{ object.partner_id.id }}</field>&ndash;&gt;
-            <field name="description">Utilisé pour informer que l'agent commercial a valider un devis</field>
-            <field name="body_html" type="html">
-<div style="margin: 0px; padding: 0px;">
-    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-        <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>
-        Bonjour M ou MME ...,
-        <br/><br/>
-        Vous trouverez ci-joint une nouvelle commande n°<span style="font-weight: bold;" t-out="object.name or ''"></span>
-        de <span style="font-weight: bold;" t-out="object.customer_id.name or ''"></span>.
-        <br/><br/>
-        Pourriez-vous la valider ?
-        <br/><br/>
-        Merci,
-        <br/><br/>
-        Bien cordialement,
-        <t t-if="not is_html_empty(object.user_id.signature)">
-            <br/><br/>
-            <t t-out="object.user_id.signature or ''">&#45;&#45;<br/>Mitchell Admin</t>
-        </t>
-        <br/><br/>
-    </p>
-</div>
-            </field>
-&lt;!&ndash;            <field name="report_template" ref="sale.action_report_saleorder"/>&ndash;&gt;
-&lt;!&ndash;            <field name="report_name">{{ (object.name or '').replace('/','_') }}</field>&ndash;&gt;
-            <field name="lang">{{ object.partner_id.lang }}</field>
-            <field name="auto_delete" eval="True"/>
-        </record>-->
     </data>
 </odoo>

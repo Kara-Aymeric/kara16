@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_packing,access.product.packing,model_product_packing,base.group_user,1,1,1,1
+access_report_element_position,access.report.element.position,model_report_element_position,base.group_user,1,1,1,1

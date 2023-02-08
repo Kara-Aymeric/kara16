@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="report_element_position_tree_view" model="ir.ui.view">
+        <field name="name">report.element.position.tree.view</field>
+        <field name="model">report.element.position</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="false">
+                <field name="name" required="1"/>
+                <field name="sign_item_type_id" required="1"/>
+                <field name="posX" required="1"/>
+                <field name="posY" required="1"/>
+                <field name="width" required="1"/>
+                <field name="height" required="1"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="report_element_position_action" model="ir.actions.act_window">
+        <field name="name">Elements position</field>
+        <field name="res_model">report.element.position</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_report_element_position"
+              name="Elements position"
+              parent="sign.menu_document"
+              action="custom_sale.report_element_position_action"
+              sequence="25"
+    />
+</odoo>
