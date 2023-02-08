@@ -23,6 +23,7 @@
         'views/report_element_position_views.xml',
         'views/res_company_views.xml',
         'views/res_config_settings_views.xml',
+        'views/res_partner_category.xml',
         'views/sale_order_views.xml',
         'views/sign_views.xml',
     ],
