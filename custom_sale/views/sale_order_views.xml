@@ -46,6 +46,10 @@
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed,invoiced,payed" attrs="{'invisible': [('supplier_order', '=', False)]}"/>
             </field>
 
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="customer_invoice_number" attrs="{'required': [('state', 'not in', ['draft', 'cancel'])]}"/>
+            </xpath>
+
             <xpath expr="//page[@name='other_information']//group[@name='sales_person']//field[@name='tag_ids']" position="after">
                 <field name="custom_report_name" readonly="1" />
                 <field name="quote_send_supplier" />
