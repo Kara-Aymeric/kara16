@@ -26,6 +26,10 @@
                         attrs="{'invisible': ['|', ('e_supplier_quote', '=', False), '&amp;', ('sign_template_id', '!=', False), ('e_supplier_quote', '!=', False)]}" />
             </xpath>
 
+            <button name="action_cancel" position="replace">
+                <button name="action_cancel" type="object" string="Annuler" attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'done']), ('id', '=', False)]}" data-hotkey="z"/>
+            </button>
+
             <xpath expr="//group[@name='partner_details']" position="replace">
                 <group name="partner_details">
                     <field name="supplier_order" invisible="1" />
@@ -56,8 +60,8 @@
             </xpath>
 
             <xpath expr="//page[@name='order_lines']//tree//field[@name='product_uom_qty']" position="before">
-                <field name="product_brand" />
-                <field name="packing_type" />
+                <field name="product_brand" attrs="{'column_invisible': ['|', ('parent.access_commission', '!=', True), ('parent.commission_order', '==', True)]}"/>
+                <field name="packing_type" attrs="{'column_invisible': ['|', ('parent.access_commission', '!=', True), ('parent.commission_order', '==', True)]}"/>
             </xpath>
 
             <xpath expr="//page[@name='other_information']" position="after">
