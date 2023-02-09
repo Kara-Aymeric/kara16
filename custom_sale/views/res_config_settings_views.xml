@@ -18,6 +18,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="supplier_quote_signed_mail_template_id_setting">
+                        <div class="o_setting_right_pane">
+                            <label for="supplier_quote_signed_mail_template_id"/>
+                            <div class="text-muted">Email template to use for to send supplier when quote to signed by final customer</div>
+                            <div class="row mt16">
+                                <label for="supplier_quote_signed_mail_template_id" string="Template" class="col-lg-4 o_light_label" />
+                                <field name="supplier_quote_signed_mail_template_id" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>

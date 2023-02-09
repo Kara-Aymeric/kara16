@@ -2,26 +2,27 @@
 <odoo>
     <data noupdate="0">
         <record id="email_template_supplier_sale" model="mail.template">
-            <field name="name">Kara - Envoi devis au fournisseur</field>
+            <field name="name">Kara - Send quote to supplier</field>
             <field name="model_id" ref="sale.model_sale_order"/>
-            <field name="subject">New order N° {{ object.name or 'n/a' }} pour {{ object.customer_id.name or 'n/a' }} - date</field>
+            <field name="subject">New order N° {{ object.name or 'n/a' }} for {{ object.customer_id.name or 'n/a' }} - {{ object.date_order.strftime('%d-%m-%Y') or 'n/a' }}</field>
             <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
             <field name="partner_to">{{ object.partner_id.id }}</field>
-            <field name="description">Utilisé pour l'envoi d'un devis au fournisseur pour validation pour Kara Trading</field>
+            <field name="email_cc">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="description">Used for sending a quote to the supplier for validation for Kara Trading</field>
             <field name="body_html" type="html">
 <div style="margin: 0px; padding: 0px;">
     <p style="margin: 0px; padding: 0px; font-size: 13px;">
         <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>
-        Bonjour M ou MME ...,
+        Hello Mr or Mrs <span style="font-weight: bold;" t-out="object.supplier_id.name or ''"></span>,
         <br/><br/>
-        Vous trouverez ci-joint une nouvelle commande n°<span style="font-weight: bold;" t-out="object.name or ''"></span>
-        de <span style="font-weight: bold;" t-out="object.customer_id.name or ''"></span>.
+        Attached you will find a new order n°<span style="font-weight: bold;" t-out="object.name or ''"></span>
+        of <span style="font-weight: bold;" t-out="object.customer_id.name or ''"></span>.
         <br/><br/>
-        Pourriez-vous préparer la confirmation et me l'envoyer pour signature client s'il vous plaît ?
+        Could you prepare the confirmation and send it to me for customer signature please ?
         <br/><br/>
-        Merci
+        Thanks,
         <br/><br/>
-        Bien cordialement,
+        Best regards,
         <t t-if="not is_html_empty(object.user_id.signature)">
             <br/><br/>
             <t t-out="object.user_id.signature or ''">--<br/>Mitchell Admin</t>
@@ -31,7 +32,41 @@
 </div>
             </field>
             <field name="report_template" ref="sale.action_report_saleorder"/>
-            <field name="report_name">{{ (object.name or '').replace('/','_') }}</field>
+            <field name="report_name">{{ (object.custom_report_name or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.partner_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="email_template_supplier_quote_signed" model="mail.template">
+            <field name="name">Kara - Send quote signed to supplier</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Confirmation N° {{ object.name or 'n/a' }} signed</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="email_cc">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="description">Used for sending a quote signed to the supplier</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>
+        Hello,
+        <br/><br/>
+        Attached you will find Confirmation n°<span style="font-weight: bold;" t-out="object.name or ''"></span>
+        signed for the client <span style="font-weight: bold;" t-out="object.customer_id.name or ''"></span>.
+        <br/><br/>
+        Good reception,
+        <br/><br/>
+        Best regards,
+        <t t-if="not is_html_empty(object.user_id.signature)">
+            <br/><br/>
+            <t t-out="object.user_id.signature or ''">--<br/>Mitchell Admin</t>
+        </t>
+        <br/><br/>
+    </p>
+</div>
+            </field>
+<!--            <field name="report_template" ref="sale.action_report_saleorder"/>-->
+<!--            <field name="report_name">{{ (object.custom_report_name or '').replace('/','_') }}</field>-->
             <field name="lang">{{ object.partner_id.lang }}</field>
             <field name="auto_delete" eval="True"/>
         </record>

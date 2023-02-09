@@ -15,6 +15,7 @@
 
             <button id="create_invoice" position="before">
                 <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signé par client" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer la vente ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['sent'])]}"/>
+                <button id="action_send_quote_signed" name="action_send_quote_signed" string="Send quote signed to supplier" type="object" class="btn-primary" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'confirmed')]}"/>
                 <button id="action_invoiced_status" name="action_invoiced" string="Confirmer la livraison / facturation" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer la livraison / facturation ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'confirmed')]}"/>
                 <button id="action_payed_status" name="action_payed" string="Confirmer le paiement" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer le paiement ? Cette action confirmera également la commission associée" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'invoiced')]}"/>
                 <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signé par client" type="object" confirm="Êtes-vous sûr de confirmer la vente ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['draft'])]}"/>
