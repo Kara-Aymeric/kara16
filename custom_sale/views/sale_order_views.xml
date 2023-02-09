@@ -63,8 +63,8 @@
                             <field name="e_supplier_quote" filename="e_supplier_quote_filename"/>
                         </group>
                         <group string="Document signed (manual)">
-                            <field name="supplier_quote_filename" invisible="1"/>
-                            <field name="supplier_quote" filename="supplier_quote_filename"/>
+                            <field name="supplier_quote_filename_signed" invisible="1"/>
+                            <field name="supplier_quote_signed" filename="supplier_quote_filename_signed"/>
                         </group>
                     </group>
                     <group name="signature">

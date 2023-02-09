@@ -47,12 +47,12 @@ class SaleOrder(models.Model):
                                           "for electronic signature")
     e_supplier_quote_filename = fields.Char(string="File name")
 
-    e_supplier_quote_signed = fields.Binary(string="Quote", readonly=1,
+    e_supplier_quote_signed = fields.Binary(string="Quote",
                                             help="The quote signed electronically by the customer in PDF format")
     e_supplier_quote_filename_signed = fields.Char(string="File name")
 
-    supplier_quote = fields.Binary(string="Quote", help="Add a manually signed quote here")
-    supplier_quote_filename = fields.Char(string="File name")
+    supplier_quote_signed = fields.Binary(string="Quote", help="Add a manually signed quote here")
+    supplier_quote_filename_signed = fields.Char(string="File name")
 
     sign_template_id = fields.Many2one(comodel_name='sign.template', string="Template to signed", readonly=1,
                                        help="Model created from the file inserted in the field above. "
@@ -89,6 +89,18 @@ class SaleOrder(models.Model):
             }]
         return values
 
+    def _generate_attachment(self, pdf_name, file_data):
+        attachment_id = self.env['ir.attachment'].create({
+            'name': pdf_name,
+            'type': 'binary',
+            'datas': file_data,
+            'store_fname': pdf_name,
+            'res_model': self._name,
+            'res_id': self.ids[0],
+            'mimetype': 'application/x-pdf',
+        })
+        return attachment_id.id
+
     def action_send_quote_signed(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
         self.ensure_one()
@@ -98,12 +110,24 @@ class SaleOrder(models.Model):
             get_param('custom_sale.supplier_quote_signed_mail_template_id', default=False)
         template_id = int(template_id)
 
+        attachment_ids = []
+        if self.supplier_quote_signed or self.e_supplier_quote_signed:
+            if self.supplier_quote_signed:
+                attachment_ids.append(
+                    self._generate_attachment(self.supplier_quote_filename_signed, self.supplier_quote_signed)
+                )
+            if self.e_supplier_quote_signed:
+                attachment_ids.append(
+                    self._generate_attachment(self.e_supplier_quote_filename_signed, self.e_supplier_quote_signed)
+                )
+
         ctx = {
             'default_model': 'sale.order',
             'default_res_id': self.ids[0],
             'default_use_template': bool(template_id),
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
+            'default_attachment_ids': [(6, 0, attachment_ids)],
             'mark_so_as_sent': True,
             'custom_layout': "mail.mail_notification_paynow",
             'proforma': self.env.context.get('proforma', False),

@@ -65,8 +65,6 @@
     </p>
 </div>
             </field>
-<!--            <field name="report_template" ref="sale.action_report_saleorder"/>-->
-<!--            <field name="report_name">{{ (object.custom_report_name or '').replace('/','_') }}</field>-->
             <field name="lang">{{ object.partner_id.lang }}</field>
             <field name="auto_delete" eval="True"/>
         </record>
