@@ -65,12 +65,14 @@ class SaleOrder(models.Model):
                 if line.price_commission > 0:
                     tax = order._generate_commission_tax()
                     # Prepare data for add commission line
+                    commission_name = f"Commission pour {order.customer_id.name} sur {line.product_id.name or ''}. " \
+                                      f"FC N°{order.customer_invoice_number or ''}"
                     prepare_values += [{
-                        'name': f"Commission pour {line.name}",
+                        'name': commission_name,
                         'product_id': self.env.ref("sale_commission.kara_product_template_commission").id,
-                        'product_uom_qty': line.product_uom_qty,
+                        'product_uom_qty': 1,
                         'tax_id': tax if tax else False,
-                        'price_unit': line.product_commission,
+                        'price_unit': order.commission_total,
                         'company_id': company_user.id,
                     }]
             if len(prepare_values) > 0:
