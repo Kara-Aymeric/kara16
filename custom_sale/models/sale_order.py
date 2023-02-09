@@ -27,6 +27,7 @@ class SaleOrder(models.Model):
 
     trading_business = fields.Boolean(string="Trading business", related="company_id.trading_business")
     supplier_order = fields.Boolean(string="Supplier order", store=True, compute="_compute_supplier_order")
+    quote_send_supplier = fields.Boolean(string="Quote send supplier")
 
     supplier_id = fields.Many2one(
         'res.partner', string="Supplier", help="Industrial or warehouse", domain=_get_supplier_id_domain, tracking=True
@@ -129,6 +130,7 @@ class SaleOrder(models.Model):
             'default_template_id': template_id,
             'default_composition_mode': 'comment',
             'default_attachment_ids': [(6, 0, attachment_ids)],
+            'quote_send_supplier': True,
             'mark_so_as_sent': True,
             'custom_layout': "mail.mail_notification_paynow",
             'proforma': self.env.context.get('proforma', False),
@@ -259,6 +261,8 @@ class SaleOrder(models.Model):
     def write(self, vals):
         """ Surcharge write method """
         for record in self:
+            if self.env.context.get('quote_send_supplier', False):
+                vals['quote_send_supplier'] = self.env.context.get('quote_send_supplier', False)
             if not self.env.context.get('external_update', False):
                 if record.name or record.partner_id:
                     vals['custom_report_name'] = record._define_report_name(vals)
