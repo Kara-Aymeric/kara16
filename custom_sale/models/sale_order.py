@@ -90,15 +90,16 @@ class SaleOrder(models.Model):
         return values
 
     def _generate_attachment(self, pdf_name, file_data):
+        """ Create new attachment, replace if pdf exist for order """
+        self.env['ir.attachment'].search([('res_id', '=', self.id), ('name', '=', pdf_name)]).unlink()
         attachment_id = self.env['ir.attachment'].create({
             'name': pdf_name,
             'type': 'binary',
             'datas': file_data,
-            'store_fname': pdf_name,
             'res_model': self._name,
-            'res_id': self.ids[0],
-            'mimetype': 'application/x-pdf',
+            'res_id': self.id,
         })
+
         return attachment_id.id
 
     def action_send_quote_signed(self):
