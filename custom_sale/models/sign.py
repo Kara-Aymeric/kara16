@@ -38,6 +38,13 @@ class SignRequest(models.Model):
                 if record.order_id:
                     record.order_id.with_context(external_update=True).write({'sign_request_id': record.id})
                     record.order_id.with_context(external_update=True).action_confirm_supplier()
+            if vals.get('completed_document', False) and record.order_id:
+                record.order_id.with_context(external_update=True).write(
+                    {
+                        'e_supplier_quote_signed': vals.get('completed_document', False),
+                        'e_supplier_quote_filename_signed': f"Signed_{record.order_id.e_supplier_quote_filename or 'quote'}"
+                    }
+                )
 
         return super(SignRequest, self).write(vals)
 
