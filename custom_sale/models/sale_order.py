@@ -1,8 +1,18 @@
 # -*- coding: utf-8 -*-
 import pytz
+import logging
+import io
+import base64
 from datetime import datetime
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
+try:
+    from PyPDF2 import PdfFileReader, PdfFileWriter
+    from PyPDF2.utils import PdfReadError
+except ImportError:
+    _logger.debug("Can not import PyPDF2")
 
 
 class SaleOrder(models.Model):
@@ -77,24 +87,6 @@ class SaleOrder(models.Model):
             if order.trading_business and not order.commission_order:
                 order.supplier_order = True
 
-    def _get_sign_item_values(self, template_id):
-        """ Builds the items for the electronic signature """
-        element_position_id = self.env['report.element.position'].search([])
-        values = []
-        for element in element_position_id:
-            values += [{
-                'template_id': template_id.id,
-                'responsible_id': 1,
-                'type_id': element.sign_item_type_id.id,
-                'name': element.name,
-                'page': 1,
-                'posX': element.posX,
-                'posY': element.posY,
-                'width': element.width,
-                'height': element.height,
-            }]
-        return values
-
     def _generate_attachment(self, pdf_name, file_data):
         """ Create new attachment, replace if pdf exist for order """
         self.env['ir.attachment'].search([('res_id', '=', self.id), ('name', '=', pdf_name)]).unlink()
@@ -152,6 +144,31 @@ class SaleOrder(models.Model):
             'context': ctx,
         }
 
+    def _count_number_of_pages(self, attachment_id):
+        """ Allows you to count the number of pages of the quote """
+        file = io.BytesIO(base64.decodebytes(attachment_id.datas))
+        reader = PdfFileReader(file, strict=False)
+
+        return reader.getNumPages()
+
+    def _get_sign_item_values(self, template_id, page):
+        """ Builds the items for the electronic signature """
+        element_position_id = self.env['report.element.position'].search([])
+        values = []
+        for element in element_position_id:
+            values += [{
+                'template_id': template_id.id,
+                'responsible_id': 1,
+                'type_id': element.sign_item_type_id.id,
+                'name': element.name,
+                'page': page,
+                'posX': element.posX,
+                'posY': element.posY,
+                'width': element.width,
+                'height': element.height,
+            }]
+        return values
+
     def action_create_sign_template(self):
         """ Generates a document template to sign. The retrieved document is the supplier quote """
         self.ensure_one()
@@ -179,7 +196,10 @@ class SaleOrder(models.Model):
         self.sign_template_id = template_id.id
 
         # Generate items fo sign template
-        vals = self._get_sign_item_values(template_id)
+        page_number = self._count_number_of_pages(attachment_id)
+        print(page_number)
+
+        vals = self._get_sign_item_values(template_id, page_number)
         for value_dict in vals:
             self.env['sign.item'].create(value_dict)
 
