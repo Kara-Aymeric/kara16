@@ -6,6 +6,7 @@ from odoo.exceptions import ValidationError
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    access_commission = fields.Boolean(string="Access commission", related="company_id.access_commission")
     commission_type = fields.Selection(
         [('percentage', 'Percentage'), ('fixed', 'Fixed')], string="Commission type", tracking=True)
     percentage_value = fields.Float(string="Percentage value",

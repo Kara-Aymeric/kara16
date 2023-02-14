@@ -6,7 +6,10 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='general_information']//group[1]" position="after">
-                <group name="commission" string="Commissions">
+                <group>
+                    <field name="access_commission" invisible="1"/>
+                </group>
+                <group name="commission" string="Commissions" attrs="{'invisible': [('access_commission', '!=', True)]}">
                     <group>
                         <field name="commission_type" />
                         <field name="percentage_value" attrs="{'invisible': [('commission_type', '!=', 'percentage')]}"/>
