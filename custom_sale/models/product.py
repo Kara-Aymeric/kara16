@@ -14,7 +14,7 @@ class ProductCategory(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    access_packing = fields.Boolean(string="Trading business", related="company_id.access_packing")
+    access_packing = fields.Boolean(string="Access packing", related="company_id.access_packing")
     product_brand = fields.Char(string="Brand")
     supplier_id = fields.Many2one('res.partner', string="Supplier", help="Industrial or warehouse")
     packing_ids = fields.One2many('product.packing', 'product_template_id', string='Packing')
