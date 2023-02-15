@@ -54,6 +54,7 @@ class SaleOrder(models.Model):
             ('confirmed', "Order confirmed"), ('invoiced', "Delivered / Invoiced"), ('payed', "Payed")
         ]
     )
+    invoiced_supplier = fields.Boolean(string="Invoiced supplier")
 
     custom_report_name = fields.Char(string="PDF report name", store=True,
                                      help="Name of the report that will be generated when printing the PDF. "
@@ -263,7 +264,10 @@ class SaleOrder(models.Model):
     def action_invoiced(self):
         """ Allows you to change the status of the sale to 'Delivered / Invoiced' """
         for record in self:
-            record.write({'state': 'invoiced'})
+            record.write({
+                'state': 'invoiced',
+                'invoiced_supplier': True,
+            })
 
     def action_payed(self):
         """

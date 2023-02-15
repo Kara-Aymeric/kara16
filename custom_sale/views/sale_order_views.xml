@@ -57,6 +57,7 @@
             <xpath expr="//page[@name='other_information']//group[@name='sales_person']//field[@name='tag_ids']" position="after">
                 <field name="custom_report_name" readonly="1" attrs="{'invisible': [('access_commission', '!=', True)]}"/>
                 <field name="quote_send_supplier" attrs="{'invisible': ['|', ('access_commission', '!=', True), ('commission_order', '=', True)]}"/>
+                <field name="invoiced_supplier" readonly="1" attrs="{'invisible': ['|', ('access_commission', '!=', True), ('commission_order', '=', True)]}"/>
             </xpath>
 
             <xpath expr="//page[@name='order_lines']//tree//field[@name='product_uom_qty']" position="before">
