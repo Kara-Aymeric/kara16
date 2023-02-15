@@ -63,16 +63,19 @@ class SaleOrder(models.Model):
             # Get amount commission. If commission create line in order line for child order
             for line in order.order_line:
                 if line.price_commission > 0:
-                    tax = order._generate_commission_tax()
                     # Prepare data for add commission line
+                    tax = order._generate_commission_tax()
+                    product_id = self.env['product.product'].search(
+                        [('product_tmpl_id', '=', self.env.ref("sale_commission.kara_product_template_commission").id)]
+                    )
                     commission_name = f"Commission pour {order.customer_id.name} sur {line.product_id.name or ''}. " \
                                       f"FC N°{order.customer_invoice_number or ''}"
                     prepare_values += [{
                         'name': commission_name,
-                        'product_id': self.env.ref("sale_commission.kara_product_template_commission").id,
+                        'product_id': product_id.id,
                         'product_uom_qty': 1,
                         'tax_id': tax if tax else False,
-                        'price_unit': order.commission_total,
+                        'price_unit': line.price_commission,
                         'company_id': company_user.id,
                     }]
             if len(prepare_values) > 0:
@@ -87,6 +90,16 @@ class SaleOrder(models.Model):
                     child_id = order.copy({
                         'commission_order': True,
                         'order_origin_id': order.id,
+                        'custom_report_name': False,
+                        'customer_invoice_number': False,
+                        'e_supplier_quote': False,
+                        'e_supplier_quote_filename': False,
+                        'e_supplier_quote_signed': False,
+                        'e_supplier_quote_filename_signed': False,
+                        'supplier_quote_signed': False,
+                        'supplier_quote_filename_signed': False,
+                        'sign_template_id': False,
+                        'sign_request_id': False,
                         'order_line': [(0, 0, data) for data in prepare_values],
                     })
 
