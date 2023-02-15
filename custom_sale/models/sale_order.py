@@ -79,6 +79,24 @@ class SaleOrder(models.Model):
                                            "the document has been signed by the person concerned. "
                                            "The link to the Signature module")
 
+    @api.depends('partner_id', 'customer_id')
+    def _compute_partner_invoice_id(self):
+        """ Rewrite method """
+        for order in self:
+            order.partner_invoice_id = order.partner_id.address_get(['invoice'])['invoice'] if order.partner_id else False
+            if order.trading_business:
+                order.partner_invoice_id = order.customer_id.address_get(['invoice'])[
+                    'invoice'] if order.customer_id else False
+
+    @api.depends('partner_id', 'customer_id')
+    def _compute_partner_shipping_id(self):
+        """ Rewrite method """
+        for order in self:
+            order.partner_shipping_id = order.partner_id.address_get(['delivery'])['delivery'] if order.partner_id else False
+            if order.trading_business:
+                order.partner_shipping_id = order.customer_id.address_get(['delivery'])[
+                    'delivery'] if order.customer_id else False
+
     @api.depends('trading_business', 'commission_order')
     def _compute_supplier_order(self):
         """
