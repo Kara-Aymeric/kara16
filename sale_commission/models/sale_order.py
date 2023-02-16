@@ -13,7 +13,7 @@ class SaleOrder(models.Model):
                                help="This sale allows to make the connection of the main sale "
                                     "for sale (commission) which will be invoiced to the industrial")
     order_origin_id = fields.Many2one('sale.order', string="Order origin")
-    commission_total = fields.Monetary(string="Of which commissions", store=True, compute="_compute_commission_total",
+    commission_total = fields.Monetary(string="Of which commission", store=True, compute="_compute_commission_total",
                                        help="Total commission value for the sale", tracking=True)
     associated_commission = fields.Boolean(string="Associated commission")
 

@@ -17,7 +17,7 @@
         <xpath expr="//div[@name='total']/div/table" position="inside">
             <!--Total commission -->
             <tr t-if="display_commission" class="o_total">
-                <td>Of which commissions</td>
+                <td>Of which commission</td>
                 <td class="text-end">
                     <span t-esc="'%.2f'% doc.commission_total"/> <span t-field="doc.currency_id.symbol"/>
                 </td>

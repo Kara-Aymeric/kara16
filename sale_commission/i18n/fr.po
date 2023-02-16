@@ -120,8 +120,8 @@ msgstr "Fixe"
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order__commission_total
 #: model_terms:ir.ui.view,arch_db:sale_commission.kara_trading_report_saleorder_document
-msgid "Of which commissions"
-msgstr "Dont commissions"
+msgid "Of which commission"
+msgstr "Dont commission"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_order__order_origin_id
