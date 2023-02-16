@@ -36,7 +36,7 @@ class hide_menu_group(models.Model):
 		dropdown_compnay_id = request.httprequest.cookies.get('cids') or ''
 		current_company = self.env.user.company_id
 		if dropdown_compnay_id:
-			current_company = self.env['res.company'].browse(dropdown_compnay_id)			
+			current_company = self.env['res.company'].browse(dropdown_compnay_id[0])
 		user_company = self.env['res.company'].search([('id','=',current_company.id)])
 		if self.env.user.has_group('show_hide_menu_multi_company_app.group_hide_menu'):
 			if user_company.main_hide_ids:
