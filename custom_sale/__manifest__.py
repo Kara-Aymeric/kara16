@@ -7,7 +7,14 @@
     'description': """Personnalisation du module Vente pour Kara""",
     'website': 'https://hennet-solutions.fr',
     'license': 'LGPL-3',
-    'depends': ['account', 'delivery', 'crm', 'sale', 'sign', 'sale_commission'],
+    'depends': [
+        'account',
+        'delivery',
+        'crm',
+        'sale',
+        'sign',
+        'sale_commission',
+        'show_hide_menu_multi_company_app'],
     'data': [
         # Data
         'data/mail_template_data.xml',
