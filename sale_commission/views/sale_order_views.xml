@@ -23,7 +23,7 @@
     </record>
 
     <record id="action_commission_orders" model="ir.actions.act_window">
-        <field name="name">Bons de commandes</field>
+        <field name="name">Orders</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>

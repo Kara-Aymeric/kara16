@@ -1,0 +1,190 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_commission
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-16 08:31+0000\n"
+"PO-Revision-Date: 2023-02-16 08:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.kara_trading_report_saleorder_document
+msgid "<span>Commission / Article</span>"
+msgstr ""
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_product_product__access_commission
+#: model:ir.model.fields,field_description:sale_commission.field_product_template__access_commission
+msgid "Access commission"
+msgstr "Accès commission"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order__access_commission
+msgid "Active commission option on the company"
+msgstr "Active l'option commission sur la société"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_res_company__access_commission
+msgid "Allows the use of sales commissions"
+msgstr "Permet l'utilisation des commissions sur les ventes"
+
+#. module: sale_commission
+#: model:ir.model.fields,help:sale_commission.field_account_tax__commission_tax
+msgid ""
+"Allows you to generate this tax when the supplier does not reside in France"
+msgstr ""
+"Permet de générer cette taxe lorsque le fournisseur ne réside pas en France"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order__associated_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order__child_id
+msgid "Associated commission"
+msgstr "Commission associée"
+
+#. module: sale_commission
+#: model:ir.actions.act_window,name:sale_commission.action_commission_orders
+msgid "Orders"
+msgstr "Bons de commandes"
+
+#. module: sale_commission
+#: model:ir.ui.menu,name:sale_commission.res_partner_commission_menu
+msgid "Customers (Suppliers)"
+msgstr "Clients (Fournisseurs)"
+
+#. module: sale_commission
+#: model:ir.ui.menu,name:sale_commission.menu_sale_order_commission
+msgid "Orders"
+msgstr "Commandes"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_product_product__sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_product_template__sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order__commission_order
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order_line__product_commission
+#: model:product.template,name:sale_commission.kara_product_template_commission
+msgid "Commission"
+msgstr ""
+
+#. module: sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.kara_commission_sale_view_order_form
+msgid "Commission / Article"
+msgstr ""
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order_line__price_commission
+msgid "Total commission"
+msgstr "Commission totale"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_product_product__commission_type
+#: model:ir.model.fields,field_description:sale_commission.field_product_template__commission_type
+msgid "Commission type"
+msgstr "Type commission"
+
+#. module: sale_commission
+#: model:ir.actions.act_window,name:sale_commission.action_commission_sale_quotations
+#: model:ir.ui.menu,name:sale_commission.menu_commission_sale_quotations
+#: model:ir.ui.menu,name:sale_commission.sale_commission
+#: model_terms:ir.ui.view,arch_db:sale_commission.kara_commission_product_template_form_view
+msgid "Commissions"
+msgstr ""
+
+#. module: sale_commission
+#: model:ir.model,name:sale_commission.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: sale_commission
+#: model:ir.model.fields,help:sale_commission.field_product_product__sale_commission
+#: model:ir.model.fields,help:sale_commission.field_product_template__sale_commission
+msgid ""
+"Final value of the commission calculated automatically if the type of "
+"commission is 'percentage'"
+msgstr ""
+"Valeur finale de la commission calculée automatiquement si le type de "
+"commission est 'pourcentage'"
+
+#. module: sale_commission
+#: model:ir.model.fields.selection,name:sale_commission.selection__product_template__commission_type__fixed
+msgid "Fixed"
+msgstr "Fixe"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order__commission_total
+#: model_terms:ir.ui.view,arch_db:sale_commission.kara_trading_report_saleorder_document
+msgid "Of which commissions"
+msgstr "Dont commissions"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_sale_order__order_origin_id
+msgid "Order origin"
+msgstr "Vente d'origine"
+
+#. module: sale_commission
+#: model:ir.model.fields.selection,name:sale_commission.selection__product_template__commission_type__percentage
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_product_product__percentage_value
+#: model:ir.model.fields,field_description:sale_commission.field_product_template__percentage_value
+msgid "Percentage value"
+msgstr "Valeur pourcentage"
+
+#. module: sale_commission
+#: model:ir.model,name:sale_commission.model_product_template
+msgid "Product"
+msgstr "Article"
+
+#. module: sale_commission
+#: model:ir.model,name:sale_commission.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: sale_commission
+#: model:ir.model,name:sale_commission.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: sale_commission
+#: model:ir.model,name:sale_commission.model_account_tax
+msgid "Tax"
+msgstr "Taxe"
+
+#. module: sale_commission
+#: model:ir.model.fields,field_description:sale_commission.field_account_tax__commission_tax
+msgid "Tax for commission"
+msgstr "Taxe pour commission"
+
+#. module: sale_commission
+#: model:ir.model.fields,help:sale_commission.field_sale_order__child_id
+msgid ""
+"This sale allows to make the connection of the main sale for sale "
+"(commission) which will be invoiced to the industrial"
+msgstr ""
+"Cette vente permet de faire le rattachement de la vente principale à la vente "
+"(commission) qui sera facturée à l'industriel"
+
+#. module: sale_commission
+#: model:ir.model.fields,help:sale_commission.field_sale_order__commission_total
+msgid "Total commission value for the sale"
+msgstr "Valeur totale de la commission pour la vente"
+
+#. module: sale_commission
+#: model:product.template,uom_name:sale_commission.kara_product_template_commission
+msgid "Units"
+msgstr "Unités"
+
+#. module: sale_commission
+#: model:ir.model.fields,help:sale_commission.field_product_product__percentage_value
+#: model:ir.model.fields,help:sale_commission.field_product_template__percentage_value
+msgid "Value to calculate the commission on the product"
+msgstr "Valeur pour calculer la commission sur le produit"

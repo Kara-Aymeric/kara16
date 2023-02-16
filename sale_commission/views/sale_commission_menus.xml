@@ -15,7 +15,7 @@
     />
 
     <menuitem id="menu_sale_order_commission"
-              name="Commandes"
+              name="Orders"
               action="action_commission_orders"
               groups="sales_team.group_sale_salesman"
               sequence="30"
@@ -24,7 +24,7 @@
 
     <!-- Provisoire -->
     <menuitem id="res_partner_commission_menu"
-              name="Clients (Fournisseurs)"
+              name="Customers (Suppliers)"
               action="account.res_partner_action_customer"
               groups="sales_team.group_sale_salesman"
               sequence="40"

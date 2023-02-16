@@ -6,7 +6,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     product_commission = fields.Monetary(string="Commission")
-    price_commission = fields.Monetary(string="Commission totale")
+    price_commission = fields.Monetary(string="Total commission")
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_uom_qty(self):
