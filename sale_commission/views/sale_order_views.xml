@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Inheritance part-->
+    <!-- Allows you not to display 'commission' type quotes -->
+    <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+        <field name="domain">[('commission_order', '=', False)]</field>
+    </record>
+
+    <record id="sale.action_orders" model="ir.actions.act_window">
+        <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('commission_order', '=', False)]</field>
+    </record>
+
+    <!-- Action sale order part -->
+    <record id="action_commission_sale_quotations" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+        <field name="domain">[('commission_order', '=', True)]</field>
+        <field name="context">{'search_default_my_quotation': 1, 'search_default_customer': 1}</field>
+    </record>
+
+    <record id="action_commission_orders" model="ir.actions.act_window">
+        <field name="name">Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="domain">[('commission_order', '=', True)]</field>
+        <field name="context">{'search_default_customer': 1}</field>
+        <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+    </record>
+
+    <!-- Custom view part -->
+    <record id="kara_commission_sale_view_order_form" model="ir.ui.view">
+        <field name="name">kara.commission.sale.view.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="access_commission" invisible="1" />
+                <field name="commission_order" invisible="1"/>
+                <field name="associated_commission" invisible="1"/>
+                <field name="child_id" readonly="1" attrs="{'invisible': ['|', ('commission_order', '=', True), ('associated_commission', '!=', True)]}"/>
+                <field name="order_origin_id" readonly="1" attrs="{'invisible': [('commission_order', '!=', True)]}"/>
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']//tree//field[@name='tax_id']" position="after">
+                <field name="product_commission" string="Commission / Article"
+                       attrs="{'column_invisible': ['|', ('parent.access_commission', '!=', True), ('parent.commission_order', '==', True)]}"/>
+                <field name="price_commission" invisible="1" />
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']//group[@name='sale_total']" position="inside">
+                <field name="commission_total"
+                       attrs="{'invisible': ['|', ('access_commission', '!=', True), ('commission_order', '=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

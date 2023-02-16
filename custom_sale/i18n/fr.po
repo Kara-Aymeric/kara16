@@ -1,0 +1,722 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-16 06:03+0000\n"
+"PO-Revision-Date: 2023-02-16 06:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_report_saleorder_document
+msgid ""
+"<br/>\n"
+"                    <strong>Final customer</strong>"
+msgstr ""
+"<br/>\n"
+"                    <strong>Client final</strong>"
+
+#. module: custom_sale
+#: model:mail.template,body_html:custom_sale.email_template_supplier_sale
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'quotation' if object.state in ('draft', 'sent') else 'order'\"/>\n"
+"        Hello Mr or Mrs <span style=\"font-weight: bold;\" t-out=\"object.supplier_id.name or ''\"/>,\n"
+"        <br/><br/>\n"
+"        Attached you will find a new order n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"/>\n"
+"        of <span style=\"font-weight: bold;\" t-out=\"object.customer_id.name or ''\"/>.\n"
+"        <br/><br/>\n"
+"        Could you prepare the confirmation and send it to me for customer signature please ?\n"
+"        <br/><br/>\n"
+"        Thanks,\n"
+"        <br/><br/>\n"
+"        Best regards,\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
+"            <br/><br/>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br/>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br/><br/>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'devis' if object.state in ('draft', 'sent') else 'commande'\"/>\n"
+"        Bonjour M. ou Mme <span style=\"font-weight: bold;\" t-out=\"object.supplier_id.name or ''\"/>,\n"
+"        <br/><br/>\n"
+"        Vous trouverez ci-joint une nouvelle commande n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"/>\n"
+"        de <span style=\"font-weight: bold;\" t-out=\"object.customer_id.name or ''\"/>.\n"
+"        <br/><br/>\n"
+"        Pourriez-vous préparer la confirmation et me l'envoyer pour signature client s'il vous plaît ?\n"
+"        <br/><br/>\n"
+"        Merci,\n"
+"        <br/><br/>\n"
+"        Bien cordialement,\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
+"            <br/><br/>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br/>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br/><br/>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+
+#. module: custom_sale
+#: model:mail.template,body_html:custom_sale.email_template_supplier_quote_signed
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'quotation' if object.state in ('draft', 'sent') else 'order'\"/>\n"
+"        Hello,\n"
+"        <br/><br/>\n"
+"        Attached you will find Confirmation n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"/>\n"
+"        signed for the client <span style=\"font-weight: bold;\" t-out=\"object.customer_id.name or ''\"/>.\n"
+"        <br/><br/>\n"
+"        Good reception,\n"
+"        <br/><br/>\n"
+"        Best regards,\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
+"            <br/><br/>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br/>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br/><br/>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'devis' if object.state in ('draft', 'sent') else 'commande'\"></t>\n"
+"        Bonjour,\n"
+"        <br><br>\n"
+"        Vous trouverez ci-joint la confirmation n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"></span>\n"
+"        signé pour le client <span style=\"font-weight: bold;\" t-out=\"object.customer_id.name or ''\"></span>.\n"
+"        <br><br>\n"
+"        Bonne réception,\n"
+"        <br><br>\n"
+"        Bien cordialement,\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
+"            <br><br>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br><br>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_product__access_packing
+#: model:ir.model.fields,field_description:custom_sale.field_product_template__access_packing
+msgid "Access packing"
+msgstr "Accès conditionnement"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__active
+#: model:ir.model.fields,field_description:custom_sale.field_sign_item_type__active
+msgid "Active"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__supplier_quote_signed
+msgid "Add a manually signed quote here"
+msgstr "Ajoutez ici un devis signé manuellement"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__e_supplier_quote
+msgid ""
+"Adding a PDF file is useful for creating a document template for electronic "
+"signature"
+msgstr ""
+"L'ajout d'un fichier PDF est utile pour créer un modèle de document pour la signature "
+"électronique"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_res_company__access_packing
+msgid "Allows the company to access the packing of articles"
+msgstr "Permet à la société d'accéder au conditionnement des articles"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__customer_invoice_number
+msgid ""
+"Allows you to attach the customer invoice number generated by the "
+"manufacturer to the odoo quote. The value is retrieved to create the "
+"commission wording associated with the sale"
+msgstr ""
+"Permet de joindre le numéro de facture client généré par "
+"l'industriel au devis odoo. La valeur est récupérée pour créer le libellé de "
+"la commission associée à la vente"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_crm_lead__trading_business
+#: model:ir.model.fields,help:custom_sale.field_res_company__trading_business
+#: model:ir.model.fields,help:custom_sale.field_sale_order__trading_business
+msgid "Allows you to have a different sales flow than the standard sales flow"
+msgstr "Permet d'avoir un flux de vente différent du flux de vente standard"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Cancel"
+msgstr "Annuler"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid ""
+"Are you sure you want to generate a template for electronic signature ?"
+msgstr ""
+"Êtes-vous sûr de vouloir générer un modèle de signature électronique ?"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__product_packing__name__article
+msgid "Article"
+msgstr ""
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "BDC signed by customer"
+msgstr "BDC signé par client"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__product_category__packing_type__box
+#: model:ir.model.fields.selection,name:custom_sale.selection__product_packing__name__box
+msgid "Box"
+msgstr "Carton"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_product__product_brand
+#: model:ir.model.fields,field_description:custom_sale.field_product_template__product_brand
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order_line__product_brand
+msgid "Brand"
+msgstr "Marque"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sign_item_type__active
+msgid ""
+"By unchecking the active field, you can hide a item type without deleting "
+"it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer un type d'élément sans le supprimer."
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_report_element_position__active
+msgid ""
+"By unchecking the active field, you can hide a report element position "
+"without deleting it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer la position d'un élément de rapport "
+"sans le supprimer."
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de configuration"
+
+#. module: custom_sale
+#: model:mail.template,subject:custom_sale.email_template_supplier_quote_signed
+msgid "Confirmation N° {{ object.name or 'n/a' }} signed"
+msgstr "Confirmation N° {{ object.name or 'n/a' }} signé"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Confirm"
+msgstr "Confirmer"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Confirm delivery / billing"
+msgstr "Confirmer la livraison / facturation"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Confirm payment"
+msgstr "Confirmer le paiement"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__create_uid
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__create_uid
+msgid "Created by"
+msgstr "Crée par"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__create_date
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__create_date
+msgid "Created on"
+msgstr "Crée le"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_crm_lead__partner_id
+#: model:res.partner.category,name:custom_sale.kara_res_partner_category_customer
+msgid "Customer"
+msgstr "Client"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__customer_invoice_number
+msgid "Customer invoice number"
+msgstr "Numéro de facture client"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__sale_order__state__invoiced
+msgid "Delivered / Invoiced"
+msgstr "Livré / Facturé"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__display_name
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__sign_request_id
+msgid ""
+"Document related to the model. The value of this field is visible only if "
+"the document has been signed by the person concerned. The link to the "
+"Signature module"
+msgstr ""
+"Document lié au modèle. La valeur de ce champ n'est visible que si "
+"le document a été signé par la personne concernée. Lien vers le "
+"module Signature"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Document signed (electronic signature)"
+msgstr "Document signé (signature électronique)"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Document signed (manual)"
+msgstr "Document signé (manuellement)"
+
+#. module: custom_sale
+#: model:ir.actions.act_window,name:custom_sale.report_element_position_action
+#: model:ir.ui.menu,name:custom_sale.menu_report_element_position
+msgid "Elements position"
+msgstr "Position des éléments"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_settings_view_form
+msgid ""
+"Email template to use for to send supplier when quote to signed by final "
+"customer"
+msgstr ""
+"Modèle d'email à utiliser pour envoyer au fournisseur une fois le devis signé par le client "
+"final"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_settings_view_form
+msgid ""
+"Email template to use when it is the first sending of the quote to the "
+"supplier"
+msgstr ""
+"Modèle d'email à utiliser lors du premier envoi du devis au "
+"fournisseur"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__e_supplier_quote_filename
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__e_supplier_quote_filename_signed
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__supplier_quote_filename_signed
+msgid "File name"
+msgstr "Nom du fichier"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_crm_lead__customer_id
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__customer_id
+msgid "Final customer"
+msgstr "Client final"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Generate template to sign"
+msgstr "Générer modèle à signer"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__height
+msgid "Height"
+msgstr "Hauteur"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__id
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__id
+msgid "ID"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_crm_lead__supplier_id
+#: model:ir.model.fields,help:custom_sale.field_product_product__supplier_id
+#: model:ir.model.fields,help:custom_sale.field_product_template__supplier_id
+#: model:ir.model.fields,help:custom_sale.field_sale_order__supplier_id
+msgid "Industrial or warehouse"
+msgstr "Industriel ou entrepôt"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__invoiced_supplier
+msgid "Invoiced supplier"
+msgstr "Facturé usine"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__sign_item_type_id
+msgid "Item type"
+msgstr "Type d'item"
+
+#. module: custom_sale
+#: model:mail.template,name:custom_sale.email_template_supplier_quote_signed
+msgid "Kara - Send quote signed to supplier"
+msgstr "Kara - Envoyer un devis signé au fournisseur"
+
+#. module: custom_sale
+#: model:mail.template,name:custom_sale.email_template_supplier_sale
+msgid "Kara - Send quote to supplier"
+msgstr "Kara - Envoyer un devis au fournisseur"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_settings_view_form
+msgid "Kara Trading"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing____last_update
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__write_uid
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__write_uid
+msgid "Last Updated by"
+msgstr "Dernière modification par"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__write_date
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Piste/opportunité"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_crm_lead__partner_id
+msgid ""
+"Linked partner (optional). Usually created when converting the lead. You can"
+" find a partner by its Name, TIN, Email or Internal Reference."
+msgstr ""
+"Partenaire lié (optionnel). Généralement créé en convertisant la piste. Vous"
+" pouvez trouver un partenaire par son Nom, TIN, email ou Référence Interne."
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_res_config_settings__supplier_mail_template_id
+#: model:ir.model.fields,field_description:custom_sale.field_res_config_settings__supplier_quote_signed_mail_template_id
+msgid "Mail template"
+msgstr "Modèle d'email"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Model (electronic signature)"
+msgstr "Modèle (signature électronique)"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__sign_template_id
+msgid ""
+"Model created from the file inserted in the field above. The link to the "
+"Signature module"
+msgstr ""
+"Modèle créé à partir du fichier inséré dans le champ ci-dessus. Lien vers le "
+"module Signature"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_report_element_position__name
+msgid "Name displayed on PDF"
+msgstr "Nom affiché sur le PDF"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__custom_report_name
+msgid ""
+"Name of the report that will be generated when printing the PDF. The letter "
+"corresponds to the status of the sale"
+msgstr ""
+"Nom du rapport qui sera généré lors de l'impression du PDF. La lettre "
+"correspond à l'état de la vente"
+
+#. module: custom_sale
+#: model:mail.template,subject:custom_sale.email_template_supplier_sale
+msgid ""
+"New order N° {{ object.name or 'n/a' }} for {{ object.customer_id.name or "
+"'n/a' }} - {{ object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
+msgstr ""
+"Nouvelle commande N° {{ object.name or 'n/a' }} pour {{ object.customer_id.name or "
+"'n/a' }} - {{ object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sign_request__order_id
+#: model:ir.model.fields,field_description:custom_sale.field_sign_template__order_id
+msgid "Order"
+msgstr "Commande"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__sale_order__state__confirmed
+msgid "Order confirmed"
+msgstr "confirmé"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "PDF file to be signed by the client (electronic signature)"
+msgstr "Fichier PDF à signer par le client (signature électronique)"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__custom_report_name
+msgid "PDF report name"
+msgstr "Nom du rapport PDF"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_product__packing_ids
+#: model:ir.model.fields,field_description:custom_sale.field_product_template__packing_ids
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order_line__packing_type
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_product_template_form_view
+msgid "Packing"
+msgstr "Conditionnement"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_category__packing_type
+msgid "Packing type"
+msgstr "Type de conditionnement"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_product_category__packing_type
+#: model:ir.model.fields,help:custom_sale.field_sale_order_line__packing_type
+msgid "Packing type (pallet or box)"
+msgstr "Type de conditionnement (palette ou carton)"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__product_category__packing_type__pallet
+#: model:ir.model.fields.selection,name:custom_sale.selection__product_packing__name__pallet
+msgid "Pallet"
+msgstr "Palette"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__sale_order__state__payed
+msgid "Payed"
+msgstr "Payé"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__posX
+msgid "Position X"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__posY
+msgid "Position Y"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_product_template
+msgid "Product"
+msgstr "Article"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_product_category
+msgid "Product Category"
+msgstr "Catégorie d'article"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__product_template_id
+msgid "Product template"
+msgstr "Modèle de produit"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__qty
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__e_supplier_quote_signed
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__supplier_quote_signed
+msgid "Quote"
+msgstr "Devis"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__quote_send_supplier
+msgid "Quote send supplier"
+msgstr "Devis envoyé au fournisseur"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__sign_request_id
+msgid "Related document"
+msgstr "Document lié"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sign_template_view_form
+msgid "Send"
+msgstr "Envoyer"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Send quote signed to supplier"
+msgstr "Envoyer le devis signé au fournisseur"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Signature"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_sign_item_type
+msgid "Signature Item Type"
+msgstr "Type d'élément de signature"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_sign_request
+msgid "Signature Request"
+msgstr "Demande de signature"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_sign_template
+msgid "Signature Template"
+msgstr "Modèle de signature"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__state
+msgid "Status"
+msgstr "État"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_crm_lead__supplier_id
+#: model:ir.model.fields,field_description:custom_sale.field_product_product__supplier_id
+#: model:ir.model.fields,field_description:custom_sale.field_product_template__supplier_id
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__supplier_id
+#: model:res.partner.category,name:custom_sale.kara_res_partner_category_supplier
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_report_saleorder_document
+msgid "Supplier"
+msgstr "Fournisseur"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__supplier_order
+msgid "Supplier order"
+msgstr "Commande fournisseur"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__e_supplier_quote
+msgid "Supplier quote"
+msgstr "Devis fournisseur"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_settings_view_form
+msgid "Template"
+msgstr "Modèle"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__sign_template_id
+msgid "Template to signed"
+msgstr "Modèle à signer"
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_sale_order__e_supplier_quote_signed
+msgid "The quote signed electronically by the customer in PDF format"
+msgstr "Le devis signé électroniquement par le client au format PDF"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_crm_lead__trading_business
+#: model:ir.model.fields,field_description:custom_sale.field_res_company__trading_business
+#: model:ir.model.fields,field_description:custom_sale.field_sale_order__trading_business
+msgid "Trading business"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__name
+msgid "Type"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_report_element_position__sign_item_type_id
+msgid "Type of field to insert in the PDF document"
+msgstr "Type de champ à insérer dans le document PDF"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_packing__packing_uom
+msgid "Unit of measurement"
+msgstr "Unité de mesure"
+
+#. module: custom_sale
+#: model:mail.template,description:custom_sale.email_template_supplier_quote_signed
+msgid "Used for sending a quote signed to the supplier"
+msgstr "Permet d'envoyer un devis signé au fournisseur"
+
+#. module: custom_sale
+#: model:mail.template,description:custom_sale.email_template_supplier_sale
+msgid ""
+"Used for sending a quote to the supplier for validation for Kara Trading"
+msgstr ""
+"Utilisé pour envoyer un devis au fournisseur pour validation pour Kara Trading"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_report_element_position__width
+msgid "Width"
+msgstr "Largeur"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_product_template_form_view
+msgid "packing lines"
+msgstr "Lignes de conditionnement"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_product_packing
+msgid "product.packing"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_report_element_position
+msgid "report.element.position"
+msgstr ""
+
+#. module: custom_sale
+#: model:mail.template,report_name:custom_sale.email_template_supplier_sale
+msgid "{{ (object.custom_report_name or '').replace('/','_') }}"
+msgstr ""
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Are you sure to confirm the delivery / invoicing ?"
+msgstr "Êtes-vous sûr de vouloir confirmer la livraison / facturation ?"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Are you sure you want to confirm the sale ?"
+msgstr "Êtes-vous sûr de vouloir confirmer la vente ?"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid ""
+"Are you sure you want to confirm the payment ? This action will also confirm "
+"the associated commission"
+msgstr ""
+"Êtes-vous sûr de vouloir confirmer le paiement ? Cette action confirmera également "
+"la commission associée"

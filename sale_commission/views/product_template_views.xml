@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="kara_commission_product_template_form_view" model="ir.ui.view">
+        <field name="name">kara.commission.product.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='general_information']//group[1]" position="after">
+                <group>
+                    <field name="access_commission" invisible="1"/>
+                </group>
+                <group name="commission" string="Commissions" attrs="{'invisible': [('access_commission', '!=', True)]}">
+                    <group>
+                        <field name="commission_type" />
+                        <field name="percentage_value" attrs="{'invisible': [('commission_type', '!=', 'percentage')]}"/>
+                    </group>
+                    <group>
+                        <field name="sale_commission" attrs="{'readonly': [('commission_type', '!=', 'fixed')]}" widget="monetary" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

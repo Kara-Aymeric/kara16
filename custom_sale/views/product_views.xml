@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Product category -->
+    <record id="kara_product_category_form_view" model="ir.ui.view">
+        <field name="name">kara.product.category.form.view</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="packing_type" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product template -->
+    <record id="kara_product_template_form_view" model="ir.ui.view">
+        <field name="name">kara.product.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_standard_price']//field[@name='company_id']" position="after">
+                <field name="access_packing" invisible="1"/>
+                <field name="product_brand" />
+                <field name="supplier_id" />
+            </xpath>
+            <xpath expr="//page[@name='general_information']//group[1]" position="after">
+                <group name="packing" string="Packing" attrs="{'invisible': [('access_packing', '!=', True)]}">
+                    <field name="packing_ids">
+                        <tree editable="bottom" string="packing lines">
+                            <field name="name" />
+                            <field name="qty" />
+                            <field name="packing_uom" />
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
