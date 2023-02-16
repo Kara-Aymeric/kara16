@@ -51,7 +51,7 @@
             </field>
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="customer_invoice_number" attrs="{'required': [('state', 'not in', ['draft', 'cancel'])], 'invisible': ['|', ('access_commission', '!=', True), ('commission_order', '=', True)]}"/>
+                <field name="customer_invoice_number" attrs="{'required': [('state', 'not in', ['draft', 'cancel']), ('commission_order', '!=', True)], 'invisible': ['|', ('access_commission', '!=', True), ('commission_order', '=', True)]}"/>
             </xpath>
 
             <xpath expr="//page[@name='other_information']//group[@name='sales_person']//field[@name='tag_ids']" position="after">
