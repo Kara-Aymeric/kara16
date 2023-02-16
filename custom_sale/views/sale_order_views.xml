@@ -6,19 +6,19 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <button id="action_confirm" position="replace">
-                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirmer" class="btn-primary" type="object" attrs="{'invisible': ['|', ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>
+                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>
             </button>
 
             <xpath expr="//button[@name='action_confirm'][2]" position="replace">
-                <button name="action_confirm" data-hotkey="v" string="Confirmer" type="object" attrs="{'invisible': ['|', ('supplier_order', '=', True), ('state', 'not in', ['draft'])]}"/>
+                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" attrs="{'invisible': ['|', ('supplier_order', '=', True), ('state', 'not in', ['draft'])]}"/>
             </xpath>
 
             <button id="create_invoice" position="before">
-                <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signé par client" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer la vente ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['sent'])]}"/>
+                <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signed by customer" type="object" class="btn-primary" confirm="Are you sure you want to confirm the sale ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['sent'])]}"/>
                 <button id="action_send_quote_signed" name="action_send_quote_signed" string="Send quote signed to supplier" type="object" class="btn-primary" attrs="{'invisible': ['|', '|', ('supplier_order', '=', False), ('state', '!=', 'confirmed'), ('quote_send_supplier', '=', True)]}"/>
-                <button id="action_invoiced_status" name="action_invoiced" string="Confirmer la livraison / facturation" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer la livraison / facturation ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'confirmed')]}"/>
-                <button id="action_payed_status" name="action_payed" string="Confirmer le paiement" type="object" class="btn-primary" confirm="Êtes-vous sûr de confirmer le paiement ? Cette action confirmera également la commission associée" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'invoiced')]}"/>
-                <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signé par client" type="object" confirm="Êtes-vous sûr de confirmer la vente ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['draft'])]}"/>
+                <button id="action_invoiced_status" name="action_invoiced" string="Confirm delivery / billing" type="object" class="btn-primary" confirm="Are you sure to confirm the delivery / invoicing ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'confirmed')]}"/>
+                <button id="action_payed_status" name="action_payed" string="Confirm payment" type="object" class="btn-primary" confirm="Are you sure you want to confirm the payment ? This action will also confirm the associated commission" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', '!=', 'invoiced')]}"/>
+                <button id="action_confirm_supplier" name="action_confirm_supplier" string="BDC signed by customer" type="object" confirm="Are you sure you want to confirm the sale ?" attrs="{'invisible': ['|', ('supplier_order', '=', False), ('state', 'not in', ['draft'])]}"/>
             </button>
             <xpath expr="//button[1]" position="after">
                 <button name="action_create_sign_template" string="Generate template to sign" type="object"
@@ -27,7 +27,7 @@
             </xpath>
 
             <button name="action_cancel" position="replace">
-                <button name="action_cancel" type="object" string="Annuler" attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'done']), ('id', '=', False)]}" data-hotkey="z"/>
+                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'in', ['cancel', 'done']), ('id', '=', False)]}" data-hotkey="z"/>
             </button>
 
             <xpath expr="//group[@name='partner_details']" position="replace">
