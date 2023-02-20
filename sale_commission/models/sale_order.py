@@ -68,14 +68,14 @@ class SaleOrder(models.Model):
                     product_id = self.env['product.product'].search(
                         [('product_tmpl_id', '=', self.env.ref("sale_commission.kara_product_template_commission").id)]
                     )
-                    commission_name = f"Commission pour {order.customer_id.name} sur {line.product_id.name or ''}. " \
+                    commission_name = f"Commission pour {order.customer_id.name}. " \
                                       f"FC N°{order.customer_invoice_number or ''}"
-                    prepare_values += [{
+                    prepare_values = [{
                         'name': commission_name,
                         'product_id': product_id.id,
                         'product_uom_qty': 1,
                         'tax_id': tax if tax else False,
-                        'price_unit': line.price_commission,
+                        'price_unit': order.commission_total,
                         'company_id': company_user.id,
                     }]
             if len(prepare_values) > 0:
