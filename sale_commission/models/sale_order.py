@@ -90,6 +90,8 @@ class SaleOrder(models.Model):
                     child_id = order.copy({
                         'commission_order': True,
                         'order_origin_id': order.id,
+                        'partner_invoice_id': order.supplier_id.id,
+                        'partner_shipping_id': order.supplier_id.id,
                         'custom_report_name': False,
                         'customer_invoice_number': False,
                         'e_supplier_quote': False,
