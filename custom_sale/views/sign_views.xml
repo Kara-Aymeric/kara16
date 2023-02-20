@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="kara_sign_template_view_form" model="ir.ui.view">
+        <field name="name">kara.sign.template.view.form</field>
+        <field name="model">sign.template</field>
+        <field name="inherit_id" ref="sign.sign_template_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="%(sign.action_sign_send_request)d" type="action" class="btn-primary" context="{'sign_directly_without_mail': 0}">Send</button>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="order_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kara_sign_request_view_form" model="ir.ui.view">
+        <field name="name">kara.sign.request.view.form</field>
+        <field name="model">sign.request</field>
+        <field name="inherit_id" ref="sign.sign_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='request_item_ids']" position="before">
+                <div>
+                    <label for="order_id" />
+                    <field name="order_id" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="kara_sign_item_type_tree" model="ir.ui.view">
+        <field name="name">kara.inherit.sign.item.type.tree</field>
+        <field name="model">sign.item.type</field>
+        <field name="inherit_id" ref="sign.sign_item_type_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='auto_field']" position="after">
+                <field name="active" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- Add data (Report element position) into Sign module -->
+        <record id="element_position_name" model="report.element.position">
+            <field name="name">Name</field>
+            <field name="sign_item_type_id" ref="sign.sign_item_type_name"/>
+            <field name="posX">0.621</field>
+            <field name="posY">0.927</field>
+            <field name="width">0.150</field>
+            <field name="height">0.015</field>
+        </record>
+
+        <record id="element_position_date" model="report.element.position">
+            <field name="name">Date</field>
+            <field name="sign_item_type_id" ref="sign.sign_item_type_date"/>
+            <field name="posX">0.788</field>
+            <field name="posY">0.927</field>
+            <field name="width">0.150</field>
+            <field name="height">0.015</field>
+        </record>
+
+        <record id="element_position_signature" model="report.element.position">
+            <field name="name">Signature</field>
+            <field name="sign_item_type_id" ref="sign.sign_item_type_signature"/>
+            <field name="posX">0.694</field>
+            <field name="posY">0.943</field>
+            <field name="width">0.200</field>
+            <field name="height">0.050</field>
+        </record>
+    </data>
+</odoo>
