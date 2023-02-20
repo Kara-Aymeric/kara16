@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
         [('percentage', 'Percentage'), ('fixed', 'Fixed')], string="Commission type", tracking=True)
     percentage_value = fields.Float(string="Percentage value",
                                     help="Value to calculate the commission on the product", tracking=True)
-    sale_commission = fields.Float(string="Commission", store=True, compute="_compute_commission",
+    sale_commission = fields.Float(string="Commission", store=True, compute="_compute_commission", digits=(12, 2),
                                    help="Final value of the commission calculated automatically if the type of "
                                         "commission is 'percentage'", tracking=True)
 
