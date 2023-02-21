@@ -28,13 +28,13 @@ class ResPartner(models.Model):
     sunday_afternoon = fields.Char(string="Sunday afternoon")
 
     # Specificities
-    need_tailgate = fields.Selection(selection=selection, string="Need tailgate")
-    unloading_dock = fields.Selection(selection=selection, string="Unloading dock")
-    semi_trailer = fields.Selection(selection=selection, string="Semi-trailer")
-    van = fields.Selection(selection=selection, string="Van")
-    pedestrian_street = fields.Selection(selection=selection, string="Pedestrian street")
-    prior_authorisation = fields.Selection(selection=selection, string="Prior authorization required")
-    appointment = fields.Selection(selection=selection, string="Appointment")
+    need_tailgate = fields.Selection(selection=selection, string="Need tailgate", default='no')
+    unloading_dock = fields.Selection(selection=selection, string="Unloading dock", default='no')
+    semi_trailer = fields.Selection(selection=selection, string="Semi-trailer", default='no')
+    van = fields.Selection(selection=selection, string="Van", default='no')
+    pedestrian_street = fields.Selection(selection=selection, string="Pedestrian street", default='no')
+    prior_authorisation = fields.Selection(selection=selection, string="Prior authorization required", default='no')
+    appointment = fields.Selection(selection=selection, string="Appointment", default='no')
 
     # Comments
     logistic_comment = fields.Html(string="Comment", translate=True)
