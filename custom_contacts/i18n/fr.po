@@ -1,0 +1,250 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_contacts
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-21 08:32+0000\n"
+"PO-Revision-Date: 2023-02-21 08:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "00h00 - 00h00"
+msgstr ""
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Add a comment..."
+msgstr "Ajouter un commentaire..."
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Afternoon"
+msgstr "Après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__appointment
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__appointment
+msgid "Appointment"
+msgstr "Prise RDV"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__logistic_comment
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__logistic_comment
+msgid "Comment"
+msgstr "Commentaire"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Comments"
+msgstr "Commentaires"
+
+#. module: custom_contacts
+#: model:ir.model,name:custom_contacts.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Delivery schedule"
+msgstr "Horaires livraison"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Friday"
+msgstr "Vendredi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__friday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__friday_afternoon
+msgid "Friday afternoon"
+msgstr "Vendredi après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__friday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__friday_morning
+msgid "Friday morning"
+msgstr "Vendredi matin"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Logistic"
+msgstr "Logistique"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Monday"
+msgstr "Lundi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__monday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__monday_afternoon
+msgid "Monday afternoon"
+msgstr "Lundi après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__monday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__monday_morning
+msgid "Monday morning"
+msgstr "Lundi matin"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Morning"
+msgstr "Matin"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__need_tailgate
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__need_tailgate
+msgid "Need tailgate"
+msgstr "Besoin de Hayon"
+
+#. module: custom_contacts
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__appointment__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__need_tailgate__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__pedestrian_street__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__prior_authorisation__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__semi_trailer__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__unloading_dock__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__van__no
+msgid "No"
+msgstr "Non"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__pedestrian_street
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__pedestrian_street
+msgid "Pedestrian street"
+msgstr "Rue piétonne"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__prior_authorisation
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__prior_authorisation
+msgid "Prior authorization required"
+msgstr "Nécessité Autorisation préalable"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Saturday"
+msgstr "Samedi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__saturday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__saturday_afternoon
+msgid "Saturday afternoon"
+msgstr "Samedi après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__saturday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__saturday_morning
+msgid "Saturday morning"
+msgstr "Samedi matin"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__semi_trailer
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__semi_trailer
+msgid "Semi-trailer"
+msgstr "Semi-remorque"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Specificities"
+msgstr "Spécificités"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Sunday"
+msgstr "Dimanche"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__sunday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__sunday_afternoon
+msgid "Sunday afternoon"
+msgstr "Dimanche après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__sunday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__sunday_morning
+msgid "Sunday morning"
+msgstr "Dimanche matin"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Thursday"
+msgstr "Jeudi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__thursday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__thursday_afternoon
+msgid "Thursday afternoon"
+msgstr "Jeudi après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__thursday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__thursday_morning
+msgid "Thursday morning"
+msgstr "Jeudi matin"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Tuesday"
+msgstr "Mardi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__tuesday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__tuesday_afternoon
+msgid "Tuesday afternoon"
+msgstr "Mardi après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__tuesday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__tuesday_morning
+msgid "Tuesday morning"
+msgstr "Mardi matin"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__unloading_dock
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__unloading_dock
+msgid "Unloading dock"
+msgstr "Quai de déchargement"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__van
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__van
+msgid "Van"
+msgstr "Fourgon"
+
+#. module: custom_contacts
+#: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__wednesday_afternoon
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__wednesday_afternoon
+msgid "Wednesday afternoon"
+msgstr "Mercredi après-midi"
+
+#. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__wednesday_morning
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__wednesday_morning
+msgid "Wednesday morning"
+msgstr "Mercredi matin"
+
+#. module: custom_contacts
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__appointment__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__need_tailgate__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__pedestrian_street__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__prior_authorisation__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__semi_trailer__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__unloading_dock__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__van__yes
+msgid "Yes"
+msgstr "Oui"
