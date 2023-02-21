@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="kara_contact_view_partner_form" model="ir.ui.view">
+        <field name="name">kara.contact.view.partner.form</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Logistic" name="logistic">
+                    <div class="o_group row align-items-start">
+                        <style>
+                            .delivery_schedule td, .delivery_schedule_complement td{padding:0.75rem 0 0.75rem;}
+                        </style>
+                        <div name="delivery_schedule" class="o_inner_group grid col-lg-4">
+                            <div class="g-col-sm-2">
+                                <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">Delivery schedule</div>
+                            </div>
+                            <div class="g-col-sm-2">
+                                <table class="table delivery_schedule" style="width:100%;text-align:center;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Morning</th>
+                                            <th scope="col">-</th>
+                                            <th scope="col">Afternoon</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Monday</th>
+                                            <td><field name="monday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="monday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Tuesday</th>
+                                            <td><field name="tuesday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="tuesday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Wednesday</th>
+                                            <td><field name="wednesday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="wednesday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Thursday</th>
+                                            <td><field name="thursday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="thursday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div name="delivery_schedule_complement" class="o_inner_group grid col-lg-4">
+                            <div class="g-col-sm-2">
+                                <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small" style="color:#FFFFFF;">Delivery schedule</div>
+                            </div>
+                            <div class="g-col-sm-2">
+                                <table class="table delivery_schedule_complement" style="width:100%;text-align:center;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Morning</th>
+                                            <th scope="col">-</th>
+                                            <th scope="col">Afternoon</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Friday</th>
+                                            <td><field name="friday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="friday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Saturday</th>
+                                            <td><field name="saturday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="saturday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" style="text-align:right;">Sunday</th>
+                                            <td><field name="sunday_morning" placeholder="00h00 - 00h00"/></td>
+                                            <td></td>
+                                            <td><field name="sunday_afternoon" placeholder="00h00 - 00h00"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div name="specificities" class="o_inner_group grid col-lg-4">
+                            <div class="g-col-sm-2">
+                                <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">Specificities</div>
+                            </div>
+                            <div class="o_wrap_field d-flex d-sm-contents flex-column mb-3 mb-sm-0" name="logistic_specificities">
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="need_tailgate" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="need_tailgate" />
+                                </div>
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="unloading_dock" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="unloading_dock" />
+                                </div>
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="semi_trailer" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="semi_trailer" />
+                                </div>
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="van" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="van" />
+                                </div>
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="pedestrian_street" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="pedestrian_street" />
+                                </div>
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="prior_authorisation" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="prior_authorisation" />
+                                </div>
+                                <div class="o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break text-900">
+                                    <label for="appointment" />
+                                </div>
+                                <div class="o_cell o_wrap_input flex-grow-1 flex-sm-grow-0" style="width:100%;">
+                                    <field name="appointment" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div name="logistic_comment" class="o_inner_group grid col-lg-12">
+                        <div class="g-col-sm-2">
+                            <div class="o_horizontal_separator mt-4 mb-3 text-uppercase fw-bolder small">Comments</div>
+                        </div>
+                    </div>
+                    <field name="logistic_comment" placeholder="Add a comment..."/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
