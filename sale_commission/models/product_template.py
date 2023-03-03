@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
                                    help="Final value of the commission calculated automatically if the type of "
                                         "commission is 'percentage'", tracking=True)
 
-    @api.depends('commission_type', 'percentage_value')  # VOIR POUR UN ONCHANGE
+    @api.depends('commission_type', 'percentage_value', 'list_price')  # VOIR POUR UN ONCHANGE
     def _compute_commission(self):
         for product in self:
             if product.commission_type == 'percentage' and product.percentage_value > 0:
