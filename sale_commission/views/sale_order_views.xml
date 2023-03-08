@@ -28,9 +28,8 @@
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
         <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
-        <field name="domain">[('commission_order', '=', True)]</field>
+        <field name="domain">[('commission_order', '=', True), ('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
         <field name="context">{'search_default_customer': 1}</field>
-        <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
     </record>
 
     <!-- Custom view part -->

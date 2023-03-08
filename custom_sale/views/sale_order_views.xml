@@ -1,5 +1,18 @@
 <?xml version="1.0"?>
 <odoo>
+    <record id="kara_sale_view_order_tree" model="ir.ui.view">
+        <field name="name">kara.sale.view.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="attributes">
+                <attribute name="decoration-primary">state=='confirmed'</attribute>
+                <attribute name="decoration-warning">state=='invoiced'</attribute>
+                <attribute name="decoration-success">state=='payed'</attribute>
+            </field>
+        </field>
+    </record>
+
     <record id="kara_sale_view_order_form" model="ir.ui.view">
         <field name="name">kara.sale.view.order.form</field>
         <field name="model">sale.order</field>
