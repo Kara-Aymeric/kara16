@@ -19,7 +19,7 @@
         <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
         <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
         <field name="domain">[('commission_order', '=', True)]</field>
-        <field name="context">{'search_default_my_quotation': 1, 'search_default_customer': 1}</field>
+        <field name="context">{'search_default_my_quotation': 1, 'search_default_customer': 1, 'hide_commission': 1}</field>
     </record>
 
     <record id="action_commission_orders" model="ir.actions.act_window">
@@ -29,10 +29,21 @@
         <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
         <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
         <field name="domain">[('commission_order', '=', True), ('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
-        <field name="context">{'search_default_customer': 1}</field>
+        <field name="context">{'search_default_customer': 1, 'hide_commission': 1}</field>
     </record>
 
     <!-- Custom view part -->
+    <record id="kara_commission_sale_view_order_tree" model="ir.ui.view">
+        <field name="name">kara.commission.sale.view.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_total" position="after">
+                <field name="commission_total" invisible="context.get('hide_commission', False)" />
+            </field>
+        </field>
+    </record>
+
     <record id="kara_commission_sale_view_order_form" model="ir.ui.view">
         <field name="name">kara.commission.sale.view.order.form</field>
         <field name="model">sale.order</field>
