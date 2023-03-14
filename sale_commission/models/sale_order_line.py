@@ -15,6 +15,15 @@ class SaleOrderLine(models.Model):
             'price_commission': qty * commission,
         })
 
+    @api.onchange('price_unit')
+    def _onchange_price_unit(self):
+        """ Si price unit is updated in order line and if commission is percentage type, recalculate commission line """
+        product_tmpl_id = self.product_template_id
+        qty = self.product_uom_qty
+        if product_tmpl_id.commission_type == 'percentage' and product_tmpl_id.percentage_value > 0:
+            sale_commission = (product_tmpl_id.percentage_value / 100) * self.price_unit
+            self._change_price_commission(sale_commission, qty)
+
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_uom_qty(self):
         """ Get principal commission product """
