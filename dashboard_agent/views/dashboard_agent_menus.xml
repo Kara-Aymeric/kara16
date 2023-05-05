@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <menuitem id="dashboard_agent_principal_menu"
+              web_icon="dashboard_agent,static/description/icon.png"
+              name="Dashboard Agent"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_sale_menu"
+              name="My Sales"
+              sequence="10"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_sale"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_commission_menu"
+              name="My Commissions"
+              sequence="20"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_commission"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <!-- Configuration -->
+    <menuitem id="dashboard_agent_config"
+              name="Configuration"
+              sequence="20"
+              parent="dashboard_agent_principal_menu"
+              groups="dashboard_agent.group_admin"/>
+
+    <menuitem id="menu_dashboard_agent_general_settings"
+              name="Configuration"
+              parent="dashboard_agent_config"
+              sequence="10"
+              action="dashboard_agent.action_dashboard_agent_config_settings"/>
+
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <!-- Action sale order part -->
+    <record id="action_dashboard_agent_sale" model="ir.actions.act_window">
+        <field name="name">My Sales</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new quote, the first step of a new sale !
+            </p>
+        </field>
+    </record>
+
+    <record id="action_view_dashboard_agent_sale_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="act_window_id" ref="action_dashboard_agent_sale"/>
+    </record>
+
+    <record id="action_view_dashboard_agent_sale_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale.view_order_form"/>
+        <field name="act_window_id" ref="action_dashboard_agent_sale"/>
+    </record>
+
+    <record id="action_dashboard_agent_commission" model="ir.actions.act_window">
+        <field name="name">My Commissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_view_dashboard_agent_commission_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="act_window_id" ref="action_dashboard_agent_commission"/>
+    </record>
+
+    <record id="action_view_dashboard_agent_commission_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale.view_order_form"/>
+        <field name="act_window_id" ref="action_dashboard_agent_commission"/>
+    </record>
+</odoo>

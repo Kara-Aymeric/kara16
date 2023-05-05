@@ -15,8 +15,13 @@
     'data': [
         # Data
         'data/product_data.xml',
+
         # Report
         'report/sale_report_templates.xml',
+
+        # Security
+        'security/ir.model.access.csv',
+
         # Views
         'views/account_tax_views.xml',
         'views/product_template_views.xml',
