@@ -14,6 +14,7 @@ class ProductTemplate(models.Model):
     sale_commission = fields.Float(string="Commission", store=True, compute="_compute_commission", digits=(12, 2),
                                    help="Final value of the commission calculated automatically if the type of "
                                         "commission is 'percentage'", tracking=True)
+    agent_commission_ids = fields.One2many('agent.commission', 'product_template_id', string="Agent commission")
 
     @api.depends('commission_type', 'percentage_value', 'list_price')  # VOIR POUR UN ONCHANGE
     def _compute_commission(self):
