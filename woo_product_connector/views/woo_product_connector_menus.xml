@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="woo_product_config"
+              name="WooCommerce"
+              parent="sale.menu_sale_config"
+              sequence="55">
+
+        <menuitem id="menu_product_brand_action"
+                  action="woo_product_connector.woo_product_brand_action"
+                  groups="base.group_no_one"
+                  sequence="10"/>
+
+        <menuitem id="menu_product_packing_action"
+                  action="woo_product_connector.woo_product_packing_action"
+                  groups="base.group_no_one"
+                  sequence="20"/>
+
+        <menuitem id="menu_product_weight_action"
+                  action="woo_product_connector.woo_product_weight_action"
+                  groups="base.group_no_one"
+                  sequence="30"/>
+
+    </menuitem>
+
+</odoo>
