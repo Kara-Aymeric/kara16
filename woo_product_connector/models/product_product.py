@@ -11,14 +11,17 @@ class ProductProduct(models.Model):
     )
     woo_price = fields.Monetary(
         string="Price (HT)",
+        compute="_compute_woo_price",
+        store=True,
+        readonly=False,
         tracking=True
     )
-    woo_taxes_id = fields.Many2many(
+    woo_taxes_ids = fields.Many2many(
         comodel_name='account.tax',
         string="Taxes",
         domain=[('type_tax_use', '=', 'sale')],
         help="Taxes used for WooCommerce",
-        compute="_compute_woo_taxes_id",
+        compute="_compute_woo_taxes_ids",
         store=True,
         tracking=True
     )
@@ -39,6 +42,7 @@ class ProductProduct(models.Model):
     woo_subcateg_id = fields.Many2one(
         'product.category',
         string="Subcategory",
+        domain="[('parent_id', '=', woo_categ_id)]",
         help="This information is useful for the filters of the e-commerce site.",
         tracking=True
     )
@@ -48,15 +52,15 @@ class ProductProduct(models.Model):
         store=True,
         tracking=True
     )
-    woo_weight_id = fields.Many2many(
+    woo_weight_ids = fields.Many2many(
         'woo.product.weight',
         string="Weight",
         help="This information is the variants displayed on the product sheet of the e-commerce site.",
         tracking=True
     )
-    woo_packing_id = fields.Many2many(
+    woo_packing_ids = fields.Many2many(
         'woo.product.packing',
-        string="Weight",
+        string="Packing",
         help="This information is the variants displayed on the product sheet of the e-commerce site.",
         tracking=True
     )
@@ -67,7 +71,7 @@ class ProductProduct(models.Model):
         tracking=True
     )
     woo_barcode_file = fields.Binary(
-        string="Barcode",
+        string="Barcode (image)",
         tracking=True
     )
     woo_sync = fields.Boolean(
@@ -78,14 +82,24 @@ class ProductProduct(models.Model):
     )
 
     @api.depends('taxes_id')
-    def _compute_woo_taxes_id(self):
+    def _compute_woo_taxes_ids(self):
         """ Get principal taxes """
         for product in self:
-            woo_taxes_id = False
+            woo_taxes_ids = False
             if product.taxes_id:
-                woo_taxes_id = product.taxes_id
+                woo_taxes_ids = product.taxes_id
 
-            product.woo_taxes_id = woo_taxes_id
+            product.woo_taxes_ids = woo_taxes_ids
+
+    @api.depends('lst_price')
+    def _compute_woo_price(self):
+        """ Get principal price unit """
+        for product in self:
+            woo_price = False
+            if product.lst_price:
+                woo_price = product.lst_price
+
+            product.woo_price = woo_price
 
     @api.depends('categ_id')
     def _compute_woo_categ_id(self):
@@ -116,3 +130,8 @@ class ProductProduct(models.Model):
                 woo_barcode = product.barcode
 
             product.woo_barcode = woo_barcode
+
+    @api.onchange('woo_categ_id')
+    def _onchange_woo_categ_id(self):
+        """ Allows to delete the value of the 'subcategory' field when the category is modified """
+        self.woo_subcateg_id = False
