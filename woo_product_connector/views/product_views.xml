@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="agorane_product_template_form_view" model="ir.ui.view">
+        <field name="name">Agorane product template form view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page name="woo_product_information" string="Product information (Woo)">
+                    <group name="woo_information" string="Information for WooCommerce">
+                        <group>
+                            <field name="woo_name"/>
+                            <field name="woo_list_price"/>
+                            <field name="woo_taxes_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="woo_brand_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            <field name="woo_categ_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            <field name="woo_subcateg_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="woo_weight_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="woo_packing_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="woo_sync"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="agorane_product_normal_form_view" model="ir.ui.view">
+        <field name="name">Agorane product normal form view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Attributes part -->
+            <field name="woo_name" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="woo_list_price" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="woo_brand_id" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="woo_categ_id" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="woo_subcateg_id" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="woo_weight_ids" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="woo_packing_ids" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <field name="woo_sync" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+            <!-- New field display part -->
+            <field name="woo_name" position="after">
+                <field name="woo_product_name" />
+            </field>
+            <field name="woo_list_price" position="after">
+                <field name="woo_lst_price" />
+            </field>
+            <field name="woo_packing_ids" position="after">
+                <field name="woo_reference"/>
+                <field name="woo_barcode"/>
+                <field name="woo_barcode_file" widget="image" options="{'size': [0, 90]}"/>
+            </field>
+            <field name="woo_sync" position="after">
+                <field name="woo_product_sync" attrs="{'invisible': [('woo_sync', '!=', True)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>
