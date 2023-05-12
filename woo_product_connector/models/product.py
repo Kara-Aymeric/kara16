@@ -72,8 +72,8 @@ class ProductTemplate(models.Model):
     def _compute_woo_name(self):
         """ Get principal product template name """
         for product in self:
-            woo_name = False
-            if product.name:
+            woo_name = product.woo_name
+            if product.name and not woo_name:
                 woo_name = product.name
 
             product.woo_name = woo_name
@@ -92,8 +92,8 @@ class ProductTemplate(models.Model):
     def _compute_woo_list_price(self):
         """ Get principal price unit """
         for product in self:
-            woo_list_price = False
-            if product.list_price:
+            woo_list_price = product.woo_list_price
+            if product.list_price and woo_list_price == 0:
                 woo_list_price = product.list_price
 
             product.woo_list_price = woo_list_price
@@ -102,8 +102,8 @@ class ProductTemplate(models.Model):
     def _compute_woo_categ_id(self):
         """ Get principal product category """
         for product in self:
-            woo_categ_id = False
-            if product.categ_id:
+            woo_categ_id = product.woo_categ_id
+            if product.categ_id and not woo_categ_id:
                 woo_categ_id = product.categ_id
 
             product.woo_categ_id = woo_categ_id
@@ -158,8 +158,8 @@ class ProductProduct(models.Model):
     def _compute_woo_product_name(self):
         """ Get principal product name """
         for product in self:
-            woo_product_name = False
-            if product.name:
+            woo_product_name = product.woo_product_name
+            if product.name and not woo_product_name:
                 woo_product_name = product.name
 
             product.woo_product_name = woo_product_name
@@ -168,8 +168,8 @@ class ProductProduct(models.Model):
     def _compute_woo_lst_price(self):
         """ Get principal price unit """
         for product in self:
-            woo_lst_price = False
-            if product.lst_price:
+            woo_lst_price = product.woo_lst_price
+            if product.lst_price and woo_lst_price == 0:
                 woo_lst_price = product.lst_price
 
             product.woo_lst_price = woo_lst_price
