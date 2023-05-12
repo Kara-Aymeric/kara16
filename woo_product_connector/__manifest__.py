@@ -12,6 +12,7 @@
         # Security
         'security/ir.model.access.csv',
         # Views
+        'views/product_template_views.xml',
         'views/product_views.xml',
         'views/woo_product_connector_menus.xml',
     ],

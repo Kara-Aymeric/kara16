@@ -5,63 +5,24 @@ from odoo import api, fields, models, _
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    woo_name = fields.Char(
+    woo_product_name = fields.Char(
         string="Name",
+        compute="_compute_woo_product_name",
+        store=True,
+        readonly=False,
         tracking=True
     )
-    woo_price = fields.Monetary(
+    woo_lst_price = fields.Monetary(
         string="Price (HT)",
-        compute="_compute_woo_price",
+        compute="_compute_woo_lst_price",
         store=True,
         readonly=False,
-        tracking=True
-    )
-    woo_taxes_ids = fields.Many2many(
-        comodel_name='account.tax',
-        string="Taxes",
-        domain=[('type_tax_use', '=', 'sale')],
-        help="Taxes used for WooCommerce",
-        compute="_compute_woo_taxes_ids",
-        store=True,
-        tracking=True
-    )
-    woo_brand_id = fields.Many2one(
-        'woo.product.brand',
-        string="Brand",
-        tracking=True
-    )
-    woo_categ_id = fields.Many2one(
-        'product.category',
-        string="Category",
-        help="This information is useful for the filters of the e-commerce site.",
-        compute="_compute_woo_categ_id",
-        store=True,
-        readonly=False,
-        tracking=True
-    )
-    woo_subcateg_id = fields.Many2one(
-        'product.category',
-        string="Subcategory",
-        domain="[('parent_id', '=', woo_categ_id)]",
-        help="This information is useful for the filters of the e-commerce site.",
         tracking=True
     )
     woo_reference = fields.Char(
         string="Reference",
         compute="_compute_woo_reference",
         store=True,
-        tracking=True
-    )
-    woo_weight_ids = fields.Many2many(
-        'woo.product.weight',
-        string="Weight",
-        help="This information is the variants displayed on the product sheet of the e-commerce site.",
-        tracking=True
-    )
-    woo_packing_ids = fields.Many2many(
-        'woo.product.packing',
-        string="Packing",
-        help="This information is the variants displayed on the product sheet of the e-commerce site.",
         tracking=True
     )
     woo_barcode = fields.Char(
@@ -74,42 +35,32 @@ class ProductProduct(models.Model):
         string="Barcode (image)",
         tracking=True
     )
-    woo_sync = fields.Boolean(
-        string="E-Shop synchro",
+    woo_product_sync = fields.Boolean(
+        string="E-Shop variant synchro",
         help="When this option is active, the product is displayed on the e-commerce site. "
              "The unit price must be different from 0.",
         tracking=True
     )
 
-    @api.depends('taxes_id')
-    def _compute_woo_taxes_ids(self):
-        """ Get principal taxes """
+    @api.depends('name')
+    def _compute_woo_product_name(self):
+        """ Get principal product name """
         for product in self:
-            woo_taxes_ids = False
-            if product.taxes_id:
-                woo_taxes_ids = product.taxes_id
+            woo_product_name = False
+            if product.name:
+                woo_product_name = product.name
 
-            product.woo_taxes_ids = woo_taxes_ids
+            product.woo_product_name = woo_product_name
 
     @api.depends('lst_price')
-    def _compute_woo_price(self):
+    def _compute_woo_lst_price(self):
         """ Get principal price unit """
         for product in self:
-            woo_price = False
+            woo_lst_price = False
             if product.lst_price:
-                woo_price = product.lst_price
+                woo_lst_price = product.lst_price
 
-            product.woo_price = woo_price
-
-    @api.depends('categ_id')
-    def _compute_woo_categ_id(self):
-        """ Get principal product category """
-        for product in self:
-            woo_categ_id = False
-            if product.categ_id:
-                woo_categ_id = product.categ_id
-
-            product.woo_categ_id = woo_categ_id
+            product.woo_lst_price = woo_lst_price
 
     @api.depends('default_code')
     def _compute_woo_reference(self):
