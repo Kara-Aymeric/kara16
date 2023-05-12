@@ -59,6 +59,8 @@
         <field name="arch" type="xml">
             <tree string="Product weight" editable="bottom" delete="false">
                 <field name="name"/>
+                <field name="quantity" required="1"/>
+                <field name="weight_uom" required="1"/>
                 <field name="active" widget="boolean_toggle"/>
             </tree>
         </field>
