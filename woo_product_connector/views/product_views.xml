@@ -72,7 +72,7 @@
                 <field name="woo_barcode_file" widget="image" options="{'size': [0, 90]}"/>
             </field>
             <field name="woo_sync" position="after">
-                <field name="woo_product_sync" />
+                <field name="woo_product_sync" attrs="{'invisible': [('woo_sync', '!=', True)]}"/>
             </field>
         </field>
     </record>
