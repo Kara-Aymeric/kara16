@@ -109,15 +109,6 @@ class ProductTemplate(models.Model):
 
             product.woo_categ_id = woo_categ_id
 
-    @api.constrains('woo_sync', 'woo_list_price')
-    def _check_price_for_woo(self):
-        """ Validation constraint if the price is zero when you want to synchronize the product with WooCommerce """
-        for product in self:
-            if product.woo_sync and product.woo_list_price <= 0:
-                raise ValidationError(
-                    _("Invalid price. You cannot synchronize this product with the E-Shop. Please, enter a price.")
-                )
-
     @api.onchange('woo_categ_id')
     def _onchange_woo_categ_id(self):
         """ Allows to delete the value of the 'subcategory' field when the category is modified """
@@ -139,6 +130,34 @@ class ProductProduct(models.Model):
         compute="_compute_woo_lst_price",
         store=True,
         readonly=False,
+        tracking=True
+    )
+    woo_product_subcateg_id = fields.Many2one(
+        'product.category',
+        string="Subcategory",
+        compute="_compute_woo_product_subcateg_id",
+        store=True,
+        readonly=False,
+        domain="[('parent_id', '=', woo_categ_id)]",
+        help="This information is useful for the filters of the e-commerce site.",
+        tracking=True
+    )
+    woo_product_weight_ids = fields.Many2many(
+        'woo.product.weight',
+        string="Weight",
+        compute="_compute_woo_product_weight_ids",
+        store=True,
+        readonly=False,
+        help="This information is the variants displayed on the product sheet of the e-commerce site.",
+        tracking=True
+    )
+    woo_product_packing_ids = fields.Many2many(
+        'woo.product.packing',
+        string="Packing",
+        compute="_compute_woo_product_packing_ids",
+        store=True,
+        readonly=False,
+        help="This information is the variants displayed on the product sheet of the e-commerce site.",
         tracking=True
     )
     woo_reference = fields.Char(
@@ -183,6 +202,36 @@ class ProductProduct(models.Model):
                 woo_lst_price = product.lst_price
 
             product.woo_lst_price = woo_lst_price
+
+    @api.depends('woo_subcateg_id')
+    def _compute_woo_product_subcateg_id(self):
+        """ Get principal subcategory """
+        for product in self:
+            woo_product_subcateg_id = product.woo_product_subcateg_id
+            if product.woo_subcateg_id and not woo_product_subcateg_id:
+                woo_product_subcateg_id = product.woo_subcateg_id
+
+            product.woo_product_subcateg_id = woo_product_subcateg_id
+
+    @api.depends('woo_weight_ids')
+    def _compute_woo_product_weight_ids(self):
+        """ Get principal weight """
+        for product in self:
+            woo_product_weight_ids = product.woo_product_weight_ids
+            if product.woo_weight_ids and not woo_product_weight_ids:
+                woo_product_weight_ids = product.woo_weight_ids
+
+            product.woo_product_weight_ids = woo_product_weight_ids
+
+    @api.depends('woo_packing_ids')
+    def _compute_woo_product_packing_ids(self):
+        """ Get principal packing """
+        for product in self:
+            woo_product_packing_ids = product.woo_product_packing_ids
+            if product.woo_packing_ids and not woo_product_packing_ids:
+                woo_product_packing_ids = product.woo_packing_ids
+
+            product.woo_product_packing_ids = woo_product_packing_ids
 
     @api.depends('default_code')
     def _compute_woo_reference(self):
