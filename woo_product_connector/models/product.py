@@ -141,6 +141,34 @@ class ProductProduct(models.Model):
         readonly=False,
         tracking=True
     )
+    woo_product_subcateg_id = fields.Many2one(
+        'product.category',
+        string="Subcategory",
+        compute="_compute_woo_product_subcateg_id",
+        store=True,
+        readonly=False,
+        domain="[('parent_id', '=', woo_categ_id)]",
+        help="This information is useful for the filters of the e-commerce site.",
+        tracking=True
+    )
+    woo_product_weight_ids = fields.Many2many(
+        'woo.product.weight',
+        string="Weight",
+        compute="_compute_woo_product_weight_ids",
+        store=True,
+        readonly=False,
+        help="This information is the variants displayed on the product sheet of the e-commerce site.",
+        tracking=True
+    )
+    woo_product_packing_ids = fields.Many2many(
+        'woo.product.packing',
+        string="Packing",
+        compute="_compute_woo_product_packing_ids",
+        store=True,
+        readonly=False,
+        help="This information is the variants displayed on the product sheet of the e-commerce site.",
+        tracking=True
+    )
     woo_reference = fields.Char(
         string="Reference",
         compute="_compute_woo_reference",
@@ -183,6 +211,36 @@ class ProductProduct(models.Model):
                 woo_lst_price = product.lst_price
 
             product.woo_lst_price = woo_lst_price
+
+    @api.depends('woo_subcateg_id')
+    def _compute_woo_product_subcateg_id(self):
+        """ Get principal subcategory """
+        for product in self:
+            woo_product_subcateg_id = product.woo_product_subcateg_id
+            if product.woo_subcateg_id and not woo_product_subcateg_id:
+                woo_product_subcateg_id = product.woo_subcateg_id
+
+            product.woo_product_subcateg_id = woo_product_subcateg_id
+
+    @api.depends('woo_weight_ids')
+    def _compute_woo_product_weight_ids(self):
+        """ Get principal weight """
+        for product in self:
+            woo_product_weight_ids = product.woo_product_weight_ids
+            if product.woo_weight_ids and not woo_product_weight_ids:
+                woo_product_weight_ids = product.woo_weight_ids
+
+            product.woo_product_weight_ids = woo_product_weight_ids
+
+    @api.depends('woo_packing_ids')
+    def _compute_woo_product_packing_ids(self):
+        """ Get principal packing """
+        for product in self:
+            woo_product_packing_ids = product.woo_product_packing_ids
+            if product.woo_packing_ids and not woo_product_packing_ids:
+                woo_product_packing_ids = product.woo_packing_ids
+
+            product.woo_product_packing_ids = woo_product_packing_ids
 
     @api.depends('default_code')
     def _compute_woo_reference(self):
