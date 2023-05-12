@@ -13,7 +13,7 @@
     </record>
 
     <record id="woo_product_brand_action" model="ir.actions.act_window">
-        <field name="name">Woo product brand action</field>
+        <field name="name">Product brand</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">woo.product.brand</field>
         <field name="view_mode">tree</field>
@@ -39,7 +39,7 @@
     </record>
 
     <record id="woo_product_packing_action" model="ir.actions.act_window">
-        <field name="name">Woo product packing action</field>
+        <field name="name">Product packing</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">woo.product.packing</field>
         <field name="view_mode">tree</field>
@@ -65,7 +65,7 @@
     </record>
 
     <record id="woo_product_weight_action" model="ir.actions.act_window">
-        <field name="name">Woo product weight action</field>
+        <field name="name">Product weight</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">woo.product.weight</field>
         <field name="view_mode">tree</field>

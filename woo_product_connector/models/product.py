@@ -64,8 +64,8 @@ class ProductTemplate(models.Model):
     )
     woo_sync = fields.Boolean(
         string="E-Shop synchro",
-        help="When this option is active, the product and all variants of this product are displayed on the e-commerce "
-             "site. The unit price must be different from 0.",
+        help="When this option is active, the product is displayed on the e-commerce site. "
+             "The unit price must be different from 0.",
         tracking=True
     )
 
