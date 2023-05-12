@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class ProductTemplate(models.Model):
@@ -108,6 +109,15 @@ class ProductTemplate(models.Model):
 
             product.woo_categ_id = woo_categ_id
 
+    @api.constrains('woo_sync', 'woo_list_price')
+    def _check_price_for_woo(self):
+        """ Validation constraint if the price is zero when you want to synchronize the product with WooCommerce """
+        for product in self:
+            if product.woo_sync and product.woo_list_price <= 0:
+                raise ValidationError(
+                    _("Invalid price. You cannot synchronize this product with the E-Shop. Please, enter a price.")
+                )
+
     @api.onchange('woo_categ_id')
     def _onchange_woo_categ_id(self):
         """ Allows to delete the value of the 'subcategory' field when the category is modified """
@@ -193,6 +203,15 @@ class ProductProduct(models.Model):
                 woo_barcode = product.barcode
 
             product.woo_barcode = woo_barcode
+
+    @api.constrains('woo_product_sync', 'woo_lst_price')
+    def _check_product_price_for_woo(self):
+        """ Validation constraint if the price is zero when you want to synchronize the product with WooCommerce """
+        for product in self:
+            if product.woo_product_sync and product.woo_lst_price <= 0:
+                raise ValidationError(
+                    _("Invalid price. You cannot synchronize this product with the E-Shop. Please, enter a price.")
+                )
 
     @api.onchange('woo_categ_id')
     def _onchange_woo_categ_id(self):
