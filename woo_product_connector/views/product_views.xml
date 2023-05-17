@@ -15,6 +15,7 @@
                             <field name="woo_brand_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                             <field name="woo_categ_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                             <field name="woo_subcateg_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            <field name="woo_status_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True, 'color_field': 'color'}"/>
                         </group>
                         <group>
                             <field name="woo_weight_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
@@ -51,6 +52,10 @@
                 <attribute name="readonly">1</attribute>
                 <attribute name="invisible">1</attribute>
             </field>
+            <field name="woo_status_ids" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
+            </field>
             <field name="woo_weight_ids" position="attributes">
                 <attribute name="readonly">1</attribute>
                 <attribute name="invisible">1</attribute>
@@ -71,6 +76,7 @@
             </field>
             <field name="woo_subcateg_id" position="after">
                 <field name="woo_product_subcateg_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                <field name="woo_product_status_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True, 'color_field': 'color'}"/>
             </field>
             <field name="woo_packing_ids" position="after">
                 <field name="woo_product_weight_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>

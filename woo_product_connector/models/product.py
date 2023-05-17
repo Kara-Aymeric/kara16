@@ -50,6 +50,12 @@ class ProductTemplate(models.Model):
         help="This information is useful for the filters of the e-commerce site.",
         tracking=True
     )
+    woo_status_ids = fields.Many2many(
+        'woo.product.status',
+        string="Status",
+        help="This information is the product status displayed on the product sheet of the e-commerce site.",
+        tracking=True
+    )
     woo_weight_ids = fields.Many2many(
         'woo.product.weight',
         string="Weight",
@@ -142,6 +148,15 @@ class ProductProduct(models.Model):
         help="This information is useful for the filters of the e-commerce site.",
         tracking=True
     )
+    woo_product_status_ids = fields.Many2many(
+        'woo.product.status',
+        string="Status",
+        compute="_compute_woo_product_status_ids",
+        store=True,
+        readonly=False,
+        help="This information is the product status displayed on the product sheet of the e-commerce site.",
+        tracking=True
+    )
     woo_product_weight_ids = fields.Many2many(
         'woo.product.weight',
         string="Weight",
@@ -212,6 +227,16 @@ class ProductProduct(models.Model):
                 woo_product_subcateg_id = product.woo_subcateg_id
 
             product.woo_product_subcateg_id = woo_product_subcateg_id
+
+    @api.depends('woo_status_ids')
+    def _compute_woo_product_status_ids(self):
+        """ Get principal product status """
+        for product in self:
+            woo_product_status_ids = product.woo_product_status_ids
+            if product.woo_status_ids and not woo_product_status_ids:
+                woo_product_status_ids = product.woo_status_ids
+
+            product.woo_product_status_ids = woo_product_status_ids
 
     @api.depends('woo_weight_ids')
     def _compute_woo_product_weight_ids(self):

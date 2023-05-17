@@ -79,4 +79,32 @@
         <field name="view_id" ref="woo_product_connector.view_woo_product_weight_tree"/>
         <field name="act_window_id" ref="woo_product_weight_action"/>
     </record>
+
+    <!-- Status -->
+    <record id="view_woo_product_status_tree" model="ir.ui.view">
+        <field name="name">view woo product status tree</field>
+        <field name="model">woo.product.status</field>
+        <field name="arch" type="xml">
+            <tree string="Product status" editable="bottom" delete="false">
+                <field name="name"  required="1"/>
+                <field name="color" widget="color_picker"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="woo_product_status_action" model="ir.actions.act_window">
+        <field name="name">Product status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.status</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_view_woo_product_status_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="woo_product_connector.view_woo_product_status_tree"/>
+        <field name="act_window_id" ref="woo_product_status_action"/>
+    </record>
+
 </odoo>
