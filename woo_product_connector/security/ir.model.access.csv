@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_woo_product_brand,access.woo.product.brand,model_woo_product_brand,base.group_user,1,1,1,1
 access_woo_product_packing,access.woo.product.packing,model_woo_product_packing,base.group_user,1,1,1,1
 access_woo_product_weight,access.woo.product.weight,model_woo_product_weight,base.group_user,1,1,1,1
+access_woo_product_status,access.woo.product.status,model_woo_product_status,base.group_user,1,1,1,1
