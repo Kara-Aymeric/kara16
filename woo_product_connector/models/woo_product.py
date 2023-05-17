@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from random import randint
 
 
 class WooProductBrand(models.Model):
@@ -58,3 +59,23 @@ class WooProductWeight(models.Model):
                 name = f"{record.quantity}{record.weight_uom.name}"
 
             record.name = name
+
+
+class WooProductStatus(models.Model):
+    _name = 'woo.product.status'
+    _description = "WooCommerce product status"
+
+    def _get_default_color(self):
+        return randint(1, 11)
+
+    name = fields.Char(
+        string="Name"
+    )
+    color = fields.Integer(
+        string="Color",
+        default=_get_default_color
+    )
+    active = fields.Boolean(
+        default=True,
+        help="By unchecking the active field, you can hide a brand without deleting it."
+    )

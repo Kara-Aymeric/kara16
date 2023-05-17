@@ -20,6 +20,10 @@
                   action="woo_product_connector.woo_product_weight_action"
                   sequence="30"/>
 
+        <menuitem id="menu_product_status_action"
+                  name="Product status"
+                  action="woo_product_connector.woo_product_status_action"
+                  sequence="40"/>
     </menuitem>
 
 </odoo>
