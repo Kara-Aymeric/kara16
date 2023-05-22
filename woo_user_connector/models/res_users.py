@@ -24,24 +24,21 @@ class ResUsers(models.Model):
         string="Agent reference",
         help="This (unique) reference makes it possible to link WooCommerce and Odoo when creating a contact "
              "account from WooCommerce. This code also allows the default allocation of a commission for this contact.",
-        required=True,
-        tracking=True
+        required=True
     )
 
     agent_commission = fields.Float(
         string="Commission",
         help="When creating a contact from WooCommerce, this commission is recovered for "
              "the assigned to the created contact.",
-        default=_get_default_agent_commission,
-        tracking=True
+        default=_get_default_agent_commission
     )
 
     agent_discount_commission = fields.Float(
         string="Discount commission",
         help="When creating a contact from WooCommerce, this commission is recovered for "
              "the assigned to the created contact.",
-        default=_get_default_agent_discount_commission,
-        tracking=True
+        default=_get_default_agent_discount_commission
     )
 
     @api.constrains('agent_reference')
