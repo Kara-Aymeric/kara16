@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-22 12:42+0000\n"
-"PO-Revision-Date: 2023-05-22 12:42+0000\n"
+"POT-Creation-Date: 2023-05-22 14:01+0000\n"
+"PO-Revision-Date: 2023-05-22 14:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,11 +36,17 @@ msgid "Agorane - Agent commission"
 msgstr "Agorane - Commission agent"
 
 #. module: woo_user_connector
+#: model:ir.model.fields,field_description:woo_user_connector.field_res_partner__allow_flexible_payment
+#: model:ir.model.fields,field_description:woo_user_connector.field_res_users__allow_flexible_payment
+msgid "Allow flexible payment"
+msgstr "Autorise paiement flexible"
+
+#. module: woo_user_connector
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_config_settings__agent_commission
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_partner__agent_commission
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_users__agent_commission
 msgid "Commission"
-msgstr "Commission"
+msgstr ""
 
 #. module: woo_user_connector
 #: model:ir.model,name:woo_user_connector.model_res_config_settings
@@ -50,7 +56,7 @@ msgstr "Paramètres de configuration"
 #. module: woo_user_connector
 #: model:ir.model,name:woo_user_connector.model_res_partner
 msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
 #. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_settings_view_form
@@ -60,7 +66,8 @@ msgstr "Commission agent par défaut lors de la création d'un compte Odoo"
 #. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_settings_view_form
 msgid "Default agent discount commission when creating Odoo account"
-msgstr "Commission promo agent par défaut lors de la création d'un compte Odoo"
+msgstr ""
+"Commission promo agent par défaut lors de la création d'un compte Odoo"
 
 #. module: woo_user_connector
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_config_settings__agent_discount_commission
@@ -88,8 +95,8 @@ msgid ""
 "creating a contact account from WooCommerce. This code also allows the "
 "default allocation of a commission for this contact."
 msgstr ""
-"Cette référence (unique) permet de lier WooCommerce et Odoo lors de "
-"la création d'un contact depuis WooCommerce. Ce code permet également "
+"Cette référence (unique) permet de lier WooCommerce et Odoo lors de la "
+"création d'un contact depuis WooCommerce. Ce code permet également "
 "l'attribution par défaut d'une commission pour ce contact."
 
 #. module: woo_user_connector
@@ -104,5 +111,5 @@ msgid ""
 "When creating a contact from WooCommerce, this commission is recovered for "
 "the assigned to the created contact."
 msgstr ""
-"Lors de la création d'un contact depuis WooCommerce, cette commission est récupérée pour "
-"l'affecter au contact créé."
+"Lors de la création d'un contact depuis WooCommerce, cette commission est "
+"récupérée pour l'affecter au contact créé."
