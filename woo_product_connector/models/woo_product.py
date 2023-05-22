@@ -75,6 +75,11 @@ class WooProductStatus(models.Model):
         string="Color",
         default=_get_default_color
     )
+    discount_status = fields.Boolean(
+        string="Discount status",
+        help="Enable this option if the status is part of a promotional status. Useful for WooCommerce."
+    )
+
     active = fields.Boolean(
         default=True,
         help="By unchecking the active field, you can hide a brand without deleting it."

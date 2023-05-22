@@ -86,7 +86,8 @@
         <field name="model">woo.product.status</field>
         <field name="arch" type="xml">
             <tree string="Product status" editable="bottom" delete="false">
-                <field name="name"  required="1"/>
+                <field name="name" required="1"/>
+                <field name="discount_status" />
                 <field name="color" widget="color_picker"/>
                 <field name="active" widget="boolean_toggle"/>
             </tree>
