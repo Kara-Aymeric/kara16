@@ -31,7 +31,7 @@ class ResUsers(models.Model):
     agent_commission = fields.Float(
         string="Commission",
         help="When creating a contact from WooCommerce, this commission is recovered for "
-             "the assigned to the created contact",
+             "the assigned to the created contact.",
         default=_get_default_agent_commission,
         tracking=True
     )
@@ -39,7 +39,7 @@ class ResUsers(models.Model):
     agent_discount_commission = fields.Float(
         string="Discount commission",
         help="When creating a contact from WooCommerce, this commission is recovered for "
-             "the assigned to the created contact",
+             "the assigned to the created contact.",
         default=_get_default_agent_discount_commission,
         tracking=True
     )
