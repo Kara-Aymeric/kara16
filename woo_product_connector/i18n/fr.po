@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-17 10:14+0000\n"
-"PO-Revision-Date: 2023-05-17 10:14+0000\n"
+"POT-Creation-Date: 2023-05-22 13:15+0000\n"
+"PO-Revision-Date: 2023-05-22 13:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,11 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__discount_status
+msgid "Discount status"
+msgstr "Statut promotion"
+
+#. module: woo_product_connector
 #: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__display_name
 #: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__display_name
 #: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__display_name
@@ -109,6 +114,15 @@ msgstr "Synchro E-Shop"
 #: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_sync
 msgid "E-Shop variant synchro"
 msgstr "Synchro variant E-Shop"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_woo_product_status__discount_status
+msgid ""
+"Enable this option if the status is part of a promotional status. Useful for"
+" WooCommerce."
+msgstr ""
+"Activer cette option si le statut fait partie d'un statut promotionnel. Utile pour"
+" WooCommerce."
 
 #. module: woo_product_connector
 #: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__id
@@ -270,8 +284,8 @@ msgid ""
 "This information is the product status displayed on the product sheet of the"
 " e-commerce site."
 msgstr ""
-"Ces informations sont les statuts du produit affichés sur la fiche produit du"
-" site e-commerce."
+"Ces informations sont les statuts du produit affichés sur la fiche produit "
+"du site e-commerce."
 
 #. module: woo_product_connector
 #: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_packing_ids
