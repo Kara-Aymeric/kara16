@@ -14,3 +14,7 @@ class ResPartner(models.Model):
         string="Discount commission",
         tracking=True
     )
+
+    allow_flexible_payment = fields.Boolean(
+        string="Allow flexible payment"
+    )
