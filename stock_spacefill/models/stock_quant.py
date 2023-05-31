@@ -10,7 +10,7 @@ from odoo.exceptions import UserError
 
 class StockQuant(models.Model):
     _inherit = 'stock.quant'
-    """
+
     @api.constrains('location_id')
     def _constrains_exported_location_id(self):
         '''
@@ -30,4 +30,3 @@ class StockQuant(models.Model):
                             raise UserError(_('You are not allowed to make inventory for this location !'))
         res = super(StockQuant, self).action_apply_inventory()
         return res
-    """
