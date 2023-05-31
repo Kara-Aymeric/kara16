@@ -19,18 +19,6 @@
                     </group>
                 </group>
             </xpath>
-            <xpath expr="//page[last()]" position="after">
-                <page name="agent_commission" string="Agent commission">
-                    <field name="agent_commission_ids">
-                        <tree string="Agent commission" editable="bottom">
-                            <field name="product_template_id" invisible='1'/>
-                            <field name="user_id" options="{'no_create_edit': 1}" required="1"/>
-                            <field name="percentage_value" />
-                            <field name="sale_commission" readonly="1" force_save="1" widget="monetary" required="1"/>
-                        </tree>
-                    </field>
-                </page>
-            </xpath>
         </field>
     </record>
 </odoo>

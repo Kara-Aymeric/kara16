@@ -48,7 +48,6 @@ class ProductProduct(models.Model):
         else:
             # update
             try:
-                
                 res= instance.update(instance.url+item_url+self.item_spacefill_id+"/", vals)
                 if isinstance(res,dict):
                     self.message_post(
@@ -192,16 +191,6 @@ class ProductProduct(models.Model):
                 vals['item_reference'] = None
 
             return vals
-        
-    def get_spacefill_packing(self):
-        """return the spacefill packaging values"""
-        if self.packaging_ids:
-            for package in self.packaging_ids:
-                if package.package_type_id.is_spacefill_cardboard_box:
-                        spacefill_cardboard_box_qty = package.qty
-                elif package.package_type_id.is_spacefill_pallet:
-                        spacefill_pallet_qty = package.qty
-        return spacefill_pallet_qty, spacefill_cardboard_box_qty
     
     def cron_update_inventory(self):
         """
@@ -216,79 +205,53 @@ class ProductProduct(models.Model):
         """ Create inventory from spacefill warehouse with lot
         """
         # todo : check the difference between the actual odoo quantity and the stock in spacefill, if equal , don't write anything
-        
+
         for company in self.env['res.company'].search([]):
             #company_env = self.env.with_context(force_company=company.id)
             setup = self.env['spacefill.config'].search([('company_id', '=',  company.id )], limit=1)
             if setup:
                 instance = API(setup.spacefill_api_url,
-                        setup.spacefill_shipper_token)
-                whs= self.env['stock.warehouse'].search([('company_id','=',company.id),('is_exported','=',True)])
-                if self.tracking !="none":
-                    """ if lot or sn"""
-                    """ get the lots from spacefill item"""
-                    item_url = 'logistic_management/batches/'#+ self.item_spacefill_id +'/'
-                    filter={'master_item_id':self.item_spacefill_id,'limit':10000} #to do : add pagination if more than n lines by item
-                    vals= instance.search_read(instance.url+item_url,filter)# setup batches
-                    lots =[]
-                    for batch in vals:
-                        item_url = 'logistic_management/batches/'+batch.get("id")+'/'
-                        lot_line = instance.browse(instance.url+item_url)
-                        lots.append(lot_line)
-                    for lot in lots:
-                        for wh in lot.get("stock_by_warehouse_by_batch"):
-                            if wh.get("warehouse_id") in whs.mapped('spacefill_warehouse_account_id'):
-                                warehouse = self.env['stock.warehouse'].search(
-                                                [('company_id', '=', company.id),('spacefill_warehouse_account_id' ,'=',wh.get("warehouse_id"))], limit=1)
-                                if warehouse:
-                                    lot_odoo = self.env['stock.lot'].search([('name','=',lot.get("name")),('company_id', '=', company.id),('product_id','=', self.id)])
-                                    if not lot_odoo:
-                                        lot_odoo = self.env['stock.lot'].create({'name': lot.get("name"), 'product_id': self.id, 'company_id': company.id})
+                        setup.spacefill_shipper_token) 
+                
+                item_url = 'logistic_management/pallet-ssccs/'#+ self.item_spacefill_id +'/'
+                filter={'master_item_id':self.item_spacefill_id,'limit':5000} #to do : add pagination if more than 5000 lines by item
+                vals= instance.search_read(instance.url+item_url,filter)     
+                for line in vals:            
+                    if line.get("each_actual_quantity") >= 0:
+                            warehouse = self.env['stock.warehouse'].search(
+                                                [('company_id', '=', company.id),('spacefill_warehouse_account_id' ,'=',line.get("warehouse_id"))], limit=1)
+                            if warehouse:                        
+                                if line.get("batch_name"):
+                                    lot = self.env['stock.lot'].search([('name','=',line.get("batch_name")),('company_id', '=', company.id),('product_id','=', self.id)])
+                                    if not lot:
+                                        lot = self.env['stock.lot'].create({'name': line.get("batch_name"), 'product_id': self.id, 'company_id': company.id})
                                     inventory= self.env['stock.quant'].with_context(inventory_mode=True,from_spacefill=True).create({
-                                        'product_id': self.id,
-                                        'location_id': warehouse.lot_stock_id.id,
-                                        'lot_id': lot_odoo.id,                                        
-                                        'inventory_quantity': wh.get("number_of_each"),
-                                       
-                                    }).action_apply_inventory()
+                                                                                        'product_id': self.id,
+                                                                                        'lot_id': lot.id,
+                                                                                        'location_id': warehouse.lot_stock_id.id,
+                                                                                        'inventory_quantity': float(line.get("each_actual_quantity")),                                                                                                                                                               
+                                                                                    }).action_apply_inventory() # 
                                     self.message_post(body="Inventory updated from Spacefill")
-
-
-                # vals = {"batch_name":batch_name, "each_qty":each_qty}
-                else:
-                    """ si pas de lot"""
-                    item_url = 'logistic_management/master_items/'+ self.item_spacefill_id +'/'
-                    vals= instance.browse(instance.url+item_url)
-
-                    
-                    for wh in vals.get("stock_by_warehouse"):
-                            if wh.get("warehouse_id") in whs.mapped('spacefill_warehouse_account_id'):
-                                warehouse = self.env['stock.warehouse'].search(
-                                                [('company_id', '=', company.id),('spacefill_warehouse_account_id' ,'=',wh.get("warehouse_id"))], limit=1)
-                                if warehouse:                                   
-
+                                else:
                                     inventory= self.env['stock.quant'].with_context(inventory_mode=True,from_spacefill=True).create({
                                                                                         'product_id': self.id,
                                                                                         'location_id': warehouse.lot_stock_id.id,
-                                                                                        'inventory_quantity': wh.get("number_of_eaches"),                                                                             
+                                                                                        'inventory_quantity': float(line.get("each_actual_quantity")),                                                                             
                                                                                     }).action_apply_inventory()
                                     self.message_post(body="Inventory updated from Spacefill")
         return True
     #CRUDS 
     def write(self, vals):
-        FIELDS_TO_TRIG =[ 'barcode', 'name', 'weight','packing_ids','packaging_ids','force_to_update']
-        """
         if 'default_code' in vals:
             for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
                 if product.default_code != vals['default_code']:
                     raise UserError(_("You can't change the reference of the product, if this product is exported in Spacefill"))     
-        """
+        
         res= super(ProductProduct, self).write(vals)
-       
-        for field in FIELDS_TO_TRIG:
-            if field in vals : #'active' not in vals or  'item_spacefill_id' not in vals or 'is_exported' not in vals:
-                for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):                   
-                    product.export_product_in_spacefill()       
+
+        if 'active' not in vals or  'item_spacefill_id' not in vals or 'is_exported' not in vals:
+            for product in self.filtered(lambda p: p.is_exported and p.item_spacefill_id):
+                product.export_product_in_spacefill()       
         return res
 
     def _constrains_mandatory_fields(self):

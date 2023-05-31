@@ -73,13 +73,13 @@ class SpacefillConfig(models.Model):
         contact_email = self.env.user.email if self.env.user.email else "NC"
         contact_phone = self.env.user.phone if self.env.user.phone else "NC"  
         contact_message = "<p>Please contact me to discuss about the integration of my company in SPACEFILL</p><br>"
-        body = _("<p>Message"+contact_message+"</p><br>"+"<p>Company: "+company+"<br>"+"Contact name: "+contact_name+"<br>"+"Contact email: "+contact_email+"<br>"+"Contact phone: "+contact_phone+"<br>"+"<p>Unsubscribe: <a href='mailto:dpo@spacefill.fr'>unsubscribe</a></p>")
+        body = _("<p>Message"+contact_message+"</p><br>"+"<p>Company: "+company+"<br>"+"Contact name: "+contact_name+"<br>"+"Contact email: "+contact_email+"<br>"+"Contact phone: "+contact_phone)
         #push better marketing way to Spacefill
         #send mail to Spacefill
         vals = {
-                    'subject': 'SPACEFILL - Odoo integration request',
+                    'subject': 'SPACEFILL - ERP integration request',
                     'body_html': body,
-                    'email_to': 'sales@spacefill.fr',
+                    'email_to': 'ama@irokoo.fr',
                     'email_cc': contact_email,
                     'auto_delete': False,
                     'email_from': contact_email ,

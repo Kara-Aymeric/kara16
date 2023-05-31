@@ -266,11 +266,11 @@ class StockPicking(models.Model):
         vals= self.sanitize_lines(self.move_line_ids)
         for line in vals:
             for lot in vals[line]:
-                self.adjust_package_and_qty(vals,line,lot)      
+                      
                 order_lines_values = {}       
                 order_lines_values['master_item_id'] = vals[line][lot]['master_item_id']
                 # self.get_item_packaging_type(item)
-                order_lines_values["item_packaging_type"] = vals[line][lot]["item_packaging_type"]
+                order_lines_values["item_packaging_type"] = "EACH"
                 order_lines_values["expected_quantity"] = vals[line][lot]['qty']
                 order_lines_values['batch_name'] = lot if lot else None
                 order_items.append(
@@ -281,7 +281,6 @@ class StockPicking(models.Model):
             self = self.with_context(
                 _send_on_write="NO") 
             item_url ='logistic_management/orders/'+self.order_spacefill_id+'/shipper_updates_order_action'
-            
             res = instance.call('POST',instance.url+item_url, order_values)
             if isinstance(res, dict):
                 self.message_post(
@@ -316,41 +315,16 @@ class StockPicking(models.Model):
                 else:
                     lot_name =self.env["stock.lot"].search([('id','=',line.lot_id.id)]).name #si external si internal prendre line.lot_name 
                 if line.product_id.id not in qty_by_item_lot:                    
-                    qty_by_item_lot[line.product_id.id] = {lot_name: {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id,'item_packaging_type':"EACH"}}
+                    qty_by_item_lot[line.product_id.id] = {lot_name: {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id}}
                 if lot_name not in qty_by_item_lot[line.product_id.id].keys():
-                    qty_by_item_lot[line.product_id.id][lot_name] = {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id,'item_packaging_type':"EACH"}
+                    qty_by_item_lot[line.product_id.id][lot_name] = {'product_id':line.product_id.id,'qty':0,'master_item_id':line.product_id.item_spacefill_id}
                 qty_by_item_lot[line.product_id.id][lot_name]['qty'] += line.reserved_uom_qty
             else:
                 self.message_post( body=_('Product %s is not exported or qty is 0 ,  please export it or add qty  and update this order' ) % line.product_id.name)
                 # to add : auto-export ?
         return qty_by_item_lot                                                
                 
-    def adjust_package_and_qty(self, vals,line,lot):
-        """Get the quantity of item by package."""
-        #vals[line][lot]["item_packaging_type"] = "EACH"
-        
-        item = self.env["product.product"].search([('id','=',vals[line][lot]["product_id"])])
-        each_qty_by_pal,each_qty_by_box = item.get_spacefill_packing()
-        if each_qty_by_pal:
-            if vals[line][lot]["qty"] % each_qty_by_pal == 0:
-                vals[line][lot]["qty"] = vals[line][lot]["qty"] // each_qty_by_pal
-                vals[line][lot]["item_packaging_type"] = "PALLET"
-            else:
-                if each_qty_by_box:
-                    if  vals[line][lot]["qty"] % each_qty_by_box == 0:
-                        vals[line][lot]["qty"] = vals[line][lot]["qty"] // each_qty_by_box
-                        vals[line][lot]["item_packaging_type"] = "CARDBOARD_BOX"
-                    else:
-                        vals[line][lot]["item_packaging_type"] = "EACH"
-        else:
-            if each_qty_by_box:
-                if  vals[line][lot]["qty"] % each_qty_by_box == 0:
-                    vals[line][lot]["qty"] = vals[line][lot]["qty"] // each_qty_by_box
-                    vals[line][lot]["item_packaging_type"] = "CARDBOARD_BOX"
-                else:
-                    vals[line][lot]["item_packaging_type"] = "EACH"
 
-        
 
     def prepare_entry_vals(self,scheduled_date,deadline_date):
         """Prepare the values for the entry order to send to Spacefill."""
@@ -474,15 +448,12 @@ class StockPicking(models.Model):
                     self.env['spacefill.update'].create({'id_to_update':picking.id,'is_to_update':True,'triggered_from':'confirm_picking'})
         return res
     def action_cancel(self):
-        
+        res = super(StockPicking, self).action_cancel()
         for picking in self:
             if picking.picking_type_id.warehouse_id.is_exported and picking.order_spacefill_id:
                 if picking.check_spacefill_status():
                     picking.export_order_cancel_to_spacefill()
                     picking.update_status_spacefill_with_lot()
-                else:
-                    raise UserError(_('You can not cancel a picking managed by Spacefill'))
-        res = super(StockPicking, self).action_cancel()
         return res
 
     def unlink(self):
@@ -505,19 +476,15 @@ class StockPicking(models.Model):
         url = "logistic_management/orders" #/{order_id}/shipper_cancels_order_action/"     
                   
         if self.order_spacefill_id:
-            if self.check_spacefill_status():
-                spacefill_instance, setup = self.get_instance_spacefill() 
-                res = spacefill_instance.call('POST',setup.spacefill_api_url + url +'/'+ str(self.order_spacefill_id) + '/shipper_cancels_order_action',None)
-                if isinstance(res, dict):
-                            self.message_post(
-                                            body=_('Order %s is Canceled to Spacefill' ) % self.order_spacefill_id
-                                            )
-                else:
+            spacefill_instance, setup = self.get_instance_spacefill() 
+            res = spacefill_instance.call('POST',setup.spacefill_api_url + url +'/'+ str(self.order_spacefill_id) + '/shipper_cancels_order_action',None)
+            if isinstance(res, dict):
+                        self.message_post(
+                                        body=_('Order %s is Canceled to Spacefill' ) % self.order_spacefill_id
+                                        )
+            else:
                     raise UserError(
                             _('Error from SpaceFill API : %s') % res)
-            else:
-                raise UserError(
-                        _('Canceled in not allowed at this step !'))
     
     
     def action_put_in_pack(self):
