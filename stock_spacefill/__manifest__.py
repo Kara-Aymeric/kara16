@@ -7,16 +7,17 @@
        SpaceFill connector""",
 
     'description': """
-        Synchronize warehouse operations with SpaceFill.
-        Export and receive stock movements with SpaceFill platform.
-        
+        SpaceFill is a platform that allows you to manage your warehouse and your logistics operations.
+        Synchronize external warehouse operations with SpaceFill.
+        Export and receive stock movements with SpaceFill platform and keep your stock in sync.
     """,
 
     'author': "irokoo",
     'website': "https://www.spacefill.fr",
-    'category': 'Inventory',
+    'category': 'Warehouse',
     'version': '1.0',
     'license': 'AGPL-3',
+    "support": "spacefill@irokoo.fr",
 
     # any module necessary for this one to work correctly
     'depends': ['base','sale_stock','delivery','purchase','sale'],
@@ -47,5 +48,6 @@
     "active": True,
     "installable": True,
     "post_init_hook": 'post_init_hook',
-    "pre_init_hook" : 'pre_init_hook',   
+    "pre_init_hook" : 'pre_init_hook', 
+    "images" : ['static/description/banner.gif'],
 }
