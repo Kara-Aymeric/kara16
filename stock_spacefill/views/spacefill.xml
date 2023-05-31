@@ -7,8 +7,7 @@
 			<field name="arch" type="xml">
 				<form string="SpaceFill instance">
 					<header>
-							<button name="create_spacefill_info_request" string="Ask you configuration informations ?" type="object" class="btn-primary" confirm="This action will transfer the following information to SpaceFill: Company name, contact name, telephone number and email. Please visit https://lp.spacefill.eu/privacy-policy to read our privacy policy."/>
-
+							<button name="create_spacefill_info_request" string="Ask you configuration informations ?" type="object"  class="btn-primary" confirm="Return before 24h, This action will transfer this following informations : Company name, contact name, tel and email to SpaceFill."/>
 					</header>
 					<sheet>						
 						<div class="oe_button_box" name="button_box">
