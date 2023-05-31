@@ -10,7 +10,7 @@ def pre_init_hook(cr):
     server_serie = version_info.get('server_serie')
     if server_serie != '16.0':
         raise Warning(
-            'Module support Odoo series 15.0, found {}.'.format(server_serie))
+            'Module support Odoo series 16.0, found {}.'.format(server_serie))
     return True
 
 def post_init_hook(cr, registry):

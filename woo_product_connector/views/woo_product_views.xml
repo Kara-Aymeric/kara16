@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Brand -->
+    <record id="view_woo_product_brand_tree" model="ir.ui.view">
+        <field name="name">view woo product brand tree</field>
+        <field name="model">woo.product.brand</field>
+        <field name="arch" type="xml">
+            <tree string="Product brand" editable="bottom" delete="false">
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="woo_product_brand_action" model="ir.actions.act_window">
+        <field name="name">Product brand</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.brand</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_view_woo_product_brand_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="woo_product_connector.view_woo_product_brand_tree"/>
+        <field name="act_window_id" ref="woo_product_brand_action"/>
+    </record>
+
+    <!-- Packing -->
+    <record id="view_woo_product_packing_tree" model="ir.ui.view">
+        <field name="name">view woo product packing tree</field>
+        <field name="model">woo.product.packing</field>
+        <field name="arch" type="xml">
+            <tree string="Product packing" editable="bottom" delete="false">
+                <field name="name"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="woo_product_packing_action" model="ir.actions.act_window">
+        <field name="name">Product packing</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.packing</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_view_woo_product_packing_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="woo_product_connector.view_woo_product_packing_tree"/>
+        <field name="act_window_id" ref="woo_product_packing_action"/>
+    </record>
+
+    <!-- Weight -->
+    <record id="view_woo_product_weight_tree" model="ir.ui.view">
+        <field name="name">view woo product weight tree</field>
+        <field name="model">woo.product.weight</field>
+        <field name="arch" type="xml">
+            <tree string="Product weight" editable="bottom" delete="false">
+                <field name="name"/>
+                <field name="quantity" required="1"/>
+                <field name="weight_uom" required="1"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="woo_product_weight_action" model="ir.actions.act_window">
+        <field name="name">Product weight</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.weight</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_view_woo_product_weight_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="woo_product_connector.view_woo_product_weight_tree"/>
+        <field name="act_window_id" ref="woo_product_weight_action"/>
+    </record>
+
+    <!-- Status -->
+    <record id="view_woo_product_status_tree" model="ir.ui.view">
+        <field name="name">view woo product status tree</field>
+        <field name="model">woo.product.status</field>
+        <field name="arch" type="xml">
+            <tree string="Product status" editable="bottom" delete="false">
+                <field name="name" required="1"/>
+                <field name="discount_status" />
+                <field name="color" widget="color_picker"/>
+                <field name="active" widget="boolean_toggle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="woo_product_status_action" model="ir.actions.act_window">
+        <field name="name">Product status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">woo.product.status</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="action_view_woo_product_status_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="woo_product_connector.view_woo_product_status_tree"/>
+        <field name="act_window_id" ref="woo_product_status_action"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="agorane_settings_view_form" model="ir.ui.view">
+        <field name="name">agorane.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='quotation_order_setting_container']" position="after">
+                <h2>Agorane - Agent commission</h2>
+                <div class="row mt16 o_settings_container" name="agorane_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" id="agent_commission_setting">
+                        <div class="o_setting_right_pane">
+                            <label for="agent_commission"/>
+                            <div class="text-muted">Default agent commission when creating Odoo account</div>
+                            <div class="row mt16">
+                                <label for="agent_commission" string="Agent commission (%)" class="col-lg-4 o_light_label" />
+                                <field name="agent_commission" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="agent_commission_setting">
+                        <div class="o_setting_right_pane">
+                            <label for="agent_discount_commission"/>
+                            <div class="text-muted">Default agent discount commission when creating Odoo account</div>
+                            <div class="row mt16">
+                                <label for="agent_discount_commission" string="Agent discount commission (%)" class="col-lg-4 o_light_label" />
+                                <field name="agent_discount_commission" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
