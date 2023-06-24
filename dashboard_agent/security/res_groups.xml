@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="group_admin" model="res.groups">
+         <field name="name">Agorane - Administrator</field>
+         <field name="category_id" ref="base.module_category_sales"/>
+         <field name="comment">
+             Dashboard Agent module administrator provides access to the Configuration menu.
+         </field>
+     </record>
+
+     <record id="group_principal_agent" model="res.groups">
+         <field name="name">Agorane - Principal agent</field>
+         <field name="category_id" ref="base.module_category_sales"/>
+         <field name="comment">
+             The principal agent supervises the external agent(s).
+             He is notified each time a sale is created by his external agent and ensures validation and follow-up.
+         </field>
+     </record>
+
+     <record id="group_external_agent" model="res.groups">
+         <field name="name">Agorane - External agent</field>
+         <field name="category_id" ref="base.module_category_sales"/>
+         <field name="comment">
+             The external agent is supervised by a principal agent.
+             He can create an estimate which must be validated by his principal agent before continuing his sale.
+         </field>
+    </record>
+</odoo>

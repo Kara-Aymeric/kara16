@@ -1,0 +1,510 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* dashboard_agent
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-24 12:34+0000\n"
+"PO-Revision-Date: 2023-06-24 12:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dashboard_agent
+#: model:res.groups,comment:dashboard_agent.group_admin
+msgid ""
+"\n"
+"             Dashboard Agent module administrator provides access to the Configuration menu.\n"
+"         "
+msgstr ""
+"\n"
+"             L'administrateur du module Dashboard Agent permet d'accéder au menu Configuration.\n"
+"         "
+
+#. module: dashboard_agent
+#: model:res.groups,comment:dashboard_agent.group_external_agent
+msgid ""
+"\n"
+"             The external agent is supervised by a principal agent.\n"
+"             He can create an estimate which must be validated by his principal agent before continuing his sale.\n"
+"         "
+msgstr ""
+"\n"
+"             L'agent externe est supervisé par un agent principal.\n"
+"             Il peut créer un devis qui doit être validé par son agent principal avant de poursuivre sa vente.\n"
+"         "
+
+#. module: dashboard_agent
+#: model:res.groups,comment:dashboard_agent.group_principal_agent
+msgid ""
+"\n"
+"             The principal agent supervises the external agent(s).\n"
+"             He is notified each time a sale is created by his external agent and ensures validation and follow-up.\n"
+"         "
+msgstr ""
+"\n"
+"             L'agent principal supervise le ou les agents externes.\n"
+"             Il est notifié chaque fois qu'une vente est créée par son agent externe et assure la validation et le suivi.\n"
+"         "
+
+#. module: dashboard_agent
+#: model:mail.template,body_html:dashboard_agent.email_template_quote_confirmation_request
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'quotation' if object.state in ('draft', 'sent') else 'order'\"></t>\n"
+"        Hello Mr or Mrs <span style=\"font-weight: bold;\" t-out=\"object.principal_agent_id.name or ''\"></span>,\n"
+"        <br><br>\n"
+"        Attached you will find a new quote n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"></span>\n"
+"        of <span style=\"font-weight: bold;\" t-out=\"object.partner_id.name or ''\"></span>.\n"
+"        <br><br>\n"
+"        Can you validate it please ?\n"
+"        <br><br>\n"
+"        Thanks,\n"
+"        <br><br>\n"
+"        Best regards,\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
+"            <br><br>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br><br>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'Devis' if object.state in ('draft', 'sent') else 'Commande'\"></t>\n"
+"        Bonjour M. or Mme <span style=\"font-weight: bold;\" t-out=\"object.principal_agent_id.name or ''\"></span>,\n"
+"        <br><br>\n"
+"        Vous trouverez ci-joint un nouveau devis n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"></span>\n"
+"        de <span style=\"font-weight: bold;\" t-out=\"object.partner_id.name or ''\"></span>.\n"
+"        <br><br>\n"
+"        Pouvez-vous le valider s'il vous plait ?\n"
+"        <br><br>\n"
+"        Merci,\n"
+"        <br><br>\n"
+"        Cordialement,\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
+"            <br><br>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br><br>\n"
+"    </p>\n"
+"</div>\n"
+"            "
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__related_user_ids
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__related_user_ids
+msgid "Access Rights"
+msgstr "Droits d'accès"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_partner_form
+msgid "Access rights are managed on"
+msgstr "Les droits d'accès sont gérés sur"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__user_id
+msgid "Agent"
+msgstr ""
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_agent_commission
+#: model:ir.model.fields,field_description:dashboard_agent.field_product_product__agent_commission_ids
+#: model:ir.model.fields,field_description:dashboard_agent.field_product_template__agent_commission_ids
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_product_template_form_view
+msgid "Agent commission"
+msgstr "Commission agent"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_relation_agent_config
+#: model:ir.ui.menu,name:dashboard_agent.menu_dashboard_agent_relation_agent_config
+msgid "Agent relationship"
+msgstr "Relation agent"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__agent_ids
+msgid "Agents"
+msgstr ""
+
+#. module: dashboard_agent
+#: model:res.groups,name:dashboard_agent.group_admin
+msgid "Agorane - Administrator"
+msgstr "Agorane - Administrateur"
+
+#. module: dashboard_agent
+#: model:res.groups,name:dashboard_agent.group_external_agent
+msgid "Agorane - External agent"
+msgstr "Agorane - Agent externe"
+
+#. module: dashboard_agent
+#: model:res.groups,name:dashboard_agent.group_principal_agent
+msgid "Agorane - Principal agent"
+msgstr "Agorane - Agent principal"
+
+#. module: dashboard_agent
+#: model:mail.template,name:dashboard_agent.email_template_quote_confirmation_request
+msgid "Agorane - Quote confirmation request by the principal agent"
+msgstr "Agorane - Demande de confirmation de devis par l'agent principal"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_associated_commission
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_child_id
+msgid "Associated commission"
+msgstr "Commission associée"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_relation_agent__active
+msgid ""
+"By unchecking the active field, you can hide a record without deleting it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer un enregistrement sans le supprimer."
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_commission_order
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order_line__dashboard_product_commission
+msgid "Commission"
+msgstr ""
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
+msgid "Commission / Article"
+msgstr ""
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paramètres de configuration"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_config_settings
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_config
+#: model:ir.ui.menu,name:dashboard_agent.menu_dashboard_agent_general_settings
+msgid "Configuration"
+msgstr ""
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: dashboard_agent
+#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_relation_agent_config
+msgid ""
+"Create a new agent relationship, the first step of a new agent relationship "
+"!"
+msgstr ""
+"Créer une nouvelle relation agent, la première étape d'une nouvelle relation agent "
+"!"
+
+#. module: dashboard_agent
+#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_contact
+msgid "Create a new contact, the first step of a new contact !"
+msgstr "Créer un nouveau contact, la première étape d'un nouveau contact !"
+
+#. module: dashboard_agent
+#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_sale
+msgid "Create a new quote, the first step of a new sale !"
+msgstr "Créer un nouveau devis, la première étape d'une nouvelle vente !"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__create_uid
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__create_date
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__agent_partner_id
+msgid "Customer"
+msgstr "Client"
+
+#. module: dashboard_agent
+#: model:ir.model.fields.selection,name:dashboard_agent.selection__sale_order__state__customer_payment_received
+msgid "Customer payment received"
+msgstr "Paiement client reçu"
+
+#. module: dashboard_agent
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_principal_menu
+msgid "Dashboard Agent"
+msgstr "Dashboard Agent"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid "Dashboard agent"
+msgstr "Dashboard agent"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__discount_percentage_value
+msgid "Percentage value (discount)"
+msgstr "Valeur en pourcentage (remise)"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__display_name
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_config_settings__quote_notification_template_id
+msgid "Email template"
+msgstr "Modèle d'email"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid ""
+"Email template to use to notify the principal agent that a quote created by "
+"an external agent is awaiting validation"
+msgstr ""
+"Modèle d'e-mail à utiliser pour informer l'agent principal qu'un devis créé par "
+"un agent externe est en attente de validation"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid "Email templates"
+msgstr "Modèles d'email"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__id
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__id
+msgid "ID"
+msgstr ""
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__is_validate_by_agent
+msgid "Is validate"
+msgstr "Est validé"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_sale_order__is_validate_by_agent
+msgid "Is validate by principal agent"
+msgstr "Est validé par l'agent principal"
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission____last_update
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__write_uid
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__write_date
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_commission
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_commission_menu
+msgid "My Commissions"
+msgstr "Mes commissions"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_contact
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_contact_menu
+msgid "My Contacts"
+msgstr "Mes contacts"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_invoice
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_invoice_menu
+msgid "My Invoices"
+msgstr "Mes factures"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_sale
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_sale_menu
+msgid "My Sales"
+msgstr "Mes ventes"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_opportunity
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_lead_menu
+msgid "My opportunities"
+msgstr "Mes opportunités"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_commission_total
+msgid "Of which commission"
+msgstr "Dont commission"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_order_origin_id
+msgid "Order origin"
+msgstr "Vente d'origine"
+
+#. module: dashboard_agent
+#: model:ir.model.fields.selection,name:dashboard_agent.selection__sale_order__state__agorane_payed
+msgid "Payed"
+msgstr "Payé"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__percentage_value
+msgid "Percentage value"
+msgstr "Valeur pourcentage"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__principal_agent_id
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__principal_agent_id
+msgid "Principal agent"
+msgstr "Agent principal"
+
+#. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_product
+#: model:ir.model,name:dashboard_agent.model_product_template
+#: model:ir.model.fields,field_description:dashboard_agent.field_agent_commission__product_template_id
+msgid "Product"
+msgstr "Article"
+
+#. module: dashboard_agent
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_product_menu
+msgid "Products"
+msgstr "Articles"
+
+#. module: dashboard_agent
+#: model:mail.template,subject:dashboard_agent.email_template_quote_confirmation_request
+msgid ""
+"Quote confirmation request order N° {{ object.name or 'n/a' }} for {{ "
+"object.partner_id.name or 'n/a' }} - {{ "
+"object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
+msgstr ""
+"Demande de confirmation de devis N° de commande {{ object.name or 'n/a' }} pour {{ "
+"object.partner_id.name or 'n/a' }} - {{ "
+"object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
+msgid "Request validation"
+msgstr "Demander validation"
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Ligne de bons de commande"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__user_id
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__user_id
+msgid "Salesperson"
+msgstr "Vendeur"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
+msgid "Send PRO-FORMA Invoice"
+msgstr "Envoyer facture PRO-FORMA"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
+msgid "Send by Email"
+msgstr "Envoyer par email"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__state
+msgid "Status"
+msgstr "État"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid "Template"
+msgstr "Modèle"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_res_partner__user_id
+#: model:ir.model.fields,help:dashboard_agent.field_res_users__user_id
+msgid "The internal user in charge of this contact."
+msgstr "L'utilisateur interne en charge de ce contact."
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_sale_order__dashboard_child_id
+msgid ""
+"This sale allows to make the connection of the main sale for sale (commission)"
+msgstr ""
+"Cette vente permet de faire le rattachement de la vente principale à la vente commission"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order_line__dashboard_price_commission
+msgid "Total commission"
+msgstr ""
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_sale_order__dashboard_commission_total
+msgid "Total commission value for the sale"
+msgstr "Valeur totale de la commission pour la vente"
+
+#. module: dashboard_agent
+#: model:mail.template,description:dashboard_agent.email_template_quote_confirmation_request
+msgid "Used for quotation confirmation request by the principal agent"
+msgstr "Utilisé pour la demande de confirmation de devis par l'agent principal"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
+msgid "Validate payment"
+msgstr "Valider paiement"
+
+#. module: dashboard_agent
+#: model:ir.model.fields.selection,name:dashboard_agent.selection__sale_order__state__validated
+msgid "Validated"
+msgstr "Validé"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_agent_commission__percentage_value
+msgid "Value to calculate the commission on the product"
+msgstr "Valeur pour calculer la commission sur le produit"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_agent_commission__discount_percentage_value
+msgid "Value to calculate the discount commission on the product"
+msgstr "Valeur pour calculer la commission de remise sur le produit"
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_relation_agent
+msgid "relation.agent"
+msgstr ""
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_partner_form
+msgid "the parent company"
+msgstr "la société parente"
+
+#. module: dashboard_agent
+#: model:mail.template,report_name:dashboard_agent.email_template_quote_confirmation_request
+msgid "{{ (object.custom_report_name or '').replace('/','_') }}"
+msgstr ""

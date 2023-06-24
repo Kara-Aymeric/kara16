@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="dashboard_agent_principal_menu"
+              web_icon="dashboard_agent,static/description/icon.png"
+              name="Dashboard Agent"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_contact_menu"
+              name="My Contacts"
+              sequence="10"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_contact"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_lead_menu"
+              name="My opportunities"
+              sequence="20"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_opportunity"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_sale_menu"
+              name="My Sales"
+              sequence="30"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_sale"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_commission_menu"
+              name="My Commissions"
+              sequence="40"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_commission"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_invoice_menu"
+              name="My Invoices"
+              sequence="50"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_invoice"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_product_menu"
+              name="Products"
+              sequence="60"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_product"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <!-- Configuration -->
+    <menuitem id="dashboard_agent_config"
+              name="Configuration"
+              sequence="70"
+              parent="dashboard_agent_principal_menu"
+              groups="dashboard_agent.group_admin"/>
+
+    <menuitem id="menu_dashboard_agent_general_settings"
+              name="Configuration"
+              parent="dashboard_agent_config"
+              sequence="10"
+              action="dashboard_agent.action_dashboard_agent_config_settings"/>
+
+    <menuitem id="menu_dashboard_agent_relation_agent_config"
+              name="Agent relationship"
+              parent="dashboard_agent_config"
+              sequence="20"
+              action="dashboard_agent.action_dashboard_agent_relation_agent_config"/>
+
+</odoo>

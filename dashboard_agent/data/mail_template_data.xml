@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_quote_confirmation_request" model="mail.template">
+            <field name="name">Agorane - Quote confirmation request by the principal agent</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="subject">Quote confirmation request order N° {{ object.name or 'n/a' }} for {{ object.partner_id.name or 'n/a' }} - {{ object.date_order.strftime('%d-%m-%Y') or 'n/a' }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.principal_agent_id.partner_id.id }}</field>
+            <field name="email_cc">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="description">Used for quotation confirmation request by the principal agent</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        <t t-set="doc_name" t-value="'quotation' if object.state in ('draft', 'sent') else 'order'"/>
+        Hello Mr or Mrs <span style="font-weight: bold;" t-out="object.principal_agent_id.name or ''"></span>,
+        <br/><br/>
+        Attached you will find a new quote n°<span style="font-weight: bold;" t-out="object.name or ''"></span>
+        of <span style="font-weight: bold;" t-out="object.partner_id.name or ''"></span>.
+        <br/><br/>
+        Can you validate it please ?
+        <br/><br/>
+        Thanks,
+        <br/><br/>
+        Best regards,
+        <t t-if="not is_html_empty(object.user_id.signature)">
+            <br/><br/>
+            <t t-out="object.user_id.signature or ''">--<br/>Mitchell Admin</t>
+        </t>
+        <br/><br/>
+    </p>
+</div>
+            </field>
+            <field name="report_template" ref="sale.action_report_saleorder"/>
+            <field name="report_name">{{ (object.custom_report_name or '').replace('/','_') }}</field>
+            <field name="lang">{{ object.principal_agent_id.lang }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

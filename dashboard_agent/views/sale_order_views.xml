@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited view custom module -->
+    <record id="custom_sale_view_order_form" model="ir.ui.view">
+        <field name="name">custom sale view order form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="custom_sale.kara_sale_view_order_form"/>
+        <field name="arch" type="xml">
+<!--            <button name="action_confirm" position="replace">-->
+<!--                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', '|', ('is_validate_by_agent', '!=', True), ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>-->
+<!--            </button>-->
+
+<!--            <xpath expr="//button[@name='action_confirm'][2]" position="replace">-->
+<!--                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" attrs="{'invisible': ['|', '|', ('is_validate_by_agent', '!=', True), ('supplier_order', '=', True), ('state', 'not in', ['draft'])]}"/>-->
+<!--            </xpath>-->
+
+            <xpath expr="//group[@name='partner_details']" position="replace">
+                <group name="partner_details">
+                    <field name="is_validate_by_agent" invisible="1" />
+                    <field name="supplier_order" invisible="1" />
+                    <field name="trading_business" invisible="1" />
+                    <field name="delivery_set" invisible="1" />
+                    <field name="is_all_service" invisible="1" />
+                    <field name="recompute_delivery_price" invisible="1" />
+                    <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}" invisible="1" attrs="{'invisible': [('trading_business', '=', True)], 'required': [('trading_business', '!=', True)]}" />
+                    <field name="agent_partner_id" groups="dashboard_agent.group_external_agent,dashboard_agent.group_principal_agent,dashboard_agent.group_admin" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}" attrs="{'invisible': [('trading_business', '=', True)]}"/>
+                    <field name="supplier_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}" attrs="{'invisible': [('trading_business', '!=', True)], 'required': [('trading_business', '=', True)]}" />
+                    <field name="customer_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"  options="{'always_reload': True}" attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])], 'invisible': [('trading_business', '!=', True)], 'required': [('trading_business', '=', True)]}" />
+                    <field name="partner_invoice_id" groups="account.group_delivery_invoice_address" context="{'default_type':'invoice'}" options="{&quot;always_reload&quot;: True}"/>
+                    <field name="partner_shipping_id" groups="account.group_delivery_invoice_address" context="{'default_type':'delivery'}" options="{&quot;always_reload&quot;: True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited view base module -->
+    <record id="custom_sale_view_order_form" model="ir.ui.view">
+        <field name="name">custom sale view order form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_quotation_send'][1]" position="replace">
+                <field name="is_validate_by_agent" invisible="1"/>
+                <button name="action_quote_confirmation_request" string="Request validation" groups="dashboard_agent.group_external_agent" type="object" class="btn-primary" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '=', True), ('is_validate_by_agent', '=', True)]}"/>
+                <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('dashboard_agent', '=', True), ('is_validate_by_agent', '!=', True)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_quotation_send'][2]" position="replace">
+                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
+                    groups="sale.group_proforma_sales" class="btn-primary"
+                    attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft']), ('invoice_count','&gt;=',1), ('dashboard_agent', '=', True), ('is_validate_by_agent', '!=', True)]}" context="{'proforma': True, 'validate_analytic': True}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="dashboard_agent" invisible="1"/>
+                <field name="dashboard_commission_order" invisible="1"/>
+                <field name="dashboard_associated_commission" invisible="1"/>
+                <field name="dashboard_child_id" readonly="1" attrs="{'invisible': ['|', ('dashboard_commission_order', '=', True), ('dashboard_associated_commission', '!=', True)]}"/>
+                <field name="dashboard_order_origin_id" readonly="1" attrs="{'invisible': [('dashboard_commission_order', '!=', True)]}"/>
+                <field name="is_validate_by_agent" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+                <field name="is_validate_by_agent" readonly="1" groups="dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']//tree//field[@name='tax_id']" position="after">
+                <field name="dashboard_product_commission" string="Commission / Article"
+                       attrs="{'column_invisible': [('parent.dashboard_commission_order', '==', True)]}"/>
+                <field name="dashboard_price_commission" invisible="1" />
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']//group[@name='sale_total']" position="inside">
+                <field name="dashboard_commission_total"
+                       attrs="{'invisible': [('dashboard_commission_order', '=', True)]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action sale order part -->
+    <record id="action_dashboard_agent_sale" model="ir.actions.act_window">
+        <field name="name">My Sales</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('dashboard_commission_order', '=', False)]</field>
+        <field name="context">{'dashboard_agent': True}</field>
+    </record>
+
+    <record id="action_view_dashboard_agent_sale_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="act_window_id" ref="action_dashboard_agent_sale"/>
+    </record>
+
+    <record id="action_view_dashboard_agent_sale_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale.view_order_form"/>
+        <field name="act_window_id" ref="action_dashboard_agent_sale"/>
+    </record>
+
+    <record id="action_dashboard_agent_commission" model="ir.actions.act_window">
+        <field name="name">My Commissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('dashboard_commission_order', '=', True)]</field>
+        <field name="context">{'dashboard_agent': True}</field>
+    </record>
+
+    <record id="action_view_dashboard_agent_commission_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="act_window_id" ref="action_dashboard_agent_commission"/>
+    </record>
+
+    <record id="action_view_dashboard_agent_commission_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale.view_order_form"/>
+        <field name="act_window_id" ref="action_dashboard_agent_commission"/>
+    </record>
+</odoo>
