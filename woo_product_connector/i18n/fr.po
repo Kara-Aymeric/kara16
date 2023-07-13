@@ -1,0 +1,359 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* woo_product_connector
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-22 13:15+0000\n"
+"PO-Revision-Date: 2023-05-22 13:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__active
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__active
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__active
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_barcode
+msgid "Barcode"
+msgstr "Code-barres"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_barcode_file
+msgid "Barcode (image)"
+msgstr "Code-barres (image)"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_brand_id
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_brand_id
+msgid "Brand"
+msgstr "Marque"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_woo_product_brand__active
+#: model:ir.model.fields,help:woo_product_connector.field_woo_product_status__active
+msgid ""
+"By unchecking the active field, you can hide a brand without deleting it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer une marque sans la "
+"supprimer."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_woo_product_packing__active
+msgid ""
+"By unchecking the active field, you can hide a packing without deleting it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer un conditionnement sans le "
+"supprimer."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_woo_product_weight__active
+msgid ""
+"By unchecking the active field, you can hide a weight without deleting it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer un grammage sans le "
+"supprimer."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_categ_id
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_categ_id
+msgid "Category"
+msgstr "Catégorie"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__color
+msgid "Color"
+msgstr "Couleur"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__create_uid
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__create_uid
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__create_uid
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__create_date
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__create_date
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__create_date
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__discount_status
+msgid "Discount status"
+msgstr "Statut promotion"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__display_name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__display_name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__display_name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_sync
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_sync
+msgid "E-Shop synchro"
+msgstr "Synchro E-Shop"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_sync
+msgid "E-Shop variant synchro"
+msgstr "Synchro variant E-Shop"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_woo_product_status__discount_status
+msgid ""
+"Enable this option if the status is part of a promotional status. Useful for"
+" WooCommerce."
+msgstr ""
+"Activer cette option si le statut fait partie d'un statut promotionnel. Utile pour"
+" WooCommerce."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__id
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__id
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__id
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__id
+msgid "ID"
+msgstr ""
+
+#. module: woo_product_connector
+#: model_terms:ir.ui.view,arch_db:woo_product_connector.agorane_product_template_form_view
+msgid "Information for WooCommerce"
+msgstr "Informations pour WooCommerce"
+
+#. module: woo_product_connector
+#. odoo-python
+#: code:addons/woo_product_connector/models/product.py:0
+#, python-format
+msgid ""
+"Invalid price. You cannot synchronize this product with the E-Shop. Please, "
+"enter a price."
+msgstr ""
+"Prix invalide. Vous ne pouvez pas synchroniser ce produit avec l'E-Shop. "
+"S'il vous plaît, saisissez un prix."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand____last_update
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing____last_update
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status____last_update
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__write_uid
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__write_uid
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__write_uid
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__write_date
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__write_date
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__write_date
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_name
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_name
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_brand__name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_packing__name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_status__name
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_packing_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_packing_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_packing_ids
+msgid "Packing"
+msgstr "Conditionnements"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_list_price
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_lst_price
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_list_price
+msgid "Price (HT)"
+msgstr "Prix (HT)"
+
+#. module: woo_product_connector
+#: model:ir.model,name:woo_product_connector.model_product_template
+msgid "Product"
+msgstr "Article"
+
+#. module: woo_product_connector
+#: model:ir.model,name:woo_product_connector.model_product_product
+msgid "Product Variant"
+msgstr "Variante d'article"
+
+#. module: woo_product_connector
+#: model:ir.actions.act_window,name:woo_product_connector.woo_product_brand_action
+#: model:ir.ui.menu,name:woo_product_connector.menu_product_brand_action
+#: model_terms:ir.ui.view,arch_db:woo_product_connector.view_woo_product_brand_tree
+msgid "Product brand"
+msgstr "Marques de produit"
+
+#. module: woo_product_connector
+#: model_terms:ir.ui.view,arch_db:woo_product_connector.agorane_product_template_form_view
+msgid "Product information (Woo)"
+msgstr "Information produit (Woo)"
+
+#. module: woo_product_connector
+#: model:ir.actions.act_window,name:woo_product_connector.woo_product_packing_action
+#: model:ir.ui.menu,name:woo_product_connector.menu_product_packing_action
+#: model_terms:ir.ui.view,arch_db:woo_product_connector.view_woo_product_packing_tree
+msgid "Product packing"
+msgstr "Conditionnements produit"
+
+#. module: woo_product_connector
+#: model:ir.actions.act_window,name:woo_product_connector.woo_product_status_action
+#: model:ir.ui.menu,name:woo_product_connector.menu_product_status_action
+#: model_terms:ir.ui.view,arch_db:woo_product_connector.view_woo_product_status_tree
+msgid "Product status"
+msgstr "Statuts produit"
+
+#. module: woo_product_connector
+#: model:ir.actions.act_window,name:woo_product_connector.woo_product_weight_action
+#: model:ir.ui.menu,name:woo_product_connector.menu_product_weight_action
+#: model_terms:ir.ui.view,arch_db:woo_product_connector.view_woo_product_weight_tree
+msgid "Product weight"
+msgstr "Grammages produit"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__quantity
+msgid "Quantity"
+msgstr "Quantité"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_reference
+msgid "Reference"
+msgstr "Référence"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_status_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_status_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_status_ids
+msgid "Status"
+msgstr "Statuts"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_subcateg_id
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_subcateg_id
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_subcateg_id
+msgid "Subcategory"
+msgstr "Sous-catégorie"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_taxes_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_taxes_ids
+msgid "Taxes"
+msgstr ""
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_taxes_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_taxes_ids
+msgid "Taxes used for WooCommerce"
+msgstr "Taxes utilisées pour WooCommerce"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_product_status_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_status_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_status_ids
+msgid ""
+"This information is the product status displayed on the product sheet of the"
+" e-commerce site."
+msgstr ""
+"Ces informations sont les statuts du produit affichés sur la fiche produit "
+"du site e-commerce."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_packing_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_product_packing_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_product_weight_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_weight_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_packing_ids
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_weight_ids
+msgid ""
+"This information is the variants displayed on the product sheet of the "
+"e-commerce site."
+msgstr ""
+"Ces informations sont les variantes affichées sur la fiche produit du site "
+"e-commerce."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_categ_id
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_product_subcateg_id
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_subcateg_id
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_categ_id
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_subcateg_id
+msgid "This information is useful for the filters of the e-commerce site."
+msgstr "Ces informations sont utiles pour les filtres du site e-commerce."
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_woo_product_weight__weight_uom
+msgid "Unit of measurement"
+msgstr "Unité de mesure"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_product_weight_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_product__woo_weight_ids
+#: model:ir.model.fields,field_description:woo_product_connector.field_product_template__woo_weight_ids
+msgid "Weight"
+msgstr "Grammages"
+
+#. module: woo_product_connector
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_product_sync
+#: model:ir.model.fields,help:woo_product_connector.field_product_product__woo_sync
+#: model:ir.model.fields,help:woo_product_connector.field_product_template__woo_sync
+msgid ""
+"When this option is active, the product is displayed on the e-commerce site."
+" The unit price must be different from 0."
+msgstr ""
+"Lorsque cette option est active, le produit est affiché sur le site "
+"e-commerce. Le prix unitaire doit être différent de 0."
+
+#. module: woo_product_connector
+#: model:ir.ui.menu,name:woo_product_connector.woo_product_config
+msgid "WooCommerce"
+msgstr ""
+
+#. module: woo_product_connector
+#: model:ir.model,name:woo_product_connector.model_woo_product_brand
+msgid "WooCommerce product brand"
+msgstr "Marques de produit WooCommerce"
+
+#. module: woo_product_connector
+#: model:ir.model,name:woo_product_connector.model_woo_product_packing
+msgid "WooCommerce product packing"
+msgstr "Conditionnements produit WooCommerce"
+
+#. module: woo_product_connector
+#: model:ir.model,name:woo_product_connector.model_woo_product_status
+msgid "WooCommerce product status"
+msgstr "Statuts produit WooCommerce"
+
+#. module: woo_product_connector
+#: model:ir.model,name:woo_product_connector.model_woo_product_weight
+msgid "WooCommerce product weight"
+msgstr "Grammages produit WooCommerce"
