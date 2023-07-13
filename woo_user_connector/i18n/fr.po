@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-22 14:01+0000\n"
-"PO-Revision-Date: 2023-05-22 14:01+0000\n"
+"POT-Creation-Date: 2023-07-13 19:20+0000\n"
+"PO-Revision-Date: 2023-07-13 19:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: woo_user_connector
+#: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_view_users_form
+msgid "Agent code & commission"
+msgstr "Code agent & commissions"
+
+#. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_settings_view_form
 msgid "Agent commission (%)"
 msgstr "Commission agent (%)"
+
+#. module: woo_user_connector
+#. odoo-python
+#: code:addons/woo_user_connector/models/res_partner.py:0
+#, python-format
+msgid "Agent commission must be greater than 0."
+msgstr "La commission agent doit être supérieure à 0."
 
 #. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_settings_view_form
@@ -66,8 +78,7 @@ msgstr "Commission agent par défaut lors de la création d'un compte Odoo"
 #. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_settings_view_form
 msgid "Default agent discount commission when creating Odoo account"
-msgstr ""
-"Commission promo agent par défaut lors de la création d'un compte Odoo"
+msgstr "Commission promo agent par défaut lors de la création d'un compte Odoo"
 
 #. module: woo_user_connector
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_config_settings__agent_discount_commission
@@ -75,11 +86,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_users__agent_discount_commission
 msgid "Discount commission"
 msgstr "Commission promo"
-
-#. module: woo_user_connector
-#: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_view_users_form
-msgid "Sales"
-msgstr "Ventes"
 
 #. module: woo_user_connector
 #. odoo-python
