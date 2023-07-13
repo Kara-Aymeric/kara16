@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         string="Allow flexible payment"
     )
 
-    @api.constrains('agent_commission', 'agent_discount_commission')
+    @api.constrains('user_id', 'agent_commission', 'agent_discount_commission')
     def _check_agent_reference(self):
         """ Agent commission must be greater than 0. """
         for partner in self:
