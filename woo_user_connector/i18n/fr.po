@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-13 19:20+0000\n"
-"PO-Revision-Date: 2023-07-13 19:20+0000\n"
+"POT-Creation-Date: 2023-07-13 19:33+0000\n"
+"PO-Revision-Date: 2023-07-13 19:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_view_users_form
+#: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_view_users_form_simple_modif
 msgid "Agent code & commission"
 msgstr "Code agent & commissions"
 
@@ -78,7 +79,8 @@ msgstr "Commission agent par défaut lors de la création d'un compte Odoo"
 #. module: woo_user_connector
 #: model_terms:ir.ui.view,arch_db:woo_user_connector.agorane_settings_view_form
 msgid "Default agent discount commission when creating Odoo account"
-msgstr "Commission promo agent par défaut lors de la création d'un compte Odoo"
+msgstr ""
+"Commission promo agent par défaut lors de la création d'un compte Odoo"
 
 #. module: woo_user_connector
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_config_settings__agent_discount_commission
