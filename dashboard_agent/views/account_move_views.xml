@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_dashboard_agent_invoice" model="ir.actions.act_window">
+        <field name="name">My Invoices</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'dashboard_agent': True}</field>
+    </record>
+
+    <record id="custom_sale_view_move_form" model="ir.ui.view">
+        <field name="name">custom sale view move form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button name="action_confirm_payment_for_agent" id="action_confirm_payment_for_agent" string="Validate payment" class="btn-secondary" type="object" attrs="{'invisible': [('state', 'not in', ['posted'])]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

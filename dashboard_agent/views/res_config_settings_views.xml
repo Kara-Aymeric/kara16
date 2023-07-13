@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="15"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="DashboardAgent" string="Dashboard agent" data-key="dashboard_agent" groups="dashboard_agent.group_admin">
+                    <h2>Email templates</h2>
+                    <div class="row mt16 o_settings_container" name="quote_notification_template_id_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="quote_notification_template_config">
+                            <div class="o_setting_right_pane">
+                                <label for="quote_notification_template_id"/>
+                                <div class="text-muted">Email template to use to notify the principal agent that a quote created by an external agent is awaiting validation</div>
+                                <div class="row mt16">
+                                    <label for="quote_notification_template_id" string="Template" class="col-lg-4 o_light_label" />
+                                    <field name="quote_notification_template_id" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_dashboard_agent_config_settings" model="ir.actions.act_window">
+        <field name="name">Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="dashboard_agent.res_config_settings_view_form_inherit"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'dashboard_agent', 'bin_size': False}</field>
+    </record>
+</odoo>
