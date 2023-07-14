@@ -2,6 +2,17 @@
 from odoo import api, fields, models, _
 
 
+READONLY_FIELD_STATES = {
+    state: [('readonly', True)]
+    for state in {'sale', 'done', 'cancel'}
+}
+
+LOCKED_FIELD_STATES = {
+    state: [('readonly', True)]
+    for state in {'done', 'cancel'}
+}
+
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
@@ -15,6 +26,36 @@ class SaleOrder(models.Model):
 
         return domain
 
+    @api.model
+    def _get_agent_partner_invoice_id_domain(self):
+        """ Allows you to search only for contacts to agent (partner invoice address) """
+        domain = []
+        partner_ids = self.env['res.partner'].search([('user_id', '=', self.env.user.id)])
+        if partner_ids:
+            domain = ['|',
+                      ('company_id', '=', False),
+                      ('company_id', '=', self.company_id),
+                      ('id', 'in', partner_ids.ids)]
+
+        return domain
+
+    @api.model
+    def _get_agent_partner_shipping_id_domain(self):
+        """ Allows you to search only for contacts to agent (partner invoice address) """
+        domain = []
+        partner_ids = self.env['res.partner'].search([('user_id', '=', self.env.user.id)])
+        if partner_ids:
+            domain = ['|',
+                      ('company_id', '=', False),
+                      ('company_id', '=', self.company_id),
+                      ('id', 'in', partner_ids.ids)]
+
+        return domain
+
+    def _default_dashboard_agent(self):
+        """ Get value dashboard agent by default """
+        return self.env.context.get('dashboard_agent', False)
+
     state = fields.Selection(
         selection_add=[
             ('validated', "Validated"),
@@ -24,13 +65,30 @@ class SaleOrder(models.Model):
     )
 
     agent_partner_id = fields.Many2one(
-        'res.partner', string="Customer", domain=_get_agent_partner_id_domain, tracking=True
+        'res.partner', string="Customer", domain=_get_agent_partner_id_domain,
+        readonly=False, change_default=True, index=True, tracking=1,
+        states=READONLY_FIELD_STATES
     )
+
+    agent_partner_invoice_id = fields.Many2one(
+        'res.partner', string="Invoice Address", domain=_get_agent_partner_invoice_id_domain,
+        compute='_compute_agent_partner_invoice_id',
+        store=True, readonly=False, precompute=True,
+        states=LOCKED_FIELD_STATES
+    )
+
+    agent_partner_shipping_id = fields.Many2one(
+        'res.partner', string="Delivery Address", domain=_get_agent_partner_shipping_id_domain,
+        compute='_compute_agent_partner_shipping_id',
+        store=True, readonly=False, precompute=True,
+        states=LOCKED_FIELD_STATES
+    )
+
     principal_agent_id = fields.Many2one(
         'res.users', string="Principal agent", compute="_compute_principal_agent_id", store=True, tracking=True
     )
     is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent")
-    dashboard_agent = fields.Boolean(string="Dashboard agent", compute="_compute_dashboard_agent")
+    dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
 
     dashboard_commission_order = fields.Boolean(string="Commission")
     dashboard_child_id = fields.Many2one(
@@ -44,6 +102,18 @@ class SaleOrder(models.Model):
         compute="_compute_dashboard_commission_total",
         help="Total commission value for the sale", tracking=True)
     dashboard_associated_commission = fields.Boolean(string="Associated commission")
+
+    @api.depends('agent_partner_id')
+    def _compute_agent_partner_invoice_id(self):
+        for order in self:
+            order.agent_partner_invoice_id = order.agent_partner_id.address_get(['invoice'])['invoice'] \
+                if order.agent_partner_id else False
+
+    @api.depends('agent_partner_id')
+    def _compute_agent_partner_shipping_id(self):
+        for order in self:
+            order.agent_partner_shipping_id = order.agent_partner_id.address_get(['delivery'])['delivery'] \
+                if order.agent_partner_id else False
 
     @api.depends('order_line.dashboard_price_commission')
     def _compute_dashboard_commission_total(self):
@@ -63,11 +133,6 @@ class SaleOrder(models.Model):
                     principal_agent_id = relation_agent.principal_agent_id.id
 
             record.principal_agent_id = principal_agent_id
-
-    @api.depends_context('dashboard_agent')
-    def _compute_dashboard_agent(self):
-        for record in self:
-            record.dashboard_agent = self.env.context.get('dashboard_agent', False)
 
     def action_quote_confirmation_request(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
