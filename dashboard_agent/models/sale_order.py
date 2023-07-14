@@ -169,7 +169,17 @@ class SaleOrder(models.Model):
         """ Agent partner equal partner """
         self.partner_id = self.agent_partner_id.id
 
-    @api.onchange('partner_id')
-    def _onchange_agorane_partner_id(self):
-        """ Partner equal agent partner """
-        self.agent_partner_id = self.partner_id.id
+    @api.onchange('agent_partner_invoice_id')
+    def _onchange_agent_partner_invoice_id(self):
+        """ Agent partner invoice address equal partner invoice address """
+        self.partner_invoice_id = self.agent_partner_invoice_id.id
+
+    @api.onchange('agent_partner_shipping_id')
+    def _onchange_agent_partner_shipping_id(self):
+        """ Agent partner shipping address equal partner shipping address """
+        self.partner_shipping_id = self.agent_partner_shipping_id.id
+
+    # @api.onchange('partner_id')
+    # def _onchange_agorane_partner_id(self):
+    #     """ Partner equal agent partner """
+    #     self.agent_partner_id = self.partner_id.id
