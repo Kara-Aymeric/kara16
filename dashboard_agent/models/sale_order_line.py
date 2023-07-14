@@ -7,3 +7,4 @@ class SaleOrderLine(models.Model):
 
     dashboard_product_commission = fields.Monetary(string="Commission")
     dashboard_price_commission = fields.Monetary(string="Total commission")
+
