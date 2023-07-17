@@ -428,11 +428,6 @@ msgstr "Vendeur"
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
-msgid "Send PRO-FORMA Invoice"
-msgstr "Envoyer facture PRO-FORMA"
-
-#. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
 msgid "Send by Email"
 msgstr "Envoyer par email"
 

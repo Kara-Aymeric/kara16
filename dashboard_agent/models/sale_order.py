@@ -103,6 +103,20 @@ class SaleOrder(models.Model):
         compute="_compute_dashboard_commission_total",
         help="Total commission value for the sale", tracking=True)
     dashboard_associated_commission = fields.Boolean(string="Associated commission")
+    dashboard_button_visible = fields.Boolean(
+        string="Dashboard button visible",
+        compute="_compute_dashboard_button_visible"
+    )
+
+    @api.depends('dashboard_agent', 'is_validate_by_agent')
+    def _compute_dashboard_button_visible(self):
+        """ Allows easy management of the display of buttons and fields in the dashboard module """
+        for order in self:
+            dashboard_button_visible = False
+            if order.dashboard_agent and order.is_validate_by_agent:
+                dashboard_button_visible = True
+
+            order.dashboard_button_visible = dashboard_button_visible
 
     @api.depends('agent_partner_id')
     def _compute_agent_partner_invoice_id(self):
