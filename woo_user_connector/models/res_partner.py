@@ -20,12 +20,11 @@ class ResPartner(models.Model):
         string="Allow flexible payment"
     )
 
-    @api.constrains('user_id', 'agent_commission', 'agent_discount_commission')
-    def _check_agent_reference(self):
+    @api.onchange('agent_commission', 'agent_discount_commission')
+    def _onchange_agent_commission(self):
         """ Agent commission must be greater than 0. """
-        for partner in self:
-            if partner.agent_commission <= 0 or partner.agent_discount_commission <= 0:
-                raise ValidationError(_("Agent commission must be greater than 0."))
+        if self.agent_commission <= 0 or self.agent_discount_commission <= 0:
+            raise ValidationError(_("Agent commission must be greater than 0."))
 
     @api.onchange('user_id')
     def _onchange_user_id(self):
