@@ -59,8 +59,7 @@
                 <field name="dashboard_associated_commission" invisible="1"/>
                 <field name="dashboard_child_id" readonly="1" attrs="{'invisible': ['|', ('dashboard_commission_order', '=', True), ('dashboard_associated_commission', '!=', True)]}"/>
                 <field name="dashboard_order_origin_id" readonly="1" attrs="{'invisible': [('dashboard_commission_order', '!=', True)]}"/>
-                <field name="is_validate_by_agent" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
-                <field name="is_validate_by_agent" readonly="1" groups="dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+                <field name="is_validate_by_agent" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin" readonly="1" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
             </xpath>
 
             <xpath expr="//page[@name='order_lines']//tree//field[@name='tax_id']" position="after">

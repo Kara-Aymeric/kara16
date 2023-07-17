@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 READONLY_FIELD_STATES = {
@@ -134,6 +135,60 @@ class SaleOrder(models.Model):
 
             record.principal_agent_id = principal_agent_id
 
+    def _dashboard_create_order_child(self):
+        """
+        Creation of a child sale if commission lines exist and addition of commission lines on
+        the new sale for the manufacturer
+        """
+        for order in self:
+            prepare_values = []
+            company_user = self.env.user.company_id
+
+            if order.dashboard_commission_total > 0:
+                # Prepare data for add commission line
+                tax = order._generate_commission_tax()
+                product_id = self.env['product.product'].search(
+                    [('product_tmpl_id', '=', self.env.ref("dashboard_agent.dashboard_product_template_commission").id)]
+                )
+                commission_name = f"Commission pour {order.partner_id.name}. " \
+                                  f"Commande N°{order.name or ''}"
+                prepare_values = [{
+                    'name': commission_name,
+                    'product_id': product_id.id,
+                    'product_uom_qty': 1,
+                    'tax_id': tax if tax else False,
+                    'price_unit': order.dashboard_commission_total,
+                    'company_id': company_user.id,
+                }]
+            if len(prepare_values) > 0:
+                if order.dashboard_child_id:
+                    # Replace all line
+                    order.dashboard_child_id.order_line = False
+                    order.dashboard_child_id.write({
+                        'order_line': [(0, 0, data) for data in prepare_values],
+                    })
+                else:
+                    # Create new order with commission line
+                    child_id = order.copy({
+                        'dashboard_commission_order': True,
+                        'dashboard_order_origin_id': order.id,
+                        'order_line': [(0, 0, data) for data in prepare_values],
+                    })
+
+                    # Affiliate order child into order
+                    order.write({
+                        'dashboard_associated_commission': True,
+                        'dashboard_child_id': child_id.id,
+                    })
+
+    def action_confirm(self):
+        """ Surcharge base function """
+        res = super(SaleOrder, self).action_confirm()
+        for order in self:
+            if order.dashboard_agent:
+                order._dashboard_create_order_child()
+        return res
+
     def action_quote_confirmation_request(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """
         self.ensure_one()
@@ -178,8 +233,3 @@ class SaleOrder(models.Model):
     def _onchange_agent_partner_shipping_id(self):
         """ Agent partner shipping address equal partner shipping address """
         self.partner_shipping_id = self.agent_partner_shipping_id.id
-
-    # @api.onchange('partner_id')
-    # def _onchange_agorane_partner_id(self):
-    #     """ Partner equal agent partner """
-    #     self.agent_partner_id = self.partner_id.id
