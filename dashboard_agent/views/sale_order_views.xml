@@ -82,7 +82,7 @@
                 <field name="dashboard_agent" invisible="1"/>
                 <field name="dashboard_commission_order" invisible="1"/>
                 <field name="dashboard_associated_commission" invisible="1"/>
-                <field name="dashboard_button_visible" />
+                <field name="dashboard_button_visible" invisible="1"/>
                 <field name="dashboard_child_id" readonly="1" attrs="{'invisible': ['|', ('dashboard_commission_order', '=', True), ('dashboard_associated_commission', '!=', True)]}"/>
                 <field name="dashboard_order_origin_id" readonly="1" attrs="{'invisible': [('dashboard_commission_order', '!=', True)]}"/>
                 <field name="is_validate_by_agent" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin" readonly="1" force_save="1" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
