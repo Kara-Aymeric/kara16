@@ -20,10 +20,16 @@ class ResPartner(models.Model):
         string="Allow flexible payment"
     )
 
-    @api.onchange('agent_commission', 'agent_discount_commission')
+    @api.onchange('agent_commission')
     def _onchange_agent_commission(self):
         """ Agent commission must be greater than 0. """
-        if self.agent_commission <= 0 or self.agent_discount_commission <= 0:
+        if self.agent_commission <= 0:
+            raise ValidationError(_("Agent commission must be greater than 0."))
+
+    @api.onchange('agent_discount_commission')
+    def _onchange_agent_discount_commission(self):
+        """ Agent discount commission must be greater than 0. """
+        if self.agent_discount_commission <= 0:
             raise ValidationError(_("Agent commission must be greater than 0."))
 
     @api.onchange('user_id')
