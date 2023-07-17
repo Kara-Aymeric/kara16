@@ -16,7 +16,9 @@
         <field name="arch" type="xml">
             <xpath expr="//header/field[@name='state']" position="before">
                 <field name="dashboard_agent" invisible="1"/>
-                <button name="action_confirm_payment_for_agent" id="action_confirm_payment_for_agent" groups="dashboard_agent.group_admin"  string="Validate payment" class="btn-secondary" type="object" attrs="{'invisible': [('state', 'not in', ['posted'])]}"/>
+                <button name="action_confirm_payment_for_agent" id="action_confirm_payment_for_agent" groups="dashboard_agent.group_admin"
+                        string="Validate payment" class="btn-secondary" type="object" confirm="By validating the payment, the commission associated with this sale will change status. Continue ?"
+                        attrs="{'invisible': [('state', 'not in', ['posted'])]}"/>
             </xpath>
         </field>
     </record>
