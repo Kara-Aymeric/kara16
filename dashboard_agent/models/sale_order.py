@@ -88,7 +88,7 @@ class SaleOrder(models.Model):
     principal_agent_id = fields.Many2one(
         'res.users', string="Principal agent", compute="_compute_principal_agent_id", store=True, tracking=True
     )
-    is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent")
+    is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent", tracking=True)
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
 
     dashboard_commission_order = fields.Boolean(string="Commission")
@@ -188,6 +188,16 @@ class SaleOrder(models.Model):
             if order.dashboard_agent:
                 order._dashboard_create_order_child()
         return res
+
+    def action_validate_quote(self):
+        """ Validate quote by principal agent """
+        self.ensure_one()
+        self.write({'is_validate_by_agent': True})
+
+    def action_cancel_request(self):
+        """ Cancel quote by principal agent """
+        self.ensure_one()
+        self.write({'is_validate_by_agent': False})
 
     def action_quote_confirmation_request(self):
         """ Opens a wizard to compose an email, with relevant mail template loaded by default """

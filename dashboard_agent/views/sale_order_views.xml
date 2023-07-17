@@ -43,14 +43,16 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_quotation_send'][1]" position="replace">
-                <field name="is_validate_by_agent" invisible="1"/>
-                <button name="action_quote_confirmation_request" string="Request validation" groups="dashboard_agent.group_external_agent" type="object" class="btn-primary" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '=', True), ('is_validate_by_agent', '=', True)]}"/>
-                <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('dashboard_agent', '=', True), ('is_validate_by_agent', '!=', True)]}"/>
+<!--                <field name="is_validate_by_agent" invisible="1"/>-->
+                <button name="action_quote_confirmation_request" string="Request validation" groups="dashboard_agent.group_external_agent" type="object" class="btn-primary" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '=', True)]}"/>
+                <button name="action_validate_quote" string="Validate quote" groups="dashboard_agent.group_principal_agent" type="object" class="btn-primary" confirm="You will confirm the request for validation of the quote from your agent. Continue ?" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '=', True)]}"/>
+                <button name="action_cancel_request" string="Cancel request" groups="dashboard_agent.group_principal_agent" type="object" class="btn-primary" confirm="You are going to cancel your agent's quote validation request. Continue ?" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '!=', True)]}"/>
+                <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '!=', True)]}"/>
             </xpath>
             <xpath expr="//button[@name='action_quotation_send'][2]" position="replace">
                 <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice"
                     groups="sale.group_proforma_sales" class="btn-primary"
-                    attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft']), ('invoice_count','&gt;=',1), ('dashboard_agent', '=', True), ('is_validate_by_agent', '!=', True)]}" context="{'proforma': True, 'validate_analytic': True}"/>
+                    attrs="{'invisible': ['|', '|', '|', ('state', 'not in', ['draft']), ('invoice_count','&gt;=',1), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '!=', True)]}" context="{'proforma': True, 'validate_analytic': True}"/>
             </xpath>
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
@@ -59,7 +61,7 @@
                 <field name="dashboard_associated_commission" invisible="1"/>
                 <field name="dashboard_child_id" readonly="1" attrs="{'invisible': ['|', ('dashboard_commission_order', '=', True), ('dashboard_associated_commission', '!=', True)]}"/>
                 <field name="dashboard_order_origin_id" readonly="1" attrs="{'invisible': [('dashboard_commission_order', '!=', True)]}"/>
-                <field name="is_validate_by_agent" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin" readonly="1" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+                <field name="is_validate_by_agent" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin" readonly="1" force_save="1" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
             </xpath>
 
             <xpath expr="//page[@name='order_lines']//tree//field[@name='tax_id']" position="after">
