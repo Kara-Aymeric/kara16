@@ -24,6 +24,18 @@ class ResPartner(models.Model):
 
     # Provide multiple users access to each contact
     related_user_ids = fields.Many2many('res.users', string='Access Rights', default=_get_default_related_user_ids)
+    readonly_custom_field = fields.Boolean(string="Readonly custom field", compute="_compute_readonly_custom_field")
+
+    @api.depends('name')
+    def _compute_readonly_custom_field(self):
+        """ Compute readonly custom field """
+        for record in self:
+            readonly_custom_field = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent') or user.has_group('dashboard_agent.group_principal_agent'):
+                readonly_custom_field = True
+
+            record.readonly_custom_field = readonly_custom_field
 
     # Automatically sync salesperson and related users from parent to child
     @api.model
