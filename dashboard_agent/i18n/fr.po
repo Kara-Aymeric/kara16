@@ -161,15 +161,6 @@ msgstr ""
 "supprimer."
 
 #. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
-msgid ""
-"By validating the payment, the commission associated with this sale will "
-"change status. Continue ?"
-msgstr ""
-"En validant le paiement, la commission associée à cette vente changera "
-"de statut. Continuer ?"
-
-#. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
 msgid "Cancel request"
 msgstr "Annuler demande"
@@ -483,11 +474,6 @@ msgstr "Valeur totale de la commission pour la vente"
 msgid "Used for quotation confirmation request by the principal agent"
 msgstr ""
 "Utilisé pour la demande de confirmation de devis par l'agent principal"
-
-#. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
-msgid "Validate payment"
-msgstr "Valider paiement"
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form

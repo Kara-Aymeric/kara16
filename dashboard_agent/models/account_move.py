@@ -11,6 +11,43 @@ class AccountMove(models.Model):
 
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
 
-    def action_confirm_payment_for_agent(self):
-        """ Validates the payment to change the status of the agent commission """
-        print("OK")
+    def _update_status_commission_associated(self, commission_order_id, new_state, body_msg):
+        """ Update status commission associated """
+        commission_order_id.write({
+            'state': new_state,
+        })
+        self.message_post(body=_(body_msg))
+
+    def _get_commission_order_associated(self):
+        """ Get commission order associated """
+        order_id = self.env['sale.order'].sudo().search([('name', '=', self.invoice_origin)])
+        if order_id and order_id.dashboard_child_id:
+            return order_id.dashboard_child_id
+
+        return False
+
+    def action_confirm_invoice_payment_for_agent(self):
+        """ Validates the invoice payment to change the status of the agent commission """
+        commission_order_id = self._get_commission_order_associated()
+        if commission_order_id and commission_order_id.dashboard_commission_order:
+            body_msg = f"The reference commission {commission_order_id.name} has just changed " \
+                       f"to 'Customer payment received' status"
+            self._update_status_commission_associated(commission_order_id, "customer_payment_received", body_msg)
+
+    def action_confirm_commission_payment_for_agent(self):
+        """ Validates the commission payment to change the status of the agent commission """
+        commission_order_id = self._get_commission_order_associated()
+        if commission_order_id and commission_order_id.dashboard_commission_order:
+            body_msg = f"The reference commission {commission_order_id.name} has just changed " \
+                       f"to 'Payed' status"
+            self._update_status_commission_associated(commission_order_id, "agorane_payed", body_msg)
+
+    def action_post(self):
+        """ Surcharge default function """
+        res = super(AccountMove, self).action_post()
+        commission_order_id = self._get_commission_order_associated()
+        if commission_order_id and commission_order_id.dashboard_commission_order:
+            body_msg = f"The reference commission {commission_order_id.name} has just changed to 'Validated' status"
+            self._update_status_commission_associated(commission_order_id, "validated", body_msg)
+
+        return res
