@@ -16,7 +16,7 @@ class AccountMove(models.Model):
         commission_order_id.write({
             'state': new_state,
         })
-        self.message_post(body=_(body_msg))
+        self.message_post(body=body_msg)
 
     def _get_commission_order_associated(self):
         """ Get commission order associated """
@@ -30,16 +30,15 @@ class AccountMove(models.Model):
         """ Validates the invoice payment to change the status of the agent commission """
         commission_order_id = self._get_commission_order_associated()
         if commission_order_id and commission_order_id.dashboard_commission_order:
-            body_msg = f"The reference commission {commission_order_id.name} has just changed " \
-                       f"to 'Customer payment received' status"
+            body_msg = f"L'état de la commission {commission_order_id.name} vient d'être modifié " \
+                       f"pour 'Paiement client reçu'"
             self._update_status_commission_associated(commission_order_id, "customer_payment_received", body_msg)
 
     def action_confirm_commission_payment_for_agent(self):
         """ Validates the commission payment to change the status of the agent commission """
         commission_order_id = self._get_commission_order_associated()
         if commission_order_id and commission_order_id.dashboard_commission_order:
-            body_msg = f"The reference commission {commission_order_id.name} has just changed " \
-                       f"to 'Payed' status"
+            body_msg = f"L'état de la commission {commission_order_id.name} vient d'être modifié pour 'Payé'"
             self._update_status_commission_associated(commission_order_id, "agorane_payed", body_msg)
 
     def action_post(self):
@@ -47,7 +46,7 @@ class AccountMove(models.Model):
         res = super(AccountMove, self).action_post()
         commission_order_id = self._get_commission_order_associated()
         if commission_order_id and commission_order_id.dashboard_commission_order:
-            body_msg = f"The reference commission {commission_order_id.name} has just changed to 'Validated' status"
+            body_msg = f"L'état de la commission {commission_order_id.name} vient d'être modifié pour 'Validé'"
             self._update_status_commission_associated(commission_order_id, "validated", body_msg)
 
         return res
