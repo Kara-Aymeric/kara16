@@ -19,7 +19,7 @@
 
             <field name="state" position="replace">
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale" attrs="{'invisible': ['|', ('dashboard_commission_order', '=', True), ('supplier_order', '=', True)]}"/>
-                <field name="state" widget="statusbar" statusbar_visible="draft,sent,validated,customer_payment_received,agorane_payed" attrs="{'invisible': [('dashboard_commission_order', '=', False)]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,validated,customer_payment_received,agorane_payed" attrs="{'invisible': [('dashboard_commission_order', '=', False)]}"/>
             </field>
 
             <xpath expr="//group[@name='partner_details']" position="replace">
