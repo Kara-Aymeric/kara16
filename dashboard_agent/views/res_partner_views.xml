@@ -27,12 +27,15 @@
             </xpath>
             <xpath expr="//field[@name='agent_commission']" position="attributes">
                 <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='agent_discount_commission']" position="attributes">
                 <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='allow_flexible_payment']" position="attributes">
                 <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
             </xpath>
         </field>
     </record>
