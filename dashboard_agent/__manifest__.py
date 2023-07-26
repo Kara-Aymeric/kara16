@@ -10,7 +10,7 @@
     """,
     'website': 'https://hennet-solutions.fr',
     'license': 'LGPL-3',
-    'depends': ['account', 'crm', 'sale', 'custom_sale', 'sale_commission', 'woo_user_connector'],
+    'depends': ['account', 'crm', 'sale', 'mail', 'custom_sale', 'sale_commission', 'woo_user_connector'],
     'data': [
         # Data
         'data/mail_template_data.xml',
@@ -33,4 +33,9 @@
         'views/sale_order_views.xml',
         'views/dashboard_agent_menus.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'dashboard_agent/static/src/xml/*.xml',
+        ],
+    },
 }
