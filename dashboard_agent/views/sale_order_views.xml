@@ -77,6 +77,9 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('dashboard_agent', '=', True)]}"/>
                 <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('dashboard_button_visible', '!=', True)]}"/>
             </xpath>
+            <header position="attributes">
+                <attribute name="attrs">{'invisible': [('dashboard_commission_order', '=', True)]}</attribute>
+            </header>
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="dashboard_agent" invisible="1"/>
