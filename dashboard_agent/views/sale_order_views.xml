@@ -13,6 +13,7 @@
             </xpath>
 
             <xpath expr="//button[@name='action_confirm'][1]" position="replace">
+                <field name="dashboard_commission_order" invisible="1"/>
                 <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('dashboard_agent', '=', True), '|', ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>
                 <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), ('state', 'not in', ['sent'])]}"/>
             </xpath>
