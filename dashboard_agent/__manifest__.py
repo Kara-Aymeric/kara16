@@ -13,6 +13,7 @@
     'depends': ['account', 'crm', 'sale', 'mail', 'custom_sale', 'sale_commission', 'woo_user_connector'],
     'data': [
         # Data
+        'data/ir_module_category_data.xml',
         'data/mail_template_data.xml',
         'data/product_data.xml',
 
