@@ -6,7 +6,26 @@
         <field name="model">res.users</field>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='preferences']//group[1]" position="before">
-                <group name="agent_info" string="Sales">
+                <group name="agent_info" string="Agent code &amp; commission">
+                    <group name="agent_reference">
+                        <field name="agent_reference" />
+                    </group>
+                    <group name="agent_commission">
+                        <field name="agent_commission" />
+                        <field name="agent_discount_commission" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="agorane_view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">agorane.view.users.form.simple.modif</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='preferences_page']/group[@name='preferences']" position="before">
+                <group name="agent_info" string="Agent code &amp; commission">
                     <group name="agent_reference">
                         <field name="agent_reference" />
                     </group>

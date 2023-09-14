@@ -5,7 +5,18 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">crm.lead</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="domain">[]</field>
+        <field name="domain">[('dashboard_agent', '=', True)]</field>
         <field name="context">{'dashboard_agent': True}</field>
+    </record>
+
+    <record id="dashboard_agent_crm_lead_view_form" model="ir.ui.view">
+        <field name="name">dashboard.agent.crm.lead.view.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='opportunity_partner']//field[@name='partner_id']" position="before">
+                <field name="dashboard_agent" invisible="1" />
+            </xpath>
+        </field>
     </record>
 </odoo>
