@@ -201,9 +201,12 @@ class SaleOrder(models.Model):
                     'company_id': company_user.id,
                 }]
             if len(prepare_values) > 0:
+                customer_id = self.env.company.partner_id
                 if order.dashboard_child_id:
                     # Replace all line
-                    order.dashboard_child_id.order_line = False
+                    order.dashboard_child_id.write({
+                        'order_line': False,
+                    })
                     order.dashboard_child_id.write({
                         'order_line': [(0, 0, data) for data in prepare_values],
                     })
@@ -212,6 +215,12 @@ class SaleOrder(models.Model):
                     child_id = order.copy({
                         'dashboard_commission_order': True,
                         'dashboard_order_origin_id': order.id,
+                        'partner_id': customer_id.id,
+                        'partner_invoice_id': customer_id.id,
+                        'partner_shipping_id': customer_id.id,
+                        'agent_partner_id': customer_id.id,
+                        'agent_partner_invoice_id': customer_id.id,
+                        'agent_partner_shipping_id': customer_id.id,
                         'order_line': [(0, 0, data) for data in prepare_values],
                     })
 
