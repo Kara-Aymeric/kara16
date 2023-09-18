@@ -9,6 +9,42 @@
         <field name="context">{'dashboard_agent': True}</field>
     </record>
 
+    <record id="dashboard_agent_quick_create_opportunity_form" model="ir.ui.view">
+        <field name="name">dashboard.agent.quick.create.opportunity.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="dashboard_agent" invisible="1"/>
+                <field name="partner_id" widget="res_partner_many2one"
+                    string='Organization / Contact'
+                    attrs="{'invisible': [('dashboard_agent', '=', True)]}"
+                    context="{
+                    'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                    'default_name': contact_name or partner_name,
+                    'default_is_company': type == 'opportunity' and contact_name == False,
+                    'default_company_name': type == 'opportunity' and partner_name,
+                    'default_phone': phone,
+                    'default_email': email_from,
+                    'default_user_id': user_id,
+                    'default_team_id': team_id,
+                    'show_vat': True}"/>
+                <field name="agent_partner_id" widget="res_partner_many2one" string='Organization / Contact'
+                    attrs="{'invisible': [('dashboard_agent', '!=', True)]}"
+                    context="{
+                    'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                    'default_name': contact_name or partner_name,
+                    'default_is_company': type == 'opportunity' and contact_name == False,
+                    'default_company_name': type == 'opportunity' and partner_name,
+                    'default_phone': phone,
+                    'default_email': email_from,
+                    'default_user_id': user_id,
+                    'default_team_id': team_id,
+                    'show_vat': True}"/>
+            </xpath>
+        </field>
+    </record>
+
     <record id="dashboard_agent_crm_lead_view_form" model="ir.ui.view">
         <field name="name">dashboard.agent.crm.lead.view.form</field>
         <field name="model">crm.lead</field>
