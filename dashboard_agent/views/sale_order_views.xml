@@ -35,8 +35,8 @@
     </record>
 
     <!-- Inherited view custom module -->
-    <record id="custom_sale_kara_sale_view_order_form" model="ir.ui.view">
-        <field name="name">custom kara sale view order form</field>
+    <record id="dashboard_agent_sale_view_order_form" model="ir.ui.view">
+        <field name="name">dashboard agent view order form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="custom_sale.kara_sale_view_order_form"/>
         <field name="arch" type="xml">

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 08:44+0000\n"
-"PO-Revision-Date: 2023-09-19 08:44+0000\n"
+"POT-Creation-Date: 2023-09-19 12:26+0000\n"
+"PO-Revision-Date: 2023-09-19 12:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgstr ""
 "supprimer."
 
 #. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid ""
 "By validating the commission payment, the commission associated with this "
 "sale will change status. Continue ?"
@@ -170,7 +170,7 @@ msgstr ""
 "vente changera de statut. Continuer ?"
 
 #. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid ""
 "By validating the invoice payment, the commission associated with this sale "
 "will change status. Continue ?"
@@ -196,7 +196,7 @@ msgid "Commission / Article"
 msgstr ""
 
 #. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid "Commission payment"
 msgstr "Paiement commission"
 
@@ -213,7 +213,8 @@ msgid "Configuration"
 msgstr ""
 
 #. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_kara_sale_view_order_form
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_sale_view_order_form
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -250,6 +251,11 @@ msgstr "Créé le"
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
 msgid "Creation Date"
 msgstr "Date de création"
+
+#. module: dashboard_agent
+#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_product
+msgid "Créer un nouveau produit"
+msgstr ""
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_crm_lead__agent_partner_id
@@ -330,7 +336,7 @@ msgid "Invoice Address"
 msgstr "Adresse de facturation"
 
 #. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_move_form
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid "Invoice payment"
 msgstr "Paiement facture"
 
@@ -424,8 +430,8 @@ msgid ""
 "'commission' type"
 msgstr ""
 "Aucun pays n'est configuré pour l'agent (vendeur). Cette configuration est "
-"obligatoire pour générer une taxe automatique lors de la création d'une devis de "
-"type 'commission'"
+"obligatoire pour générer une taxe automatique lors de la création d'une "
+"devis de type 'commission'"
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
@@ -562,8 +568,8 @@ msgid ""
 "The tax for the automatic creation of the 'commission' type quote is unable "
 "to retrieve because there are at least two taxes configured"
 msgstr ""
-"La taxe pour la création automatique du devis de type 'commission' n'est pas possible "
-"à récupérer car il y a au moins deux taxes configurées"
+"La taxe pour la création automatique du devis de type 'commission' n'est pas"
+" possible à récupérer car il y a au moins deux taxes configurées"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,help:dashboard_agent.field_sale_order__dashboard_child_id
