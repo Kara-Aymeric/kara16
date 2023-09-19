@@ -218,6 +218,7 @@ class SaleOrder(models.Model):
                 else:
                     # Create new order with commission line
                     child_id = order.copy({
+                        'name': order.name.replace("S", "C"),
                         'dashboard_commission_order': True,
                         'dashboard_order_origin_id': order.id,
                         'partner_id': customer_id.id,
