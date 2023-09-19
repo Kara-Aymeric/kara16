@@ -37,8 +37,8 @@ msgstr "Étiquettes du partenaire"
 
 #. module: partner_auto_category
 #: model:ir.model.fields,field_description:partner_auto_category.field_res_partner_category__replace_after_invoice_category_id
-msgid "Replace after invoicing by"
-msgstr "Remplacer après facturation par"
+msgid "As replacement after invoicing of"
+msgstr "En remplacement après facturation de"
 
 #. module: partner_auto_category
 #: model:ir.model.fields,field_description:partner_auto_category.field_res_partner__category_id
