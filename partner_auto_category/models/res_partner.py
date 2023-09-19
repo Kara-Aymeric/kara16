@@ -7,7 +7,7 @@ class ResPartnerCategory(models.Model):
 
     use_as_default = fields.Boolean(string="Default Tags", copy=False)
     replace_after_invoice_category_id = fields.Many2one(
-        "res.partner.category", string="Replace after invoicing by", copy=False
+        "res.partner.category", string="As replacement after invoicing of", copy=False
     )
 
 
