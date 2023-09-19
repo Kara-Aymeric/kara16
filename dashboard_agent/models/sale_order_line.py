@@ -40,5 +40,4 @@ class SaleOrderLine(models.Model):
         """ Change manually commission """
         sale_commission = self.dashboard_product_commission
         qty = self.product_uom_qty
-        if sale_commission > 0:
-            self._change_dashboard_price_commission(sale_commission, qty)
+        self._change_dashboard_price_commission(sale_commission, qty)
