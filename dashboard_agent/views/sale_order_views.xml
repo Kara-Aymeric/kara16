@@ -23,8 +23,9 @@
                 <field name="amount_total" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
                 <field name="dashboard_commission_total" widget="monetary" invisible="context.get('hide_dashboard_commission', False)" />
                 <field name="state"
-                    decoration-success="state == 'sale' or state == 'done'"
+                    decoration-success="state == 'sale' or state == 'done' or state == 'agorane_payed'"
                     decoration-info="state == 'draft' or state == 'sent'"
+                    decoration-warning="state == 'validated' or state == 'customer_payment_received'"
                     widget="badge" optional="show"/>
                 <field name="invoice_status" optional="hide"/>
                 <field name="message_needaction" invisible="1"/>
