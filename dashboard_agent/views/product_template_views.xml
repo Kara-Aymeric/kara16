@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="custom_product_template_form_view" model="ir.ui.view">
+        <field name="name">custom product template form view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_standard_price']//label[@for='standard_price']" position="attributes">
+                <attribute name="invisible">context.get('dashboard_agent', False)</attribute>
+            </xpath>
+            <xpath expr="//group[@name='group_standard_price']//div[@name='standard_price_uom']" position="attributes">
+                <attribute name="invisible">context.get('dashboard_agent', False)</attribute>
+            </xpath>
+        </field>
+    </record>
+
     <record id="action_dashboard_agent_product" model="ir.actions.act_window">
         <field name="name">Product</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'dashboard_agent': True}</field>
     </record>
 </odoo>
