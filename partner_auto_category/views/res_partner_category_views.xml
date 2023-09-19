@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="agorane_base_view_partner_category_list" model="ir.ui.view">
+            <field name="name">agorane base view partner category list</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="use_as_default" />
+                    <field name="replace_after_invoice_category_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="agorane_base_view_partner_category_form" model="ir.ui.view">
+            <field name="name">agorane base view partner category form</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="use_as_default" />
+                    <field name="replace_after_invoice_category_id" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
