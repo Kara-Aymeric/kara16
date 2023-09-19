@@ -152,9 +152,10 @@ class SaleOrder(models.Model):
     def _dashboard_check_agent_country(self):
         """ The country on the contact form is mandatory to continue. The tax depends on the country """
         if not self.user_id.partner_id.country_id:
-            raise ValidationError("No country is configured for the agent (salespeople). "
-                                  "This configuration is mandatory to set an automatic tax when generating the quote "
-                                  "of the 'commission' type")
+            raise ValidationError(
+                _("No country is configured for the agent (salespeople). This configuration is mandatory to set "
+                  "an automatic tax when generating the quote of the 'commission' type")
+            )
 
     def _dashboard_generate_commission_tax(self):
         """
@@ -164,12 +165,16 @@ class SaleOrder(models.Model):
         self._dashboard_check_agent_country()
         commission_tax_id = self.env['account.tax'].search([('commission_tax', '=', True)])
         if not commission_tax_id:
-            raise ValidationError(f"The configuration of a tax concerning the automatic creation of an estimate of "
-                                  f"the type 'commission' is required to confirm the sale.\n"
-                                  f"The company concerned by this configuration is {self.company_id.name}")
+            raise ValidationError(
+                _("The configuration of a tax concerning the automatic creation of an estimate "
+                  "of the type 'commission' is required to confirm the sale.\n"
+                  "The company concerned by this configuration is %s", self.company_id.name)
+            )
         if len(commission_tax_id) > 1:
-            raise ValidationError("The tax for the automatic creation of the 'commission' type quote is "
-                                  "unable to retrieve because there are at least two taxes configured")
+            raise ValidationError(
+                _("The tax for the automatic creation of the 'commission' type quote is unable to retrieve because "
+                  "there are at least two taxes configured")
+            )
         if self.user_id.partner_id.country_id.phone_code != 33:
             return False
 
@@ -213,6 +218,7 @@ class SaleOrder(models.Model):
                 else:
                     # Create new order with commission line
                     child_id = order.copy({
+                        'name': order.name.replace("S", "C"),
                         'dashboard_commission_order': True,
                         'dashboard_order_origin_id': order.id,
                         'partner_id': customer_id.id,

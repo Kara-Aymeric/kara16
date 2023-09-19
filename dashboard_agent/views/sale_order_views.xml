@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="dashboard_agent_view_order_tree" model="ir.ui.view">
+        <field name="name">dashboard.agent.view.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <tree string="Quotation" class="o_sale_order" sample="1"
+                decoration-info="state in ['draft', 'sent']"
+                decoration-muted="state == 'cancel'">
+                <field name="name" string="Number" readonly="1" decoration-bf="1"/>
+                <field name="create_date" string="Creation Date" widget="date" optional="show"/>
+                <field name="commitment_date" widget="date" optional="hide"/>
+                <field name="expected_date" widget="date" optional="hide"/>
+                <field name="partner_id" readonly="1"/>
+                <field name="partner_invoice_id" readonly="1"/>
+                <field name="partner_shipping_id" readonly="1"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="team_id" optional="hide"/>
+                <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
+                <field name="amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
+                <field name="amount_total" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
+                <field name="dashboard_commission_total" widget="monetary" invisible="context.get('hide_dashboard_commission', False)" />
+                <field name="state"
+                    decoration-success="state == 'sale' or state == 'done' or state == 'agorane_payed'"
+                    decoration-info="state == 'draft' or state == 'sent'"
+                    decoration-warning="state == 'validated' or state == 'customer_payment_received'"
+                    widget="badge" optional="show"/>
+                <field name="invoice_status" optional="hide"/>
+                <field name="message_needaction" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
     <!-- Inherited view custom module -->
-    <record id="custom_sale_kara_sale_view_order_form" model="ir.ui.view">
-        <field name="name">custom kara sale view order form</field>
+    <record id="dashboard_agent_sale_view_order_form" model="ir.ui.view">
+        <field name="name">dashboard agent view order form</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="custom_sale.kara_sale_view_order_form"/>
         <field name="arch" type="xml">
@@ -127,7 +161,7 @@
     <record id="action_view_dashboard_agent_sale_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="view_id" ref="dashboard_agent.dashboard_agent_view_order_tree"/>
         <field name="act_window_id" ref="action_dashboard_agent_sale"/>
     </record>
 
@@ -144,13 +178,13 @@
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('dashboard_agent', '=', True), ('dashboard_commission_order', '=', True)]</field>
-        <field name="context">{'dashboard_agent': True}</field>
+        <field name="context">{'dashboard_agent': True, 'hide_dashboard_commission': True}</field>
     </record>
 
     <record id="action_view_dashboard_agent_commission_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="sale.view_quotation_tree"/>
+        <field name="view_id" ref="dashboard_agent.dashboard_agent_view_order_tree"/>
         <field name="act_window_id" ref="action_dashboard_agent_commission"/>
     </record>
 

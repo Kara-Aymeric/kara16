@@ -27,18 +27,18 @@
               action="action_dashboard_agent_sale"
               groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
 
-    <menuitem id="dashboard_agent_commission_menu"
-              name="My Commissions"
-              sequence="40"
-              parent="dashboard_agent_principal_menu"
-              action="action_dashboard_agent_commission"
-              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
-
     <menuitem id="dashboard_agent_invoice_menu"
               name="My Invoices"
-              sequence="50"
+              sequence="40"
               parent="dashboard_agent_principal_menu"
               action="action_dashboard_agent_invoice"
+              groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
+
+    <menuitem id="dashboard_agent_commission_menu"
+              name="My Commissions"
+              sequence="50"
+              parent="dashboard_agent_principal_menu"
+              action="action_dashboard_agent_commission"
               groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
 
     <menuitem id="dashboard_agent_product_menu"
