@@ -16,12 +16,16 @@
         <field name="arch" type="xml">
             <xpath expr="//header/field[@name='state']" position="before">
                 <field name="dashboard_agent" invisible="1"/>
+                <button name="action_dashboard_post" string="Confirm" class="oe_highlight"
+                    type="object" groups="dashboard_agent.group_principal_agent" data-hotkey="v"
+                    context="{'validate_analytic': True}"
+                    attrs="{'invisible': ['|', '|', '|', ('hide_post_button', '=', True), ('move_type', '=', 'entry'), ('display_inactive_currency_warning','=',True), ('dashboard_agent', '!=', True)]}"/>
                 <button name="action_confirm_invoice_payment_for_agent" id="action_confirm_invoice_payment_for_agent" groups="dashboard_agent.group_admin"
                         string="Invoice payment" class="btn-secondary" type="object" confirm="By validating the invoice payment, the commission associated with this sale will change status. Continue ?"
-                        attrs="{'invisible': [('state', 'not in', ['posted'])]}"/>
+                        attrs="{'invisible': ['|', ('state', 'not in', ['posted']), ('dashboard_agent', '!=', True)]}"/>
                 <button name="action_confirm_commission_payment_for_agent" id="action_confirm_commission_payment_for_agent" groups="dashboard_agent.group_admin"
                         string="Commission payment" class="btn-secondary" type="object" confirm="By validating the commission payment, the commission associated with this sale will change status. Continue ?"
-                        attrs="{'invisible': [('state', 'not in', ['posted'])]}"/>
+                        attrs="{'invisible': ['|', ('state', 'not in', ['posted']), ('dashboard_agent', '!=', True)]}"/>
             </xpath>
         </field>
     </record>
