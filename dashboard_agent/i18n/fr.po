@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-26 14:33+0000\n"
-"PO-Revision-Date: 2023-07-26 14:33+0000\n"
+"POT-Creation-Date: 2023-09-19 08:44+0000\n"
+"PO-Revision-Date: 2023-09-19 08:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -237,11 +237,6 @@ msgid "Create a new contact, the first step of a new contact !"
 msgstr "Créer un nouveau contact, la première étape d'un nouveau contact !"
 
 #. module: dashboard_agent
-#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_sale
-msgid "Create a new quote, the first step of a new sale !"
-msgstr "Créer un nouveau devis, la première étape d'une nouvelle vente !"
-
-#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__create_uid
 msgid "Created by"
 msgstr "Créé par"
@@ -252,11 +247,12 @@ msgid "Created on"
 msgstr "Créé le"
 
 #. module: dashboard_agent
-#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_invoice
-msgid "Créer un nouveau document"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
+msgid "Creation Date"
+msgstr "Date de création"
 
 #. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_crm_lead__agent_partner_id
 #: model:ir.model.fields,field_description:dashboard_agent.field_crm_lead__partner_id
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__agent_partner_id
 msgid "Customer"
@@ -279,6 +275,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:dashboard_agent.field_account_payment__dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_crm_lead__dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_agent
+#: model:ir.module.category,name:dashboard_agent.module_category_dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
 msgid "Dashboard agent"
 msgstr ""
@@ -373,6 +370,7 @@ msgid "Lead/Opportunity"
 msgstr "Piste/opportunité"
 
 #. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_crm_lead__agent_partner_id
 #: model:ir.model.fields,help:dashboard_agent.field_crm_lead__partner_id
 msgid ""
 "Linked partner (optional). Usually created when converting the lead. You can"
@@ -417,6 +415,24 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: dashboard_agent
+#. odoo-python
+#: code:addons/dashboard_agent/models/sale_order.py:0
+#, python-format
+msgid ""
+"No country is configured for the agent (salespeople). This configuration is "
+"mandatory to set an automatic tax when generating the quote of the "
+"'commission' type"
+msgstr ""
+"Aucun pays n'est configuré pour l'agent (vendeur). Cette configuration est "
+"obligatoire pour générer une taxe automatique lors de la création d'une devis de "
+"type 'commission'"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
+msgid "Number"
+msgstr "Numéro"
+
+#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_commission_total
 msgid "Of which commission"
 msgstr "Dont commission"
@@ -425,6 +441,11 @@ msgstr "Dont commission"
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_order_origin_id
 msgid "Order origin"
 msgstr "Vente d'origine"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_quick_create_opportunity_form
+msgid "Organization / Contact"
+msgstr "Organisation / Contact"
 
 #. module: dashboard_agent
 #: model:ir.model.fields.selection,name:dashboard_agent.selection__sale_order__state__agorane_payed
@@ -447,6 +468,11 @@ msgstr "Article"
 #: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_product_menu
 msgid "Products"
 msgstr "Articles"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
+msgid "Quotation"
+msgstr "Devis"
 
 #. module: dashboard_agent
 #: model:mail.template,subject:dashboard_agent.email_template_quote_confirmation_request
@@ -502,15 +528,42 @@ msgid "Status"
 msgstr "État"
 
 #. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
+msgid "Tax Total"
+msgstr "Total taxe"
+
+#. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
 msgid "Template"
 msgstr "Modèle"
+
+#. module: dashboard_agent
+#. odoo-python
+#: code:addons/dashboard_agent/models/sale_order.py:0
+#, python-format
+msgid ""
+"The configuration of a tax concerning the automatic creation of an estimate of the type 'commission' is required to confirm the sale.\n"
+"The company concerned by this configuration is %s"
+msgstr ""
+"Le paramétrage d'une taxe concernant la création automatique d'un devis de type 'commission' est nécessaire pour confirmer la vente.\n"
+"La société concernée par cette configuration est %s"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,help:dashboard_agent.field_res_partner__user_id
 #: model:ir.model.fields,help:dashboard_agent.field_res_users__user_id
 msgid "The internal user in charge of this contact."
 msgstr "L'utilisateur interne en charge de ce contact."
+
+#. module: dashboard_agent
+#. odoo-python
+#: code:addons/dashboard_agent/models/sale_order.py:0
+#, python-format
+msgid ""
+"The tax for the automatic creation of the 'commission' type quote is unable "
+"to retrieve because there are at least two taxes configured"
+msgstr ""
+"La taxe pour la création automatique du devis de type 'commission' n'est pas possible "
+"à récupérer car il y a au moins deux taxes configurées"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,help:dashboard_agent.field_sale_order__dashboard_child_id
@@ -520,6 +573,16 @@ msgid ""
 msgstr ""
 "Cette vente permet de faire le rattachement de la vente principale à la "
 "vente commission"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
+msgid "Total Tax Excluded"
+msgstr "Total HT"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
+msgid "Total Tax Included"
+msgstr "Total TTC"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order_line__dashboard_price_commission
