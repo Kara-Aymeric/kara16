@@ -25,6 +25,7 @@
         # Report
         'report/sale_report_templates.xml',
         # Views
+        'views/account_move_views.xml',
         'views/crm_views.xml',
         'views/product_views.xml',
         'views/report_element_position_views.xml',
