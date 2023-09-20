@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-16 06:03+0000\n"
-"PO-Revision-Date: 2023-02-16 06:03+0000\n"
+"POT-Creation-Date: 2023-09-20 10:21+0000\n"
+"PO-Revision-Date: 2023-09-20 10:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -137,8 +137,8 @@ msgid ""
 "Adding a PDF file is useful for creating a document template for electronic "
 "signature"
 msgstr ""
-"L'ajout d'un fichier PDF est utile pour créer un modèle de document pour la signature "
-"électronique"
+"L'ajout d'un fichier PDF est utile pour créer un modèle de document pour la "
+"signature électronique"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_res_company__access_packing
@@ -152,9 +152,9 @@ msgid ""
 "manufacturer to the odoo quote. The value is retrieved to create the "
 "commission wording associated with the sale"
 msgstr ""
-"Permet de joindre le numéro de facture client généré par "
-"l'industriel au devis odoo. La valeur est récupérée pour créer le libellé de "
-"la commission associée à la vente"
+"Permet de joindre le numéro de facture client généré par l'industriel au "
+"devis odoo. La valeur est récupérée pour créer le libellé de la commission "
+"associée à la vente"
 
 #. module: custom_sale
 #: model:ir.model.fields,help:custom_sale.field_crm_lead__trading_business
@@ -165,8 +165,22 @@ msgstr "Permet d'avoir un flux de vente différent du flux de vente standard"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
-msgid "Cancel"
-msgstr "Annuler"
+msgid "Are you sure to confirm the delivery / invoicing ?"
+msgstr "Êtes-vous sûr de vouloir confirmer la livraison / facturation ?"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid ""
+"Are you sure you want to confirm the payment ? This action will also confirm"
+" the associated commission"
+msgstr ""
+"Êtes-vous sûr de vouloir confirmer le paiement ? Cette action confirmera "
+"également la commission associée"
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Are you sure you want to confirm the sale ?"
+msgstr "Êtes-vous sûr de vouloir confirmer la vente ?"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
@@ -204,7 +218,8 @@ msgid ""
 "By unchecking the active field, you can hide a item type without deleting "
 "it."
 msgstr ""
-"En décochant le champ actif, vous pouvez masquer un type d'élément sans le supprimer."
+"En décochant le champ actif, vous pouvez masquer un type d'élément sans le "
+"supprimer."
 
 #. module: custom_sale
 #: model:ir.model.fields,help:custom_sale.field_report_element_position__active
@@ -212,8 +227,13 @@ msgid ""
 "By unchecking the active field, you can hide a report element position "
 "without deleting it."
 msgstr ""
-"En décochant le champ actif, vous pouvez masquer la position d'un élément de rapport "
-"sans le supprimer."
+"En décochant le champ actif, vous pouvez masquer la position d'un élément de"
+" rapport sans le supprimer."
+
+#. module: custom_sale
+#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
+msgid "Cancel"
+msgstr "Annuler"
 
 #. module: custom_sale
 #: model:ir.model,name:custom_sale.model_res_company
@@ -224,11 +244,6 @@ msgstr "Sociétés"
 #: model:ir.model,name:custom_sale.model_res_config_settings
 msgid "Config Settings"
 msgstr "Paramètres de configuration"
-
-#. module: custom_sale
-#: model:mail.template,subject:custom_sale.email_template_supplier_quote_signed
-msgid "Confirmation N° {{ object.name or 'n/a' }} signed"
-msgstr "Confirmation N° {{ object.name or 'n/a' }} signé"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
@@ -244,6 +259,11 @@ msgstr "Confirmer la livraison / facturation"
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
 msgid "Confirm payment"
 msgstr "Confirmer le paiement"
+
+#. module: custom_sale
+#: model:mail.template,subject:custom_sale.email_template_supplier_quote_signed
+msgid "Confirmation N° {{ object.name or 'n/a' }} signed"
+msgstr "Confirmation N° {{ object.name or 'n/a' }} signé"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__create_uid
@@ -286,9 +306,9 @@ msgid ""
 "the document has been signed by the person concerned. The link to the "
 "Signature module"
 msgstr ""
-"Document lié au modèle. La valeur de ce champ n'est visible que si "
-"le document a été signé par la personne concernée. Lien vers le "
-"module Signature"
+"Document lié au modèle. La valeur de ce champ n'est visible que si le "
+"document a été signé par la personne concernée. Lien vers le module "
+"Signature"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
@@ -312,8 +332,8 @@ msgid ""
 "Email template to use for to send supplier when quote to signed by final "
 "customer"
 msgstr ""
-"Modèle d'email à utiliser pour envoyer au fournisseur une fois le devis signé par le client "
-"final"
+"Modèle d'email à utiliser pour envoyer au fournisseur une fois le devis "
+"signé par le client final"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_trading_settings_view_form
@@ -321,8 +341,7 @@ msgid ""
 "Email template to use when it is the first sending of the quote to the "
 "supplier"
 msgstr ""
-"Modèle d'email à utiliser lors du premier envoi du devis au "
-"fournisseur"
+"Modèle d'email à utiliser lors du premier envoi du devis au fournisseur"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_sale_order__e_supplier_quote_filename
@@ -336,6 +355,13 @@ msgstr "Nom du fichier"
 #: model:ir.model.fields,field_description:custom_sale.field_sale_order__customer_id
 msgid "Final customer"
 msgstr "Client final"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_account_bank_statement_line__customer_id
+#: model:ir.model.fields,field_description:custom_sale.field_account_move__customer_id
+#: model:ir.model.fields,field_description:custom_sale.field_account_payment__customer_id
+msgid "Final customer (Trading)"
+msgstr "Client final (Trading)"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
@@ -370,6 +396,11 @@ msgstr "Facturé usine"
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__sign_item_type_id
 msgid "Item type"
 msgstr "Type d'item"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
 
 #. module: custom_sale
 #: model:mail.template,name:custom_sale.email_template_supplier_quote_signed
@@ -435,8 +466,8 @@ msgid ""
 "Model created from the file inserted in the field above. The link to the "
 "Signature module"
 msgstr ""
-"Modèle créé à partir du fichier inséré dans le champ ci-dessus. Lien vers le "
-"module Signature"
+"Modèle créé à partir du fichier inséré dans le champ ci-dessus. Lien vers le"
+" module Signature"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__name
@@ -463,8 +494,9 @@ msgid ""
 "New order N° {{ object.name or 'n/a' }} for {{ object.customer_id.name or "
 "'n/a' }} - {{ object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
 msgstr ""
-"Nouvelle commande N° {{ object.name or 'n/a' }} pour {{ object.customer_id.name or "
-"'n/a' }} - {{ object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
+"Nouvelle commande N° {{ object.name or 'n/a' }} pour {{ "
+"object.customer_id.name or 'n/a' }} - {{ "
+"object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_sign_request__order_id
@@ -675,7 +707,8 @@ msgstr "Permet d'envoyer un devis signé au fournisseur"
 msgid ""
 "Used for sending a quote to the supplier for validation for Kara Trading"
 msgstr ""
-"Utilisé pour envoyer un devis au fournisseur pour validation pour Kara Trading"
+"Utilisé pour envoyer un devis au fournisseur pour validation pour Kara "
+"Trading"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__width
@@ -701,22 +734,3 @@ msgstr ""
 #: model:mail.template,report_name:custom_sale.email_template_supplier_sale
 msgid "{{ (object.custom_report_name or '').replace('/','_') }}"
 msgstr ""
-
-#. module: custom_sale
-#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
-msgid "Are you sure to confirm the delivery / invoicing ?"
-msgstr "Êtes-vous sûr de vouloir confirmer la livraison / facturation ?"
-
-#. module: custom_sale
-#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
-msgid "Are you sure you want to confirm the sale ?"
-msgstr "Êtes-vous sûr de vouloir confirmer la vente ?"
-
-#. module: custom_sale
-#: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
-msgid ""
-"Are you sure you want to confirm the payment ? This action will also confirm "
-"the associated commission"
-msgstr ""
-"Êtes-vous sûr de vouloir confirmer le paiement ? Cette action confirmera également "
-"la commission associée"
