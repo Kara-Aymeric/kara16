@@ -10,7 +10,16 @@
     """,
     'website': 'https://hennet-solutions.fr',
     'license': 'LGPL-3',
-    'depends': ['account', 'crm', 'sale', 'mail', 'custom_sale', 'sale_commission', 'woo_user_connector'],
+    'depends': [
+        'account',
+        'crm',
+        'sale',
+        'sale_margin',
+        'custom_sale',
+        'sale_commission',
+        'mail',
+        'woo_user_connector'
+    ],
     'data': [
         # Data
         'data/ir_module_category_data.xml',

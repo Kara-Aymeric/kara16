@@ -148,6 +148,27 @@
         </field>
     </record>
 
+    <!-- Inherited view sale_margin module -->
+    <record id="custom_sale_sale_margin_sale_order" model="ir.ui.view">
+        <field name="name">custom sale sale margin sale order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='margin']" position="replace">
+                <label for="margin" groups="dashboard_agent.group_admin"/>
+            </xpath>
+            <xpath expr="//div[hasclass('text-nowrap')]" position="replace">
+                <div class="text-nowrap" groups="dashboard_agent.group_admin">
+                    <field name="margin" class="oe_inline"/>
+                    <field name="amount_untaxed" invisible="1"/>
+                    <span class="oe_inline" attrs="{'invisible': [('amount_untaxed', '=', 0)]}">
+                        (<field name="margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
     <!-- Action sale order part -->
     <record id="action_dashboard_agent_sale" model="ir.actions.act_window">
         <field name="name">My Sales</field>
