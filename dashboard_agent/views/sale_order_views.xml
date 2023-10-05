@@ -141,7 +141,12 @@
                 <field name="dashboard_commission_total"
                        attrs="{'invisible': ['|', ('dashboard_agent', '!=', True), ('dashboard_commission_order', '=', True)]}"/>
             </xpath>
-
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="readonly_custom_field" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '!=', False)]}</attribute>
+            </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
             </xpath>
