@@ -14,6 +14,12 @@
                     <p>Access rights are managed on <button name="open_commercial_entity" type="object" string="the parent company" class="oe_link"/></p>
                 </div>
             </xpath>
+            <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="before">
+                <field name="readonly_custom_field" invisible="1"/>
+            </xpath>
+            <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '!=', False)]}</attribute>
+            </xpath>
         </field>
     </record>
 
