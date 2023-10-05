@@ -29,6 +29,7 @@ class ProductTemplate(models.Model):
         'res.partner', string="Supplier", help="Industrial or warehouse", domain=_get_supplier_id_domain, tracking=True
     )
     packing_ids = fields.One2many('product.packing', 'product_template_id', string='Packing')
+    product_ingredient = fields.Char(string="Ingredient")
 
 
 class ProductPacking(models.Model):

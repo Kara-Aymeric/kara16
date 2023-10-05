@@ -21,6 +21,7 @@
             <xpath expr="//group[@name='group_standard_price']//field[@name='company_id']" position="after">
                 <field name="access_packing" invisible="1"/>
                 <field name="product_brand" />
+                <field name="product_ingredient" />
                 <field name="supplier_id" />
             </xpath>
             <xpath expr="//page[@name='general_information']//group[1]" position="after">
