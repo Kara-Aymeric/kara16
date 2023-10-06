@@ -21,7 +21,7 @@
             <xpath expr="//group[@name='group_standard_price']//field[@name='company_id']" position="after">
                 <field name="access_packing" invisible="1"/>
                 <field name="product_brand" />
-                <field name="product_ingredient" />
+                <field name="ingredient" invisible="1"/>
                 <field name="supplier_id" />
             </xpath>
             <xpath expr="//page[@name='general_information']//group[1]" position="after">
@@ -35,6 +35,23 @@
                     </field>
                 </group>
             </xpath>
+        </field>
+    </record>
+
+    <!-- Product product -->
+    <record id="custom_sale_product_normal_form_view" model="ir.ui.view">
+        <field name="name">custom sale product normal form view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Attributes part -->
+            <field name="ingredient" position="attributes">
+                <attribute name="readonly">1</attribute>
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="ingredient" position="after">
+                <field name="product_ingredient"/>
+            </field>
         </field>
     </record>
 </odoo>

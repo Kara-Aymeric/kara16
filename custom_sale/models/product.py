@@ -29,7 +29,29 @@ class ProductTemplate(models.Model):
         'res.partner', string="Supplier", help="Industrial or warehouse", domain=_get_supplier_id_domain, tracking=True
     )
     packing_ids = fields.One2many('product.packing', 'product_template_id', string='Packing')
-    product_ingredient = fields.Char(string="Ingredient")
+    ingredient = fields.Char(string="Ingredient")
+
+
+class ProductProduct(models.Model):
+    _inherit = 'product.product'
+
+    product_ingredient = fields.Char(
+        string="Ingredient",
+        compute="_compute_product_ingredient",
+        store=True,
+        readonly=False,
+        tracking=True
+    )
+
+    @api.depends('ingredient')
+    def _compute_product_ingredient(self):
+        """ Get principal ingredient """
+        for product in self:
+            product_ingredient = product.product_ingredient
+            if product.ingredient and not product_ingredient:
+                product_ingredient = product.ingredient
+
+            product.product_ingredient = product_ingredient
 
 
 class ProductPacking(models.Model):
