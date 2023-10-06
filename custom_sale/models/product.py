@@ -40,7 +40,6 @@ class ProductProduct(models.Model):
         compute="_compute_product_ingredient",
         store=True,
         readonly=False,
-        tracking=True
     )
 
     @api.depends('ingredient')
