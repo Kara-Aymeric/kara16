@@ -7,7 +7,7 @@
     'description': """Facilite la connexion concernant les fiches produits entre WooCommerce et Odoo pour Agorane""",
     'website': 'https://hennet-solutions.fr',
     'license': 'LGPL-3',
-    'depends': ['sale'],
+    'depends': ['custom_sale'],
     'data': [
         # Security
         'security/ir.model.access.csv',

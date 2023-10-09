@@ -81,6 +81,7 @@
             <field name="woo_packing_ids" position="after">
                 <field name="woo_product_weight_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
                 <field name="woo_product_packing_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="woo_ingredient"/>
                 <field name="woo_reference"/>
                 <field name="woo_barcode"/>
                 <field name="woo_barcode_file" widget="image" options="{'size': [0, 90]}"/>

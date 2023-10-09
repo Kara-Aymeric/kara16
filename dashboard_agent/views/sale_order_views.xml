@@ -141,9 +141,35 @@
                 <field name="dashboard_commission_total"
                        attrs="{'invisible': ['|', ('dashboard_agent', '!=', True), ('dashboard_commission_order', '=', True)]}"/>
             </xpath>
-
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="readonly_custom_field" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '!=', False)]}</attribute>
+            </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited view sale_margin module -->
+    <record id="custom_sale_sale_margin_sale_order" model="ir.ui.view">
+        <field name="name">custom sale sale margin sale order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='margin']" position="replace">
+                <label for="margin" groups="dashboard_agent.group_admin"/>
+            </xpath>
+            <xpath expr="//div[hasclass('text-nowrap')]" position="replace">
+                <div class="text-nowrap" groups="dashboard_agent.group_admin">
+                    <field name="margin" class="oe_inline"/>
+                    <field name="amount_untaxed" invisible="1"/>
+                    <span class="oe_inline" attrs="{'invisible': [('amount_untaxed', '=', 0)]}">
+                        (<field name="margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+                    </span>
+                </div>
             </xpath>
         </field>
     </record>
@@ -154,7 +180,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('dashboard_agent', '=', True), ('dashboard_commission_order', '=', False)]</field>
+        <field name="domain">['|', ('user_id', '=', uid), ('dashboard_agent', '=', True), ('dashboard_commission_order', '=', False)]</field>
         <field name="context">{'dashboard_agent': True}</field>
     </record>
 
@@ -177,7 +203,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('dashboard_agent', '=', True), ('dashboard_commission_order', '=', True)]</field>
+        <field name="domain">['|', ('user_id', '=', uid), ('dashboard_agent', '=', True), ('dashboard_commission_order', '=', True)]</field>
         <field name="context">{'dashboard_agent': True, 'hide_dashboard_commission': True}</field>
     </record>
 

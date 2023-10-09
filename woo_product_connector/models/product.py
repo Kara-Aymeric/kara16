@@ -175,6 +175,12 @@ class ProductProduct(models.Model):
         help="This information is the variants displayed on the product sheet of the e-commerce site.",
         tracking=True
     )
+    woo_ingredient = fields.Char(
+        string="Ingredients",
+        compute="_compute_woo_ingredient",
+        store=True,
+        tracking=True
+    )
     woo_reference = fields.Char(
         string="Reference",
         compute="_compute_woo_reference",
@@ -257,6 +263,16 @@ class ProductProduct(models.Model):
                 woo_product_packing_ids = product.woo_packing_ids
 
             product.woo_product_packing_ids = woo_product_packing_ids
+
+    @api.depends('product_ingredient')
+    def _compute_woo_ingredient(self):
+        """ Get principal ingredient """
+        for product in self:
+            woo_ingredient = False
+            if product.product_ingredient:
+                woo_ingredient = product.product_ingredient
+
+            product.woo_ingredient = woo_ingredient
 
     @api.depends('default_code')
     def _compute_woo_reference(self):
