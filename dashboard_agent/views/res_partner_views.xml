@@ -100,8 +100,7 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='siret']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
-                <attribute name="force_save">1</attribute>
+                <attribute name="required">1</attribute>
             </xpath>
         </field>
     </record>
