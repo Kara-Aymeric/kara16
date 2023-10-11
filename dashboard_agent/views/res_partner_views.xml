@@ -20,6 +20,38 @@
             <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
                 <attribute name="attrs">{'readonly': [('readonly_custom_field', '!=', False)]}</attribute>
             </xpath>
+            <xpath expr="//field[@name='property_payment_term_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='property_product_pricelist']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='property_delivery_carrier_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='property_account_position_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='property_supplier_payment_term_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='company_registry']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='ref']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='industry_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -40,6 +72,34 @@
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='allow_flexible_payment']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="dashboard_agorane_view_partner_property_form" model="ir.ui.view">
+        <field name="name">dashboard agorane view partner property form</field>
+        <field name="inherit_id" ref="purchase.view_partner_property_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='receipt_reminder_email']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='reminder_date_before_receipt']" position="attributes">
+                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="dashboard_agorane_res_partner_form_l10n_fr" model="ir.ui.view">
+        <field name="name">dashboard agorane res partner form l10n fr</field>
+        <field name="inherit_id" ref="l10n_fr.res_partner_form_l10n_fr" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='siret']" position="attributes">
                 <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>

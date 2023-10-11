@@ -18,6 +18,8 @@
         'sale_margin',
         'custom_sale',
         'sale_commission',
+        'purchase',
+        'l10n_fr',
         'mail',
         'woo_user_connector'
     ],
