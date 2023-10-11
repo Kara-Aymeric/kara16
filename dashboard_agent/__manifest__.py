@@ -13,10 +13,13 @@
     'depends': [
         'account',
         'crm',
+        'product',
         'sale',
         'sale_margin',
         'custom_sale',
         'sale_commission',
+        'purchase',
+        'l10n_fr',
         'mail',
         'woo_user_connector'
     ],
@@ -36,6 +39,7 @@
         # Views
         'views/account_move_views.xml',
         'views/crm_lead_views.xml',
+        'views/product_pricelist_views.xml',
         'views/product_template_views.xml',
         'views/relation_agent_views.xml',
         'views/res_config_settings_views.xml',
