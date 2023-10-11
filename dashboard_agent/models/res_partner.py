@@ -49,8 +49,8 @@ class ResPartner(models.Model):
         record = super(ResPartner, self).create(vals)
         user = self.env.user
         if user.has_group('dashboard_agent.group_external_agent') or user.has_group('dashboard_agent.group_principal_agent'):
-            record['property_product_pricelist'] = self.env['product.pricelist'].search(
-                [('used_default_agent', '=', True)], limit=1
-            )
+            pricelist_id = self.env['product.pricelist'].search([('used_default_agent', '=', True)], limit=1)
+            if pricelist_id:
+                record['property_product_pricelist'] = pricelist_id.id
 
         return record
