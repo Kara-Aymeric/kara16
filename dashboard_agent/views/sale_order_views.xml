@@ -121,6 +121,7 @@
                 <widget name="web_ribbon" title="Customer payment received" bg_color="bg-warning" attrs="{'invisible': ['|', ('state', '!=', 'customer_payment_received'), ('dashboard_commission_order', '!=', True)]}" />
                 <widget name="web_ribbon" title="Payed" bg_color="bg-success" attrs="{'invisible': ['|', ('state', '!=', 'agorane_payed'), ('dashboard_commission_order', '!=', True)]}" />
             </div>
+
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="dashboard_agent" invisible="1"/>
                 <field name="dashboard_commission_order" invisible="1"/>
@@ -149,6 +150,9 @@
             </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='pricelist_id']" position="replace">
+                <field name="pricelist_id" attrs="{'readonly': ['|', ('state', 'in', ['sale', 'cancel', 'done']), ('readonly_custom_field', '=', True)]}" />
             </xpath>
         </field>
     </record>
