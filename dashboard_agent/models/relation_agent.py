@@ -25,7 +25,9 @@ class RelationAgent(models.Model):
     )
     end_date = fields.Date(
         string="End date",
-        compute="_compute_end_date"
+        compute="_compute_end_date",
+        store=True,
+        readonly=False
     )
     active = fields.Boolean(
         default=True,
