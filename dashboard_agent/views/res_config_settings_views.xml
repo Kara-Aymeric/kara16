@@ -21,6 +21,19 @@
                             </div>
                         </div>
                     </div>
+                    <h2>Sponsorship</h2>
+                    <div class="row mt16 o_settings_container" name="sponsorship_duration_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="sponsorship_duration_config">
+                            <div class="o_setting_right_pane">
+                                <label for="sponsorship_duration"/>
+                                <div class="text-muted">Sponsorship time. Allows you to automatically calculate the sponsorship end date when adding a new relationship</div>
+                                <div class="row mt16">
+                                    <label for="sponsorship_duration" string="Sponsorship duration (days)" class="col-lg-4 o_light_label" />
+                                    <field name="sponsorship_duration" class="oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>
