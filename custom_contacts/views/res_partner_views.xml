@@ -18,7 +18,7 @@
                 <attribute name="required">1</attribute>
             </field>
             <field name="vat" position="attributes">
-                <attribute name="required">1</attribute>
+                <attribute name="attrs">{'required': [('company_type', '=', 'company')]}</attribute>
             </field>
             <field name="email" position="attributes">
                 <attribute name="required">1</attribute>
