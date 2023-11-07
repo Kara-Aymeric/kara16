@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="synchronise_salary_manuall_form_view" model="ir.ui.view">
-        <field name="name">synchronise_salary_manuall_form_view</field>
-        <field name="model">synchronise.salary.manually</field>
+    <record id="sync_manually_wizard_form_view" model="ir.ui.view">
+        <field name="name">sync manually wizard form view</field>
+        <field name="model">sync.manually.wizard</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -10,10 +10,11 @@
                         <field name="comment" />
                     </group>
                     <footer>
-                        <button name='action_synchronise'
+                        <button name='action_synchronize'
                                 string='Synchronize manually'
+                                class="btn-primary"
                                 type='object'
-                                confirm="Are you sure to execute the synchronisation of salary ?"
+                                confirm="Are you sure to execute the synchronisation ?"
                         />
                         <button string="Cancel"
                                 class="btn-secondary"
@@ -25,10 +26,10 @@
         </field>
     </record>
 
-    <record id="synchronise_salary_manually_act_window" model="ir.actions.act_window">
-        <field name="name">Synchronise manually</field>
+    <record id="sync_manually_wizard_action" model="ir.actions.act_window">
+        <field name="name">Synchronize manually</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">synchronise.salary.manually</field>
+        <field name="res_model">sync.manually.wizard</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

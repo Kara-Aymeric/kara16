@@ -7,9 +7,21 @@
               parent="dashboard_agent.dashboard_agent_principal_menu"
               groups="dashboard_agent.group_admin"/>
 
+        <menuitem id="synchronization_category"
+              name="Synchronization"
+              sequence="20"
+              parent="commission_agent_category"
+              groups="dashboard_agent.group_admin"/>
+
+        <menuitem id="menu_sync_manually"
+              name="Synchronize manually"
+              parent="synchronization_category"
+              sequence="10"
+              action="commission_agent.sync_manually_wizard_action"/>
+
         <menuitem id="menu_synchronization_history"
               name="Synchronization history"
-              parent="commission_agent_category"
+              parent="synchronization_category"
               sequence="20"
               action="commission_agent.action_synchronization_commission_history"/>
 

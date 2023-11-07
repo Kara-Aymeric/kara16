@@ -20,11 +20,12 @@
         "views/commission_agent_rule_views.xml",
         "views/res_groups_views.xml",
         "views/synchronization_commission_history_views.xml",
-        # "wizard/synchronise_salary_manually.xml",
-        "views/commission_agent_menus.xml",
 
         # Wizard
-        # "wizard/commission_details_wizard_views.xml",
-        # "wizard/commission_rule_wizard_views.xml",
+        "wizard/sync_manually_wizard_views.xml",
+
+        # Menu
+        "views/commission_agent_menus.xml",
+
     ],
 }
