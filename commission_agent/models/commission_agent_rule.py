@@ -13,7 +13,7 @@ class CommissionAgentRule(models.Model):
     sequence = fields.Integer(string="Sequence", default=100)
     description = fields.Char(string="Description")
     log_tracking = fields.Char(
-        string="Logs", help="Shortcuts that appear in the calculation", tracking=True
+        string="Log", help="Shortcut that appear in the calculation", tracking=True
     )
     start_date = fields.Date(string="Start Date", tracking=True)
     expiration_date = fields.Date(string="Expiration Date", tracking=True)
@@ -33,7 +33,7 @@ class CommissionAgentRule(models.Model):
             ("total_amount_order", "Total amount order (HT)"),
             ("total_amount_invoice", "Total amount invoice (HT)"),
         ],
-        string="Applies To",
+        string="Applies on",
         tracking=True
     )
 

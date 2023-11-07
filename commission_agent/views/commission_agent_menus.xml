@@ -8,7 +8,7 @@
               groups="dashboard_agent.group_admin"/>
 
         <menuitem id="menu_commission_agent"
-              name="Commission agents"
+              name="Commissions"
               parent="commission_agent_category"
               sequence="10"
               action="commission_agent.commission_agent_action"/>
