@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="commission_tree_view" model="ir.ui.view">
+        <field name="name">commission_tree_view</field>
+        <field name="model">commission.agent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="commission_date" />
+                <field name="salesperson_id" />
+                <field name="commission_rule_id" />
+                <field name="amount" />
+                <field name="explanation" />
+                <button string="View details"
+                        type="object"
+                        name="action_open_commission_details"
+                        class="btn-secondary"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="commission_agent_search_view" model="ir.ui.view">
+       <field name="name">commission_agent_search_view</field>
+       <field name="model">commission.agent</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="current_month" string="Current Month" domain="[
+                    ('commission_date', '&gt;=', (context_today()).strftime('%Y-%m-01')),
+                    ('commission_date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <field name="salesperson_id" string="Person"/>
+                <group expand="1" string="Group By">
+                    <filter string="Person" name="group_by_salesperson" context="{'group_by':'salesperson_id'}"/>
+                    <filter string="Date" name="group_by_date" context="{'group_by':'commission_date'}"/>
+                    <filter string="Rule" name="group_by_commission_rule" context="{'group_by':'commission_rule_id'}"/>
+                </group>
+            </search>
+       </field>
+    </record>
+
+    <record id="commission_agent_act_window" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">commission.agent</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{
+            'search_default_group_by_date': 1,
+            'search_default_group_by_salesperson': 1,
+            'search_default_group_commission_rule': 1
+            }
+        </field>
+    </record>
+
+    <record id="ir_cron_commission" model="ir.cron">
+        <field name="name">Payroll: Generating variable portions</field>
+        <field name="model_id" ref="model_commission_agent"/>
+        <field name="state">code</field>
+        <field name="code">model.calculate_commission()</field>
+        <field name="active" eval="False"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="nextcall" eval="(DateTime.now().replace(hour=1, minute=30) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+    </record>
+
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="synchronise_salary_manuall_form_view" model="ir.ui.view">
+        <field name="name">synchronise_salary_manuall_form_view</field>
+        <field name="model">synchronise.salary.manually</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="comment" />
+                    </group>
+                    <footer>
+                        <button name='action_synchronise'
+                                string='Synchronize manually'
+                                type='object'
+                                confirm="Are you sure to execute the synchronisation of salary ?"
+                        />
+                        <button string="Cancel"
+                                class="btn-secondary"
+                                special="cancel"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="synchronise_salary_manually_act_window" model="ir.actions.act_window">
+        <field name="name">Synchronise manually</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">synchronise.salary.manually</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

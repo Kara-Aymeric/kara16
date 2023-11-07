@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="commission_agent_rule_tree_view" model="ir.ui.view">
+        <field name="name">commission agent rule tree view</field>
+        <field name="model">commission.agent.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Commission rules">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="start_date"/>
+                <field name="expiration_date"/>
+                <field name="agent_ids" widget="many2many_tags"/>
+                <field name="is_expired"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="commission_agent_rule_form_view" model="ir.ui.view">
+        <field name="name">commission agent rule form view</field>
+        <field name="model">commission.agent.rule</field>
+        <field name="arch" type="xml">
+            <form string="Commissions rule">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="New rule"/>
+                        </h1>
+                    </div>
+                    <group name="general_information">
+                        <group>
+                            <field name="active" invisible="1" />
+                            <field name="description" />
+                            <field name="log_tracking" />
+                            <field name="start_date" widget="daterange" options="{'related_end_date': 'expiration_date'}" />
+                            <field name="expiration_date" widget="daterange" options="{'related_start_date': 'start_date'}" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="applies_to" string="1. Applies To">
+                            <group>
+                                <field name="for_all_agent" />
+                                <field name="agent_ids" widget="many2many_tags"/>
+                                <field name="applies_to" />
+                                <field name="specific_product_id" nolabel="1" attrs="{'invisible': [('applies_to', '!=', 'specific_product')]}">
+                                    <tree>
+                                        <field name="name" />
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="2. Conditions">
+                            <field name="condition_rule_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="operation"/>
+                                    <field name="type"/>
+                                    <field name="comparison"/>
+                                    <field name="value"/>
+                                    <field name="logical_operator"/>
+                                </tree>
+                            </field>
+                            <group string="Discount condition">
+                                <field name="has_discount_condition" />
+                                <field name="discount_limit" attrs="{'invisible': [('has_discount_condition', '=', False)]}" widget="percentage" />
+                                <field name="discount_commission_result" attrs="{'invisible': [('has_discount_condition', '=', False)]}" widget="percentage" />
+                            </group>
+                        </page>
+                        <page string="3. Result">
+                            <group>
+                                <field name="currency_id" invisible="1" />
+                                <field name="result_type" />
+                                <field name="result_amount" attrs="{'invisible': [('result_type', '!=', 'amount')]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="result_percent" attrs="{'invisible': [('result_type', '!=', 'percent')]}" widget="percentage" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_commission_agent_rule_config" model="ir.actions.act_window">
+        <field name="name">Commission rules</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">commission.agent.rule</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
