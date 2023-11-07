@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="commission_tree_view" model="ir.ui.view">
-        <field name="name">commission_tree_view</field>
+    <record id="commission_agent_tree_view" model="ir.ui.view">
+        <field name="name">commission agent tree view</field>
         <field name="model">commission.agent</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="commission_date" />
-                <field name="salesperson_id" />
+            <tree editable="bottom">
+                <field name="date" />
+                <field name="agent_id" />
                 <field name="commission_rule_id" />
                 <field name="amount" />
-                <field name="explanation" />
-                <button string="View details"
+                <field name="log_tracking" invisible="1"/>
+                <button string="Show details"
                         type="object"
                         name="action_open_commission_details"
                         class="btn-secondary"
@@ -20,37 +20,37 @@
     </record>
 
     <record id="commission_agent_search_view" model="ir.ui.view">
-       <field name="name">commission_agent_search_view</field>
-       <field name="model">commission.agent</field>
+        <field name="name">commission agent search view</field>
+        <field name="model">commission.agent</field>
         <field name="arch" type="xml">
             <search>
                 <filter name="current_month" string="Current Month" domain="[
-                    ('commission_date', '&gt;=', (context_today()).strftime('%Y-%m-01')),
-                    ('commission_date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
-                <field name="salesperson_id" string="Person"/>
+                    ('date', '&gt;=', (context_today()).strftime('%Y-%m-01')),
+                    ('date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <field name="agent_id" string="Agent"/>
                 <group expand="1" string="Group By">
-                    <filter string="Person" name="group_by_salesperson" context="{'group_by':'salesperson_id'}"/>
-                    <filter string="Date" name="group_by_date" context="{'group_by':'commission_date'}"/>
+                    <filter string="Agent" name="group_by_agent" context="{'group_by':'agent_id'}"/>
+                    <filter string="Date" name="group_by_date" context="{'group_by':'date'}"/>
                     <filter string="Rule" name="group_by_commission_rule" context="{'group_by':'commission_rule_id'}"/>
                 </group>
             </search>
        </field>
     </record>
 
-    <record id="commission_agent_act_window" model="ir.actions.act_window">
+    <record id="commission_agent_action" model="ir.actions.act_window">
         <field name="name">Commissions</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">commission.agent</field>
         <field name="view_mode">tree</field>
         <field name="context">{
             'search_default_group_by_date': 1,
-            'search_default_group_by_salesperson': 1,
+            'search_default_group_by_agent': 1,
             'search_default_group_commission_rule': 1
             }
         </field>
     </record>
 
-    <record id="ir_cron_commission" model="ir.cron">
+<!--    <record id="ir_cron_commission" model="ir.cron">
         <field name="name">Payroll: Generating variable portions</field>
         <field name="model_id" ref="model_commission_agent"/>
         <field name="state">code</field>
@@ -59,6 +59,6 @@
         <field name="interval_number">1</field>
         <field name="interval_type">months</field>
         <field name="nextcall" eval="(DateTime.now().replace(hour=1, minute=30) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
-    </record>
+    </record>-->
 
 </odoo>
