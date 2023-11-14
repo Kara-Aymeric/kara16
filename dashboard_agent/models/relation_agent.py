@@ -4,7 +4,6 @@ from odoo import api, fields, models, _
 from dateutil.relativedelta import relativedelta
 
 
-
 class RelationAgent(models.Model):
     _name = 'relation.agent'
     _rec_name = 'godfather_id'
@@ -14,10 +13,9 @@ class RelationAgent(models.Model):
         'res.users',
         string="Godfather",
     )
-    godson_ids = fields.Many2many(
+    godson_id = fields.Many2one(
         'res.users',
-        string="Godsons",
-
+        string="Godson",
     )
     start_date = fields.Date(
         string="Start date",
