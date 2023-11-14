@@ -62,7 +62,10 @@
                             <group string="Discount condition">
                                 <field name="has_discount_condition" />
                                 <field name="discount_limit" attrs="{'invisible': [('has_discount_condition', '=', False)]}" widget="percentage" />
-                                <field name="discount_commission_result" attrs="{'invisible': [('has_discount_condition', '=', False)]}" widget="percentage" />
+                                <field name="currency_id" invisible="1" />
+                                <field name="discount_result_type" attrs="{'invisible': [('has_discount_condition', '=', False)]}" />
+                                <field name="discount_result_amount" attrs="{'invisible': [('discount_result_type', '!=', 'amount')]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="discount_result_percent" attrs="{'invisible': [('discount_result_type', '!=', 'percent')]}" widget="percentage" />
                             </group>
                         </page>
                         <page string="3. Result">

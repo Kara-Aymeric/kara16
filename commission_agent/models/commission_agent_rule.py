@@ -53,7 +53,11 @@ class CommissionAgentRule(models.Model):
     # Conditions - Discount
     has_discount_condition = fields.Boolean(string="Has discount condition", tracking=True)
     discount_limit = fields.Float(string="Discount limit", tracking=True)
-    discount_commission_result = fields.Float(string="Commission result with discount", tracking=True)
+    discount_result_type = fields.Selection(
+        [("amount", "Amount"), ("percent", "Percentage")], string="Type of result", tracking=True
+    )
+    discount_result_amount = fields.Monetary(string="Amount", tracking=True)
+    discount_result_percent = fields.Float(string="Percentage", tracking=True)
 
     # Result
     currency_id = fields.Many2one(
@@ -95,13 +99,23 @@ class CommissionAgentRule(models.Model):
         if not self.has_discount_condition:
             self.write({
                 'discount_limit': False,
-                'discount_commission_result': False,
+                'discount_result_type': False,
+                'discount_result_amount': False,
+                'discount_result_percent': False,
             })
-            
+
+    @api.onchange("discount_result_type")
+    def _onchange_discount_result_type(self):
+        """ Onchange discount result type for clear result value depend discount result type """
+        if self.discount_result_type == "amount":
+            self.discount_result_percent = False
+        elif self.discount_result_type == "percent":
+            self.discount_result_amount = False
+
     @api.onchange("result_type")
     def _onchange_result_type(self):
         """ Onchange result type for clear result value depend result type """
         if self.result_type == "amount":
             self.result_percent = False
-        elif self.result_type == "amount":
+        elif self.result_type == "percent":
             self.result_amount = False
