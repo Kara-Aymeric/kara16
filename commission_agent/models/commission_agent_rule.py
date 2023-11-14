@@ -42,6 +42,12 @@ class CommissionAgentRule(models.Model):
         "product.template", string="Specific Product", copy=False
     )
 
+    # Cumulative rules
+    is_cumulative = fields.Boolean(string="Is Cumulative", tracking=True)
+    cumulative_with_ids = fields.One2many(
+        'commission.specific.rule', 'commission_agent_rule_id', string="Cumulative with", copy=False
+    )
+
     # Conditions
     condition_rule_ids = fields.One2many(
         "commission.rule.condition",

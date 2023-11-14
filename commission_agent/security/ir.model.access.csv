@@ -2,6 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_commission_agent_rule,access_commission_agent_rule,model_commission_agent_rule,base.group_user,1,1,1,0
 access_commission_agent,access_commission_agent,model_commission_agent,base.group_user,1,1,1,0
 access_commission_rule_condition,access_commission_rule_condition,model_commission_rule_condition,base.group_user,1,1,1,0
+access_commission_specific_rule,access_commission_specific_rule,model_commission_specific_rule,base.group_user,1,1,1,0
 access_synchronization_commission_history,access_synchronization_commission_history,model_synchronization_commission_history,base.group_user,1,1,1,0
 
 access_sync_manually_wizard,access_sync_manually_wizard,model_sync_manually_wizard,base.group_user,1,1,1,0
