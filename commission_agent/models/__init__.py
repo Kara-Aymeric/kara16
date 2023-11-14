@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from . import account_move
 from . import commission_agent
 from . import commission_agent_rule
 from . import commission_rule_condition

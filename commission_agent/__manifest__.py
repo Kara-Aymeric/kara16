@@ -20,6 +20,7 @@
         "security/ir.model.access.csv",
 
         # Views
+        "views/account_move_views.xml",
         "views/commission_agent_rule_views.xml",
         "views/commission_agent_views.xml",
         "views/synchronization_commission_history_views.xml",
