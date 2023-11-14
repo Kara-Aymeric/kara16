@@ -11,7 +11,7 @@
     'category': 'Sales/Sales',
     "version": "16.0.23.11.07",
     "installable": True,
-    "depends": ['base', 'dashboard_agent'],
+    "depends": ['base', 'dashboard_agent', 'custom_sale'],
     "data": [
         # Security
         "security/ir.model.access.csv",

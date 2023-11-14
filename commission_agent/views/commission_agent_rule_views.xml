@@ -54,6 +54,11 @@
                                     <field name="name" />
                                 </tree>
                             </field>
+                            <field name="specific_brand_id" nolabel="1" attrs="{'invisible': [('applies_to', '!=', 'specific_brand')]}">
+                                <tree>
+                                    <field name="name" />
+                                </tree>
+                            </field>
                         </page>
                         <page string="2. Additional rules">
                             <group>

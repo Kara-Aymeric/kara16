@@ -29,10 +29,12 @@ class CommissionAgentRule(models.Model):
         [
             ("new_customer", "New customer"),
             ("new_ka_customer", "New key account customer"),
-            ("specific_customer", "Specific customer"),
+            ("second_order", "Second order"),
+            ("third_order", "Third order"),
+            ("specific_brand", "Specific brand"),
             ("specific_product", "Specific product"),
-            ("total_amount_order", "Total amount order (HT)"),
-            ("total_amount_invoice", "Total amount invoice (HT)"),
+            ("specific_customer", "Specific customer"),
+            ("total_amount_cashing", "Total amount cashing (HT)"),
         ],
         string="Applies on",
         tracking=True
@@ -41,6 +43,11 @@ class CommissionAgentRule(models.Model):
     # Applied to - Specific product
     specific_product_id = fields.Many2many(
         "product.template", string="Specific Product", copy=False
+    )
+
+    # Applied to - Specific product
+    specific_brand_id = fields.Many2many(
+        "agorane.product.brand", string="Specific brand", copy=False
     )
 
     # Cumulative rules
