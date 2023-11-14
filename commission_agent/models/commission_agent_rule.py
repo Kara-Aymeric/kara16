@@ -25,10 +25,10 @@ class CommissionAgentRule(models.Model):
     agent_ids = fields.One2many(
         'commission.specific.agent', 'rule_id', string="Agents", copy=False
     )
-    applies_to = fields.Selection(
+    applies_on = fields.Selection(
         [
-            ("new_customer", "New customer"),
-            ("new_ka_customer", "New key account customer"),
+            ("first_order", "First order new customer"),
+            ("first_order_ka", "First order new key account customer"),
             ("second_order", "Second order"),
             ("third_order", "Third order"),
             ("specific_brand", "Specific brand"),
@@ -38,6 +38,12 @@ class CommissionAgentRule(models.Model):
         ],
         string="Applies on",
         tracking=True
+    )
+
+    # Applied to - Specific customer
+    is_specific_customer_rule = fields.Boolean(
+        string="Is specific customer rule",
+        compute="_compute_is_specific_customer_rule",
     )
 
     # Applied to - Specific product
@@ -85,7 +91,16 @@ class CommissionAgentRule(models.Model):
 
     active = fields.Boolean(string="Active", default=True, tracking=True)
 
-    # compute and search fields, in the same order of fields declaration
+    @api.depends('applies_on')
+    def _compute_is_specific_customer_rule(self):
+        """ If specific customer rule, open other option into form view """
+        for rule in self:
+            is_specific_customer_rule = False
+            if rule.applies_on == "specific_customer":
+                is_specific_customer_rule = True
+
+            rule.is_specific_customer_rule = is_specific_customer_rule
+
     @api.depends("expiration_date")
     def _compute_is_expired(self):
         """ Compute is expired """
