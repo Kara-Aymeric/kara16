@@ -35,6 +35,20 @@ class CommissionAgent(models.Model):
         print(invoices)
         return invoices
 
+    def _get_active_rules(self):
+        """ Get all active rules for calculation commission by agent """
+        rules = self.env["commission.agent.rule"].search([
+            "|",
+            ("start_date", "=", False),
+            ("start_date", "<=", fields.Date.today()),
+            "|",
+            ("expiration_date", "=", False),
+            ("expiration_date", ">=", fields.Date.today())
+        ])
+
+        print(rules)
+        return rules
+
     def _update_synchronization_history(self, type_sync, comment, sync_ok):
         self.env['synchronization.commission.history'].create({
             'type': "automatic" if type_sync == "automatic" else "manual",
@@ -43,9 +57,34 @@ class CommissionAgent(models.Model):
             'sync_ok': sync_ok,
         })
 
+    def _get_active_agent_rule(self, rule):
+        """ Get active agent to rule """
+        active_agent_rule_ids = self.env['commission.specific.agent'].search([
+            ('rule_id', '=', rule.id),
+            "|",
+            ("start_date", "=", False),
+            ("start_date", "<=", fields.Date.today()),
+            "|",
+            ("end_date", "=", False),
+            ("end_date", ">=", fields.Date.today())
+        ])
+        print(active_agent_rule_ids)
+        return active_agent_rule_ids
+
     def action_synchronize(self, type_sync="automatic", comment=""):
         """ Action synchronize """
         invoices = self._get_all_invoices_payed()
+        rules = self._get_active_rules()
+        if invoices and rules:
+            for rule in rules:
+                _logger.info(rule.name)
+                active_agent_rule_ids = self._get_active_agent_rule(rule)
+                if active_agent_rule_ids:
+                    for invoice in invoices:
+                        commission_date = invoice.commission_date
+                        if rule.applies_on == "first_order":
+                            pass
+
         # Add tracking
         sync_ok = True
         self._update_synchronization_history(type_sync, comment, sync_ok)
