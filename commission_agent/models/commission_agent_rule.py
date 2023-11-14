@@ -22,8 +22,9 @@ class CommissionAgentRule(models.Model):
     )
 
     # Applied to
-    for_all_agent = fields.Boolean(string="For all agent ?", copy=False)
-    agent_ids = fields.Many2many("res.users", string="Agents", copy=False, tracking=True)
+    agent_ids = fields.One2many(
+        'commission.specific.agent', 'rule_id', string="Agents", copy=False
+    )
     applies_to = fields.Selection(
         [
             ("new_customer", "New customer"),
@@ -87,17 +88,6 @@ class CommissionAgentRule(models.Model):
                 if fields.Date.today() > rule.expiration_date:
                     is_expired = True
             rule.is_expired = is_expired
-
-    @api.onchange("for_all_agent")
-    def _onchange_for_all_agent(self):
-        """ Onchange for simplify add agent to rule """
-        if self.for_all_agent:
-            res_groups = self.env["res.groups"].search(
-                [("is_agent_group", "=", True)]
-            )
-            self.agent_ids = [(6, 0, res_groups.users.ids)]
-        else:
-            self.agent_ids = [(6, 0, ())]
 
     @api.onchange("has_discount_condition")
     def _onchange_has_discount_condition(self):
