@@ -13,6 +13,9 @@
     "installable": True,
     "depends": ['base', 'dashboard_agent', 'custom_sale'],
     "data": [
+        # Data
+        "data/res_partner_category_data.xml",
+
         # Security
         "security/ir.model.access.csv",
 
