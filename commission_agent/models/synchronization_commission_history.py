@@ -10,6 +10,6 @@ class SynchronizationCommissionHistory(models.Model):
 
     date = fields.Datetime(string="Synchronization date", default=datetime.datetime.now())
     type = fields.Selection([('automatic', 'Automatic'), ('manual', 'Manual')])
-    name = fields.Text(string="Name")
+    name = fields.Char(string="Name")
     message = fields.Text(string="Message")
     sync_ok = fields.Boolean(string="Update done")

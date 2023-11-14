@@ -25,6 +25,31 @@ class CommissionAgent(models.Model):
     log_tracking = fields.Char(related="commission_rule_id.log_tracking", readonly=True)
     amount = fields.Float(string="Commission Amount")
 
+    def _get_all_invoices_payed(self):
+        """ Get all invoices payed for calculation commission by agent """
+        invoices = self.env['account.move'].search([
+            ('state', '=', "posted"),
+            ('move_type', '=', "out_invoice"),
+            ('payment_state', 'in', ["in_payment", "paid"]),
+        ])
+        print(invoices)
+        return invoices
+
+    def _update_synchronization_history(self, type_sync, comment, sync_ok):
+        self.env['synchronization.commission.history'].create({
+            'type': "automatic" if type_sync == "automatic" else "manual",
+            'name': self.env.user.name,
+            'message': comment,
+            'sync_ok': sync_ok,
+        })
+
+    def action_synchronize(self, type_sync="automatic", comment=""):
+        """ Action synchronize """
+        invoices = self._get_all_invoices_payed()
+        # Add tracking
+        sync_ok = True
+        self._update_synchronization_history(type_sync, comment, sync_ok)
+
     # Action methods
     def action_open_commission_details(self):
         self.ensure_one()
