@@ -11,22 +11,34 @@ _logger = logging.getLogger(__name__)
 
 class CommissionAgent(models.Model):
     _name = "commission.agent"
+    _rec_name = "commission_rule_id"
     _description = "Commission agent generated automatically"
 
-    @api.model
-    def _default_commission_date(self):
-        today = datetime.today()
-        last_day_of_month = today + relativedelta(day=31)
-        return last_day_of_month.date()
-
-    agent_id = fields.Many2one("res.users", string="Agent")
-    date = fields.Date(string="Commission Date", default=lambda self: self._default_commission_date())
-    commission_rule_id = fields.Many2one("commission.agent.rule", string="Commission Rule")
+    agent_id = fields.Many2one("res.users", string="Agent", required=True)
+    date = fields.Date(string="Commission Date")
+    commission_rule_id = fields.Many2one("commission.agent.rule", string="Commission Rule", required=True)
     log_tracking = fields.Char(related="commission_rule_id.log_tracking", readonly=True)
-    amount = fields.Float(string="Commission Amount")
-    commission_agent_calcul_ids = fields.One2many(
-        "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul"
+    currency_id = fields.Many2one(
+        "res.currency", default=lambda self: self.env.company.currency_id, readonly=True
     )
+    amount = fields.Monetary(string="Commission amount", compute="_compute_amount", store=True)
+    commission_agent_calcul_ids = fields.One2many(
+        "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul", required=True
+    )
+
+    @api.depends('commission_rule_id', 'commission_agent_calcul_ids', 'commission_agent_calcul_ids.result')
+    def _compute_amount(self):
+        """ Compute amount depending result from calcul details """
+        for commission in self:
+            amount = 0
+            if commission.commission_rule_id and commission.commission_agent_calcul_ids:
+                result_type = commission.commission_rule_id.result_type
+                if result_type == "amount":
+                    amount_list = commission.commission_agent_calcul_ids.mapped('result')
+                    amount = sum(sub for sub in amount_list)
+                    print(amount_list)
+            print(amount)
+            commission.amount = amount
 
     def _get_active_rules(self):
         """ Get all active rules for calculation commission by agent """
@@ -50,9 +62,9 @@ class CommissionAgent(models.Model):
             'sync_ok': sync_ok,
         })
 
-    def _get_active_agent_rule(self, rule):
+    def _get_active_commission_specific_agent(self, rule):
         """ Get active agent to rule """
-        active_agent_rule_ids = self.env['commission.specific.agent'].search([
+        commission_specific_agent_ids = self.env['commission.specific.agent'].search([
             ('rule_id', '=', rule.id),
             "|",
             ("start_date", "=", False),
@@ -61,8 +73,8 @@ class CommissionAgent(models.Model):
             ("end_date", "=", False),
             ("end_date", ">=", fields.Date.today())
         ])
-        print(active_agent_rule_ids)
-        return active_agent_rule_ids
+        print(commission_specific_agent_ids)
+        return commission_specific_agent_ids
 
     def _get_all_partner_orders(self, partner, agent, start_date):
         """ Get all orders for search invoices associated """
@@ -113,7 +125,7 @@ class CommissionAgent(models.Model):
         # amount_untaxed_invoice = invoice.amount_untaxed
         order_id = self.env['sale.order'].search([('name', '=', invoice.invoice_origin)])
         vals = {
-            "agent_id": agent,
+            "agent_id": agent.id,
             "order_id": order_id.id if order_id else False,
             "rule_id": rule.id,
             "result": self._get_result_commission(rule, invoice),
@@ -140,23 +152,11 @@ class CommissionAgent(models.Model):
             vals = {
                 'date': commission_date,
                 'agent_id': agent.id,
-                'commission_rule_id': rule.name,
+                'commission_rule_id': rule.id,
                 'commission_agent_calcul_ids': ([(6, 0, calcul_list)]),
             }
             # Create commission agent (global by rules)
             return self.env['commission.agent'].create(vals)
-
-    def _begin_rule_commission_date(self, rule, agent):
-        """ Get begin commission date for calculation commission """
-        commission_specific_agent_id = self.env['commission.specific.agent'].search([
-            ('rule_id', '=', rule.id),
-            ('agent_id', '=', agent.id),
-        ])
-        if len(commission_specific_agent_id) > 1:
-            raise ValidationError(
-                _("Impossible to generate commission because rule %s is incorrectly configured on agent list")
-            )
-        return commission_specific_agent_id.start_date or False
 
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
@@ -164,10 +164,11 @@ class CommissionAgent(models.Model):
         # invoices = self._get_all_invoices_payed()
         for rule in rules:
             _logger.info(rule.name)
-            active_agent_rule_ids = self._get_active_agent_rule(rule)
+            commission_specific_agent_ids = self._get_active_commission_specific_agent(rule)
             apply_on = rule.applies_on
-            for agent in active_agent_rule_ids:
-                agent_start_date = self._begin_rule_commission_date(rule, agent)
+            for commission_specific_agent in commission_specific_agent_ids:
+                agent = commission_specific_agent.agent_id
+                agent_start_date = commission_specific_agent.start_date or False
                 if apply_on == "new_customer_order":
                     self._generate_commission_new_customer(rule, agent, agent_start_date)
                 # elif apply_on == "specific_customer":

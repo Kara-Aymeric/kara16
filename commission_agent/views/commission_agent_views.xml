@@ -7,16 +7,60 @@
             <tree>
                 <field name="date" />
                 <field name="agent_id" />
-                <field name="commission_rule_id" />
-                <field name="amount" />
+                <field name="commission_rule_id" invisible="1" />
+                <field name="currency_id" invisible="1" />
+                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="commission_agent_calcul_ids" />
-                <field name="log_tracking" invisible="1"/>
-                <button string="Show details"
+                <field name="log_tracking" />
+<!--                <button string="Show details"
                         type="object"
                         name="action_open_commission_details"
                         class="btn-secondary"
-                />
+                />-->
             </tree>
+        </field>
+    </record>
+
+    <record id="commission_agent_form_view" model="ir.ui.view">
+        <field name="name">commission agent form view</field>
+        <field name="model">commission.agent</field>
+        <field name="arch" type="xml">
+            <form string="Commission agent">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="log_tracking" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group name="general_information" string="General information">
+                        <group>
+                            <field name="date" readonly="1"/>
+                            <field name="agent_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1" />
+                            <field name="commission_rule_id" readonly="1"/>
+                            <field name="amount" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details" name="calcul_details">
+                            <field name="commission_agent_calcul_ids" readonly="1">
+                                <tree>
+                                    <field name="currency_id" invisible="1" />
+                                    <field name="commission_date" />
+                                    <field name="order_id"/>
+                                    <field name="order_amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="partner_id"/>
+                                    <field name="agent_id"/>
+                                    <field name="rule_id"/>
+                                    <field name="result"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
 
