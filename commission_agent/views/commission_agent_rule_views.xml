@@ -44,7 +44,7 @@
                                     <field name="agent_id" />
                                     <field name="start_date" widget="daterange" options="{'related_end_date': 'end_date'}" />
                                     <field name="end_date" widget="daterange" options="{'related_start_date': 'start_date'}" />
-                                    <field name="customer_id" attrs="{'column_invisible': [('parent.is_specific_customer_rule', '!=', True)]}" />
+                                    <field name="customer_ids" widget="many2many_tags" attrs="{'column_invisible': [('parent.is_specific_customer_rule', '!=', True)]}" />
                                     <field name="comment" />
                                 </tree>
                             </field>
@@ -84,14 +84,14 @@
                                     <field name="logical_operator"/>
                                 </tree>
                             </field>
-                            <group string="Discount condition">
+<!--                            <group string="Discount condition">
                                 <field name="has_discount_condition" />
                                 <field name="discount_limit" attrs="{'invisible': [('has_discount_condition', '=', False)]}" widget="percentage" />
                                 <field name="currency_id" invisible="1" />
                                 <field name="discount_result_type" attrs="{'invisible': [('has_discount_condition', '=', False)]}" />
                                 <field name="discount_result_amount" attrs="{'invisible': [('discount_result_type', '!=', 'amount')]}" widget="monetary" options="{'currency_field': 'currency_id'}" />
                                 <field name="discount_result_percent" attrs="{'invisible': [('discount_result_type', '!=', 'percent')]}" widget="percentage" />
-                            </group>
+                            </group>-->
                         </page>
                         <page string="4. Result">
                             <group>

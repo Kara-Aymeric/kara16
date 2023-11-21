@@ -9,7 +9,7 @@ class CommissionSpecificAgent(models.Model):
 
     rule_id = fields.Many2one('commission.agent.rule', string="Rule")
     agent_id = fields.Many2one('res.users', string="Agent")
-    customer_id = fields.Many2one('res.partner', string="Specific customer")
+    customer_ids = fields.Many2many('res.partner', string="Specific customer")
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
     comment = fields.Char(string="Comment")

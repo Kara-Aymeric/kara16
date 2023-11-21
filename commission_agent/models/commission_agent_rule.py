@@ -11,7 +11,7 @@ class CommissionAgentRule(models.Model):
 
     name = fields.Char(string="Rule name", tracking=True)
     sequence = fields.Integer(string="Sequence", default=100)
-    description = fields.Char(string="Description")
+    description = fields.Text(string="Description")
     log_tracking = fields.Char(
         string="Log", help="Shortcut that appear in the calculation", tracking=True
     )
@@ -25,16 +25,22 @@ class CommissionAgentRule(models.Model):
     agent_ids = fields.One2many(
         'commission.specific.agent', 'rule_id', string="Agents", copy=False
     )
+    # applies_on = fields.Selection(
+    #     [
+    #         ("first_order", "First order new customer"),
+    #         ("first_order_ka", "First order new key account customer"),
+    #         ("specific_brand", "Specific brand"),
+    #         ("specific_product", "Specific product"),
+    #         ("specific_customer", "Specific customer"),
+    #         ("total_amount_cashing", "Total amount cashing (HT)"),
+    #     ],
+    #     string="Applies on",
+    #     tracking=True
+    # )
     applies_on = fields.Selection(
         [
-            ("first_order", "First order new customer"),
-            ("first_order_ka", "First order new key account customer"),
-            ("second_order", "Second order"),
-            ("third_order", "Third order"),
-            ("specific_brand", "Specific brand"),
-            ("specific_product", "Specific product"),
+            ("new_customer_order", "New customer order"),
             ("specific_customer", "Specific customer"),
-            ("total_amount_cashing", "Total amount cashing (HT)"),
         ],
         string="Applies on",
         tracking=True
