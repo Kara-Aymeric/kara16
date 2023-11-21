@@ -4,11 +4,12 @@
         <field name="name">commission agent tree view</field>
         <field name="model">commission.agent</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <tree>
                 <field name="date" />
                 <field name="agent_id" />
                 <field name="commission_rule_id" />
                 <field name="amount" />
+                <field name="commission_agent_calcul_ids" />
                 <field name="log_tracking" invisible="1"/>
                 <button string="Show details"
                         type="object"
@@ -41,7 +42,7 @@
         <field name="name">Commissions</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">commission.agent</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="context">{
             'search_default_group_by_date': 1,
             'search_default_group_by_agent': 1,
@@ -50,8 +51,8 @@
         </field>
     </record>
 
-<!--    <record id="ir_cron_commission" model="ir.cron">
-        <field name="name">Payroll: Generating variable portions</field>
+    <record id="ir_cron_commission_agent" model="ir.cron">
+        <field name="name">Commission: Generate commission agent and calcul</field>
         <field name="model_id" ref="model_commission_agent"/>
         <field name="state">code</field>
         <field name="code">model.calculate_commission()</field>
@@ -59,6 +60,6 @@
         <field name="interval_number">1</field>
         <field name="interval_type">months</field>
         <field name="nextcall" eval="(DateTime.now().replace(hour=1, minute=30) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
-    </record>-->
+    </record>
 
 </odoo>

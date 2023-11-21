@@ -24,16 +24,9 @@ class CommissionAgent(models.Model):
     commission_rule_id = fields.Many2one("commission.agent.rule", string="Commission Rule")
     log_tracking = fields.Char(related="commission_rule_id.log_tracking", readonly=True)
     amount = fields.Float(string="Commission Amount")
-
-    def _get_all_invoices_payed(self):
-        """ Get all invoices payed for calculation commission by agent """
-        invoices = self.env['account.move'].search([
-            ('state', '=', "posted"),
-            ('move_type', '=', "out_invoice"),
-            ('payment_state', 'in', ["in_payment", "paid"]),
-        ])
-        print(invoices)
-        return invoices
+    commission_agent_calcul_ids = fields.One2many(
+        "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul"
+    )
 
     def _get_active_rules(self):
         """ Get all active rules for calculation commission by agent """
@@ -71,19 +64,119 @@ class CommissionAgent(models.Model):
         print(active_agent_rule_ids)
         return active_agent_rule_ids
 
-    def action_synchronize(self, type_sync="automatic", comment=""):
+    def _get_all_partner_orders(self, partner, agent, start_date):
+        """ Get all orders for search invoices associated """
+        orders = []
+        domain_order = [
+            ('id', 'in', partner.sale_order_ids.mapped('id')),
+            ('user_id', '=', agent.id),
+        ]
+        if start_date:
+            domain_order += [
+                ("date_order", ">=", start_date),
+            ]
+        order_ids = self.env['sale.order'].search(domain_order)
+        for order in order_ids:
+            if order.invoice_ids:
+                orders.append(order.id)
+
+        print(orders)
+
+        return orders
+
+    def _get_all_invoices_payed(self, agent, invoice_ids, start_date, limit):
+        """ Get all invoices payed for calculation commission by agent """
+        domain_invoice = [
+            ('id', 'in', invoice_ids),
+            ('state', '=', "posted"),
+            ('invoice_user_id', '=', agent.id),
+            ('move_type', '=', "out_invoice"),
+            ('payment_state', 'in', ["in_payment", "paid"]),
+        ]
+        if start_date:
+            domain_invoice += [
+                ('invoice_date', '>=', start_date),
+            ]
+        invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc", limit=limit)
+        print(invoices)
+        return invoices
+
+    def _get_result_commission(self, rule, invoice):
+        """ Return amount fixe or percentage result to amount untaxed to invoice """
+        if rule.result_type == "amount":
+            return rule.result_amount
+        elif rule.result_type == "percent":
+            return (rule.result_percent / 100) * invoice.amount_untaxed
+
+    def _create_commission_calcul(self, rule, agent, invoice):
+        """ Create a commission calcul """
+        # amount_untaxed_invoice = invoice.amount_untaxed
+        order_id = self.env['sale.order'].search([('name', '=', invoice.invoice_origin)])
+        vals = {
+            "agent_id": agent,
+            "order_id": order_id.id if order_id else False,
+            "rule_id": rule.id,
+            "result": self._get_result_commission(rule, invoice),
+            "commission_date": invoice.commission_date,
+        }
+
+        # Create commission calcul
+        return self.env['commission.agent.calcul'].create(vals)
+
+    def _generate_commission_new_customer(self, rule, agent, start_date):
+        """ Generate commission type equals new customer order """
+        calcul_list = []
+        commission_date = False
+        for partner in self.env['res.partner'].search([('user_id', '=', agent.id)]):
+            if partner.sale_order_ids:
+                for order in self.env['sale.order'].browse(self._get_all_partner_orders(partner, agent, start_date)):
+                    first_invoice = self._get_all_invoices_payed(agent, order.invoice_ids.mapped('id'), start_date, 1)
+                    if first_invoice:
+                        commission_date = first_invoice.commission_date
+                        calcul_ids = self._create_commission_calcul(rule, agent, first_invoice)
+                        calcul_list += calcul_ids.mapped('id')
+        print(calcul_list)
+        if len(calcul_list) > 0:
+            vals = {
+                'date': commission_date,
+                'agent_id': agent.id,
+                'commission_rule_id': rule.name,
+                'commission_agent_calcul_ids': ([(6, 0, calcul_list)]),
+            }
+            # Create commission agent (global by rules)
+            return self.env['commission.agent'].create(vals)
+
+    def _begin_rule_commission_date(self, rule, agent):
+        """ Get begin commission date for calculation commission """
+        commission_specific_agent_id = self.env['commission.specific.agent'].search([
+            ('rule_id', '=', rule.id),
+            ('agent_id', '=', agent.id),
+        ])
+        if len(commission_specific_agent_id) > 1:
+            raise ValidationError(
+                _("Impossible to generate commission because rule %s is incorrectly configured on agent list")
+            )
+        return commission_specific_agent_id.start_date or False
+
+    def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
-        invoices = self._get_all_invoices_payed()
         rules = self._get_active_rules()
-        if invoices and rules:
-            for rule in rules:
-                _logger.info(rule.name)
-                active_agent_rule_ids = self._get_active_agent_rule(rule)
-                if active_agent_rule_ids:
-                    for invoice in invoices:
-                        commission_date = invoice.commission_date
-                        if rule.applies_on == "first_order":
-                            pass
+        # invoices = self._get_all_invoices_payed()
+        for rule in rules:
+            _logger.info(rule.name)
+            active_agent_rule_ids = self._get_active_agent_rule(rule)
+            apply_on = rule.applies_on
+            for agent in active_agent_rule_ids:
+                agent_start_date = self._begin_rule_commission_date(rule, agent)
+                if apply_on == "new_customer_order":
+                    self._generate_commission_new_customer(rule, agent, agent_start_date)
+                # elif apply_on == "specific_customer":
+                #     pass
+                    # self._generate_commission_specific_customer(agent)
+                # for invoice in invoices:
+                #     commission_date = invoice.commission_date
+                #     if rule.applies_on == "first_order":
+                #         pass
 
         # Add tracking
         sync_ok = True
