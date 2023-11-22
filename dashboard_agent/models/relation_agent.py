@@ -27,30 +27,11 @@ class RelationAgent(models.Model):
         store=True,
         readonly=False
     )
-
-    currency_id = fields.Many2one(
-        "res.currency", default=lambda self: self.env.company.currency_id, readonly=True
-    )
-
-    result_amount = fields.Monetary(string="Amount")
-    result_percent = fields.Float(string="Percentage")
-
+    commission = fields.Float(string="Commission")
     active = fields.Boolean(
         default=True,
         help="By unchecking the active field, you can hide a record without deleting it."
     )
-
-    @api.onchange('result_amount')
-    def _onchange_result_amount(self):
-        """ Clear percentage value field """
-        if self.result_amount > 0:
-            self.result_percent = False
-
-    @api.onchange('result_percent')
-    def _onchange_result_percent(self):
-        """ Clear amount value field """
-        if self.result_percent > 0:
-            self.result_amount = False
 
     @api.depends('start_date')
     def _compute_end_date(self):
