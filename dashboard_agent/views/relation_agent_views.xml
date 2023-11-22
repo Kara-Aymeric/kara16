@@ -9,6 +9,9 @@
                 <field name="godson_id" required="1" />
                 <field name="start_date" required="1" />
                 <field name="end_date" />
+                <field name="currency_id" invisible="1"/>
+                <field name="result_percent" widget="percentage"/>
+                <field name="result_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="active" widget="boolean_toggle"/>
             </tree>
         </field>
