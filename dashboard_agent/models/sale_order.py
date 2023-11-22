@@ -86,7 +86,7 @@ class SaleOrder(models.Model):
     )
 
     principal_agent_id = fields.Many2one(
-        'res.users', string="Principal agent", compute="_compute_principal_agent_id", store=True, tracking=True
+        'res.users', string="Principal agent", store=True, tracking=True
     )
     is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent", tracking=True)
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
@@ -150,16 +150,16 @@ class SaleOrder(models.Model):
                 amount_commission += line.dashboard_price_commission
             order.dashboard_commission_total = amount_commission
 
-    @api.depends('user_id')
-    def _compute_principal_agent_id(self):
-        """ Allows to link the main agent to the seller """
-        for record in self:
-            principal_agent_id = False
-            for relation_agent in self.env['relation.agent'].search([]):
-                if record.user_id in relation_agent.mapped('agent_ids'):
-                    principal_agent_id = relation_agent.principal_agent_id.id
-
-            record.principal_agent_id = principal_agent_id
+    # @api.depends('user_id')
+    # def _compute_principal_agent_id(self):
+    #     """ Allows to link the main agent to the seller """
+    #     for record in self:
+    #         principal_agent_id = False
+    #         for relation_agent in self.env['relation.agent'].search([]):
+    #             if record.user_id in relation_agent.mapped('agent_ids'):
+    #                 principal_agent_id = relation_agent.principal_agent_id.id
+    #
+    #         record.principal_agent_id = principal_agent_id
 
     def _dashboard_check_agent_country(self):
         """ The country on the contact form is mandatory to continue. The tax depends on the country """
