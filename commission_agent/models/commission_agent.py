@@ -87,7 +87,7 @@ class CommissionAgent(models.Model):
 
         return orders
 
-    def _get_first_invoice_payed(self, agent, invoice_ids, limit):
+    def _get_invoice_payed(self, agent, invoice_ids, limit):
         """ Get first invoice payed for calculation commission by agent """
         domain_invoice = [
             ('id', 'in', invoice_ids),
@@ -96,9 +96,9 @@ class CommissionAgent(models.Model):
             ('move_type', '=', "out_invoice"),
             ('payment_state', 'in', ["in_payment", "paid"]),
         ]
-        invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc", limit=limit)
+        invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc")
 
-        return invoices
+        return invoices.mapped('id')
 
     def _get_result_commission(self, rule, invoice):
         """ Return amount fixe or percentage result to amount untaxed to invoice """
@@ -107,33 +107,85 @@ class CommissionAgent(models.Model):
         elif rule.result_type == "percent":
             return (rule.result_percent / 100) * invoice.amount_untaxed
 
-    def _create_commission_calcul(self, rule, agent, invoice):
+    def _create_commission_calcul(self, rule, agent, invoice, delta=False):
         """ Create a commission calcul """
-        order_id = self.env['sale.order'].search([('name', '=', invoice.invoice_origin)])
-        vals = {
-            "agent_id": agent.id,
-            "order_id": order_id.id if order_id else False,
-            "rule_id": rule.id,
-            "result": self._get_result_commission(rule, invoice),
-            "commission_date": invoice.commission_date,
-        }
+        if not delta:
+            order_id = self.env['sale.order'].search([('name', '=', invoice.invoice_origin)])
+            vals = {
+                "agent_id": agent.id,
+                "order_id": order_id.id if order_id else False,
+                "rule_id": rule.id,
+                "result": self._get_result_commission(rule, invoice),
+                "commission_date": invoice.commission_date,
+            }
 
-        # Create commission calcul
-        return self.env['commission.agent.calcul'].create(vals)
+            # Create commission calcul
+            return self.env['commission.agent.calcul'].create(vals)
+        else:
+            invoice_date = invoice.mapped('invoice_date')
+            print(invoice_date)
+
+    def _get_couting(self, rule):
+        """ Get commission rule condition """
+        for condition in rule.condition_rule_ids:
+            if condition.value:
+                return condition.value
+
+    def _get_delta(self, rule):
+        """ Get delta if cumulative rule condition """
+        if rule.is_cumulative:
+            for cumulative_with_id in rule.cumulative_with_ids:
+                if cumulative_with_id.delta:
+                    return cumulative_with_id.delta
+
+    def _get_target_invoices(self, partner, agent, start_date, counting_order_new_customer):
+        """ Get target invoices for calculation commission """
+        all_invoice_list = []
+        all_orders = self.env['sale.order'].browse(self._get_all_partner_orders(partner, agent))
+        for order in all_orders:
+            if order.date_order.date() > start_date:
+                all_invoice_list += (
+                    self._get_invoice_payed(
+                        agent, order.invoice_ids.mapped('id'), counting_order_new_customer
+                    )
+                )
+        invoices = self.env['account.move'].search([
+            ('id', 'in', all_invoice_list)
+        ], order="invoice_date asc", limit=counting_order_new_customer
+        )
+        return invoices
 
     def _generate_commission_new_customer(self, rule, agent, start_date):
         """ Generate commission type equals new customer order """
-        calcul_list = []
-        # commission_date = False
-        for partner in self.env['res.partner'].search([('user_id', '=', agent.id)]):
-            if partner.sale_order_ids:
-                for order in self.env['sale.order'].browse(self._get_all_partner_orders(partner, agent)):
-                    first_invoice = self._get_first_invoice_payed(agent, order.invoice_ids.mapped('id'), 1)
-                    if first_invoice and first_invoice.invoice_date > start_date:
-                        # commission_date = first_invoice.commission_date
-                        calcul_ids = self._create_commission_calcul(rule, agent, first_invoice)
+        counting_order_new_customer = self._get_couting(rule)
+        if rule.is_cumulative:
+            calcul_list = []
+            rule_cumulative_id = rule.cumulative_with_ids
+            delta = self._get_delta(rule)
+            for commission_calcul in self.env['commission.agent.calcul'].search([
+                ('rule_id', '=', rule_cumulative_id.rule_id.id)
+            ]):
+                invoices = self._get_target_invoices(
+                    commission_calcul.partner_id, agent, start_date, counting_order_new_customer
+                )
+                if invoices and len(invoices) == counting_order_new_customer:
+                    last_invoice = self.env['account.move'].browse(invoices.mapped('id')[-1])
+                    invoice_date_list = invoices.mapped('invoice_date')
+                    invoice_date_delta = invoice_date_list[-1] - invoice_date_list[-2]
+                    if invoice_date_delta.days <= delta:
+                        calcul_ids = self._create_commission_calcul(rule, agent, last_invoice)
                         calcul_list += calcul_ids.mapped('id')
-        return calcul_list
+            return calcul_list
+
+        else:
+            calcul_list = []
+            for partner in self.env['res.partner'].search([('user_id', '=', agent.id)]):
+                if partner.sale_order_ids:
+                    invoices = self._get_target_invoices(partner, agent, start_date, counting_order_new_customer)
+                    if invoices:
+                        calcul_ids = self._create_commission_calcul(rule, agent, invoices)
+                        calcul_list += calcul_ids.mapped('id')
+            return calcul_list
 
     def _create_commission_agent(self, calcul_list):
         """ Create commission agent depending commission calcul """
@@ -162,6 +214,10 @@ class CommissionAgent(models.Model):
 
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
+        # Clear records
+        self.env['commission.agent.calcul'].search([]).unlink()
+        self.env['commission.agent'].search([]).unlink()
+
         rules = self._get_active_rules()
         calcul_list = []
         for rule in rules:
@@ -178,7 +234,6 @@ class CommissionAgent(models.Model):
                     # self._generate_commission_specific_customer(agent)
         if len(calcul_list) > 0:
             self._create_commission_agent(calcul_list)
-
 
         # Add tracking
         sync_ok = True
