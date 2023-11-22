@@ -11,9 +11,10 @@
     'category': 'Sales/Sales',
     "version": "16.0.23.11.07",
     "installable": True,
-    "depends": ['base', 'dashboard_agent', 'custom_sale'],
+    "depends": ['base', 'dashboard_agent', 'custom_sale', 'sale'],
     "data": [
         # Data
+        "data/commission_agent_rule_data.xml",
         "data/res_partner_category_data.xml",
 
         # Security
@@ -23,6 +24,7 @@
         "views/account_move_views.xml",
         "views/commission_agent_rule_views.xml",
         "views/commission_agent_views.xml",
+        "views/sale_order_views.xml",
         "views/synchronization_commission_history_views.xml",
 
         # Wizard

@@ -27,10 +27,12 @@
                             <field name="name" placeholder="New rule" required="1"/>
                         </h1>
                     </div>
+                    <group name="description_rule">
+                        <field name="description" required="1"/>
+                    </group>
                     <group name="general_information">
                         <group>
                             <field name="active" invisible="1" />
-                            <field name="description" required="1"/>
                             <field name="log_tracking" required="1"/>
                             <field name="start_date" widget="daterange" options="{'related_end_date': 'expiration_date'}" />
                             <field name="expiration_date" widget="daterange" options="{'related_start_date': 'start_date'}" />
@@ -103,6 +105,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

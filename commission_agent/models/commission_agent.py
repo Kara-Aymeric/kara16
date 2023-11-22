@@ -225,6 +225,25 @@ class CommissionAgent(models.Model):
 
         return calcul_list
 
+    def _generate_base_commission(self):
+        """ Generate base commission for show into calcul """
+        calcul_list = []
+        commission_base_rule = self.env.ref("commission_agent.commission_base_rule", False)
+        if commission_base_rule:
+            for order in self.env['sale.order'].search([('dashboard_commission_order', '=', True)]):
+                vals = {
+                    "agent_id": order.user_id.id,
+                    "order_id": order.id,
+                    "rule_id": commission_base_rule.id,
+                    "result": order.amount_untaxed,
+                    "commission_date": order.commission_date,
+                }
+                # Create commission calcul
+                commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
+                calcul_list += commission_agent_calcul_id.mapped('id')
+
+        return calcul_list
+
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
         # Clear records
@@ -247,8 +266,8 @@ class CommissionAgent(models.Model):
                     calcul_list += self._generate_commission_specific_customer(
                         rule, agent, agent_start_date, customer_ids
                     )
-                #     pass
-                    # self._generate_commission_specific_customer(agent)
+        calcul_list += self._generate_base_commission()
+
         if len(calcul_list) > 0:
             self._create_commission_agent(calcul_list)
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="commission_base_rule" model="commission.agent.rule">
+            <field name="name">Base commission</field>
+            <field name="log_tracking">Base commission</field>
+        </record>
+        <record id="commission_salary_recovery_rule" model="commission.agent.rule">
+            <field name="name">Salary recovery</field>
+            <field name="log_tracking">Salary recovery</field>
+        </record>
+    </data>
+</odoo>

@@ -7,6 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class CommissionAgentRule(models.Model):
     _name = "commission.agent.rule"
+    _inherit = ['portal.mixin', 'mail.thread', 'mail.activity.mixin', 'utm.mixin']
     _description = "Managing commission rules"
 
     name = fields.Char(string="Rule name", tracking=True)

@@ -12,11 +12,6 @@
                 <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="commission_agent_calcul_ids" />
                 <field name="log_tracking" />
-<!--                <button string="Show details"
-                        type="object"
-                        name="action_open_commission_details"
-                        class="btn-secondary"
-                />-->
             </tree>
         </field>
     </record>
@@ -90,7 +85,6 @@
         <field name="context">{
             'search_default_group_by_date': 1,
             'search_default_group_by_agent': 1,
-            'search_default_group_commission_rule': 1
             }
         </field>
     </record>

@@ -6,5 +6,5 @@ from . import commission_agent_calcul
 from . import commission_rule_condition
 from . import commission_specific_agent
 from . import commission_specific_rule
-# from . import sale_order
+from . import sale_order
 from . import synchronization_commission_history
