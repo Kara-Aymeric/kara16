@@ -244,6 +244,60 @@ class CommissionAgent(models.Model):
 
         return calcul_list
 
+    def _generate_sponsorship_commission(self):
+        """ Generate sponsorship commission for show into calcul """
+        calcul_list = []
+        commission_sponsorship_rule = self.env.ref("commission_agent.commission_sponsorship_rule", False)
+        if commission_sponsorship_rule:
+            not_calculation_sponsorship_rule_ids = self.env['commission.agent.rule'].search(
+                [('is_not_calculation_sponsorship', '=', True)]
+            )
+            print(not_calculation_sponsorship_rule_ids)
+
+            for sponsorship in self.env['relation.agent'].search([]):
+                godson_id = sponsorship.godson_id
+                godfather_id = sponsorship.godfather_id
+                print(godson_id.name)
+                print(sponsorship.start_date)
+                print(sponsorship.end_date)
+                percentage_commission = sponsorship.commission
+                calcul_order_list = []
+                agent_order_list = []
+                godson_order_ids = self.env['sale.order'].search([
+                    ('user_id', '=', godson_id.id),
+                    ('date_order', '>=', sponsorship.start_date),
+                    ('date_order', '<=', sponsorship.end_date),
+                ])
+                print(godson_order_ids)
+
+                domain_calcul = [('agent_id', '=', godson_id.id)]
+                if not_calculation_sponsorship_rule_ids:
+                    domain_calcul += [('rule_id', 'not in', not_calculation_sponsorship_rule_ids.mapped('id'))]
+                commission_agent_calcul_ids = self.env['commission.agent.calcul'].search(domain_calcul)
+                print(commission_agent_calcul_ids)
+
+                if commission_agent_calcul_ids:
+                    order_ids = commission_agent_calcul_ids.mapped('order_id')
+                    calcul_order_list = order_ids.ids
+                if godson_order_ids:
+                    agent_order_list = godson_order_ids.ids
+
+                if godson_order_ids:
+                    target_sales = [x for x in agent_order_list if x not in calcul_order_list]
+                    for order in self.env['sale.order'].browse(target_sales):
+                        vals = {
+                            "agent_id": godfather_id.id,
+                            "order_id": order.id,
+                            "rule_id": commission_sponsorship_rule.id,
+                            "result": percentage_commission * order.amount_untaxed,
+                            "commission_date": order.commission_date,
+                        }
+                        # Create commission calcul
+                        commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
+                        calcul_list += commission_agent_calcul_id.mapped('id')
+
+        return calcul_list
+
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
         # Clear records
@@ -267,6 +321,7 @@ class CommissionAgent(models.Model):
                         rule, agent, agent_start_date, customer_ids
                     )
         calcul_list += self._generate_base_commission()
+        calcul_list += self._generate_sponsorship_commission()
 
         if len(calcul_list) > 0:
             self._create_commission_agent(calcul_list)

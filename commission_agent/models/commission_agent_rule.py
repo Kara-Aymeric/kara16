@@ -96,6 +96,13 @@ class CommissionAgentRule(models.Model):
     result_amount = fields.Monetary(string="Amount", tracking=True)
     result_percent = fields.Float(string="Percentage", tracking=True)
 
+    is_not_calculation_sponsorship = fields.Boolean(
+        string="No sponsorship",
+        help="If this option is active, the orders found in this rule are not taken into account in the calculation "
+             "of commissions concerning the sponsorship rule",
+        tracking=True
+    )
+
     active = fields.Boolean(string="Active", default=True, tracking=True)
 
     @api.depends('applies_on')
