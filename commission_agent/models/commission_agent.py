@@ -124,29 +124,46 @@ class CommissionAgent(models.Model):
     def _generate_commission_new_customer(self, rule, agent, start_date):
         """ Generate commission type equals new customer order """
         calcul_list = []
-        commission_date = False
+        # commission_date = False
         for partner in self.env['res.partner'].search([('user_id', '=', agent.id)]):
             if partner.sale_order_ids:
                 for order in self.env['sale.order'].browse(self._get_all_partner_orders(partner, agent)):
                     first_invoice = self._get_first_invoice_payed(agent, order.invoice_ids.mapped('id'), 1)
                     if first_invoice and first_invoice.invoice_date > start_date:
-                        commission_date = first_invoice.commission_date
+                        # commission_date = first_invoice.commission_date
                         calcul_ids = self._create_commission_calcul(rule, agent, first_invoice)
                         calcul_list += calcul_ids.mapped('id')
-        print(calcul_list)
-        if len(calcul_list) > 0:
-            vals = {
-                'date': commission_date,
-                'agent_id': agent.id,
-                'commission_rule_id': rule.id,
-                'commission_agent_calcul_ids': ([(6, 0, calcul_list)]),
-            }
-            # Create commission agent (global by rules)
-            return self.env['commission.agent'].create(vals)
+        return calcul_list
+
+    def _create_commission_agent(self, calcul_list):
+        """ Create commission agent depending commission calcul """
+        commission_agent_calcul_ids = self.env['commission.agent.calcul'].search(
+            [('id', 'in', calcul_list)], order="rule_id asc"
+        )
+        for calcul in commission_agent_calcul_ids:
+            commission_agent_id = self.env['commission.agent'].search([
+                ('commission_rule_id', '=', calcul.rule_id.id),
+                ('agent_id', '=', calcul.agent_id.id),
+                ('date', '=', calcul.commission_date),
+            ])
+            if commission_agent_id:
+                # Create commission agent (global by rules)
+                commission_agent_id.write({
+                    'commission_agent_calcul_ids': [(4, calcul.id)],
+                })
+            else:
+                # Create commission agent (global by rules)
+                self.env['commission.agent'].create({
+                    'date': calcul.commission_date,
+                    'agent_id': calcul.agent_id.id,
+                    'commission_rule_id': calcul.rule_id.id,
+                    'commission_agent_calcul_ids': [(4, calcul.id)],
+                })
 
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
         rules = self._get_active_rules()
+        calcul_list = []
         for rule in rules:
             _logger.info(rule.name)
             commission_specific_agent_ids = self._get_active_commission_specific_agent(rule)
@@ -155,10 +172,13 @@ class CommissionAgent(models.Model):
                 agent = commission_specific_agent.agent_id
                 agent_start_date = commission_specific_agent.start_date or False
                 if apply_on == "new_customer_order":
-                    self._generate_commission_new_customer(rule, agent, agent_start_date)
+                    calcul_list += self._generate_commission_new_customer(rule, agent, agent_start_date)
                 # elif apply_on == "specific_customer":
                 #     pass
                     # self._generate_commission_specific_customer(agent)
+        if len(calcul_list) > 0:
+            self._create_commission_agent(calcul_list)
+
 
         # Add tracking
         sync_ok = True
