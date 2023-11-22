@@ -32,10 +32,8 @@ class CommissionAgent(models.Model):
         for commission in self:
             amount = 0
             if commission.commission_rule_id and commission.commission_agent_calcul_ids:
-                result_type = commission.commission_rule_id.result_type
-                if result_type == "amount":
-                    amount_list = commission.commission_agent_calcul_ids.mapped('result')
-                    amount = sum(sub for sub in amount_list)
+                amount_list = commission.commission_agent_calcul_ids.mapped('result')
+                amount = sum(sub for sub in amount_list)
             commission.amount = amount
 
     def _get_active_rules(self):
@@ -105,7 +103,7 @@ class CommissionAgent(models.Model):
         if rule.result_type == "amount":
             return rule.result_amount
         elif rule.result_type == "percent":
-            return (rule.result_percent / 100) * invoice.amount_untaxed
+            return rule.result_percent * invoice.amount_untaxed
 
     def _create_commission_calcul(self, rule, agent, invoice, delta=False):
         """ Create a commission calcul """
@@ -212,6 +210,21 @@ class CommissionAgent(models.Model):
                     'commission_agent_calcul_ids': [(4, calcul.id)],
                 })
 
+    def _generate_commission_specific_customer(self, rule, agent, start_date, customer_ids):
+        """ Generate commission type equals specific customer """
+        calcul_list = []
+        for partner in self.env['res.partner'].search([
+            ('user_id', '=', agent.id),
+            ('id', 'in', customer_ids.ids)
+        ]):
+            if partner.sale_order_ids:
+                invoices = self._get_target_invoices(partner, agent, start_date, 10000)
+                for invoice in invoices:
+                    calcul_ids = self._create_commission_calcul(rule, agent, invoice)
+                    calcul_list += calcul_ids.mapped('id')
+
+        return calcul_list
+
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
         # Clear records
@@ -229,7 +242,11 @@ class CommissionAgent(models.Model):
                 agent_start_date = commission_specific_agent.start_date or False
                 if apply_on == "new_customer_order":
                     calcul_list += self._generate_commission_new_customer(rule, agent, agent_start_date)
-                # elif apply_on == "specific_customer":
+                elif apply_on == "specific_customer":
+                    customer_ids = commission_specific_agent.customer_ids
+                    calcul_list += self._generate_commission_specific_customer(
+                        rule, agent, agent_start_date, customer_ids
+                    )
                 #     pass
                     # self._generate_commission_specific_customer(agent)
         if len(calcul_list) > 0:
