@@ -28,10 +28,23 @@ class RelationAgent(models.Model):
         readonly=False
     )
     commission = fields.Float(string="Commission")
+    is_expired = fields.Boolean(
+        string="Is expired", copy=False, compute="_compute_is_expired", store=True
+    )
     active = fields.Boolean(
         default=True,
         help="By unchecking the active field, you can hide a record without deleting it."
     )
+
+    @api.depends("end_date")
+    def _compute_is_expired(self):
+        """ Compute is expired """
+        for record in self:
+            is_expired = False
+            if record.end_date:
+                if fields.Date.today() > record.end_date:
+                    is_expired = True
+            record.is_expired = is_expired
 
     @api.depends('start_date')
     def _compute_end_date(self):
