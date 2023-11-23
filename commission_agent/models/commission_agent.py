@@ -22,6 +22,7 @@ class CommissionAgent(models.Model):
         "res.currency", default=lambda self: self.env.company.currency_id, readonly=True
     )
     amount = fields.Monetary(string="Commission amount", compute="_compute_amount", store=True)
+    purchase_order_id = fields.Many2one("purchase.order", string="Purchase invoice")
     commission_agent_calcul_ids = fields.One2many(
         "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul", required=True
     )
