@@ -23,6 +23,7 @@ class CommissionAgent(models.Model):
     )
     amount = fields.Monetary(string="Commission amount", compute="_compute_amount", store=True)
     purchase_order_id = fields.Many2one("purchase.order", string="Purchase invoice")
+    is_sponsorship_rule = fields.Boolean(string="Is sponsorship rule", related="commission_rule_id.is_sponsorship_rule")
     commission_agent_calcul_ids = fields.One2many(
         "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul", required=True
     )
@@ -288,6 +289,7 @@ class CommissionAgent(models.Model):
                     for order in self.env['sale.order'].browse(target_sales):
                         vals = {
                             "agent_id": godfather_id.id,
+                            "godson_id": order.user_id.id,
                             "order_id": order.id,
                             "rule_id": commission_sponsorship_rule.id,
                             "result": percentage_commission * order.amount_untaxed,

@@ -10,6 +10,7 @@ class CommissionAgentCalcul(models.Model):
     commission_agent_id = fields.Many2one("commission.agent", string="Commission agent")
     commission_date = fields.Date(string="Commission date")
     agent_id = fields.Many2one("res.users", string="Agent")
+    godson_id = fields.Many2one("res.users", string="Godson")
     order_id = fields.Many2one("sale.order", string="Sale")
     partner_id = fields.Many2one(related="order_id.partner_id", string="Customer", readonly=True)
     currency_id = fields.Many2one(related="order_id.currency_id", string="Currency", readonly=True)
@@ -18,5 +19,3 @@ class CommissionAgentCalcul(models.Model):
         "commission.agent.rule", string="Commission Rule"
     )
     result = fields.Float(string="Result")
-
-

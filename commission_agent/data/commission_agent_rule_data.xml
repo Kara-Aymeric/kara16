@@ -12,6 +12,7 @@
         <record id="commission_sponsorship_rule" model="commission.agent.rule">
             <field name="name">Parrainage</field>
             <field name="log_tracking">Parrainage</field>
+            <field name="is_sponsorship_rule">true</field>
         </record>
     </data>
 </odoo>

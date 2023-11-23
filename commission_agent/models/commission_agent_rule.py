@@ -21,6 +21,7 @@ class CommissionAgentRule(models.Model):
     is_expired = fields.Boolean(
         string="Is expired", copy=False, compute="_compute_is_expired", store=True, tracking=True
     )
+    is_sponsorship_rule = fields.Boolean(string="Is sponsorship rule")
 
     # Applied to
     agent_ids = fields.One2many(
