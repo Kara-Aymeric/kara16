@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 12:33+0000\n"
-"PO-Revision-Date: 2023-11-14 12:33+0000\n"
+"POT-Creation-Date: 2023-11-23 08:14+0000\n"
+"PO-Revision-Date: 2023-11-23 08:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,7 @@ msgstr "2. Règles additionnelles"
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
 msgid "3. Conditions"
-msgstr "3. Conditions"
+msgstr ""
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
@@ -36,27 +36,19 @@ msgid "4. Result"
 msgstr "4. Résultat"
 
 #. module: commission_agent
-#. odoo-python
-#: code:addons/commission_agent/wizard/commission_rule_wizard.py:0
-#, python-format
-msgid "<b>Rule assigned : </b><br/>- %s"
-msgstr "<b>Règle assigné : </b><br/>- %s"
-
-#. module: commission_agent
-#. odoo-python
-#: code:addons/commission_agent/wizard/commission_rule_wizard.py:0
-#, python-format
-msgid ""
-"A problem has been encountered. Check the presence of a user linked to the "
-"employee file. Please contact your administrator!"
-msgstr ""
-"Un problème est rencontré. Vérifier la présence d'un utilisateur lié à la "
-"fiche employé. Veuillez contacter votre administrateur !"
-
-#. module: commission_agent
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_rule_condition__logical_operator__and
 msgid "AND"
 msgstr "ET"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__access_warning
+msgid "Access warning"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_needaction
+msgid "Action Needed"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__active
@@ -66,7 +58,28 @@ msgid "Active"
 msgstr "Actif/ve"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__agent_id
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__agent_id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__agent_id
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_search_view
 msgid "Agent"
@@ -101,6 +114,11 @@ msgid "Are you sure to execute the synchronisation ?"
 msgstr "Etes-vous sûr d'exécuter la synchronisation ?"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: commission_agent
 #: model:ir.model.fields.selection,name:commission_agent.selection__synchronization_commission_history__type__automatic
 msgid "Automatic"
 msgstr "Automatique"
@@ -111,7 +129,13 @@ msgstr "Automatique"
 msgid ""
 "By unchecking the active field, you can hide a record without deleting it."
 msgstr ""
-"En décochant le champ actif, vous pouvez masquer un enregistrement sans le supprimer."
+"En décochant le champ actif, vous pouvez masquer un enregistrement sans le "
+"supprimer."
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__campaign_id
+msgid "Campaign"
+msgstr ""
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.sync_manually_wizard_form_view
@@ -126,30 +150,33 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #. module: commission_agent
-#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__amount
-msgid "Commission Amount"
-msgstr "Montant commission"
-
-#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__date
 msgid "Commission Date"
 msgstr "Date"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__commission_rule_id
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__rule_id
 msgid "Commission Rule"
 msgstr "Règle de commission"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__commission_agent_id
 #: model:ir.ui.menu,name:commission_agent.commission_agent_category
 #: model:ir.ui.menu,name:commission_agent.commission_agent_rule_category
+#: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_form_view
 msgid "Commission agent"
 msgstr ""
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__commission_agent_calcul_ids
+msgid "Commission agent calcul"
+msgstr "Calcul commission agent"
+
+#. module: commission_agent
 #: model:ir.model,name:commission_agent.model_commission_agent
 msgid "Commission agent generated automatically"
-msgstr "Commission agent généré automatiquement"
+msgstr "Commission agent générée automatiquement"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_rule__commission_agent_rule_id
@@ -157,9 +184,16 @@ msgid "Commission agent rule"
 msgstr "Règle commission agent"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__amount
+msgid "Commission amount"
+msgstr "Montant commission"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_account_bank_statement_line__commission_date
 #: model:ir.model.fields,field_description:commission_agent.field_account_move__commission_date
 #: model:ir.model.fields,field_description:commission_agent.field_account_payment__commission_date
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__commission_date
+#: model:ir.model.fields,field_description:commission_agent.field_sale_order__commission_date
 msgid "Commission date"
 msgstr "Date commission"
 
@@ -179,6 +213,12 @@ msgstr "Commission spécifique agent"
 #: model:ir.model,name:commission_agent.model_commission_specific_rule
 msgid "Commission specific rule"
 msgstr "Commission spécifique règle"
+
+#. module: commission_agent
+#: model:ir.actions.server,name:commission_agent.ir_cron_commission_agent_ir_actions_server
+#: model:ir.cron,cron_name:commission_agent.ir_cron_commission_agent
+msgid "Commission: Generate commission agent and calcul"
+msgstr "Commission : Générer commission et calculer"
 
 #. module: commission_agent
 #: model:ir.actions.act_window,name:commission_agent.commission_agent_action
@@ -208,6 +248,7 @@ msgstr "Compter"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__create_uid
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__create_uid
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__create_uid
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__create_uid
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__create_uid
@@ -219,6 +260,7 @@ msgstr "Crée par"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__create_date
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__create_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__create_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__create_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__create_date
@@ -234,6 +276,8 @@ msgid "Cumulative with"
 msgstr "Cumulée avec"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__currency_id
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__currency_id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__currency_id
 msgid "Currency"
 msgstr "Devise"
@@ -242,6 +286,16 @@ msgstr "Devise"
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_search_view
 msgid "Current Month"
 msgstr "Mois courant"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__partner_id
+msgid "Customer"
+msgstr "Client"
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__access_url
+msgid "Customer Portal URL"
+msgstr "URL Portail client"
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_search_view
@@ -254,9 +308,9 @@ msgid "Description"
 msgstr ""
 
 #. module: commission_agent
-#: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
-msgid "Discount condition"
-msgstr "Condition de remise"
+#: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_form_view
+msgid "Details"
+msgstr "Détails"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__discount_limit
@@ -265,6 +319,7 @@ msgstr "Limite de remise"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__display_name
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__display_name
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__display_name
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__display_name
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__display_name
@@ -285,8 +340,8 @@ msgid ""
 "Duration between the moment the first rule is applied and the cumulative "
 "rules. Left empty or zero if the duration is indeterminate"
 msgstr ""
-"Durée entre le moment où la première règle est appliquée et les règles cumulées. "
-"Laisser vide ou nulle si la durée est indéterminée"
+"Durée entre le moment où la première règle est appliquée et les règles "
+"cumulées. Laisser vide ou nulle si la durée est indéterminée"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__end_date
@@ -299,19 +354,34 @@ msgid "Expiration Date"
 msgstr "Date d'expiration"
 
 #. module: commission_agent
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__first_order
-msgid "First order new customer"
-msgstr "Première commande nouveau client"
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_follower_ids
+msgid "Followers"
+msgstr ""
 
 #. module: commission_agent
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__first_order_ka
-msgid "First order new key account customer"
-msgstr "Première commande nouveau client key account"
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: commission_agent
+#: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_form_view
+msgid "General information"
+msgstr "Informations générales"
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_search_view
 msgid "Group By"
 msgstr "Grouper par"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__has_message
+msgid "Has Message"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__has_discount_condition
@@ -320,6 +390,7 @@ msgstr "A une condition de remise"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__id
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__id
@@ -330,9 +401,44 @@ msgid "ID"
 msgstr ""
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__message_has_error
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__is_not_calculation_sponsorship
+msgid ""
+"If this option is active, the orders found in this rule are not taken into "
+"account in the calculation of commissions concerning the sponsorship rule"
+msgstr ""
+"Si cette option est active, les commandes trouvées dans cette règle ne sont pas prises en compte "
+"dans le calcul des commissions concernant la règle du parrainage"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_cumulative
 msgid "Is Cumulative"
 msgstr "Est cumulée"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_is_follower
+msgid "Is Follower"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_expired
@@ -356,6 +462,7 @@ msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent____last_update
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul____last_update
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule____last_update
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition____last_update
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent____last_update
@@ -367,6 +474,7 @@ msgstr "Dernière modification le"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__write_uid
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__write_uid
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__write_uid
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__write_uid
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__write_uid
@@ -378,6 +486,7 @@ msgstr "Dernière mise à jour par"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__write_date
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__write_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__write_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__write_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__write_date
@@ -404,6 +513,11 @@ msgid "Logical operator"
 msgstr "Opérateur logique"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: commission_agent
 #: model:ir.model,name:commission_agent.model_commission_agent_rule
 msgid "Managing commission rules"
 msgstr "Gestion des règles de commissions"
@@ -419,8 +533,33 @@ msgid "Manual"
 msgstr "Manuel"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__medium_id
+msgid "Medium"
+msgstr "Moyen"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_synchronization_commission_history__message
 msgid "Message"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model,name:commission_agent.model_commission_agent_calcul
+msgid "Model used to managed calcul about commissions"
+msgstr "Modèle utilisé pour gérer le calcul des commissions"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__my_activity_date_deadline
+msgid "My Activity Deadline"
 msgstr ""
 
 #. module: commission_agent
@@ -429,9 +568,59 @@ msgid "Name"
 msgstr "Nom"
 
 #. module: commission_agent
+#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__new_customer_order
+msgid "New customer order"
+msgstr "Commande nouveau client"
+
+#. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
 msgid "New rule"
 msgstr "Nouvelle règle"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_not_calculation_sponsorship
+msgid "No sponsorship"
+msgstr "Non parrainage"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_rule_condition__logical_operator__or
@@ -452,9 +641,24 @@ msgid "Percentage"
 msgstr "Pourcentage"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__access_url
+msgid "Portal Access URL"
+msgstr "URL d'accès au portail"
+
+#. module: commission_agent
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_rule_condition__type__quantity
 msgid "Quantity"
 msgstr "Quantité"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_user_id
+msgid "Responsible User"
+msgstr "Responsable"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__result
+msgid "Result"
+msgstr "Résultat"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__rule_id
@@ -470,9 +674,24 @@ msgid "Rule name"
 msgstr "Nom de la règle"
 
 #. module: commission_agent
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__second_order
-msgid "Second order"
-msgstr "Seconde commande"
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__order_id
+msgid "Sale"
+msgstr "Vente"
+
+#. module: commission_agent
+#: model:ir.model,name:commission_agent.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__access_token
+msgid "Security Token"
+msgstr "Jeton de sécurité"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__sequence
@@ -486,9 +705,9 @@ msgid "Shortcut that appear in the calculation"
 msgstr "Raccourci qui apparait dans le calcul"
 
 #. module: commission_agent
-#: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_tree_view
-msgid "Show details"
-msgstr "Voir détails"
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__source_id
+msgid "Source"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__specific_product_id
@@ -497,26 +716,29 @@ msgstr "Article spécifique"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__specific_brand_id
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__specific_brand
 msgid "Specific brand"
 msgstr "Marque spécifique"
 
 #. module: commission_agent
-#: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__customer_id
+#: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__customer_ids
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__specific_customer
 msgid "Specific customer"
 msgstr "Client spécifique"
-
-#. module: commission_agent
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__specific_product
-msgid "Specific product"
-msgstr "Produit spécifique"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__start_date
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__start_date
 msgid "Start Date"
 msgstr "Date de début"
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_rule_condition__operation__sum
@@ -553,14 +775,23 @@ msgid "Tags"
 msgstr "Étiquettes"
 
 #. module: commission_agent
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__third_order
-msgid "Third order"
-msgstr "Troisième commande"
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__campaign_id
+msgid ""
+"This is a name that helps you keep track of your different campaign efforts,"
+" e.g. Fall_Drive, Christmas_Special"
+msgstr ""
 
 #. module: commission_agent
-#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__applies_on__total_amount_cashing
-msgid "Total amount cashing (HT)"
-msgstr "Montant total encaissé (HT)"
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__medium_id
+msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__source_id
+msgid ""
+"This is the source of the link, e.g. Search Engine, another domain, or name "
+"of email list"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__type
@@ -573,6 +804,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__result_type
 msgid "Type of result"
 msgstr "Type de résultat"
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__order_amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Montant HT"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_synchronization_commission_history__sync_ok
@@ -588,6 +829,16 @@ msgstr "Utilisateur"
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__value
 msgid "Value"
 msgstr "Valeur"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__website_message_ids
+msgid "Website communication history"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.model,name:commission_agent.model_sync_manually_wizard
