@@ -8,7 +8,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='login']" position="after">
                 <field name="agent_profile" />
-                <field name="agent_authorize_manual_order" />
             </xpath>
         </field>
     </record>
@@ -21,6 +20,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='agent_reference']" position="after">
                 <field name="agent_profile" />
+                <field name="agent_authorize_manual_order" attrs="{'invisible': [('agent_profile', '!=', 'd2r')]}"/>
             </xpath>
         </field>
     </record>
@@ -33,7 +33,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='agent_reference']" position="after">
                 <field name="agent_profile" />
-                <field name="agent_authorize_manual_order" />
+                <field name="agent_authorize_manual_order" attrs="{'invisible': [('agent_profile', '!=', 'd2r')]}"/>
             </xpath>
         </field>
     </record>
