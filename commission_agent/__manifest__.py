@@ -15,6 +15,7 @@
     "data": [
         # Data
         "data/commission_agent_rule_data.xml",
+        "data/product_data.xml",
         "data/res_partner_category_data.xml",
 
         # Security

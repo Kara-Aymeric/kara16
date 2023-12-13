@@ -4,7 +4,8 @@ import timeit
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
+
 
 _logger = logging.getLogger(__name__)
 
@@ -22,7 +23,8 @@ class CommissionAgent(models.Model):
         "res.currency", default=lambda self: self.env.company.currency_id, readonly=True
     )
     amount = fields.Monetary(string="Commission amount", compute="_compute_amount", store=True)
-    purchase_order_id = fields.Many2one("purchase.order", string="Purchase invoice")
+    is_invoiced = fields.Boolean(string="Is invoiced")
+    purchase_invoice_id = fields.Many2one("account.move", string="Invoice supplier")
     is_sponsorship_rule = fields.Boolean(string="Is sponsorship rule", related="commission_rule_id.is_sponsorship_rule")
     commission_agent_calcul_ids = fields.One2many(
         "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul", required=True
@@ -332,3 +334,73 @@ class CommissionAgent(models.Model):
         # Add tracking
         sync_ok = True
         self._update_synchronization_history(type_sync, comment, sync_ok)
+
+    def action_create_purchase(self, agent_id):
+        """ Create purchase """
+        if agent_id:
+            data = {
+                'partner_id': agent_id.id,
+                'invoice_origin': "Commission agent",
+                'move_type': "in_invoice",
+                'invoice_date': datetime.today(),
+            }
+            purchase_invoice_id = self.env['account.move'].create(data)
+            return purchase_invoice_id
+        return False
+
+    @api.model
+    def action_generate_purchase_invoice(self):
+        """ Create purchase invoice """
+        context = dict(self.env.context)
+
+        commission_product = self.env.ref("commission_agent.product_template_commission", False)
+        if not commission_product:
+            raise UserError(
+                _("No commission product configured")
+            )
+        commission_product_id = self.env['product.product'].search([('product_tmpl_id', '=', commission_product.id)])
+
+        agent_id = False
+        for commission in self:
+            if agent_id and agent_id != commission.agent_id:
+                raise UserError(
+                    _("To create a commission invoice, you must select the commissions of a single agent.")
+                )
+            agent_id = commission.agent_id
+            if commission.is_invoiced:
+                raise UserError(
+                    _("To create a commission invoice, you must select the commissions who don't invoiced.")
+                )
+
+        new_purchase_invoice_id = self.action_create_purchase(agent_id.partner_id)
+        if new_purchase_invoice_id:
+            for commission in self:
+                # Create section
+                new_line = self.env['account.move.line'].create({
+                    'move_id': new_purchase_invoice_id.id,
+                    'display_type': 'line_section',
+                    'name': commission.log_tracking,
+                })
+                for line in commission.commission_agent_calcul_ids:
+                    name = _("Commission on %s order for %s customer", line.order_id.name, line.partner_id.name)
+                    new_line = self.env['account.move.line'].create({
+                        'move_id': new_purchase_invoice_id.id,
+                        'product_id': commission_product_id.id,
+                        'name': name,
+                        'quantity': 1,
+                        'price_unit': line.result,
+                    })
+                commission.write({
+                    'is_invoiced': True,
+                    'purchase_invoice_id': new_purchase_invoice_id.id,
+                })
+
+            return {
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'res_model': 'account.move',
+                'views': [(self.env.ref('account.view_move_form').id, 'form')],
+                'res_id': new_purchase_invoice_id.id,
+                'target': 'current',
+                'context': context,
+            }

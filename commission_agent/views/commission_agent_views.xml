@@ -12,6 +12,7 @@
                 <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="commission_agent_calcul_ids" />
                 <field name="log_tracking" />
+                <field name="is_invoiced" />
             </tree>
         </field>
     </record>
@@ -37,7 +38,8 @@
                             <field name="currency_id" invisible="1" />
                             <field name="commission_rule_id" readonly="1"/>
                             <field name="amount" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                            <field name="purchase_order_id" />
+                            <field name="is_invoiced" readonly="1"/>
+                            <field name="purchase_invoice_id" readonly="1" force_save="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -89,6 +91,17 @@
             'search_default_group_by_date': 1,
             'search_default_group_by_agent': 1,
             }
+        </field>
+    </record>
+
+    <record id="action_generate_purchase_order" model="ir.actions.server">
+        <field name="name">Generate purchase invoice</field>
+        <field name="model_id" ref="model_commission_agent"/>
+        <field name="binding_model_id" ref="commission_agent.model_commission_agent"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+                action = records.action_generate_purchase_invoice()
         </field>
     </record>
 
