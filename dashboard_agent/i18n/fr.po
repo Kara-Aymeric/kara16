@@ -100,12 +100,6 @@ msgstr ""
 "            "
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__related_user_ids
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__related_user_ids
-msgid "Access Rights"
-msgstr "Droits d'accès"
-
-#. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_partner_form
 msgid "Access rights are managed on"
 msgstr "Les droits d'accès sont gérés sur"
