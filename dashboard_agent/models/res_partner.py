@@ -22,9 +22,28 @@ class ResPartner(models.Model):
     # Set the default salesperson when a contact is created
     user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
 
+    godfather_id = fields.Many2one(
+        'res.users', string="Godfather", compute="_compute_godfather_id", store=True, readonly=False, tracking=True
+    )
+
     # Provide multiple users access to each contact
     related_user_ids = fields.Many2many('res.users', string='Access Rights', default=_get_default_related_user_ids)
     readonly_custom_field = fields.Boolean(string="Readonly custom field", compute="_compute_readonly_custom_field")
+
+    @api.depends('user_id')
+    def _compute_godfather_id(self):
+        """ Get godfather """
+        for order in self:
+            godfather_id = order.godfather_id
+            relation_agent_id = self.env['relation.agent'].sudo().search([
+                ('godson_id', '=', order.user_id.id),
+                ("start_date", "<=", fields.Date.today()),
+                ("end_date", ">=", fields.Date.today())
+            ], limit=1)
+            if relation_agent_id:
+                godfather_id = relation_agent_id.godfather_id
+
+            order.godfather_id = godfather_id.id
 
     @api.depends('name')
     def _compute_readonly_custom_field(self):

@@ -88,6 +88,9 @@ class SaleOrder(models.Model):
     principal_agent_id = fields.Many2one(
         'res.users', string="Principal agent", store=True, tracking=True
     )
+    godfather_id = fields.Many2one(
+        'res.users', string="Godfather", compute="_compute_godfather_id", store=True, readonly=False, tracking=True
+    )
     is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent", tracking=True)
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
 
@@ -108,6 +111,21 @@ class SaleOrder(models.Model):
         compute="_compute_dashboard_button_visible"
     )
     readonly_custom_field = fields.Boolean(string="Readonly custom field", compute="_compute_readonly_custom_field")
+
+    @api.depends('user_id')
+    def _compute_godfather_id(self):
+        """ Get godfather """
+        for order in self:
+            godfather_id = order.godfather_id
+            relation_agent_id = self.env['relation.agent'].sudo().search([
+                ('godson_id', '=', order.user_id.id),
+                ("start_date", "<=", fields.Date.today()),
+                ("end_date", ">=", fields.Date.today())
+            ], limit=1)
+            if relation_agent_id:
+                godfather_id = relation_agent_id.godfather_id
+
+            order.godfather_id = godfather_id.id
 
     @api.depends('name')
     def _compute_readonly_custom_field(self):
