@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
 
@@ -152,3 +152,13 @@ class CommissionAgentRule(models.Model):
             self.result_percent = False
         elif self.result_type == "percent":
             self.result_amount = False
+
+    @api.onchange("condition_rule_ids")
+    def _onchange_condition_rule_ids(self):
+        return {
+            'warning': {
+                'title': _("Alert on condition"),
+                'message': _("Please, conditions are important in calculating commissions. "
+                             "Please check the data you add carefully.")
+            },
+        }

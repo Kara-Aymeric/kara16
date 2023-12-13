@@ -90,7 +90,7 @@ class CommissionAgent(models.Model):
         return orders
 
     def _get_invoice_payed(self, agent, invoice_ids, limit):
-        """ Get first invoice payed for calculation commission by agent """
+        """ Get invoice payed for calculation commission by agent """
         domain_invoice = [
             ('id', 'in', invoice_ids),
             ('state', '=', "posted"),
@@ -101,6 +101,19 @@ class CommissionAgent(models.Model):
         invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc")
 
         return invoices.mapped('id')
+
+    # def _get_refund_payed(self, agent, invoice_ids, limit):
+    #     """ Get out refund payed for calculation commission by agent """
+    #     domain = [
+    #         ('id', 'in', invoice_ids),
+    #         ('state', '=', "posted"),
+    #         ('invoice_user_id', '=', agent.id),
+    #         ('move_type', '=', "out_refund"),
+    #         ('payment_state', 'in', ["in_payment", "paid"]),
+    #     ]
+    #     invoices = self.env['account.move'].search(domain, order="invoice_date asc")
+    #
+    #     return invoices.mapped('id')
 
     def _get_result_commission(self, rule, invoice):
         """ Return amount fixe or percentage result to amount untaxed to invoice """
