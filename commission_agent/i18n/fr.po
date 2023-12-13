@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-23 11:27+0000\n"
-"PO-Revision-Date: 2023-11-23 11:27+0000\n"
+"POT-Creation-Date: 2023-12-13 13:41+0000\n"
+"PO-Revision-Date: 2023-12-13 13:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -91,6 +91,13 @@ msgid "Agents"
 msgstr ""
 
 #. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent_rule.py:0
+#, python-format
+msgid "Alert on condition"
+msgstr "Alerte sur condition"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__discount_result_amount
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__result_amount
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__discount_result_type__amount
@@ -150,6 +157,11 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #. module: commission_agent
+#: model:product.template,name:commission_agent.product_template_commission
+msgid "Commission"
+msgstr ""
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__date
 msgid "Commission Date"
 msgstr "Date"
@@ -196,6 +208,13 @@ msgstr "Montant commission"
 #: model:ir.model.fields,field_description:commission_agent.field_sale_order__commission_date
 msgid "Commission date"
 msgstr "Date commission"
+
+#. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent.py:0
+#, python-format
+msgid "Commission on %s order for %s customer"
+msgstr "Commission sur la commande %s pour %s"
 
 #. module: commission_agent
 #: model:ir.actions.act_window,name:commission_agent.action_commission_agent_rule_config
@@ -374,6 +393,11 @@ msgid "General information"
 msgstr "Informations générales"
 
 #. module: commission_agent
+#: model:ir.actions.server,name:commission_agent.action_generate_purchase_order
+msgid "Generate purchase invoice"
+msgstr "Générer facture d'achat"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__godson_id
 msgid "Godson"
 msgstr "Filleul"
@@ -437,6 +461,11 @@ msgstr ""
 "parrainage"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__purchase_invoice_id
+msgid "Invoice supplier"
+msgstr "Facture d'achat"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_cumulative
 msgid "Is Cumulative"
 msgstr "Est cumulée"
@@ -450,6 +479,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_expired
 msgid "Is expired"
 msgstr "Est expirée"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__is_invoiced
+msgid "Is invoiced"
+msgstr "Est facturé"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_specific_customer_rule
@@ -610,6 +644,13 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent.py:0
+#, python-format
+msgid "No commission product configured"
+msgstr "Pas de produit commission configuré"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_not_calculation_sponsorship
 msgid "No sponsorship"
 msgstr "Non parrainage"
@@ -653,14 +694,20 @@ msgid "Percentage"
 msgstr "Pourcentage"
 
 #. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent_rule.py:0
+#, python-format
+msgid ""
+"Please, conditions are important in calculating commissions. Please check "
+"the data you add carefully."
+msgstr ""
+"S'il vous plaît, les conditions sont importantes dans le calcul des commissions. Veuillez vérifier "
+"les données que vous ajoutez avec soin."
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__access_url
 msgid "Portal Access URL"
 msgstr "URL d'accès au portail"
-
-#. module: commission_agent
-#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__purchase_order_id
-msgid "Purchase invoice"
-msgstr "Facture d'achat"
 
 #. module: commission_agent
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_rule_condition__type__quantity
@@ -809,6 +856,28 @@ msgid ""
 "This is the source of the link, e.g. Search Engine, another domain, or name "
 "of email list"
 msgstr ""
+
+#. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent.py:0
+#, python-format
+msgid ""
+"To create a commission invoice, you must select the commissions of a single "
+"agent."
+msgstr ""
+"Pour créer une facture de commissions, vous devez sélectionner les commissions d'un seul "
+"agent."
+
+#. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent.py:0
+#, python-format
+msgid ""
+"To create a commission invoice, you must select the commissions who don't "
+"invoiced."
+msgstr ""
+"Pour créer une facture de commissions, vous devez sélectionner les commissions qui ne le sont pas "
+"facturée."
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__type
