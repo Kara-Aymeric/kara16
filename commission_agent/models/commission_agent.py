@@ -398,11 +398,21 @@ class CommissionAgent(models.Model):
                     'name': commission.log_tracking,
                 })
                 for line in commission.commission_agent_calcul_ids:
-                    name = _("Commission on %s order for %s customer", line.order_id.name, line.partner_id.name)
+                    godson_name = ""
+                    name = _(
+                        "Commission on %s order for %s customer",
+                        line.order_id.name,
+                        line.partner_id.name,
+                    )
+                    if line.godson_id:
+                        godson_name += _(
+                            " - Godson %s",
+                            line.godson_id.name
+                        )
                     new_line = self.env['account.move.line'].create({
                         'move_id': new_purchase_invoice_id.id,
                         'product_id': commission_product_id.id,
-                        'name': name,
+                        'name': name + godson_name,
                         'quantity': 1,
                         'price_unit': line.result,
                     })

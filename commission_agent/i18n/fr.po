@@ -214,7 +214,7 @@ msgstr "Date commission"
 #: code:addons/commission_agent/models/commission_agent.py:0
 #, python-format
 msgid "Commission on %s order for %s customer"
-msgstr "Commission sur la commande %s pour %s"
+msgstr ""
 
 #. module: commission_agent
 #: model:ir.actions.act_window,name:commission_agent.action_commission_agent_rule_config
