@@ -247,7 +247,10 @@ class CommissionAgent(models.Model):
         calcul_list = []
         commission_base_rule = self.env.ref("commission_agent.commission_base_rule", False)
         if commission_base_rule:
-            for order in self.env['sale.order'].search([('dashboard_commission_order', '=', True)]):
+            for order in self.env['sale.order'].search(
+                    [('dashboard_commission_order', '=', True),
+                     ('state', 'in', ['customer_payment_received'])]
+            ):
                 vals = {
                     "agent_id": order.user_id.id,
                     "order_id": order.id,
