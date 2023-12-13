@@ -12,7 +12,8 @@ class ResPartner(models.Model):
     )
 
     # Provide multiple users access to each contact
-    readonly_custom_field = fields.Boolean(string="Readonly custom field", compute="_compute_readonly_custom_field")
+    restrict_custom_field = fields.Boolean(string="Restrict custom field", compute="_compute_restrict_custom_field")
+    readonly_custom_field = fields.Boolean(string="Readonly custom field")  # TO DELETED
 
     @api.depends('user_id')
     def _compute_godfather_id(self):
@@ -30,15 +31,15 @@ class ResPartner(models.Model):
             order.godfather_id = godfather_id.id
 
     @api.depends('name')
-    def _compute_readonly_custom_field(self):
+    def _compute_restrict_custom_field(self):
         """ Compute readonly custom field """
         for record in self:
-            readonly_custom_field = False
+            restrict_custom_field = False
             user = self.env.user
             if user.has_group('dashboard_agent.group_external_agent') or user.has_group('dashboard_agent.group_principal_agent'):
-                readonly_custom_field = True
+                restrict_custom_field = True
 
-            record.readonly_custom_field = readonly_custom_field
+            record.restrict_custom_field = restrict_custom_field
 
     @api.model
     def create(self, vals):

@@ -143,17 +143,17 @@
                        attrs="{'invisible': ['|', ('dashboard_agent', '!=', True), ('dashboard_commission_order', '=', True)]}"/>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="before">
-                <field name="readonly_custom_field" invisible="1"/>
+                <field name="restrict_custom_field" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '!=', False)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
                 <field name="godfather_id" force_save="1" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
             </xpath>
             <xpath expr="//field[@name='pricelist_id']" position="replace">
-                <field name="pricelist_id" attrs="{'readonly': ['|', ('state', 'in', ['sale', 'cancel', 'done']), ('readonly_custom_field', '=', True)]}" />
+                <field name="pricelist_id" attrs="{'readonly': ['|', ('state', 'in', ['sale', 'cancel', 'done']), ('restrict_custom_field', '=', True)]}" />
             </xpath>
         </field>
     </record>
