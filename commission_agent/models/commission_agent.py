@@ -15,20 +15,45 @@ class CommissionAgent(models.Model):
     _rec_name = "commission_rule_id"
     _description = "Commission agent generated automatically"
 
-    agent_id = fields.Many2one("res.users", string="Agent", required=True)
-    date = fields.Date(string="Commission Date")
-    commission_rule_id = fields.Many2one("commission.agent.rule", string="Commission Rule", required=True)
     log_tracking = fields.Char(related="commission_rule_id.log_tracking", readonly=True)
+    name = fields.Char(string="Name", compute="_compute_name", store=True, readonly=False)
+    agent_id = fields.Many2one("res.users", string="Agent", required=True)
+    date = fields.Date(string="Commission Date", required=True)
+    commission_rule_id = fields.Many2one("commission.agent.rule", string="Commission Rule")
     currency_id = fields.Many2one(
         "res.currency", default=lambda self: self.env.company.currency_id, readonly=True
     )
     amount = fields.Monetary(string="Commission amount", compute="_compute_amount", store=True)
+    amount_force = fields.Monetary(string="Amount", compute="_compute_amount_force", readonly=False, store=True)
     is_invoiced = fields.Boolean(string="Is invoiced")
     purchase_invoice_id = fields.Many2one("account.move", string="Invoice supplier")
     is_sponsorship_rule = fields.Boolean(string="Is sponsorship rule", related="commission_rule_id.is_sponsorship_rule")
     commission_agent_calcul_ids = fields.One2many(
         "commission.agent.calcul", "commission_agent_id", string="Commission agent calcul", required=True
     )
+    special_commission = fields.Char(string="Commission name", help="Display name into invoice line")
+    edit_mode = fields.Boolean(string="Edit mode", default=True)
+    restrict_fields = fields.Boolean(string="Restrict fields")
+
+    @api.depends('log_tracking')
+    def _compute_name(self):
+        """ Compute name depending log_tracking. If edit mode, edit name manually """
+        for commission in self:
+            name = ""
+            if commission.log_tracking:
+                name = commission.log_tracking
+
+            commission.name = name
+
+    @api.depends('amount')
+    def _compute_amount_force(self):
+        """ Compute amount force depending amount. If edit mode, edit amount manually """
+        for commission in self:
+            amount_force = commission.amount_force
+            if commission.amount:
+                amount_force = commission.amount
+
+            commission.amount_force = amount_force
 
     @api.depends('commission_rule_id', 'commission_agent_calcul_ids', 'commission_agent_calcul_ids.result')
     def _compute_amount(self):
@@ -223,6 +248,8 @@ class CommissionAgent(models.Model):
                 self.env['commission.agent'].create({
                     'date': calcul.commission_date,
                     'agent_id': calcul.agent_id.id,
+                    'edit_mode': False,
+                    'restrict_fields': True,
                     'commission_rule_id': calcul.rule_id.id,
                     'commission_agent_calcul_ids': [(4, calcul.id)],
                 })
@@ -395,27 +422,37 @@ class CommissionAgent(models.Model):
                 new_line = self.env['account.move.line'].create({
                     'move_id': new_purchase_invoice_id.id,
                     'display_type': 'line_section',
-                    'name': commission.log_tracking,
+                    'name': commission.name,
                 })
-                for line in commission.commission_agent_calcul_ids:
-                    godson_name = ""
-                    name = _(
-                        "Commission on %s order for %s customer",
-                        line.order_id.name,
-                        line.partner_id.name,
-                    )
-                    if line.godson_id:
-                        godson_name += _(
-                            " - Godson %s",
-                            line.godson_id.name
+                if not commission.edit_mode:
+                    for line in commission.commission_agent_calcul_ids:
+                        godson_name = ""
+                        name = _(
+                            "Commission on %s order for %s customer",
+                            line.order_id.name,
+                            line.partner_id.name,
                         )
+                        if line.godson_id:
+                            godson_name += _(
+                                " - Godson %s",
+                                line.godson_id.name
+                            )
+                        new_line = self.env['account.move.line'].create({
+                            'move_id': new_purchase_invoice_id.id,
+                            'product_id': commission_product_id.id,
+                            'name': name + godson_name,
+                            'quantity': 1,
+                            'price_unit': line.result,
+                        })
+                else:
                     new_line = self.env['account.move.line'].create({
                         'move_id': new_purchase_invoice_id.id,
                         'product_id': commission_product_id.id,
-                        'name': name + godson_name,
+                        'name': commission.special_commission,
                         'quantity': 1,
-                        'price_unit': line.result,
+                        'price_unit': commission.amount_force,
                     })
+
                 commission.write({
                     'is_invoiced': True,
                     'purchase_invoice_id': new_purchase_invoice_id.id,

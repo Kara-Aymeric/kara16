@@ -9,7 +9,7 @@
                 <field name="agent_id" />
                 <field name="commission_rule_id" invisible="1" />
                 <field name="currency_id" invisible="1" />
-                <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="amount_force" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="commission_agent_calcul_ids" />
                 <field name="log_tracking" />
                 <field name="is_invoiced" />
@@ -25,25 +25,29 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="log_tracking" readonly="1"/>
+                            <field name="name" required="True" placeholder="Define a section name..." attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
                         </h1>
                     </div>
                     <group name="general_information" string="General information">
                         <group>
-                            <field name="date" readonly="1"/>
-                            <field name="agent_id" readonly="1"/>
+                            <field name="restrict_fields" invisible="1"/>
+                            <field name="edit_mode" invisible="1" attrs="{'invisible': [('restrict_fields', '=', True)]}"/>
+                            <field name="date" attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
+                            <field name="agent_id" required="1" attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
                         </group>
                         <group>
                             <field name="is_sponsorship_rule" invisible="1" />
                             <field name="currency_id" invisible="1" />
-                            <field name="commission_rule_id" readonly="1"/>
-                            <field name="amount" readonly="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                            <field name="is_invoiced" readonly="1"/>
+                            <field name="special_commission" attrs="{'invisible': [('edit_mode', '!=', True)], 'required': [('edit_mode', '=', True)]}"/>
+                            <field name="commission_rule_id" readonly="1" force_save="1" attrs="{'invisible': [('edit_mode', '=', True)], 'required': [('edit_mode', '!=', True)]}"/>
+                            <field name="amount" attrs="{'invisible': [('edit_mode', '=', True)], 'required': [('edit_mode', '!=', True)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_force" attrs="{'invisible': [('edit_mode', '!=', True)], 'required': [('edit_mode', '=', True)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="is_invoiced" readonly="1" force_save="1"/>
                             <field name="purchase_invoice_id" readonly="1" force_save="1"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Details" name="calcul_details">
+                        <page string="Details" name="calcul_details" attrs="{'invisible': [('edit_mode', '=', True)]}">
                             <field name="commission_agent_calcul_ids" readonly="1">
                                 <tree>
                                     <field name="currency_id" invisible="1" />
