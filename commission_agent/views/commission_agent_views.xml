@@ -25,7 +25,7 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" required="True" placeholder="Define a section name..." attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
+                            <field name="name" required="True" placeholder="Define a name..." attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
                         </h1>
                     </div>
                     <group name="general_information" string="General information">

@@ -6,14 +6,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 13:41+0000\n"
-"PO-Revision-Date: 2023-12-13 13:41+0000\n"
+"POT-Creation-Date: 2023-12-15 14:35+0000\n"
+"PO-Revision-Date: 2023-12-15 14:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent.py:0
+#, python-format
+msgid " - Godson %s"
+msgstr " - Filleul %s"
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
@@ -98,6 +105,7 @@ msgid "Alert on condition"
 msgstr "Alerte sur condition"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__amount_force
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__discount_result_amount
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__result_amount
 #: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent_rule__discount_result_type__amount
@@ -210,11 +218,16 @@ msgid "Commission date"
 msgstr "Date commission"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__special_commission
+msgid "Commission name"
+msgstr "Nom de la commission"
+
+#. module: commission_agent
 #. odoo-python
 #: code:addons/commission_agent/models/commission_agent.py:0
 #, python-format
 msgid "Commission on %s order for %s customer"
-msgstr ""
+msgstr "Commission sur la vente %s pour le client %s"
 
 #. module: commission_agent
 #: model:ir.actions.act_window,name:commission_agent.action_commission_agent_rule_config
@@ -322,6 +335,11 @@ msgid "Date"
 msgstr ""
 
 #. module: commission_agent
+#: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_form_view
+msgid "Define a name..."
+msgstr "Définissez un nom ..."
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__description
 msgid "Description"
 msgstr ""
@@ -349,6 +367,11 @@ msgid "Display Name"
 msgstr "Nom à afficher"
 
 #. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent__special_commission
+msgid "Display name into invoice line"
+msgstr "Nom à afficher sur la ligne de facture"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_rule__delta
 msgid "Duration (days)"
 msgstr "Durée (jours)"
@@ -361,6 +384,11 @@ msgid ""
 msgstr ""
 "Durée entre le moment où la première règle est appliquée et les règles "
 "cumulées. Laisser vide ou nulle si la durée est indéterminée"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__edit_mode
+msgid "Edit mode"
+msgstr "Mode édition"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__end_date
@@ -609,6 +637,7 @@ msgid "My Activity Deadline"
 msgstr ""
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__name
 #: model:ir.model.fields,field_description:commission_agent.field_synchronization_commission_history__name
 msgid "Name"
 msgstr "Nom"
@@ -701,8 +730,8 @@ msgid ""
 "Please, conditions are important in calculating commissions. Please check "
 "the data you add carefully."
 msgstr ""
-"S'il vous plaît, les conditions sont importantes dans le calcul des commissions. Veuillez vérifier "
-"les données que vous ajoutez avec soin."
+"S'il vous plaît, les conditions sont importantes dans le calcul des "
+"commissions. Veuillez vérifier les données que vous ajoutez avec soin."
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__access_url
@@ -718,6 +747,11 @@ msgstr "Quantité"
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_user_id
 msgid "Responsible User"
 msgstr "Responsable"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__restrict_fields
+msgid "Restrict fields"
+msgstr "Champs restreints"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__result
@@ -865,8 +899,8 @@ msgid ""
 "To create a commission invoice, you must select the commissions of a single "
 "agent."
 msgstr ""
-"Pour créer une facture de commissions, vous devez sélectionner les commissions d'un seul "
-"agent."
+"Pour créer une facture de commissions, vous devez sélectionner les "
+"commissions d'un seul agent."
 
 #. module: commission_agent
 #. odoo-python
@@ -876,8 +910,8 @@ msgid ""
 "To create a commission invoice, you must select the commissions who don't "
 "invoiced."
 msgstr ""
-"Pour créer une facture de commissions, vous devez sélectionner les commissions qui ne le sont pas "
-"facturée."
+"Pour créer une facture de commissions, vous devez sélectionner les "
+"commissions qui ne le sont pas facturée."
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__type
