@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
      <record id="group_admin" model="res.groups">
          <field name="name">Agorane - Administrator</field>
          <field name="category_id" ref="dashboard_agent.module_category_dashboard_agent"/>
@@ -10,20 +9,20 @@
      </record>
 
      <record id="group_principal_agent" model="res.groups">
-         <field name="name">Agorane - Principal agent</field>
+         <field name="name">Agorane - Key Account agent</field>
          <field name="category_id" ref="dashboard_agent.module_category_dashboard_agent"/>
          <field name="comment">
-             The principal agent supervises the external agent(s).
-             He is notified each time a sale is created by his external agent and ensures validation and follow-up.
-         </field>
-     </record>
-
-     <record id="group_external_agent" model="res.groups">
-         <field name="name">Agorane - External agent</field>
-         <field name="category_id" ref="dashboard_agent.module_category_dashboard_agent"/>
-         <field name="comment">
-             The external agent is supervised by a principal agent.
-             He can create an estimate which must be validated by his principal agent before continuing his sale.
+The Key Account agent has greater rights than the D2R agent.
+Its additional rights are the creation of contact and sales in the back office.
          </field>
     </record>
+
+     <record id="group_external_agent" model="res.groups">
+         <field name="name">Agorane - D2R agent</field>
+         <field name="category_id" ref="dashboard_agent.module_category_dashboard_agent"/>
+         <field name="comment">
+The D2R agent has read access to contacts, products and sales.
+Contacts and sales are generated from Woocommerce.
+         </field>
+     </record>
 </odoo>
