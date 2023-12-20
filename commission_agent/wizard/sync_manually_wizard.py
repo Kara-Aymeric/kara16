@@ -11,5 +11,4 @@ class SyncManuallyWizard(models.TransientModel):
 
     def action_synchronize(self):
         """ Force synchronization from button into modal window """
-        print("Force sync")
         self.env['commission.agent'].calculate_commission(type_sync="manual", comment=self.comment)

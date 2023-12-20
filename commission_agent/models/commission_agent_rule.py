@@ -22,7 +22,11 @@ class CommissionAgentRule(models.Model):
         string="Is expired", copy=False, compute="_compute_is_expired", store=True, tracking=True
     )
     is_sponsorship_rule = fields.Boolean(string="Is sponsorship rule")
-
+    total_recovery_on_refund = fields.Boolean(
+        string="Total recovery on refund",
+        help="When this option is active, a total recovery of the commission paid is made if the refund is total "
+             "(does not work for partial refund)"
+    )
     # Applied to
     agent_ids = fields.One2many(
         'commission.specific.agent', 'rule_id', string="Agents", copy=False

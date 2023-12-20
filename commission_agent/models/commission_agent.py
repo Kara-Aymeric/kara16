@@ -114,31 +114,30 @@ class CommissionAgent(models.Model):
 
         return orders
 
-    def _get_invoice_payed(self, agent, invoice_ids, limit):
+    def _get_invoice_payed(self, agent, invoice_ids):
         """ Get invoice payed for calculation commission by agent """
         domain_invoice = [
             ('id', 'in', invoice_ids),
             ('state', '=', "posted"),
             ('invoice_user_id', '=', agent.id),
             ('move_type', '=', "out_invoice"),
-            ('payment_state', 'in', ["in_payment", "paid"]),
+            ('payment_state', 'in', ["in_payment", "paid", "reversed"]),
         ]
         invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc")
+        if invoices:
+            return invoices.mapped('id')
+        return False
+
+    def _get_refund_payed(self):
+        """ Get out refund payed for calculation commission by agent """
+        domain = [
+            ('state', '=', "posted"),
+            ('move_type', '=', "out_refund"),
+            ('payment_state', 'in', ["in_payment", "paid"]),
+        ]
+        invoices = self.env['account.move'].search(domain, order="invoice_date asc")
 
         return invoices.mapped('id')
-
-    # def _get_refund_payed(self, agent, invoice_ids, limit):
-    #     """ Get out refund payed for calculation commission by agent """
-    #     domain = [
-    #         ('id', 'in', invoice_ids),
-    #         ('state', '=', "posted"),
-    #         ('invoice_user_id', '=', agent.id),
-    #         ('move_type', '=', "out_refund"),
-    #         ('payment_state', 'in', ["in_payment", "paid"]),
-    #     ]
-    #     invoices = self.env['account.move'].search(domain, order="invoice_date asc")
-    #
-    #     return invoices.mapped('id')
 
     def _get_result_commission(self, rule, invoice):
         """ Return amount fixe or percentage result to amount untaxed to invoice """
@@ -163,7 +162,6 @@ class CommissionAgent(models.Model):
             return self.env['commission.agent.calcul'].create(vals)
         else:
             invoice_date = invoice.mapped('invoice_date')
-            print(invoice_date)
 
     def _get_couting(self, rule):
         """ Get commission rule condition """
@@ -183,11 +181,9 @@ class CommissionAgent(models.Model):
         all_invoice_list = []
         all_orders = self.env['sale.order'].browse(self._get_all_partner_orders(partner, agent))
         for order in all_orders:
-            if order.date_order.date() > start_date:
+            if order.date_order.date() >= start_date:
                 all_invoice_list += (
-                    self._get_invoice_payed(
-                        agent, order.invoice_ids.mapped('id'), counting_order_new_customer
-                    )
+                    self._get_invoice_payed(agent, order.invoice_ids.mapped('id'))
                 )
         invoices = self.env['account.move'].search([
             ('id', 'in', all_invoice_list)
@@ -274,20 +270,20 @@ class CommissionAgent(models.Model):
         calcul_list = []
         commission_base_rule = self.env.ref("commission_agent.commission_base_rule", False)
         if commission_base_rule:
-            for order in self.env['sale.order'].search(
-                    [('dashboard_commission_order', '=', True),
-                     ('state', 'in', ['customer_payment_received'])]
-            ):
-                vals = {
-                    "agent_id": order.user_id.id,
-                    "order_id": order.id,
-                    "rule_id": commission_base_rule.id,
-                    "result": order.amount_untaxed,
-                    "commission_date": order.commission_date,
-                }
-                # Create commission calcul
-                commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
-                calcul_list += commission_agent_calcul_id.mapped('id')
+            for commission in self.env['sale.order'].search([('dashboard_order_origin_id', '!=', False)]):
+                if self._get_invoice_payed(
+                        commission.user_id, commission.dashboard_order_origin_id.invoice_ids.mapped('id')
+                ):
+                    vals = {
+                        "agent_id": commission.user_id.id,
+                        "order_id": commission.id,
+                        "rule_id": commission_base_rule.id,
+                        "result": commission.amount_untaxed,
+                        "commission_date": commission.commission_date,
+                    }
+                    # Create commission calcul
+                    commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
+                    calcul_list += commission_agent_calcul_id.mapped('id')
 
         return calcul_list
 
@@ -299,14 +295,10 @@ class CommissionAgent(models.Model):
             not_calculation_sponsorship_rule_ids = self.env['commission.agent.rule'].search(
                 [('is_not_calculation_sponsorship', '=', True)]
             )
-            print(not_calculation_sponsorship_rule_ids)
 
             for sponsorship in self.env['relation.agent'].search([]):
                 godson_id = sponsorship.godson_id
                 godfather_id = sponsorship.godfather_id
-                print(godson_id.name)
-                print(sponsorship.start_date)
-                print(sponsorship.end_date)
                 percentage_commission = sponsorship.commission
                 calcul_order_list = []
                 agent_order_list = []
@@ -315,13 +307,11 @@ class CommissionAgent(models.Model):
                     ('date_order', '>=', sponsorship.start_date),
                     ('date_order', '<=', sponsorship.end_date),
                 ])
-                print(godson_order_ids)
 
                 domain_calcul = [('agent_id', '=', godson_id.id)]
                 if not_calculation_sponsorship_rule_ids:
                     domain_calcul += [('rule_id', 'not in', not_calculation_sponsorship_rule_ids.mapped('id'))]
                 commission_agent_calcul_ids = self.env['commission.agent.calcul'].search(domain_calcul)
-                print(commission_agent_calcul_ids)
 
                 if commission_agent_calcul_ids:
                     order_ids = commission_agent_calcul_ids.mapped('order_id')
@@ -330,19 +320,106 @@ class CommissionAgent(models.Model):
                     agent_order_list = godson_order_ids.ids
 
                 if godson_order_ids:
-                    target_sales = [x for x in agent_order_list if x not in calcul_order_list]
+                    # target_sales = [x for x in agent_order_list if x not in calcul_order_list]  # A CORRIGER !
+                    target_sales = list(set(calcul_order_list) & set(agent_order_list))
                     for order in self.env['sale.order'].browse(target_sales):
+                        if self._get_invoice_payed(godson_id, order.invoice_ids.mapped('id')):
+                            vals = {
+                                "agent_id": godfather_id.id,
+                                "godson_id": order.user_id.id,
+                                "order_id": order.id,
+                                "rule_id": commission_sponsorship_rule.id,
+                                "result": percentage_commission * order.amount_untaxed,
+                                "commission_date": order.commission_date,
+                            }
+                            # Create commission calcul
+                            commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
+                            calcul_list += commission_agent_calcul_id.mapped('id')
+
+        return calcul_list
+
+    def _generate_new_result(self, invoice_refund, commission_recovery_rule, commission_calcul_ids):
+        """ """
+        calcul_list = []
+        for commission_calcul in commission_calcul_ids:
+            if commission_calcul.rule_id:
+                delta_amount = False
+                new_result = False
+                # Stocker facture en amont
+                invoice_origin_id = self.env['account.move'].search(
+                    [('reversal_move_id', 'in', invoice_refund.mapped("id"))]
+                )
+                if invoice_origin_id:
+                    origin_amount_untaxed_signed = invoice_origin_id.amount_untaxed_signed
+                    delta_amount = invoice_refund.amount_untaxed_signed + origin_amount_untaxed_signed
+                    inverse_refund_amount = - invoice_refund.amount_untaxed_signed
+
+                    # Proportional calcul
+                    new_result = (
+                        - ((invoice_refund.amount_untaxed_signed * commission_calcul.result) /
+                           origin_amount_untaxed_signed)
+                    )
+
+                # Si delta = 0 alors avoir total donc reprise de toutes les primes
+                if delta_amount == 0:
+                    if commission_calcul.rule_id.total_recovery_on_refund:
                         vals = {
-                            "agent_id": godfather_id.id,
-                            "godson_id": order.user_id.id,
-                            "order_id": order.id,
-                            "rule_id": commission_sponsorship_rule.id,
-                            "result": percentage_commission * order.amount_untaxed,
-                            "commission_date": order.commission_date,
+                            "agent_id": commission_calcul.agent_id.id,
+                            "godson_id": commission_calcul.godson_id.id,
+                            "order_id": commission_calcul.order_id.id,
+                            "rule_id": commission_recovery_rule.id,
+                            "result": - commission_calcul.result,
+                            "commission_date": invoice_refund.invoice_date,
                         }
-                        # Create commission calcul
                         commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
                         calcul_list += commission_agent_calcul_id.mapped('id')
+                    else:
+                        vals = {
+                            "agent_id": commission_calcul.agent_id.id,
+                            "godson_id": commission_calcul.godson_id.id,
+                            "order_id": commission_calcul.order_id.id,
+                            "rule_id": commission_recovery_rule.id,
+                            "result": - new_result or 0,
+                            "commission_date": invoice_refund.invoice_date,
+                        }
+                        commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
+                        calcul_list += commission_agent_calcul_id.mapped('id')
+                else:
+                    if not commission_calcul.rule_id.total_recovery_on_refund:
+                        vals = {
+                            "agent_id": commission_calcul.agent_id.id,
+                            "godson_id": commission_calcul.godson_id.id,
+                            "order_id": commission_calcul.order_id.id,
+                            "rule_id": commission_recovery_rule.id,
+                            "result": - new_result or 0,
+                            "commission_date": invoice_refund.invoice_date,
+                        }
+                        commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
+                        calcul_list += commission_agent_calcul_id.mapped('id')
+
+        return calcul_list
+
+    def calculate_commission_refund(self):
+        """ Calculate commission refund """
+        calcul_list = []
+        all_refund_list = self._get_refund_payed()
+        commission_recovery_rule = self.env.ref("commission_agent.commission_recovery_rule", False)
+        if not commission_recovery_rule:
+            raise ValidationError(
+                _("Recovery rule not found !")
+            )
+        invoice_refund_ids = self.env['account.move'].search([('id', 'in', all_refund_list)], order="invoice_date asc")
+        for invoice_refund in invoice_refund_ids:
+            commission_order_id = False
+            order_id = self.env['sale.order'].search([('invoice_ids', 'in', invoice_refund.mapped('id'))], limit=1)
+            if order_id:
+                commission_order_id = order_id.dashboard_child_id
+            if order_id:
+                commission_calcul_ids = self.env['commission.agent.calcul'].search([('order_id', '=', order_id.id)])
+                calcul_list += self._generate_new_result(invoice_refund, commission_recovery_rule, commission_calcul_ids)
+            if commission_order_id:
+                commission_order_calcul_ids = self.env['commission.agent.calcul'].search([('order_id', '=', commission_order_id.id)])
+                calcul_list += self._generate_new_result(invoice_refund, commission_recovery_rule, commission_order_calcul_ids)
 
         return calcul_list
 
@@ -371,6 +448,9 @@ class CommissionAgent(models.Model):
         calcul_list += self._generate_base_commission()
         calcul_list += self._generate_sponsorship_commission()
 
+        # Calculation commission on refund
+        calcul_list += self.calculate_commission_refund()
+
         if len(calcul_list) > 0:
             self._create_commission_agent(calcul_list)
 
@@ -383,7 +463,6 @@ class CommissionAgent(models.Model):
         if agent_id:
             data = {
                 'partner_id': agent_id.id,
-                'invoice_origin': "Commission agent",
                 'move_type': "in_invoice",
                 'invoice_date': datetime.today(),
             }
