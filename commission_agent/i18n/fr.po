@@ -922,8 +922,8 @@ msgstr ""
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__total_recovery_on_refund
-msgid "Total recovery on refund"
-msgstr ""
+msgid "Total recovery on commission"
+msgstr "Reprise totale sur commission"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__type

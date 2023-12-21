@@ -23,7 +23,7 @@ class CommissionAgentRule(models.Model):
     )
     is_sponsorship_rule = fields.Boolean(string="Is sponsorship rule")
     total_recovery_on_refund = fields.Boolean(
-        string="Total recovery on refund",
+        string="Total recovery on commission",
         help="When this option is active, a total recovery of the commission paid is made if the refund is total "
              "(does not work for partial refund)"
     )
