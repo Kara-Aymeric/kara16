@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-15 14:35+0000\n"
-"PO-Revision-Date: 2023-12-15 14:35+0000\n"
+"POT-Creation-Date: 2023-12-21 09:13+0000\n"
+"PO-Revision-Date: 2023-12-21 09:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -744,6 +744,13 @@ msgid "Quantity"
 msgstr "Quantité"
 
 #. module: commission_agent
+#. odoo-python
+#: code:addons/commission_agent/models/commission_agent.py:0
+#, python-format
+msgid "Recovery rule not found !"
+msgstr "Règle de reprise introuvable !"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__activity_user_id
 msgid "Responsible User"
 msgstr "Responsable"
@@ -914,6 +921,11 @@ msgstr ""
 "commissions qui ne le sont pas facturée."
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__total_recovery_on_refund
+msgid "Total recovery on refund"
+msgstr ""
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__type
 #: model:ir.model.fields,field_description:commission_agent.field_synchronization_commission_history__type
 msgid "Type"
@@ -959,6 +971,15 @@ msgstr ""
 #: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__website_message_ids
 msgid "Website communication history"
 msgstr ""
+
+#. module: commission_agent
+#: model:ir.model.fields,help:commission_agent.field_commission_agent_rule__total_recovery_on_refund
+msgid ""
+"When this option is active, a total recovery of the commission paid is made "
+"if the refund is total (does not work for partial refund)"
+msgstr ""
+"Lorsque cette option est active, une récupération totale de la commission versée est effectuée "
+"si l'avoir est total (ne fonctionne pas pour un avoir partiel)"
 
 #. module: commission_agent
 #: model:ir.model,name:commission_agent.model_sync_manually_wizard
