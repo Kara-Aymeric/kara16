@@ -99,17 +99,19 @@ class CommissionAgent(models.Model):
         ])
         return commission_specific_agent_ids
 
-    def _get_all_partner_orders(self, partner, agent):
+    def _get_all_partner_orders(self, type_rule, partner, agent):
         """ Get all orders for search invoices associated """
         orders = []
         domain_order = [
             ('id', 'in', partner.sale_order_ids.mapped('id')),
-            ('user_id', '=', agent.id),
             ('amount_untaxed', '>', 0),
         ]
-        order_ids = self.env['sale.order'].search(domain_order)
+        order_ids = self.env['sale.order'].search(domain_order, order="id asc")
         for order in order_ids:
-            if order.invoice_ids:
+            if type_rule == "new_customer":
+                if order.user_id.id != agent.id:
+                    return []
+            if order.user_id.id == agent.id and order.invoice_ids:
                 orders.append(order.id)
 
         return orders
@@ -126,7 +128,7 @@ class CommissionAgent(models.Model):
         invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc")
         if invoices:
             return invoices.mapped('id')
-        return False
+        return []
 
     def _get_refund_payed(self):
         """ Get out refund payed for calculation commission by agent """
@@ -176,10 +178,10 @@ class CommissionAgent(models.Model):
                 if cumulative_with_id.delta:
                     return cumulative_with_id.delta
 
-    def _get_target_invoices(self, partner, agent, start_date, counting_order_new_customer):
+    def _get_target_invoices(self, type_rule, partner, agent, start_date, counting_order_new_customer):
         """ Get target invoices for calculation commission """
         all_invoice_list = []
-        all_orders = self.env['sale.order'].browse(self._get_all_partner_orders(partner, agent))
+        all_orders = self.env['sale.order'].browse(self._get_all_partner_orders(type_rule, partner, agent))
         for order in all_orders:
             if order.date_order.date() >= start_date:
                 all_invoice_list += (
@@ -202,7 +204,7 @@ class CommissionAgent(models.Model):
                 ('rule_id', '=', rule_cumulative_id.rule_id.id)
             ]):
                 invoices = self._get_target_invoices(
-                    commission_calcul.partner_id, agent, start_date, counting_order_new_customer
+                    "new_customer", commission_calcul.partner_id, agent, start_date, counting_order_new_customer
                 )
                 if invoices and len(invoices) == counting_order_new_customer:
                     last_invoice = self.env['account.move'].browse(invoices.mapped('id')[-1])
@@ -217,7 +219,7 @@ class CommissionAgent(models.Model):
             calcul_list = []
             for partner in self.env['res.partner'].search([('user_id', '=', agent.id)]):
                 if partner.sale_order_ids:
-                    invoices = self._get_target_invoices(partner, agent, start_date, counting_order_new_customer)
+                    invoices = self._get_target_invoices("new_customer", partner, agent, start_date, counting_order_new_customer)
                     if invoices:
                         calcul_ids = self._create_commission_calcul(rule, agent, invoices)
                         calcul_list += calcul_ids.mapped('id')
@@ -258,7 +260,7 @@ class CommissionAgent(models.Model):
             ('id', 'in', customer_ids.ids)
         ]):
             if partner.sale_order_ids:
-                invoices = self._get_target_invoices(partner, agent, start_date, 10000)
+                invoices = self._get_target_invoices("commission_specific", partner, agent, start_date, 10000)
                 for invoice in invoices:
                     calcul_ids = self._create_commission_calcul(rule, agent, invoice)
                     calcul_list += calcul_ids.mapped('id')
