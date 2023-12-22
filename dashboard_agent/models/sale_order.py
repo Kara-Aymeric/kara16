@@ -95,8 +95,10 @@ class SaleOrder(models.Model):
     dashboard_child_id = fields.Many2one(
         'sale.order',
         string="Associated commission",
-        help="This sale allows to make the connection of the main sale for sale (commission)")
-    dashboard_order_origin_id = fields.Many2one('sale.order', string="Order origin")
+        help="This sale allows to make the connection of the main sale for sale (commission)",
+        copy=False
+    )
+    dashboard_order_origin_id = fields.Many2one('sale.order', string="Order origin", copy=False)
     dashboard_commission_total = fields.Monetary(
         string="Of which commission",
         store=True,

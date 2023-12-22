@@ -9,10 +9,10 @@ class SaleOrder(models.Model):
     access_commission = fields.Boolean(string="Active commission option on the company",
                                        related="company_id.access_commission")
     commission_order = fields.Boolean(string="Commission")
-    child_id = fields.Many2one('sale.order', string="Associated commission",
+    child_id = fields.Many2one('sale.order', string="Associated commission", copy=False,
                                help="This sale allows to make the connection of the main sale "
                                     "for sale (commission) which will be invoiced to the industrial")
-    order_origin_id = fields.Many2one('sale.order', string="Order origin")
+    order_origin_id = fields.Many2one('sale.order', string="Order origin", copy=False)
     commission_total = fields.Monetary(string="Of which commission", store=True, compute="_compute_commission_total",
                                        help="Total commission value for the sale", tracking=True)
     associated_commission = fields.Boolean(string="Associated commission")
