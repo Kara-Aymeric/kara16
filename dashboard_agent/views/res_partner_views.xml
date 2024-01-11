@@ -48,7 +48,7 @@
         </field>
     </record>
 
-    <record id="dashboard_agorane_view_partner_form" model="ir.ui.view">
+<!--    <record id="dashboard_agorane_view_partner_form" model="ir.ui.view">
         <field name="name">dashboard.agorane.view.partner.form</field>
         <field name="inherit_id" ref="woo_user_connector.agorane_view_partner_form" />
         <field name="model">res.partner</field>
@@ -69,7 +69,8 @@
                 <attribute name="force_save">1</attribute>
             </xpath>
         </field>
-    </record>
+    </record>-->
+    
 
     <record id="dashboard_agorane_view_partner_property_form" model="ir.ui.view">
         <field name="name">dashboard agorane view partner property form</field>
