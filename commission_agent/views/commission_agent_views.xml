@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="commission_agent_tree_view" model="ir.ui.view">
+        <field name="name">commission agent tree view</field>
+        <field name="model">commission.agent</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date" />
+                <field name="agent_id" />
+                <field name="commission_rule_id" invisible="1" />
+                <field name="currency_id" invisible="1" />
+                <field name="amount_force" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="commission_agent_calcul_ids" />
+                <field name="log_tracking" />
+                <field name="is_invoiced" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="commission_agent_form_view" model="ir.ui.view">
+        <field name="name">commission agent form view</field>
+        <field name="model">commission.agent</field>
+        <field name="arch" type="xml">
+            <form string="Commission agent">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="True" placeholder="Define a name..." attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
+                        </h1>
+                    </div>
+                    <group name="general_information" string="General information">
+                        <group>
+                            <field name="restrict_fields" invisible="1"/>
+                            <field name="edit_mode" invisible="1" attrs="{'invisible': [('restrict_fields', '=', True)]}"/>
+                            <field name="date" attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
+                            <field name="agent_id" required="1" attrs="{'readonly': [('edit_mode', '!=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="is_sponsorship_rule" invisible="1" />
+                            <field name="currency_id" invisible="1" />
+                            <field name="special_commission" attrs="{'invisible': [('edit_mode', '!=', True)], 'required': [('edit_mode', '=', True)]}"/>
+                            <field name="commission_rule_id" readonly="1" force_save="1" attrs="{'invisible': [('edit_mode', '=', True)], 'required': [('edit_mode', '!=', True)]}"/>
+                            <field name="amount" attrs="{'invisible': [('edit_mode', '=', True)], 'required': [('edit_mode', '!=', True)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_force" attrs="{'invisible': [('edit_mode', '!=', True)], 'required': [('edit_mode', '=', True)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="is_invoiced" readonly="1" force_save="1"/>
+                            <field name="purchase_invoice_id" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Details" name="calcul_details" attrs="{'invisible': [('edit_mode', '=', True)]}">
+                            <field name="commission_agent_calcul_ids" readonly="1">
+                                <tree>
+                                    <field name="currency_id" invisible="1" />
+                                    <field name="commission_date" />
+                                    <field name="order_id"/>
+                                    <field name="order_amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="partner_id"/>
+                                    <field name="agent_id"/>
+                                    <field name="rule_id"/>
+                                    <field name="godson_id" attrs="{'column_invisible': [('parent.is_sponsorship_rule', '!=', True)]}"/>
+                                    <field name="result"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="commission_agent_search_view" model="ir.ui.view">
+        <field name="name">commission agent search view</field>
+        <field name="model">commission.agent</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="current_month" string="Current Month" domain="[
+                    ('date', '&gt;=', (context_today()).strftime('%Y-%m-01')),
+                    ('date', '&lt;', (context_today() + relativedelta(months=1)).strftime('%Y-%m-01'))]"/>
+                <field name="agent_id" string="Agent"/>
+                <group expand="1" string="Group By">
+                    <filter string="Agent" name="group_by_agent" context="{'group_by':'agent_id'}"/>
+                    <filter string="Date" name="group_by_date" context="{'group_by':'date'}"/>
+                    <filter string="Rule" name="group_by_commission_rule" context="{'group_by':'commission_rule_id'}"/>
+                </group>
+            </search>
+       </field>
+    </record>
+
+    <record id="commission_agent_action" model="ir.actions.act_window">
+        <field name="name">Commissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">commission.agent</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+            'search_default_group_by_date': 1,
+            'search_default_group_by_agent': 1,
+            }
+        </field>
+    </record>
+
+    <record id="action_generate_purchase_order" model="ir.actions.server">
+        <field name="name">Generate purchase invoice</field>
+        <field name="model_id" ref="model_commission_agent"/>
+        <field name="binding_model_id" ref="commission_agent.model_commission_agent"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+                action = records.action_generate_purchase_invoice()
+        </field>
+    </record>
+
+    <record id="ir_cron_commission_agent" model="ir.cron">
+        <field name="name">Commission: Generate commission agent and calcul</field>
+        <field name="model_id" ref="model_commission_agent"/>
+        <field name="state">code</field>
+        <field name="code">model.calculate_commission()</field>
+        <field name="active" eval="False"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="nextcall" eval="(DateTime.now().replace(hour=1, minute=30) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+    </record>
+
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="commission_agent_view_invoice_tree" model="ir.ui.view">
+        <field name="name">commission agent view invoice tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_untaxed_signed']" position="before">
+                <field name="commission_date" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="commission_agent_account_view_move_form" model="ir.ui.view">
+        <field name="name">commission agent account view move form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="commission_date" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

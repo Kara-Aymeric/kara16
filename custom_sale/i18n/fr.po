@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-20 10:21+0000\n"
-"PO-Revision-Date: 2023-09-20 10:21+0000\n"
+"POT-Creation-Date: 2023-11-23 08:06+0000\n"
+"PO-Revision-Date: 2023-11-23 08:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,7 @@ msgid "Access packing"
 msgstr "Accès conditionnement"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__active
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__active
 #: model:ir.model.fields,field_description:custom_sale.field_sign_item_type__active
 msgid "Active"
@@ -139,6 +140,11 @@ msgid ""
 msgstr ""
 "L'ajout d'un fichier PDF est utile pour créer un modèle de document pour la "
 "signature électronique"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_res_users__agent_profile
+msgid "Agent profile"
+msgstr "Profil agent"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_res_company__access_packing
@@ -195,6 +201,11 @@ msgid "Article"
 msgstr ""
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_res_users__agent_authorize_manual_order
+msgid "Authorize manual order"
+msgstr "Autoriser commande manuelle"
+
+#. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
 msgid "BDC signed by customer"
 msgstr "BDC signé par client"
@@ -222,6 +233,15 @@ msgstr ""
 "supprimer."
 
 #. module: custom_sale
+#: model:ir.model.fields,help:custom_sale.field_agorane_product_brand__active
+msgid ""
+"By unchecking the active field, you can hide a product brand without "
+"deleting it."
+msgstr ""
+"En décochant le champ actif, vous pouvez masquer une marque de produit "
+" sans la supprimer."
+
+#. module: custom_sale
 #: model:ir.model.fields,help:custom_sale.field_report_element_position__active
 msgid ""
 "By unchecking the active field, you can hide a report element position "
@@ -243,7 +263,7 @@ msgstr "Sociétés"
 #. module: custom_sale
 #: model:ir.model,name:custom_sale.model_res_config_settings
 msgid "Config Settings"
-msgstr "Paramètres de configuration"
+msgstr "Paramètres de config"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
@@ -266,12 +286,14 @@ msgid "Confirmation N° {{ object.name or 'n/a' }} signed"
 msgstr "Confirmation N° {{ object.name or 'n/a' }} signé"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__create_uid
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__create_uid
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__create_uid
 msgid "Created by"
 msgstr "Crée par"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__create_date
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__create_date
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__create_date
 msgid "Created on"
@@ -289,11 +311,22 @@ msgid "Customer invoice number"
 msgstr "Numéro de facture client"
 
 #. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__res_users__agent_profile__d2r
+msgid "D2R"
+msgstr ""
+
+#. module: custom_sale
 #: model:ir.model.fields.selection,name:custom_sale.selection__sale_order__state__invoiced
 msgid "Delivered / Invoiced"
 msgstr "Livré / Facturé"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__description
+msgid "Description"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__display_name
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__display_name
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__display_name
 msgid "Display Name"
@@ -374,6 +407,7 @@ msgid "Height"
 msgstr "Hauteur"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__id
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__id
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__id
 msgid "ID"
@@ -386,6 +420,13 @@ msgstr ""
 #: model:ir.model.fields,help:custom_sale.field_sale_order__supplier_id
 msgid "Industrial or warehouse"
 msgstr "Industriel ou entrepôt"
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_product_product__ingredient
+#: model:ir.model.fields,field_description:custom_sale.field_product_product__product_ingredient
+#: model:ir.model.fields,field_description:custom_sale.field_product_template__ingredient
+msgid "Ingredient"
+msgstr ""
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_sale_order__invoiced_supplier
@@ -418,18 +459,26 @@ msgid "Kara Trading"
 msgstr ""
 
 #. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__res_users__agent_profile__ka
+msgid "Key Account"
+msgstr ""
+
+#. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand____last_update
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing____last_update
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position____last_update
 msgid "Last Modified on"
 msgstr "Dernière modification le"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__write_uid
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__write_uid
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__write_uid
 msgid "Last Updated by"
 msgstr "Dernière modification par"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__write_date
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__write_date
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__write_date
 msgid "Last Updated on"
@@ -470,6 +519,7 @@ msgstr ""
 " module Signature"
 
 #. module: custom_sale
+#: model:ir.model.fields,field_description:custom_sale.field_agorane_product_brand__name
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__name
 msgid "Name"
 msgstr "Nom"
@@ -508,6 +558,11 @@ msgstr "Commande"
 #: model:ir.model.fields.selection,name:custom_sale.selection__sale_order__state__confirmed
 msgid "Order confirmed"
 msgstr "confirmé"
+
+#. module: custom_sale
+#: model:ir.model.fields.selection,name:custom_sale.selection__res_users__agent_profile__other
+msgid "Other"
+msgstr "Autre"
 
 #. module: custom_sale
 #: model_terms:ir.ui.view,arch_db:custom_sale.kara_sale_view_order_form
@@ -568,6 +623,16 @@ msgstr "Article"
 #: model:ir.model,name:custom_sale.model_product_category
 msgid "Product Category"
 msgstr "Catégorie d'article"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_product_product
+msgid "Product Variant"
+msgstr "Variante d'article"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_agorane_product_brand
+msgid "Product brand of the Agorane company"
+msgstr "Marque de produit pour la société Agorane"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_product_packing__product_template_id
@@ -709,6 +774,11 @@ msgid ""
 msgstr ""
 "Utilisé pour envoyer un devis au fournisseur pour validation pour Kara "
 "Trading"
+
+#. module: custom_sale
+#: model:ir.model,name:custom_sale.model_res_users
+msgid "User"
+msgstr "Utilisateur"
 
 #. module: custom_sale
 #: model:ir.model.fields,field_description:custom_sale.field_report_element_position__width

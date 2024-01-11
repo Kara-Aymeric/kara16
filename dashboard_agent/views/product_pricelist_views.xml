@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='pricelist_settings']/field[@name='company_id']" position="before">
+                <field name="access_agent_ids" widget="many2many_tags" />
                 <field name="used_default_agent" />
             </xpath>
         </field>

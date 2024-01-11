@@ -86,7 +86,10 @@ class SaleOrder(models.Model):
     )
 
     principal_agent_id = fields.Many2one(
-        'res.users', string="Principal agent", compute="_compute_principal_agent_id", store=True, tracking=True
+        'res.users', string="Principal agent", store=True, tracking=True
+    )
+    godfather_id = fields.Many2one(
+        'res.users', string="Godfather", compute="_compute_godfather_id", store=True, readonly=False, tracking=True
     )
     is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent", tracking=True)
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
@@ -109,18 +112,34 @@ class SaleOrder(models.Model):
         string="Dashboard button visible",
         compute="_compute_dashboard_button_visible"
     )
-    readonly_custom_field = fields.Boolean(string="Readonly custom field", compute="_compute_readonly_custom_field")
+    restrict_custom_field = fields.Boolean(string="Restrict custom field", compute="_compute_restrict_custom_field")
+    readonly_custom_field = fields.Boolean(string="Readonly custom field")  # TO DELETED
+
+    @api.depends('user_id')
+    def _compute_godfather_id(self):
+        """ Get godfather """
+        for order in self:
+            godfather_id = order.godfather_id
+            relation_agent_id = self.env['relation.agent'].sudo().search([
+                ('godson_id', '=', order.user_id.id),
+                ("start_date", "<=", fields.Date.today()),
+                ("end_date", ">=", fields.Date.today())
+            ], limit=1)
+            if relation_agent_id:
+                godfather_id = relation_agent_id.godfather_id
+
+            order.godfather_id = godfather_id.id
 
     @api.depends('name')
-    def _compute_readonly_custom_field(self):
+    def _compute_restrict_custom_field(self):
         """ Compute readonly custom field """
         for record in self:
-            readonly_custom_field = False
+            restrict_custom_field = False
             user = self.env.user
             if user.has_group('dashboard_agent.group_external_agent') or user.has_group('dashboard_agent.group_principal_agent'):
-                readonly_custom_field = True
+                restrict_custom_field = True
 
-            record.readonly_custom_field = readonly_custom_field
+            record.restrict_custom_field = restrict_custom_field
 
     @api.depends('dashboard_agent', 'is_validate_by_agent')
     def _compute_dashboard_button_visible(self):
@@ -152,16 +171,16 @@ class SaleOrder(models.Model):
                 amount_commission += line.dashboard_price_commission
             order.dashboard_commission_total = amount_commission
 
-    @api.depends('user_id')
-    def _compute_principal_agent_id(self):
-        """ Allows to link the main agent to the seller """
-        for record in self:
-            principal_agent_id = False
-            for relation_agent in self.env['relation.agent'].search([]):
-                if record.user_id in relation_agent.mapped('agent_ids'):
-                    principal_agent_id = relation_agent.principal_agent_id.id
-
-            record.principal_agent_id = principal_agent_id
+    # @api.depends('user_id')
+    # def _compute_principal_agent_id(self):
+    #     """ Allows to link the main agent to the seller """
+    #     for record in self:
+    #         principal_agent_id = False
+    #         for relation_agent in self.env['relation.agent'].search([]):
+    #             if record.user_id in relation_agent.mapped('agent_ids'):
+    #                 principal_agent_id = relation_agent.principal_agent_id.id
+    #
+    #         record.principal_agent_id = principal_agent_id
 
     def _dashboard_check_agent_country(self):
         """ The country on the contact form is mandatory to continue. The tax depends on the country """
