@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="synchronization_commission_history_tree_view" model="ir.ui.view">
+        <field name="name">synchronization commission history tree view</field>
+        <field name="model">synchronization.commission.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date" />
+                <field name="type" />
+                <field name="name" />
+                <field name="message" />
+                <field name="sync_ok" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="synchronization_commission_history_form_view" model="ir.ui.view">
+        <field name="name">synchronization commission history form view</field>
+        <field name="model">synchronization.commission.history</field>
+        <field name="arch" type="xml">
+            <form string="Tags">
+                <sheet>
+                    <group>
+                        <field name="date" />
+                        <field name="type" />
+                        <field name="name" />
+                        <field name="message" />
+                        <field name="sync_ok" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_synchronization_commission_history" model="ir.actions.act_window">
+        <field name="name">Synchronization history</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">synchronization.commission.history</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

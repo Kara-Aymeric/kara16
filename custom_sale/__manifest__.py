@@ -14,6 +14,7 @@
         'sale',
         'sign',
         'sale_commission',
+        'woo_user_connector',
         'show_hide_menu_multi_company_app'],
     'data': [
         # Data
@@ -32,6 +33,7 @@
         'views/res_company_views.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_category_views.xml',
+        'views/res_users_views.xml',
         'views/sale_order_views.xml',
         'views/sign_views.xml',
     ],

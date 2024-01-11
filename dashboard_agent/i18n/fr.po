@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-11 07:23+0000\n"
-"PO-Revision-Date: 2023-10-11 07:23+0000\n"
+"POT-Creation-Date: 2023-12-21 09:18+0000\n"
+"PO-Revision-Date: 2023-12-21 09:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,26 +30,26 @@ msgstr ""
 #: model:res.groups,comment:dashboard_agent.group_external_agent
 msgid ""
 "\n"
-"             The external agent is supervised by a principal agent.\n"
-"             He can create an estimate which must be validated by his principal agent before continuing his sale.\n"
+"The D2R agent has read access to contacts, products and sales.\n"
+"Contacts and sales are generated from Woocommerce.\n"
 "         "
 msgstr ""
 "\n"
-"             L'agent externe est supervisé par un agent principal.\n"
-"             Il peut créer un devis qui doit être validé par son agent principal avant de poursuivre sa vente.\n"
+"L'agent D2R a un accès en lecture aux contacts, produits et ventes.\n"
+"Les contacts et les ventes sont générées à partir de Woocommerce.\n"
 "         "
 
 #. module: dashboard_agent
 #: model:res.groups,comment:dashboard_agent.group_principal_agent
 msgid ""
 "\n"
-"             The principal agent supervises the external agent(s).\n"
-"             He is notified each time a sale is created by his external agent and ensures validation and follow-up.\n"
+"The Key Account agent has greater rights than the D2R agent.\n"
+"Its additional rights are the creation of contact and sales in the back office.\n"
 "         "
 msgstr ""
 "\n"
-"             L'agent principal supervise le ou les agents externes.\n"
-"             Il est notifié chaque fois qu'une vente est créée par son agent externe et assure la validation et le suivi.\n"
+"L'agent Key Account a un droit supérieur à l'agent D2R.\n"
+"Ses droits supplémentaires sont la création de contact et de vente dans le back office.\n"
 "         "
 
 #. module: dashboard_agent
@@ -57,22 +57,22 @@ msgstr ""
 msgid ""
 "<div style=\"margin: 0px; padding: 0px;\">\n"
 "    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
-"        <t t-set=\"doc_name\" t-value=\"'quotation' if object.state in ('draft', 'sent') else 'order'\"/>\n"
-"        Hello Mr or Mrs <span style=\"font-weight: bold;\" t-out=\"object.principal_agent_id.name or ''\"/>,\n"
-"        <br/><br/>\n"
-"        Attached you will find a new quote n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"/>\n"
-"        of <span style=\"font-weight: bold;\" t-out=\"object.partner_id.name or ''\"/>.\n"
-"        <br/><br/>\n"
+"        <t t-set=\"doc_name\" t-value=\"'quotation' if object.state in ('draft', 'sent') else 'order'\"></t>\n"
+"        Hello Mr or Mrs <span style=\"font-weight: bold;\" t-out=\"object.principal_agent_id.name or ''\"></span>,\n"
+"        <br><br>\n"
+"        Attached you will find a new quote n°<span style=\"font-weight: bold;\" t-out=\"object.name or ''\"></span>\n"
+"        of <span style=\"font-weight: bold;\" t-out=\"object.partner_id.name or ''\"></span>.\n"
+"        <br><br>\n"
 "        Can you validate it please ?\n"
-"        <br/><br/>\n"
+"        <br><br>\n"
 "        Thanks,\n"
-"        <br/><br/>\n"
+"        <br><br>\n"
 "        Best regards,\n"
 "        <t t-if=\"not is_html_empty(object.user_id.signature)\">\n"
-"            <br/><br/>\n"
-"            <t t-out=\"object.user_id.signature or ''\">--<br/>Mitchell Admin</t>\n"
+"            <br><br>\n"
+"            <t t-out=\"object.user_id.signature or ''\">--<br>Mitchell Admin</t>\n"
 "        </t>\n"
-"        <br/><br/>\n"
+"        <br><br>\n"
 "    </p>\n"
 "</div>\n"
 "            "
@@ -100,20 +100,14 @@ msgstr ""
 "            "
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__related_user_ids
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__related_user_ids
-msgid "Access Rights"
-msgstr "Droits d'accès"
-
-#. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_partner_form
-msgid "Access rights are managed on"
-msgstr "Les droits d'accès sont gérés sur"
-
-#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__active
 msgid "Active"
 msgstr "Actif"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_product_pricelist__access_agent_ids
+msgid "Agent access"
+msgstr "Accès agent"
 
 #. module: dashboard_agent
 #: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_relation_agent_config
@@ -122,24 +116,19 @@ msgid "Agent relationship"
 msgstr "Relation agent"
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__agent_ids
-msgid "Agents"
-msgstr ""
-
-#. module: dashboard_agent
 #: model:res.groups,name:dashboard_agent.group_admin
 msgid "Agorane - Administrator"
 msgstr "Agorane - Administrateur"
 
 #. module: dashboard_agent
 #: model:res.groups,name:dashboard_agent.group_external_agent
-msgid "Agorane - External agent"
-msgstr "Agorane - Agent externe"
+msgid "Agorane - D2R agent"
+msgstr "Agorane - Agent D2R"
 
 #. module: dashboard_agent
 #: model:res.groups,name:dashboard_agent.group_principal_agent
-msgid "Agorane - Principal agent"
-msgstr "Agorane - Agent principal"
+msgid "Agorane - Key Account agent"
+msgstr "Agorane - Agent Key Account"
 
 #. module: dashboard_agent
 #: model:mail.template,name:dashboard_agent.email_template_quote_confirmation_request
@@ -184,6 +173,7 @@ msgid "Cancel request"
 msgstr "Annuler demande"
 
 #. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__commission
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_commission_order
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order_line__dashboard_product_commission
 #: model:product.template,name:dashboard_agent.dashboard_product_template_commission
@@ -224,18 +214,16 @@ msgid "Contact"
 msgstr ""
 
 #. module: dashboard_agent
-#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_relation_agent_config
-msgid ""
-"Create a new agent relationship, the first step of a new agent relationship "
-"!"
-msgstr ""
-"Créer une nouvelle relation agent, la première étape d'une nouvelle relation"
-" agent !"
-
-#. module: dashboard_agent
 #: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_contact
 msgid "Create a new contact, the first step of a new contact !"
 msgstr "Créer un nouveau contact, la première étape d'un nouveau contact !"
+
+#. module: dashboard_agent
+#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_relation_agent_config
+msgid "Create a new relationship, the first step of a new relationship !"
+msgstr ""
+"Créer une nouvelle relation agent, la première étape d'une nouvelle relation"
+" agent !"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__create_uid
@@ -251,11 +239,6 @@ msgstr "Créé le"
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_order_tree
 msgid "Creation Date"
 msgstr "Date de création"
-
-#. module: dashboard_agent
-#: model_terms:ir.actions.act_window,help:dashboard_agent.action_dashboard_agent_product
-msgid "Créer un nouveau produit"
-msgstr ""
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_crm_lead__agent_partner_id
@@ -326,6 +309,24 @@ msgid "Email templates"
 msgstr "Modèles d'email"
 
 #. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__end_date
+msgid "End date"
+msgstr "Date de fin"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__godfather_id
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__godfather_id
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__godfather_id
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__godfather_id
+msgid "Godfather"
+msgstr "Parrain"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__godson_id
+msgid "Godson"
+msgstr "Filleul"
+
+#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__id
 msgid "ID"
 msgstr ""
@@ -339,6 +340,11 @@ msgstr "Adresse de facturation"
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid "Invoice payment"
 msgstr "Paiement facture"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__is_expired
+msgid "Is expired"
+msgstr "Est expirée"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__is_validate_by_agent
@@ -416,11 +422,6 @@ msgid "My opportunities"
 msgstr "Mes opportunités"
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__name
-msgid "Name"
-msgstr "Nom"
-
-#. module: dashboard_agent
 #. odoo-python
 #: code:addons/dashboard_agent/models/sale_order.py:0
 #, python-format
@@ -465,7 +466,6 @@ msgid "Pricelist"
 msgstr "Liste de prix"
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__principal_agent_id
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__principal_agent_id
 msgid "Principal agent"
 msgstr "Agent principal"
@@ -501,12 +501,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:dashboard_agent.field_res_users__readonly_custom_field
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__readonly_custom_field
 msgid "Readonly custom field"
-msgstr "Champ personnalisé lecture seule"
+msgstr "Champs lecture seule"
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_relation_agent
+msgid "Relation agent"
+msgstr ""
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
 msgid "Request validation"
 msgstr "Demander validation"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__restrict_custom_field
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__restrict_custom_field
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__restrict_custom_field
+msgid "Restrict custom field"
+msgstr "Restriction sur champ"
 
 #. module: dashboard_agent
 #: model:ir.model,name:dashboard_agent.model_sale_order
@@ -533,6 +545,36 @@ msgstr "Envoyer facture PRO-FORMA"
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
 msgid "Send by Email"
 msgstr "Envoyer par email"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid "Sponsorship"
+msgstr "Parrainage"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_config_settings__sponsorship_duration
+msgid "Sponsorship duration"
+msgstr "Durée parrainage"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid "Sponsorship duration (days)"
+msgstr "Durée parrainage (jours)"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,help:dashboard_agent.field_res_config_settings__sponsorship_duration
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.res_config_settings_view_form_inherit
+msgid ""
+"Sponsorship time. Allows you to automatically calculate the sponsorship end "
+"date when adding a new relationship"
+msgstr ""
+"Durée du parrainage. Permet de calculer automatiquement la date de fin du "
+"parrainage lorsqu'on ajoute une relation"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__start_date
+msgid "Start date"
+msgstr "Date de début"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__state
@@ -651,16 +693,6 @@ msgid ""
 msgstr ""
 "Vous allez confirmer la demande de validation du devis de votre agent. "
 "Continuer ?"
-
-#. module: dashboard_agent
-#: model:ir.model,name:dashboard_agent.model_relation_agent
-msgid "relation.agent"
-msgstr ""
-
-#. module: dashboard_agent
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_partner_form
-msgid "the parent company"
-msgstr "la société parente"
 
 #. module: dashboard_agent
 #: model:mail.template,report_name:dashboard_agent.email_template_quote_confirmation_request

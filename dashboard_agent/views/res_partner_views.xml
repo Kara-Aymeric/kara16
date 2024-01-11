@@ -5,78 +5,72 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='category_id']" position="after">
-                <field name="related_user_ids"  widget="many2many_tags"
-                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
-                       groups="dashboard_agent.group_admin"
-                       attrs="{'invisible': [('is_company','=',False),('parent_id','!=',False)]}"/>
-                <div name="parent_access_rights" colspan="2" attrs="{'invisible': ['|',('is_company','=',True),('parent_id','=',False)]}">
-                    <p>Access rights are managed on <button name="open_commercial_entity" type="object" string="the parent company" class="oe_link"/></p>
-                </div>
-            </xpath>
-            <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="before">
-                <field name="readonly_custom_field" invisible="1"/>
+            <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="after">
+                <field name="restrict_custom_field" invisible="1"/>
+                <field name="godfather_id" force_save="1"
+                       groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
             </xpath>
             <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '!=', False)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='property_payment_term_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_product_pricelist']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_delivery_carrier_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_account_position_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_supplier_payment_term_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='company_registry']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='ref']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='industry_id']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
         </field>
     </record>
 
-    <record id="dashboard_agorane_view_partner_form" model="ir.ui.view">
+<!--    <record id="dashboard_agorane_view_partner_form" model="ir.ui.view">
         <field name="name">dashboard.agorane.view.partner.form</field>
         <field name="inherit_id" ref="woo_user_connector.agorane_view_partner_form" />
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='agent_commission']" position="before">
-                <field name="readonly_custom_field" invisible="1"/>
+                <field name="restrict_custom_field" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='agent_commission']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='agent_discount_commission']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='allow_flexible_payment']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
         </field>
-    </record>
+    </record>-->
+    
 
     <record id="dashboard_agorane_view_partner_property_form" model="ir.ui.view">
         <field name="name">dashboard agorane view partner property form</field>
@@ -84,11 +78,11 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='receipt_reminder_email']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='reminder_date_before_receipt']" position="attributes">
-                <attribute name="attrs">{'readonly': [('readonly_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
         </field>
@@ -105,35 +99,13 @@
         </field>
     </record>
 
-    <record id="custom_view_res_partner_filter" model="ir.ui.view">
-        <field name="name">custom view res partner filter</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
-        <field name="arch" type="xml">
-            <xpath expr="." position="inside">
-                <field name="related_user_ids"/>
-            </xpath>
-        </field>
-    </record>
-
-    <record id="custom_view_partner_tree" model="ir.ui.view">
-        <field name="name">custom view partner tree</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='country_id']" position="after">
-                <field name="related_user_ids" widget="many2many_tags" groups="dashboard_agent.group_admin"/>
-            </xpath>
-        </field>
-    </record>
-
     <record id="action_dashboard_agent_contact" model="ir.actions.act_window">
         <field name="name">My Contacts</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="domain">['|', ('user_id', '=', uid), ('related_user_ids.user_ids', '=', uid)]</field>
-        <field name="context">{'dashboard_agent': True}</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new contact, the first step of a new contact !

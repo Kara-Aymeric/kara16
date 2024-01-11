@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sync_manually_wizard_form_view" model="ir.ui.view">
+        <field name="name">sync manually wizard form view</field>
+        <field name="model">sync.manually.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="comment" />
+                    </group>
+                    <footer>
+                        <button name='action_synchronize'
+                                string='Synchronize manually'
+                                class="btn-primary"
+                                type='object'
+                                confirm="Are you sure to execute the synchronisation ?"
+                        />
+                        <button string="Cancel"
+                                class="btn-secondary"
+                                special="cancel"
+                        />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sync_manually_wizard_action" model="ir.actions.act_window">
+        <field name="name">Synchronize manually</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sync.manually.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
