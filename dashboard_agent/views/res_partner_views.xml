@@ -5,10 +5,8 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="before">
-                <field name="restrict_custom_field" invisible="1"/>
-            </xpath>
             <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="after">
+                <field name="restrict_custom_field" invisible="1"/>
                 <field name="godfather_id" force_save="1"
                        groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
             </xpath>
