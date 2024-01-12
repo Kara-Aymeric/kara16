@@ -497,13 +497,6 @@ msgstr ""
 "object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__readonly_custom_field
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__readonly_custom_field
-#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__readonly_custom_field
-msgid "Readonly custom field"
-msgstr "Champs lecture seule"
-
-#. module: dashboard_agent
 #: model:ir.model,name:dashboard_agent.model_relation_agent
 msgid "Relation agent"
 msgstr ""

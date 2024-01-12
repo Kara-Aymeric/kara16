@@ -124,6 +124,8 @@
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="restrict_custom_field" invisible="1"/>
+                <field name="restrict_custom_field_d2r" invisible="1"/>
+                <field name="restrict_custom_field_ka" invisible="1"/>
                 <field name="dashboard_agent" invisible="1"/>
                 <field name="dashboard_commission_order" invisible="1"/>
                 <field name="dashboard_associated_commission" invisible="1"/>
@@ -154,8 +156,23 @@
 
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
-                <field name="godfather_id" force_save="1" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
+                <field name="godfather_id"
+                       attrs="{'readonly': [('restrict_custom_field', '!=', False)]}"
+                       force_save="1"
+                       groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
             </xpath>
+
+            <field name="start_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+
+            <group name="sale_reporting" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field_d2r', '!=', False)]}</attribute>
+            </group>
+
+            <div class="oe_chatter" position="attributes">
+                <attribute name="groups">dashboard_agent.group_principal_agent,dashboard_agent.group_admin</attribute>
+            </div>
         </field>
     </record>
 

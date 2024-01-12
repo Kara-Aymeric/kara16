@@ -112,8 +112,16 @@ class SaleOrder(models.Model):
         string="Dashboard button visible",
         compute="_compute_dashboard_button_visible"
     )
-    restrict_custom_field = fields.Boolean(string="Restrict custom field", compute="_compute_restrict_custom_field")
-    readonly_custom_field = fields.Boolean(string="Readonly custom field")  # TO DELETED
+
+    restrict_custom_field = fields.Boolean(
+        string="Restrict custom field", compute="_compute_restrict_custom_field"
+    )
+    restrict_custom_field_d2r = fields.Boolean(
+        string="Restrict custom field D2R", compute="_compute_restrict_custom_field_d2r"
+    )
+    restrict_custom_field_ka = fields.Boolean(
+        string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
+    )
 
     @api.depends('user_id')
     def _compute_godfather_id(self):
@@ -140,6 +148,28 @@ class SaleOrder(models.Model):
                 restrict_custom_field = True
 
             record.restrict_custom_field = restrict_custom_field
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_d2r(self):
+        """ Compute readonly custom field D2R """
+        for record in self:
+            restrict_custom_field_d2r = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent'):
+                restrict_custom_field_d2r = True
+
+            record.restrict_custom_field_d2r = restrict_custom_field_d2r
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_ka(self):
+        """ Compute readonly custom field KA """
+        for record in self:
+            restrict_custom_field_ka = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_principal_agent'):
+                restrict_custom_field_ka = True
+
+            record.restrict_custom_field_ka = restrict_custom_field_ka
 
     @api.depends('dashboard_agent', 'is_validate_by_agent')
     def _compute_dashboard_button_visible(self):
@@ -171,16 +201,17 @@ class SaleOrder(models.Model):
                 amount_commission += line.dashboard_price_commission
             order.dashboard_commission_total = amount_commission
 
-    # @api.depends('user_id')
-    # def _compute_principal_agent_id(self):
-    #     """ Allows to link the main agent to the seller """
-    #     for record in self:
-    #         principal_agent_id = False
-    #         for relation_agent in self.env['relation.agent'].search([]):
-    #             if record.user_id in relation_agent.mapped('agent_ids'):
-    #                 principal_agent_id = relation_agent.principal_agent_id.id
-    #
-    #         record.principal_agent_id = principal_agent_id
+    @api.model
+    def _get_view(self, view_id=None, view_type='form', **options):
+        arch, view = super()._get_view(view_id, view_type, **options)
+        if self.env.user.has_group('dashboard_agent.group_external_agent'):
+            if view_type == 'tree':
+                for node in arch.xpath("//tree"):
+                    node.set('create', 'false')
+            if view_type == 'form':
+                for node in arch.xpath("//form"):
+                    node.set('create', 'false')
+        return arch, view
 
     def _dashboard_check_agent_country(self):
         """ The country on the contact form is mandatory to continue. The tax depends on the country """

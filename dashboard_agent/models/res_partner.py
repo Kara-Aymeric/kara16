@@ -7,13 +7,20 @@ class ResPartner(models.Model):
 
     # Set the default salesperson when a contact is created
     user_id = fields.Many2one('res.users', default=lambda self: self.env.user)
+
     godfather_id = fields.Many2one(
         'res.users', string="Godfather", compute="_compute_godfather_id", store=True, readonly=False, tracking=True
     )
 
-    # Provide multiple users access to each contact
-    restrict_custom_field = fields.Boolean(string="Restrict custom field", compute="_compute_restrict_custom_field")
-    readonly_custom_field = fields.Boolean(string="Readonly custom field")  # TO DELETED
+    restrict_custom_field = fields.Boolean(
+        string="Restrict custom field", compute="_compute_restrict_custom_field"
+    )
+    restrict_custom_field_d2r = fields.Boolean(
+        string="Restrict custom field D2R", compute="_compute_restrict_custom_field_d2r"
+    )
+    restrict_custom_field_ka = fields.Boolean(
+        string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
+    )
 
     @api.depends('user_id')
     def _compute_godfather_id(self):
@@ -40,6 +47,43 @@ class ResPartner(models.Model):
                 restrict_custom_field = True
 
             record.restrict_custom_field = restrict_custom_field
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_d2r(self):
+        """ Compute readonly custom field D2R """
+        for record in self:
+            restrict_custom_field_d2r = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent'):
+                restrict_custom_field_d2r = True
+
+            record.restrict_custom_field_d2r = restrict_custom_field_d2r
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_ka(self):
+        """ Compute readonly custom field KA """
+        for record in self:
+            restrict_custom_field_ka = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_principal_agent'):
+                restrict_custom_field_ka = True
+
+            record.restrict_custom_field_ka = restrict_custom_field_ka
+
+    @api.model
+    def _get_view(self, view_id=None, view_type='form', **options):
+        arch, view = super()._get_view(view_id, view_type, **options)
+        if self.env.user.has_group('dashboard_agent.group_external_agent'):
+            if view_type == 'kanban':
+                for node in arch.xpath("//kanban"):
+                    node.set('create', 'false')
+            if view_type == 'tree':
+                for node in arch.xpath("//tree"):
+                    node.set('create', 'false')
+            if view_type == 'form':
+                for node in arch.xpath("//form"):
+                    node.set('create', 'false')
+        return arch, view
 
     @api.model
     def create(self, vals):

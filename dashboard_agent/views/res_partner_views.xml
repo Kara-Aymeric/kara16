@@ -7,8 +7,13 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="after">
                 <field name="restrict_custom_field" invisible="1"/>
-                <field name="godfather_id" force_save="1"
-                       groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
+                <field name="restrict_custom_field_d2r" invisible="1"/>
+                <field name="restrict_custom_field_ka" invisible="1"/>
+                <field name="godfather_id"
+                       attrs="{'readonly': [('restrict_custom_field', '!=', False)]}"
+                       force_save="1"
+                       groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent"
+                />
             </xpath>
             <xpath expr="//group[@name='container_row_2']/group[@name='sale']/field[@name='user_id']" position="attributes">
                 <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
@@ -45,6 +50,17 @@
                 <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
+        </field>
+    </record>
+
+    <record id="custom_mail_view_partner_form" model="ir.ui.view">
+        <field name="name">custom mail view partner form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail"/>
+        <field name="arch" type="xml">
+            <div class="oe_chatter" position="attributes">
+                <attribute name="groups">dashboard_agent.group_principal_agent,dashboard_agent.group_admin</attribute>
+            </div>
         </field>
     </record>
 
@@ -104,7 +120,6 @@
         <field name="res_model">res.partner</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="domain">[]</field>
-        <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new contact, the first step of a new contact !
