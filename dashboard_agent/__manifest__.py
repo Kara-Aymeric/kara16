@@ -11,6 +11,7 @@
     'website': 'https://hennet-solutions.fr',
     'license': 'LGPL-3',
     'depends': [
+        'base',
         'account',
         'crm',
         'product',
@@ -34,16 +35,18 @@
 
         # Security
         'security/res_groups.xml',
+        'security/dashboard_security.xml',
         'security/ir.model.access.csv',
 
         # Views
         'views/account_move_views.xml',
         'views/crm_lead_views.xml',
         'views/product_pricelist_views.xml',
-        'views/product_template_views.xml',
+        'views/product_views.xml',
         'views/relation_agent_views.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
+        'views/res_users_views.xml',
         'views/sale_order_views.xml',
         'views/dashboard_agent_menus.xml',
     ],

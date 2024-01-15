@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-21 09:18+0000\n"
-"PO-Revision-Date: 2023-12-21 09:18+0000\n"
+"POT-Creation-Date: 2024-01-15 11:05+0000\n"
+"PO-Revision-Date: 2024-01-15 11:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -100,6 +100,16 @@ msgstr ""
 "            "
 
 #. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_users_form
+msgid "Access pricelist"
+msgstr "Accès listes de prix"
+
+#. module: dashboard_agent
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_users_form
+msgid "Access products"
+msgstr "Accès produits"
+
+#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__active
 msgid "Active"
 msgstr "Actif"
@@ -136,6 +146,22 @@ msgid "Agorane - Quote confirmation request by the principal agent"
 msgstr "Agorane - Demande de confirmation de devis par l'agent principal"
 
 #. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__product_pricelist_ids
+msgid "Allowed product pricelist"
+msgstr "Listes de prix autorisées"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__allowed_product_tmpl_ids
+msgid "Allowed product templates"
+msgstr "Modèles de produit autorisés"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__allowed_product_ids
+#: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_users_form
+msgid "Allowed products"
+msgstr "Produits autorisés"
+
+#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_associated_commission
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__dashboard_child_id
 msgid "Associated commission"
@@ -169,8 +195,8 @@ msgstr ""
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
-msgid "Cancel request"
-msgstr "Annuler demande"
+msgid "Cancel validation"
+msgstr "Annuler validation"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__commission
@@ -497,13 +523,6 @@ msgstr ""
 "object.date_order.strftime('%d-%m-%Y') or 'n/a' }}"
 
 #. module: dashboard_agent
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__readonly_custom_field
-#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__readonly_custom_field
-#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__readonly_custom_field
-msgid "Readonly custom field"
-msgstr "Champs lecture seule"
-
-#. module: dashboard_agent
 #: model:ir.model,name:dashboard_agent.model_relation_agent
 msgid "Relation agent"
 msgstr ""
@@ -514,11 +533,34 @@ msgid "Request validation"
 msgstr "Demander validation"
 
 #. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_bank_statement_line__restrict_custom_field
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_move__restrict_custom_field
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_payment__restrict_custom_field
 #: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__restrict_custom_field
 #: model:ir.model.fields,field_description:dashboard_agent.field_res_users__restrict_custom_field
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__restrict_custom_field
 msgid "Restrict custom field"
 msgstr "Restriction sur champ"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_bank_statement_line__restrict_custom_field_d2r
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_move__restrict_custom_field_d2r
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_payment__restrict_custom_field_d2r
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__restrict_custom_field_d2r
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__restrict_custom_field_d2r
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__restrict_custom_field_d2r
+msgid "Restrict custom field D2R"
+msgstr "Restreindre le champ personnalisé D2R"
+
+#. module: dashboard_agent
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_bank_statement_line__restrict_custom_field_ka
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_move__restrict_custom_field_ka
+#: model:ir.model.fields,field_description:dashboard_agent.field_account_payment__restrict_custom_field_ka
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_partner__restrict_custom_field_ka
+#: model:ir.model.fields,field_description:dashboard_agent.field_res_users__restrict_custom_field_ka
+#: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__restrict_custom_field_ka
+msgid "Restrict custom field KA"
+msgstr "Restreindre le champ personnalisé KA"
 
 #. module: dashboard_agent
 #: model:ir.model,name:dashboard_agent.model_sale_order
@@ -658,6 +700,11 @@ msgstr "Utilisé par défaut pour les agents"
 msgid "Used for quotation confirmation request by the principal agent"
 msgstr ""
 "Utilisé pour la demande de confirmation de devis par l'agent principal"
+
+#. module: dashboard_agent
+#: model:ir.model,name:dashboard_agent.model_res_users
+msgid "User"
+msgstr "Utilisateur"
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
