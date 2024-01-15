@@ -201,18 +201,6 @@ class SaleOrder(models.Model):
                 amount_commission += line.dashboard_price_commission
             order.dashboard_commission_total = amount_commission
 
-    # @api.model
-    # def _get_view(self, view_id=None, view_type='form', **options):
-    #     arch, view = super()._get_view(view_id, view_type, **options)
-    #     if self.env.user.has_group('dashboard_agent.group_external_agent'):
-    #         if view_type == 'tree':
-    #             for node in arch.xpath("//tree"):
-    #                 node.set('create', 'false')
-    #         if view_type == 'form':
-    #             for node in arch.xpath("//form"):
-    #                 node.set('create', 'false')
-    #     return arch, view
-
     def _dashboard_check_agent_country(self):
         """ The country on the contact form is mandatory to continue. The tax depends on the country """
         if not self.user_id.partner_id.country_id:
