@@ -15,7 +15,7 @@
                     </group>
                     <field name="allowed_product_tmpl_ids" invisible="1" />
                     <group name="access_products" string="Access products">
-                        <field name="allowed_product_ids" nolabel="1" colspan="2"/>
+                        <field name="allowed_product_ids" nolabel="1" colspan="2" readonly="1" force_save="1"/>
                     </group>
                 </page>
             </xpath>
