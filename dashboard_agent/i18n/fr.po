@@ -102,7 +102,7 @@ msgstr ""
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_users_form
 msgid "Access pricelist"
-msgstr "Accès liste de prix"
+msgstr "Accès listes de prix"
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_view_users_form
@@ -148,7 +148,7 @@ msgstr "Agorane - Demande de confirmation de devis par l'agent principal"
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_res_users__product_pricelist_ids
 msgid "Allowed product pricelist"
-msgstr "Listes de prix autorisés"
+msgstr "Listes de prix autorisées"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_res_users__allowed_product_tmpl_ids
