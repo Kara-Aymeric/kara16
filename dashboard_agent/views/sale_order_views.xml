@@ -106,9 +106,9 @@
                     attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), '|', ('state', 'not in', ['draft']), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
             </xpath>
             <xpath expr="//button[@name='action_quotation_send'][1]" position="replace">
-                <button name="action_quote_confirmation_request" string="Request validation" groups="dashboard_agent.group_external_agent" type="object" class="btn-primary" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '=', True)]}"/>
-                <button name="action_validate_quote" string="Validate quote" groups="dashboard_agent.group_principal_agent" type="object" class="btn-primary" confirm="You will confirm the request for validation of the quote from your agent. Continue ?" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '=', True)]}"/>
-                <button name="action_cancel_request" string="Cancel request" groups="dashboard_agent.group_principal_agent" type="object" class="btn-primary" confirm="You are going to cancel your agent's quote validation request. Continue ?" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '!=', True)]}"/>
+                <button name="action_quote_confirmation_request" string="Request validation" groups="dashboard_agent.group_principal_agent" type="object" class="btn-primary" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '=', True)]}"/>
+                <button name="action_validate_quote" string="Validate quote" groups="dashboard_agent.group_admin" type="object" class="btn-primary" confirm="You will confirm the request for validation of the quote from your agent. Continue ?" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '=', True)]}"/>
+                <button name="action_cancel_request" string="Cancel validation" groups="dashboard_agent.group_admin" type="object" class="btn-primary" confirm="You are going to cancel your agent's quote validation request. Continue ?" attrs="{'invisible': ['|', '|', ('state', 'not in', ['draft', 'sent']), ('dashboard_agent', '!=', True), ('is_validate_by_agent', '!=', True)]}"/>
                 <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('dashboard_agent', '=', True)]}"/>
                 <button name="action_quotation_send" string="Send by Email" type="object" class="btn-primary" data-hotkey="g" context="{'validate_analytic': True}" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('dashboard_button_visible', '!=', True)]}"/>
             </xpath>
@@ -124,6 +124,8 @@
 
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="restrict_custom_field" invisible="1"/>
+                <field name="restrict_custom_field_d2r" invisible="1"/>
+                <field name="restrict_custom_field_ka" invisible="1"/>
                 <field name="dashboard_agent" invisible="1"/>
                 <field name="dashboard_commission_order" invisible="1"/>
                 <field name="dashboard_associated_commission" invisible="1"/>
@@ -154,8 +156,23 @@
 
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="principal_agent_id" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" attrs="{'invisible': [('dashboard_agent', '!=', True)]}"/>
-                <field name="godfather_id" force_save="1" groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
+                <field name="godfather_id"
+                       attrs="{'readonly': [('restrict_custom_field', '!=', False)]}"
+                       force_save="1"
+                       groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
             </xpath>
+
+            <field name="start_date" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+
+            <group name="sale_reporting" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field_d2r', '!=', False)]}</attribute>
+            </group>
+
+            <div class="oe_chatter" position="attributes">
+                <attribute name="groups">dashboard_agent.group_principal_agent,dashboard_agent.group_admin</attribute>
+            </div>
         </field>
     </record>
 

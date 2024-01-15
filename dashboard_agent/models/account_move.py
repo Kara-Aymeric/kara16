@@ -11,6 +11,49 @@ class AccountMove(models.Model):
 
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
 
+    restrict_custom_field = fields.Boolean(
+        string="Restrict custom field", compute="_compute_restrict_custom_field"
+    )
+    restrict_custom_field_d2r = fields.Boolean(
+        string="Restrict custom field D2R", compute="_compute_restrict_custom_field_d2r"
+    )
+    restrict_custom_field_ka = fields.Boolean(
+        string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
+    )
+
+    @api.depends('name')
+    def _compute_restrict_custom_field(self):
+        """ Compute readonly custom field """
+        for record in self:
+            restrict_custom_field = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent') or user.has_group('dashboard_agent.group_principal_agent'):
+                restrict_custom_field = True
+
+            record.restrict_custom_field = restrict_custom_field
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_d2r(self):
+        """ Compute readonly custom field D2R """
+        for record in self:
+            restrict_custom_field_d2r = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent'):
+                restrict_custom_field_d2r = True
+
+            record.restrict_custom_field_d2r = restrict_custom_field_d2r
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_ka(self):
+        """ Compute readonly custom field KA """
+        for record in self:
+            restrict_custom_field_ka = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_principal_agent'):
+                restrict_custom_field_ka = True
+
+            record.restrict_custom_field_ka = restrict_custom_field_ka
+
     def _update_status_commission_associated(self, commission_order_id, new_state, body_msg):
         """ Update status commission associated """
         commission_order_id.write({

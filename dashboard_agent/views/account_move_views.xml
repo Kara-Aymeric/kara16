@@ -16,6 +16,9 @@
         <field name="arch" type="xml">
             <xpath expr="//header/field[@name='state']" position="before">
                 <field name="dashboard_agent" invisible="1"/>
+                <field name="restrict_custom_field" invisible="1"/>
+                <field name="restrict_custom_field_d2r" invisible="1"/>
+                <field name="restrict_custom_field_ka" invisible="1"/>
                 <button name="action_dashboard_post" string="Confirm" class="oe_highlight"
                     type="object" groups="dashboard_agent.group_principal_agent" data-hotkey="v"
                     context="{'validate_analytic': True}"

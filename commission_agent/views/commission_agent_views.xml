@@ -92,8 +92,8 @@
         <field name="res_model">commission.agent</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{
-            'search_default_group_by_date': 1,
             'search_default_group_by_agent': 1,
+            'search_default_group_by_date': 1,
             }
         </field>
     </record>
