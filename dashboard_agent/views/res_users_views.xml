@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="custom_view_users_form" model="ir.ui.view">
+        <field name="name">custom.view.users.form</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_update_access_products" type="object" string="Update access products"/>
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page name="allowed_product" string="Allowed products">
+                    <group name="access_product_pricelist" string="Access pricelist">
+                        <field name="product_pricelist_ids" widget="many2many_tags"/>
+                    </group>
+                    <field name="allowed_product_tmpl_ids" invisible="1" />
+                    <group name="access_products" string="Access products">
+                        <field name="allowed_product_ids" nolabel="1" colspan="2"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
