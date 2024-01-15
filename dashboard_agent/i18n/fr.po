@@ -195,8 +195,8 @@ msgstr ""
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.custom_sale_view_order_form
-msgid "Cancel request"
-msgstr "Annuler demande"
+msgid "Cancel validation"
+msgstr "Annuler validation"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_relation_agent__commission
