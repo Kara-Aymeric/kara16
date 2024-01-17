@@ -93,7 +93,3 @@ class AccountMove(models.Model):
             self._update_status_commission_associated(commission_order_id, "validated", body_msg)
 
         return res
-
-    def action_dashboard_post(self):
-        """ Force post invoice for principal agent """
-        self.sudo().action_post()
