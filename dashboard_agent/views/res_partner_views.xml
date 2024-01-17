@@ -23,7 +23,7 @@
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_product_pricelist']" position="attributes">
-                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field_d2r', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_delivery_carrier_id']" position="attributes">
