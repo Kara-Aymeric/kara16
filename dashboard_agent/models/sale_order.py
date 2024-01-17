@@ -91,7 +91,9 @@ class SaleOrder(models.Model):
     godfather_id = fields.Many2one(
         'res.users', string="Godfather", compute="_compute_godfather_id", store=True, readonly=False, tracking=True
     )
-    is_validate_by_agent = fields.Boolean(string="Is validate", help="Is validate by principal agent", tracking=True)
+    is_validate_by_agent = fields.Boolean(
+        string="Is validate", store=True, help="Is validate by principal agent", tracking=True
+    )
     dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
 
     dashboard_commission_order = fields.Boolean(string="Commission")
