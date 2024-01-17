@@ -5,7 +5,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('invoice_user_id', '=', uid), ('move_type', '=', 'out_invoice')]</field>
+        <field name="domain">[]</field>
         <field name="context">{'default_move_type': 'out_invoice', 'dashboard_agent': True}</field>
     </record>
 

@@ -37,3 +37,4 @@ access_sale_order_cancel,access.sale.order.cancel,sale.model_sale_order_cancel,d
 
 access_stock_move_salesman,stock_move salesman,stock.model_stock_move,dashboard_agent.group_external_agent,1,0,0,0
 
+access_product_pricing_sale_user,sale_temporal_.sale.user,sale_temporal.model_product_pricing,dashboard_agent.group_external_agent,1,0,0,0

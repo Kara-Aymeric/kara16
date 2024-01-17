@@ -5,7 +5,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">crm.lead</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="domain">[]</field>
         <field name="context">{'dashboard_agent': True}</field>
     </record>
 
