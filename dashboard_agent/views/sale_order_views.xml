@@ -136,7 +136,7 @@
             </xpath>
 
             <xpath expr="//field[@name='pricelist_id']" position="replace">
-                <field name="pricelist_id" attrs="{'readonly': ['|', ('state', 'in', ['sale', 'cancel', 'done']), ('restrict_custom_field', '=', True)]}" />
+                <field name="pricelist_id" attrs="{'readonly': ['|', ('state', 'in', ['sale', 'cancel', 'done']), ('restrict_custom_field_d2r', '=', True)]}" />
             </xpath>
 
             <xpath expr="//page[@name='order_lines']//tree//field[@name='tax_id']" position="after">
