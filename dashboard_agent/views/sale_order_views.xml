@@ -203,7 +203,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-<!--        <field name="domain">['|', ('user_id', '=', uid), ('dashboard_agent', '=', True), ('dashboard_commission_order', '=', False)]</field>-->
+        <field name="domain">[]</field>
         <field name="context">{'dashboard_agent': True}</field>
     </record>
 
@@ -226,7 +226,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-<!--        <field name="domain">['|', ('user_id', '=', uid), ('dashboard_agent', '=', True), ('dashboard_commission_order', '=', True)]</field>-->
+        <field name="domain">[]</field>
         <field name="context">{'dashboard_agent': True, 'hide_dashboard_commission': True}</field>
     </record>
 
