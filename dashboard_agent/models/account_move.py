@@ -5,11 +5,7 @@ from odoo import api, fields, models, _
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    def _default_dashboard_agent(self):
-        """ Get value dashboard agent by default """
-        return self.env.context.get('dashboard_agent', False)
-
-    dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
+    dashboard_agent = fields.Boolean(string="Dashboard agent", compute="_compute_dashboard_agent")
 
     restrict_custom_field = fields.Boolean(
         string="Restrict custom field", compute="_compute_restrict_custom_field"
@@ -20,6 +16,18 @@ class AccountMove(models.Model):
     restrict_custom_field_ka = fields.Boolean(
         string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
     )
+
+    @api.depends('invoice_user_id')
+    def _compute_dashboard_agent(self):
+        """ Allows you to display the page based on the seller """
+        for move in self:
+            dashboard_agent = False
+            user_id = move.invoice_user_id
+            if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
+                    'dashboard_agent.group_principal_agent'):
+                dashboard_agent = True
+
+            move.dashboard_agent = dashboard_agent
 
     @api.depends('name')
     def _compute_restrict_custom_field(self):

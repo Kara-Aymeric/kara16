@@ -21,7 +21,11 @@ class SaleOrder(models.Model):
     def _get_agent_partner_id_domain(self):
         """ Allows you to search only for contacts to agent """
         domain = []
-        partner_ids = self.env['res.partner'].search([('user_id', '=', self.env.user.id)])
+        user = self.env.user
+        if user.has_group('dashboard_agent.group_admin_agent'):
+            return domain
+
+        partner_ids = self.env['res.partner'].search([('user_id', '=', user.id)])
         if partner_ids:
             domain = [('id', 'in', partner_ids.ids)]
 
@@ -52,10 +56,6 @@ class SaleOrder(models.Model):
                       ('id', 'in', partner_ids.ids)]
 
         return domain
-
-    def _default_dashboard_agent(self):
-        """ Get value dashboard agent by default """
-        return self.env.context.get('dashboard_agent', False)
 
     state = fields.Selection(
         selection_add=[
@@ -94,7 +94,7 @@ class SaleOrder(models.Model):
     is_validate_by_agent = fields.Boolean(
         string="Is validate", store=True, help="Is validate by principal agent", tracking=True
     )
-    dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
+    dashboard_agent = fields.Boolean(string="Dashboard agent", compute="_compute_dashboard_agent")
 
     dashboard_commission_order = fields.Boolean(string="Commission")
     dashboard_child_id = fields.Many2one(
@@ -124,6 +124,18 @@ class SaleOrder(models.Model):
     restrict_custom_field_ka = fields.Boolean(
         string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
     )
+
+    @api.depends('user_id')
+    def _compute_dashboard_agent(self):
+        """ Allows you to display the page based on the seller """
+        for order in self:
+            dashboard_agent = False
+            user_id = order.user_id
+            if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
+                    'dashboard_agent.group_principal_agent'):
+                dashboard_agent = True
+
+            order.dashboard_agent = dashboard_agent
 
     @api.depends('user_id')
     def _compute_godfather_id(self):
@@ -352,3 +364,8 @@ class SaleOrder(models.Model):
     def _onchange_agent_partner_shipping_id(self):
         """ Agent partner shipping address equal partner shipping address """
         self.partner_shipping_id = self.agent_partner_shipping_id.id
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id_dashboard(self):
+        """ Agent partner equal partner """
+        self.agent_partner_id = self.partner_id.id
