@@ -6,7 +6,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     dashboard_product_commission = fields.Monetary(string="Commission")
-    dashboard_price_commission = fields.Monetary(string="Total commission")
+    dashboard_price_commission = fields.Float(string="Total commission")
 
     def _change_dashboard_price_commission(self, commission, qty):
         """ Total commission line calculation """
