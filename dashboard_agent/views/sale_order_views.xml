@@ -42,14 +42,14 @@
         <field name="arch" type="xml">
 
             <xpath expr="//button[@name='action_confirm'][2]" position="replace">
-                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" attrs="{'invisible': ['|', ('dashboard_agent', '=', True), '|', ('supplier_order', '=', True), ('state', 'not in', ['draft'])]}"/>
-                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), ('state', 'not in', ['draft'])]}"/>
+                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" attrs="{'invisible': ['|', ('restrict_custom_field', '=', True), '|', ('supplier_order', '=', True), ('state', 'not in', ['draft'])]}"/>
+<!--                <button name="action_confirm" data-hotkey="v" string="Confirm" type="object" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), ('state', 'not in', ['draft'])]}"/>-->
             </xpath>
 
             <xpath expr="//button[@name='action_confirm'][1]" position="replace">
                 <field name="dashboard_commission_order" invisible="1"/>
-                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('dashboard_agent', '=', True), '|', ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>
-                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), ('state', 'not in', ['sent'])]}"/>
+                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('restrict_custom_field', '=', True), '|', ('supplier_order', '=', True), ('state', 'not in', ['sent'])]}"/>
+<!--                <button name="action_confirm" id="action_confirm" data-hotkey="v" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), ('state', 'not in', ['sent'])]}"/>-->
             </xpath>
 
             <field name="state" position="replace">
@@ -62,7 +62,7 @@
                     <field name="is_validate_by_agent" invisible="1" />
                     <field name="supplier_order" invisible="1" />
                     <field name="trading_business" invisible="1" />
-                    <field name="dashboard_agent" invisible="1" />
+                    <field name="dashboard_agent" invisible="1"/>
                     <field name="dashboard_button_visible" invisible="1" />
                     <field name="delivery_set" invisible="1" />
                     <field name="is_all_service" invisible="1" />
@@ -126,7 +126,6 @@
                 <field name="restrict_custom_field" invisible="1"/>
                 <field name="restrict_custom_field_d2r" invisible="1"/>
                 <field name="restrict_custom_field_ka" invisible="1"/>
-                <field name="dashboard_agent" invisible="1"/>
                 <field name="dashboard_commission_order" invisible="1"/>
                 <field name="dashboard_associated_commission" invisible="1"/>
                 <field name="dashboard_button_visible" invisible="1"/>
@@ -150,6 +149,9 @@
                        attrs="{'invisible': ['|', ('dashboard_agent', '!=', True), ('dashboard_commission_order', '=', True)]}"/>
             </xpath>
 
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="dashboard_agent" />
+            </xpath>
             <xpath expr="//field[@name='user_id']" position="attributes">
                 <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
             </xpath>
@@ -203,8 +205,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[]</field>
-        <field name="context">{'dashboard_agent': True}</field>
+        <field name="domain">[('name', 'ilike', 'S')]</field>
+        <field name="context">{}</field>
     </record>
 
     <record id="action_view_dashboard_agent_sale_tree" model="ir.actions.act_window.view">
@@ -226,8 +228,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[]</field>
-        <field name="context">{'dashboard_agent': True, 'hide_dashboard_commission': True}</field>
+        <field name="domain">[('name', 'ilike', 'C')]</field>
+        <field name="context">{'hide_dashboard_commission': True}</field>
     </record>
 
     <record id="action_view_dashboard_agent_commission_tree" model="ir.actions.act_window.view">

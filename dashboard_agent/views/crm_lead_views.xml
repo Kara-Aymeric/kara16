@@ -6,7 +6,7 @@
         <field name="res_model">crm.lead</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="domain">[]</field>
-        <field name="context">{'dashboard_agent': True}</field>
+        <field name="context">{}</field>
     </record>
 
     <record id="dashboard_agent_quick_create_opportunity_form" model="ir.ui.view">
@@ -50,8 +50,8 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='opportunity_partner']//field[@name='partner_id']" position="before">
-                <field name="dashboard_agent" invisible="1" />
+            <xpath expr="//group[@name='Misc']" position="inside">
+                <field name="dashboard_agent" />
             </xpath>
         </field>
     </record>
