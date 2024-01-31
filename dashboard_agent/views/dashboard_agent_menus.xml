@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- ACTION PART -->
+    <record id="action_dashboard_agent_pricelist" model="ir.actions.act_window">
+        <field name="name">Pricelists</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.pricelist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="product.product_pricelist_view_search" />
+        <field name="domain">[('access_agent_ids', 'in', uid)]</field>
+        <field name="context">{"default_base":'list_price'}</field>
+    </record>
 
+    <!-- MENU PART -->
     <menuitem id="dashboard_agent_principal_menu"
               web_icon="dashboard_agent,static/description/icon.png"
               name="Dashboard Agent"
@@ -57,7 +68,7 @@
               name="Pricelists"
               sequence="20"
               parent="dashboard_agent_product_menu"
-              action="product.product_pricelist_action2"/>
+              action="dashboard_agent.action_dashboard_agent_pricelist"/>
 
     <!-- Configuration -->
     <menuitem id="dashboard_agent_config"
