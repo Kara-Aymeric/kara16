@@ -125,6 +125,10 @@ class SaleOrder(models.Model):
         string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
     )
 
+    pricelist_id = fields.Many2one(
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id), ('access_agent_ids', 'in', uid)]"
+    )
+
     @api.depends('user_id')
     def _compute_dashboard_agent(self):
         """ Allows you to display the page based on the seller """
