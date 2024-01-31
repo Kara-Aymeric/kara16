@@ -420,8 +420,8 @@ msgstr ""
 #. module: dashboard_agent
 #: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_commission
 #: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_commission_menu
-msgid "My Commissions"
-msgstr "Mes commissions"
+msgid "My Commissions (base)"
+msgstr "Mes commissions (base)"
 
 #. module: dashboard_agent
 #: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_contact

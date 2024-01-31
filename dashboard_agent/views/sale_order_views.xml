@@ -224,7 +224,7 @@
     </record>
 
     <record id="action_dashboard_agent_commission" model="ir.actions.act_window">
-        <field name="name">My Commissions</field>
+        <field name="name">My Commissions (base)</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order</field>
         <field name="view_mode">tree,form</field>
