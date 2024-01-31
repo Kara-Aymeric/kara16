@@ -58,7 +58,7 @@
               sequence="20"
               parent="dashboard_agent_product_menu"
               action="product.product_pricelist_action2"/>
-    
+
     <!-- Configuration -->
     <menuitem id="dashboard_agent_config"
               name="Configuration"
