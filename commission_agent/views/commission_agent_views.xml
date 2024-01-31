@@ -87,7 +87,7 @@
     </record>
 
     <record id="commission_agent_action" model="ir.actions.act_window">
-        <field name="name">Commissions</field>
+        <field name="name">Bonuses</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">commission.agent</field>
         <field name="view_mode">tree,form</field>
