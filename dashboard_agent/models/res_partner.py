@@ -22,6 +22,11 @@ class ResPartner(models.Model):
         string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
     )
 
+    property_product_pricelist = fields.Many2one(
+        domain=lambda self: [('access_agent_ids', 'in', self.env.user.id),
+                             ('company_id', 'in', (self.env.company.id, False))]
+    )
+
     @api.depends('user_id')
     def _compute_godfather_id(self):
         """ Get godfather """

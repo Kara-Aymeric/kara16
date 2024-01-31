@@ -19,6 +19,7 @@
         "data/res_partner_category_data.xml",
 
         # Security
+        "security/commission_agent_security.xml",
         "security/ir.model.access.csv",
 
         # Views
