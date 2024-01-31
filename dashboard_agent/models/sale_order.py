@@ -223,29 +223,6 @@ class SaleOrder(models.Model):
                   "an automatic tax when generating the quote of the 'commission' type")
             )
 
-    def _dashboard_generate_commission_tax(self):
-        """
-        Search the tax for the agent. If the agent resides in France, the tax is 20%.
-        If the agent resides outside France, then no tax is applied
-        """
-        self._dashboard_check_agent_country()
-        commission_tax_id = self.env['account.tax'].search([('commission_tax', '=', True)])
-        if not commission_tax_id:
-            raise ValidationError(
-                _("The configuration of a tax concerning the automatic creation of an estimate "
-                  "of the type 'commission' is required to confirm the sale.\n"
-                  "The company concerned by this configuration is %s", self.company_id.name)
-            )
-        if len(commission_tax_id) > 1:
-            raise ValidationError(
-                _("The tax for the automatic creation of the 'commission' type quote is unable to retrieve because "
-                  "there are at least two taxes configured")
-            )
-        if self.user_id.partner_id.country_id.phone_code != 33:
-            return False
-
-        return [(4, commission_tax_id.id)]
-
     def _dashboard_create_order_child(self):
         """
         Creation of a child sale if commission lines exist and addition of commission lines on
@@ -257,7 +234,6 @@ class SaleOrder(models.Model):
 
             if order.dashboard_commission_total > 0:
                 # Prepare data for add commission line
-                tax = order._dashboard_generate_commission_tax()
                 product_id = self.env['product.product'].search(
                     [('product_tmpl_id', '=', self.env.ref("dashboard_agent.dashboard_product_template_commission").id)]
                 )
@@ -267,7 +243,7 @@ class SaleOrder(models.Model):
                     'name': commission_name,
                     'product_id': product_id.id,
                     'product_uom_qty': 1,
-                    'tax_id': tax if tax else False,
+                    'tax_id': False,
                     'price_unit': order.dashboard_commission_total,
                     'company_id': company_user.id,
                 }]
