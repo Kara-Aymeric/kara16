@@ -22,6 +22,49 @@ class ResUsers(models.Model):
         store=True
     )
 
+    restrict_custom_field = fields.Boolean(
+        string="Restrict custom field", compute="_compute_restrict_custom_field"
+    )
+    restrict_custom_field_d2r = fields.Boolean(
+        string="Restrict custom field D2R", compute="_compute_restrict_custom_field_d2r"
+    )
+    restrict_custom_field_ka = fields.Boolean(
+        string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
+    )
+
+    @api.depends('name')
+    def _compute_restrict_custom_field(self):
+        """ Compute readonly custom field """
+        for record in self:
+            restrict_custom_field = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent') or user.has_group('dashboard_agent.group_principal_agent'):
+                restrict_custom_field = True
+
+            record.restrict_custom_field = restrict_custom_field
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_d2r(self):
+        """ Compute readonly custom field D2R """
+        for record in self:
+            restrict_custom_field_d2r = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_external_agent'):
+                restrict_custom_field_d2r = True
+
+            record.restrict_custom_field_d2r = restrict_custom_field_d2r
+
+    @api.depends('name')
+    def _compute_restrict_custom_field_ka(self):
+        """ Compute readonly custom field KA """
+        for record in self:
+            restrict_custom_field_ka = False
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_principal_agent'):
+                restrict_custom_field_ka = True
+
+            record.restrict_custom_field_ka = restrict_custom_field_ka
+
     def action_update_access_products(self):
         """ Force update pricelist """
         self.ensure_one()
