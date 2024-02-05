@@ -2,13 +2,13 @@
 <odoo>
         <!-- Principal menu -->
         <menuitem id="commission_agent_category"
-              name="Additional bonuses"
+              name="Commissions (total)"
               sequence="65"
               parent="dashboard_agent.dashboard_agent_principal_menu"
               groups="dashboard_agent.group_principal_agent,dashboard_agent.group_external_agent,dashboard_agent.group_admin"/>
 
         <menuitem id="menu_commission_agent"
-              name="Bonuses"
+              name="Commissions"
               parent="commission_agent_category"
               sequence="10"
               action="commission_agent.commission_agent_action"/>
