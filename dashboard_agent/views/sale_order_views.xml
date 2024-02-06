@@ -63,7 +63,7 @@
                     <field name="supplier_order" invisible="1" />
                     <field name="trading_business" invisible="1" />
                     <field name="dashboard_agent" invisible="1"/>
-                    <field name="dashboard_button_visible" invisible="1" />
+                    <field name="dashboard_button_visible" invisible="1"/>
                     <field name="delivery_set" invisible="1" />
                     <field name="is_all_service" invisible="1" />
                     <field name="recompute_delivery_price" invisible="1" />
@@ -94,7 +94,7 @@
 
             <xpath expr="//button[@name='action_quotation_send'][3]" position="replace">
                 <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('dashboard_agent', '=', True), '|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
-                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), '|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>
+<!--                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('dashboard_button_visible', '!=', True), '|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True, 'validate_analytic': True}"/>-->
             </xpath>
 
             <xpath expr="//button[@name='action_quotation_send'][2]" position="replace">
