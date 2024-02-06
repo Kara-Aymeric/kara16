@@ -7,7 +7,8 @@ class ResUsers(models.Model):
 
     agent_profile = fields.Selection(
         [('ka', "Key Account"), ('d2r', "D2R"), ('other', "Other")],
-        string="Agent profile"
+        string="Agent profile",
+        copy=False
     )
 
     agent_authorize_manual_order = fields.Boolean(
