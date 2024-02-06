@@ -1,10 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="dashboard_view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">dashboard.view.users.form.simple.modif</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="lang" position="before">
+                <field name="restrict_custom_field" invisible="1"/>
+                <field name="restrict_custom_field_d2r" invisible="1"/>
+                <field name="restrict_custom_field_ka" invisible="1"/>
+            </field>
+            <field name="notification_type" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="lang" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="tz" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <xpath expr="//page[last()]" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field', '!=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="dashboard_stock_res_users_view_form_preferences" model="ir.ui.view">
+        <field name="name">dashboard.res.users.view.form.preferences</field>
+        <field name="inherit_id" ref="sale_stock.res_users_view_form_preferences" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="property_warehouse_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="agorane_view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">agorane view users form simple modif</field>
+        <field name="inherit_id" ref="woo_user_connector.agorane_view_users_form_simple_modif" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="agent_reference" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="agent_commission" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="agent_discount_commission" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="custom_sale_agorane_view_users_form_simple_modif" model="ir.ui.view">
+        <field name="name">custom.sale.agorane.view.users.form.simple.modif</field>
+        <field name="inherit_id" ref="custom_sale.custom_sale_agorane_view_users_form_simple_modif"/>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="agent_profile" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="agent_authorize_manual_order" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
     <record id="custom_view_users_form" model="ir.ui.view">
         <field name="name">custom.view.users.form</field>
         <field name="inherit_id" ref="base.view_users_form" />
         <field name="model">res.users</field>
         <field name="arch" type="xml">
+            <field name="lang" position="before">
+                <field name="restrict_custom_field" invisible="1"/>
+                <field name="restrict_custom_field_d2r" invisible="1"/>
+                <field name="restrict_custom_field_ka" invisible="1"/>
+            </field>
+            <field name="notification_type" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="email" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="lang" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="tz" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
             <xpath expr="//page[last()]" position="after">
                 <page name="allowed_product" string="Allowed products">
                     <group name="access_product_pricelist" string="Access pricelist">
@@ -18,4 +105,47 @@
             </xpath>
         </field>
     </record>
+
+    <record id="dashboard_stock_res_users_view_form" model="ir.ui.view">
+        <field name="name">dashboard.stock.res.users.view.form</field>
+        <field name="inherit_id" ref="sale_stock.res_users_view_form" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="property_warehouse_id" position="attributes">
+                <attribute name="attrs">{'invisible': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="agorane_view_users_form" model="ir.ui.view">
+        <field name="name">agorane view users form</field>
+        <field name="inherit_id" ref="woo_user_connector.agorane_view_users_form" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="agent_reference" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="agent_commission" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="agent_discount_commission" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="custom_sale_agorane_view_users_form" model="ir.ui.view">
+        <field name="name">custom.sale.agorane.view.users.form</field>
+        <field name="inherit_id" ref="custom_sale.custom_sale_agorane_view_users_form" />
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <field name="agent_profile" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+            <field name="agent_authorize_manual_order" position="attributes">
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '!=', False)]}</attribute>
+            </field>
+        </field>
+    </record>
+
 </odoo>

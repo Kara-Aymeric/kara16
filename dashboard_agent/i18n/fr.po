@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-15 11:05+0000\n"
-"PO-Revision-Date: 2024-01-15 11:05+0000\n"
+"POT-Creation-Date: 2024-01-31 13:42+0000\n"
+"PO-Revision-Date: 2024-01-31 13:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,6 @@ msgstr ""
 
 #. module: dashboard_agent
 #: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_sale_view_order_form
-#: model_terms:ir.ui.view,arch_db:dashboard_agent.dashboard_agent_view_move_form
 msgid "Confirm"
 msgstr "Confirmer"
 
@@ -420,8 +419,8 @@ msgstr ""
 #. module: dashboard_agent
 #: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_commission
 #: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_commission_menu
-msgid "My Commissions"
-msgstr "Mes commissions"
+msgid "My Commissions (base)"
+msgstr "Mes commissions (base)"
 
 #. module: dashboard_agent
 #: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_contact
@@ -492,6 +491,12 @@ msgid "Pricelist"
 msgstr "Liste de prix"
 
 #. module: dashboard_agent
+#: model:ir.actions.act_window,name:dashboard_agent.action_dashboard_agent_pricelist
+#: model:ir.ui.menu,name:dashboard_agent.menu_product_pricelist_main
+msgid "Pricelists"
+msgstr "Listes de prix"
+
+#. module: dashboard_agent
 #: model:ir.model.fields,field_description:dashboard_agent.field_sale_order__principal_agent_id
 msgid "Principal agent"
 msgstr "Agent principal"
@@ -502,6 +507,7 @@ msgid "Product"
 msgstr "Article"
 
 #. module: dashboard_agent
+#: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_product_main
 #: model:ir.ui.menu,name:dashboard_agent.dashboard_agent_product_menu
 msgid "Products"
 msgstr "Articles"
@@ -634,32 +640,10 @@ msgid "Template"
 msgstr "Modèle"
 
 #. module: dashboard_agent
-#. odoo-python
-#: code:addons/dashboard_agent/models/sale_order.py:0
-#, python-format
-msgid ""
-"The configuration of a tax concerning the automatic creation of an estimate of the type 'commission' is required to confirm the sale.\n"
-"The company concerned by this configuration is %s"
-msgstr ""
-"Le paramétrage d'une taxe concernant la création automatique d'un devis de type 'commission' est nécessaire pour confirmer la vente.\n"
-"La société concernée par cette configuration est %s"
-
-#. module: dashboard_agent
 #: model:ir.model.fields,help:dashboard_agent.field_res_partner__user_id
 #: model:ir.model.fields,help:dashboard_agent.field_res_users__user_id
 msgid "The internal user in charge of this contact."
 msgstr "L'utilisateur interne en charge de ce contact."
-
-#. module: dashboard_agent
-#. odoo-python
-#: code:addons/dashboard_agent/models/sale_order.py:0
-#, python-format
-msgid ""
-"The tax for the automatic creation of the 'commission' type quote is unable "
-"to retrieve because there are at least two taxes configured"
-msgstr ""
-"La taxe pour la création automatique du devis de type 'commission' n'est pas"
-" possible à récupérer car il y a au moins deux taxes configurées"
 
 #. module: dashboard_agent
 #: model:ir.model.fields,help:dashboard_agent.field_sale_order__dashboard_child_id

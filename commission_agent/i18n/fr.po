@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-21 09:13+0000\n"
-"PO-Revision-Date: 2023-12-21 09:13+0000\n"
+"POT-Creation-Date: 2024-01-31 12:51+0000\n"
+"PO-Revision-Date: 2024-01-31 12:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,11 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: commission_agent
+#: model:ir.ui.menu,name:commission_agent.commission_agent_category
+msgid "Commissions (total)"
+msgstr "Commissions (total)"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__agent_id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__agent_id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__agent_id
@@ -139,6 +144,12 @@ msgid "Automatic"
 msgstr "Automatique"
 
 #. module: commission_agent
+#: model:ir.actions.act_window,name:commission_agent.commission_agent_action
+#: model:ir.ui.menu,name:commission_agent.menu_commission_agent
+msgid "Commissions"
+msgstr "Commissions"
+
+#. module: commission_agent
 #: model:ir.model.fields,help:commission_agent.field_commission_specific_agent__active
 #: model:ir.model.fields,help:commission_agent.field_commission_specific_rule__active
 msgid ""
@@ -165,11 +176,6 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #. module: commission_agent
-#: model:product.template,name:commission_agent.product_template_commission
-msgid "Commission"
-msgstr ""
-
-#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__date
 msgid "Commission Date"
 msgstr "Date"
@@ -182,8 +188,8 @@ msgstr "Règle de commission"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__commission_agent_id
-#: model:ir.ui.menu,name:commission_agent.commission_agent_category
 #: model:ir.ui.menu,name:commission_agent.commission_agent_rule_category
+#: model:product.template,name:commission_agent.product_template_commission
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_form_view
 msgid "Commission agent"
 msgstr ""
@@ -251,12 +257,6 @@ msgstr "Commission spécifique règle"
 #: model:ir.cron,cron_name:commission_agent.ir_cron_commission_agent
 msgid "Commission: Generate commission agent and calcul"
 msgstr "Commission : Générer commission et calculer"
-
-#. module: commission_agent
-#: model:ir.actions.act_window,name:commission_agent.commission_agent_action
-#: model:ir.ui.menu,name:commission_agent.menu_commission_agent
-msgid "Commissions"
-msgstr ""
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
@@ -978,8 +978,9 @@ msgid ""
 "When this option is active, a total recovery of the commission paid is made "
 "if the refund is total (does not work for partial refund)"
 msgstr ""
-"Lorsque cette option est active, une récupération totale de la commission versée est effectuée "
-"si l'avoir est total (ne fonctionne pas pour un avoir partiel)"
+"Lorsque cette option est active, une récupération totale de la commission "
+"versée est effectuée si l'avoir est total (ne fonctionne pas pour un avoir "
+"partiel)"
 
 #. module: commission_agent
 #: model:ir.model,name:commission_agent.model_sync_manually_wizard
