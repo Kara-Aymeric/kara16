@@ -24,7 +24,8 @@ class ResUsers(models.Model):
         string="Agent reference",
         help="This (unique) reference makes it possible to link WooCommerce and Odoo when creating a contact "
              "account from WooCommerce. This code also allows the default allocation of a commission for this contact.",
-        required=True
+        required=True,
+        copy=False
     )
 
     agent_commission = fields.Float(
