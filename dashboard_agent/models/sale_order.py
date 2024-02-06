@@ -21,7 +21,11 @@ class SaleOrder(models.Model):
     def _get_agent_partner_id_domain(self):
         """ Allows you to search only for contacts to agent """
         domain = []
-        partner_ids = self.env['res.partner'].search([('user_id', '=', self.env.user.id)])
+        user = self.env.user
+        if user.has_group('dashboard_agent.group_admin_agent'):
+            return domain
+
+        partner_ids = self.env['res.partner'].search([('user_id', '=', user.id)])
         if partner_ids:
             domain = [('id', 'in', partner_ids.ids)]
 
@@ -52,10 +56,6 @@ class SaleOrder(models.Model):
                       ('id', 'in', partner_ids.ids)]
 
         return domain
-
-    def _default_dashboard_agent(self):
-        """ Get value dashboard agent by default """
-        return self.env.context.get('dashboard_agent', False)
 
     state = fields.Selection(
         selection_add=[
@@ -94,7 +94,7 @@ class SaleOrder(models.Model):
     is_validate_by_agent = fields.Boolean(
         string="Is validate", store=True, help="Is validate by principal agent", tracking=True
     )
-    dashboard_agent = fields.Boolean(string="Dashboard agent", default=_default_dashboard_agent)
+    dashboard_agent = fields.Boolean(string="Dashboard agent", compute="_compute_dashboard_agent")
 
     dashboard_commission_order = fields.Boolean(string="Commission")
     dashboard_child_id = fields.Many2one(
@@ -124,6 +124,22 @@ class SaleOrder(models.Model):
     restrict_custom_field_ka = fields.Boolean(
         string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
     )
+
+    pricelist_id = fields.Many2one(
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id), ('access_agent_ids', 'in', uid)]"
+    )
+
+    @api.depends('user_id')
+    def _compute_dashboard_agent(self):
+        """ Allows you to display the page based on the seller """
+        for order in self:
+            dashboard_agent = False
+            user_id = order.user_id
+            if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
+                    'dashboard_agent.group_principal_agent'):
+                dashboard_agent = True
+
+            order.dashboard_agent = dashboard_agent
 
     @api.depends('user_id')
     def _compute_godfather_id(self):
@@ -211,29 +227,6 @@ class SaleOrder(models.Model):
                   "an automatic tax when generating the quote of the 'commission' type")
             )
 
-    def _dashboard_generate_commission_tax(self):
-        """
-        Search the tax for the agent. If the agent resides in France, the tax is 20%.
-        If the agent resides outside France, then no tax is applied
-        """
-        self._dashboard_check_agent_country()
-        commission_tax_id = self.env['account.tax'].search([('commission_tax', '=', True)])
-        if not commission_tax_id:
-            raise ValidationError(
-                _("The configuration of a tax concerning the automatic creation of an estimate "
-                  "of the type 'commission' is required to confirm the sale.\n"
-                  "The company concerned by this configuration is %s", self.company_id.name)
-            )
-        if len(commission_tax_id) > 1:
-            raise ValidationError(
-                _("The tax for the automatic creation of the 'commission' type quote is unable to retrieve because "
-                  "there are at least two taxes configured")
-            )
-        if self.user_id.partner_id.country_id.phone_code != 33:
-            return False
-
-        return [(4, commission_tax_id.id)]
-
     def _dashboard_create_order_child(self):
         """
         Creation of a child sale if commission lines exist and addition of commission lines on
@@ -245,7 +238,6 @@ class SaleOrder(models.Model):
 
             if order.dashboard_commission_total > 0:
                 # Prepare data for add commission line
-                tax = order._dashboard_generate_commission_tax()
                 product_id = self.env['product.product'].search(
                     [('product_tmpl_id', '=', self.env.ref("dashboard_agent.dashboard_product_template_commission").id)]
                 )
@@ -255,7 +247,7 @@ class SaleOrder(models.Model):
                     'name': commission_name,
                     'product_id': product_id.id,
                     'product_uom_qty': 1,
-                    'tax_id': tax if tax else False,
+                    'tax_id': False,
                     'price_unit': order.dashboard_commission_total,
                     'company_id': company_user.id,
                 }]
@@ -352,3 +344,8 @@ class SaleOrder(models.Model):
     def _onchange_agent_partner_shipping_id(self):
         """ Agent partner shipping address equal partner shipping address """
         self.partner_shipping_id = self.agent_partner_shipping_id.id
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id_dashboard(self):
+        """ Agent partner equal partner """
+        self.agent_partner_id = self.partner_id.id

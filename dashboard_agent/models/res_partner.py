@@ -22,6 +22,28 @@ class ResPartner(models.Model):
         string="Restrict custom field KA", compute="_compute_restrict_custom_field_ka"
     )
 
+    property_product_pricelist = fields.Many2one(
+        domain=lambda self: [('access_agent_ids', 'in', self.env.user.id),
+                             ('company_id', 'in', (self.env.company.id, False))]
+    )
+
+    restrict_agent_field = fields.Boolean(
+        string="Restrict agent field", compute="_compute_restrict_agent_field"
+    )
+
+    @api.depends('name', 'user_id')
+    def _compute_restrict_agent_field(self):
+        """ Compute restrict agent field """
+        for record in self:
+            restrict_agent_field = True
+            user = self.env.user
+            if user.has_group('dashboard_agent.group_admin'):
+                restrict_agent_field = False
+            elif record.user_id and record.user_id.id == user.id:
+                restrict_agent_field = False
+
+            record.restrict_agent_field = restrict_agent_field
+
     @api.depends('user_id')
     def _compute_godfather_id(self):
         """ Get godfather """
