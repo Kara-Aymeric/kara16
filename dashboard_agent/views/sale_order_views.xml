@@ -139,8 +139,11 @@
             </xpath>
 
             <xpath expr="//page[@name='order_lines']//tree//field[@name='tax_id']" position="after">
+                <field name="restrict_custom_field" invisible="1" />
                 <field name="dashboard_product_commission" string="Commission / Article"
-                       attrs="{'column_invisible': ['|', ('parent.dashboard_agent', '!=', True), ('parent.dashboard_commission_order', '==', True)]}"/>
+                       attrs="{'readonly': [('restrict_custom_field', '!=', False)], 'column_invisible': ['|', ('parent.dashboard_agent', '!=', True), ('parent.dashboard_commission_order', '==', True)]}"
+                       force_save="1"
+                />
                 <field name="dashboard_price_commission" invisible="1" />
             </xpath>
 

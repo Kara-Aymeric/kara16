@@ -17,6 +17,7 @@
         'product',
         'sale',
         'sale_margin',
+        'sale_stock',
         'custom_sale',
         'sale_commission',
         'purchase',

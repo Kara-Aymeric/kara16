@@ -86,8 +86,8 @@ msgstr ""
 
 #. module: commission_agent
 #: model:ir.ui.menu,name:commission_agent.commission_agent_category
-msgid "Additional bonuses"
-msgstr "Primes additionelles"
+msgid "Commissions (total)"
+msgstr "Commissions (total)"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__agent_id
@@ -146,8 +146,8 @@ msgstr "Automatique"
 #. module: commission_agent
 #: model:ir.actions.act_window,name:commission_agent.commission_agent_action
 #: model:ir.ui.menu,name:commission_agent.menu_commission_agent
-msgid "Bonuses"
-msgstr "Primes"
+msgid "Commissions"
+msgstr "Commissions"
 
 #. module: commission_agent
 #: model:ir.model.fields,help:commission_agent.field_commission_specific_agent__active

@@ -7,6 +7,19 @@ class SaleOrderLine(models.Model):
 
     dashboard_product_commission = fields.Monetary(string="Commission")
     dashboard_price_commission = fields.Float(string="Total commission")
+    restrict_custom_field = fields.Boolean(
+        string="Restrict custom field", compute="_compute_restrict_custom_field"
+    )
+
+    @api.depends('order_id', 'order_id.restrict_custom_field')
+    def _compute_restrict_custom_field(self):
+        """ Compute readonly custom field """
+        for record in self:
+            restrict_custom_field = False
+            if record.order_id:
+                restrict_custom_field = record.order_id.restrict_custom_field
+
+            record.restrict_custom_field = restrict_custom_field
 
     def _change_dashboard_price_commission(self, commission, qty):
         """ Total commission line calculation """
