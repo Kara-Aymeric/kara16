@@ -9,6 +9,7 @@
                 <field name="restrict_custom_field" invisible="1"/>
                 <field name="restrict_custom_field_d2r" invisible="1"/>
                 <field name="restrict_custom_field_ka" invisible="1"/>
+                <field name="restrict_agent_field" invisible="1"/>
                 <field name="godfather_id"
                        attrs="{'readonly': [('restrict_custom_field', '!=', False)]}"
                        force_save="1"
@@ -23,7 +24,7 @@
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_product_pricelist']" position="attributes">
-                <attribute name="attrs">{'readonly': [('restrict_custom_field_d2r', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field_d2r', '=', True)], 'invisible': [('restrict_agent_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='property_delivery_carrier_id']" position="attributes">
@@ -71,13 +72,14 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='agent_commission']" position="before">
                 <field name="restrict_custom_field" invisible="1"/>
+                <field name="restrict_agent_field" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='agent_commission']" position="attributes">
-                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)], 'invisible': [('restrict_agent_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='agent_discount_commission']" position="attributes">
-                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)], 'invisible': [('restrict_agent_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
             <xpath expr="//field[@name='allow_flexible_payment']" position="attributes">
