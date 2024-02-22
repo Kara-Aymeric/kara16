@@ -3,11 +3,11 @@
     <!-- Inheritance part-->
     <!-- Allows you not to display 'commission' type quotes -->
     <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
-        <field name="domain">[('commission_order', '=', False)]</field>
+        <field name="domain">[('commission_order', '=', False), ('name', 'ilike', 'S')]</field>
     </record>
 
     <record id="sale.action_orders" model="ir.actions.act_window">
-        <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel')), ('commission_order', '=', False)]</field>
+        <field name="domain">[('name', 'ilike', 'S'), ('state', 'not in', ('draft', 'sent', 'cancel')), ('commission_order', '=', False)]</field>
     </record>
 
     <!-- Action sale order part -->
