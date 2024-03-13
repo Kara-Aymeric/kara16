@@ -47,10 +47,3 @@ class SaleOrderLine(models.Model):
         qty = self.product_uom_qty
         sale_commission = (self._get_commission_value() / 100) * self.price_unit
         self._change_dashboard_price_commission(sale_commission, qty)
-
-    @api.onchange('dashboard_product_commission')
-    def _onchange_dashboard_product_commission(self):
-        """ Change manually commission """
-        sale_commission = self.dashboard_product_commission
-        qty = self.product_uom_qty
-        self._change_dashboard_price_commission(sale_commission, qty)
