@@ -19,3 +19,16 @@ class CommissionAgentCalcul(models.Model):
         "commission.agent.rule", string="Commission Rule"
     )
     result = fields.Float(string="Result")
+    commission_freeze = fields.Boolean(
+        string="Commission freeze", compute="_compute_commission_freeze", store=True, copy=False
+    )
+
+    @api.depends('commission_agent_id', 'commission_agent_id.commission_freeze')
+    def _compute_commission_freeze(self):
+        """ Compute commission freeze """
+        for commission in self:
+            commission_freeze = False
+            if commission.commission_agent_id and commission.commission_agent_id.commission_freeze:
+                commission_freeze = True
+
+            commission.commission_freeze = commission_freeze

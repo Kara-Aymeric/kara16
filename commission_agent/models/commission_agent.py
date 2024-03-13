@@ -35,6 +35,40 @@ class CommissionAgent(models.Model):
     edit_mode = fields.Boolean(string="Edit mode", default=True)
     restrict_fields = fields.Boolean(string="Restrict fields")
 
+    commission_freeze = fields.Boolean(
+        string="Commission freeze", compute="_compute_commission_freeze", store=True, copy=False
+    )
+    payment_state = fields.Selection(
+        [
+            ("is_partial", "Is partial"),
+            ("is_payed", "Is payed"),
+        ],
+        string="Payment state", readonly=True, store=True, compute="_compute_payment_state", copy=False,
+    )
+
+    @api.depends('purchase_invoice_id', 'purchase_invoice_id.state')
+    def _compute_commission_freeze(self):
+        """ Compute commission freeze """
+        for commission in self:
+            commission_freeze = False
+            if commission.purchase_invoice_id and commission.purchase_invoice_id.state == "posted":
+                commission_freeze = True
+
+            commission.commission_freeze = commission_freeze
+
+    @api.depends('purchase_invoice_id', 'purchase_invoice_id.payment_state')
+    def _compute_payment_state(self):
+        """ Compute payment state """
+        for commission in self:
+            payment_state = False
+            if commission.purchase_invoice_id:
+                if commission.purchase_invoice_id.payment_state in ["partial"]:
+                    payment_state = "is_partial"
+                if commission.purchase_invoice_id.payment_state in ["in_payment", "paid"]:
+                    payment_state = "is_payed"
+
+            commission.payment_state = payment_state
+
     @api.depends('log_tracking')
     def _compute_name(self):
         """ Compute name depending log_tracking. If edit mode, edit name manually """
@@ -124,6 +158,7 @@ class CommissionAgent(models.Model):
             ('invoice_user_id', '=', agent.id),
             ('move_type', '=', "out_invoice"),
             ('payment_state', 'in', ["in_payment", "paid", "reversed"]),
+            ('commission_freeze', '!=', True),
         ]
         invoices = self.env['account.move'].search(domain_invoice, order="invoice_date asc")
         if invoices:
@@ -136,6 +171,7 @@ class CommissionAgent(models.Model):
             ('state', '=', "posted"),
             ('move_type', '=', "out_refund"),
             ('payment_state', 'in', ["in_payment", "paid"]),
+            ('commission_freeze', '!=', True),
         ]
         invoices = self.env['account.move'].search(domain, order="invoice_date asc")
 
@@ -371,7 +407,7 @@ class CommissionAgent(models.Model):
                             "order_id": commission_calcul.order_id.id,
                             "rule_id": commission_recovery_rule.id,
                             "result": - commission_calcul.result,
-                            "commission_date": invoice_refund.invoice_date,
+                            "commission_date": invoice_refund.commission_date,
                         }
                         commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
                         calcul_list += commission_agent_calcul_id.mapped('id')
@@ -382,7 +418,7 @@ class CommissionAgent(models.Model):
                             "order_id": commission_calcul.order_id.id,
                             "rule_id": commission_recovery_rule.id,
                             "result": - new_result or 0,
-                            "commission_date": invoice_refund.invoice_date,
+                            "commission_date": invoice_refund.commission_date,
                         }
                         commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
                         calcul_list += commission_agent_calcul_id.mapped('id')
@@ -394,7 +430,7 @@ class CommissionAgent(models.Model):
                             "order_id": commission_calcul.order_id.id,
                             "rule_id": commission_recovery_rule.id,
                             "result": - new_result or 0,
-                            "commission_date": invoice_refund.invoice_date,
+                            "commission_date": invoice_refund.commission_date,
                         }
                         commission_agent_calcul_id = self.env['commission.agent.calcul'].create(vals)
                         calcul_list += commission_agent_calcul_id.mapped('id')
@@ -428,8 +464,8 @@ class CommissionAgent(models.Model):
     def calculate_commission(self, type_sync="automatic", comment=""):
         """ Action synchronize """
         # Clear records
-        self.env['commission.agent.calcul'].search([]).unlink()
-        self.env['commission.agent'].search([]).unlink()
+        self.env['commission.agent.calcul'].search([('commission_freeze', '!=', True)]).unlink()
+        self.env['commission.agent'].search([('commission_freeze', '!=', True)]).unlink()
 
         rules = self._get_active_rules()
         calcul_list = []
