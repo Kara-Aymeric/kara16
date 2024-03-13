@@ -44,6 +44,8 @@
                             <field name="amount_force" attrs="{'invisible': [('edit_mode', '!=', True)], 'required': [('edit_mode', '=', True)]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="is_invoiced" readonly="1" force_save="1"/>
                             <field name="purchase_invoice_id" readonly="1" force_save="1"/>
+                            <field name="payment_state" readonly="1" force_save="1" widget="badge"/>
+                            <field name="commission_freeze" />
                         </group>
                     </group>
                     <notebook>
@@ -59,6 +61,7 @@
                                     <field name="rule_id"/>
                                     <field name="godson_id" attrs="{'column_invisible': [('parent.is_sponsorship_rule', '!=', True)]}"/>
                                     <field name="result"/>
+                                    <field name="commission_freeze" invisible="1"/>
                                 </tree>
                             </field>
                         </page>

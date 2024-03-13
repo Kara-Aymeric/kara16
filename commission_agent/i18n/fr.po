@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-31 12:51+0000\n"
-"PO-Revision-Date: 2024-01-31 12:51+0000\n"
+"POT-Creation-Date: 2024-03-13 13:55+0000\n"
+"PO-Revision-Date: 2024-03-13 13:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -85,11 +85,6 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: commission_agent
-#: model:ir.ui.menu,name:commission_agent.commission_agent_category
-msgid "Commissions (total)"
-msgstr "Commissions (total)"
-
-#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__agent_id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__agent_id
 #: model:ir.model.fields,field_description:commission_agent.field_commission_specific_agent__agent_id
@@ -145,8 +140,7 @@ msgstr "Automatique"
 
 #. module: commission_agent
 #: model:ir.actions.act_window,name:commission_agent.commission_agent_action
-#: model:ir.ui.menu,name:commission_agent.menu_commission_agent
-msgid "Commissions"
+msgid "Bonuses"
 msgstr "Commissions"
 
 #. module: commission_agent
@@ -215,6 +209,13 @@ msgid "Commission amount"
 msgstr "Montant commission"
 
 #. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_account_bank_statement_line__commission_agent_id
+#: model:ir.model.fields,field_description:commission_agent.field_account_move__commission_agent_id
+#: model:ir.model.fields,field_description:commission_agent.field_account_payment__commission_agent_id
+msgid "Commission associated"
+msgstr "Commission associée"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_account_bank_statement_line__commission_date
 #: model:ir.model.fields,field_description:commission_agent.field_account_move__commission_date
 #: model:ir.model.fields,field_description:commission_agent.field_account_payment__commission_date
@@ -222,6 +223,15 @@ msgstr "Montant commission"
 #: model:ir.model.fields,field_description:commission_agent.field_sale_order__commission_date
 msgid "Commission date"
 msgstr "Date commission"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_account_bank_statement_line__commission_freeze
+#: model:ir.model.fields,field_description:commission_agent.field_account_move__commission_freeze
+#: model:ir.model.fields,field_description:commission_agent.field_account_payment__commission_freeze
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__commission_freeze
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent_calcul__commission_freeze
+msgid "Commission freeze"
+msgstr "Commission gelée"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent__special_commission
@@ -257,6 +267,16 @@ msgstr "Commission spécifique règle"
 #: model:ir.cron,cron_name:commission_agent.ir_cron_commission_agent
 msgid "Commission: Generate commission agent and calcul"
 msgstr "Commission : Générer commission et calculer"
+
+#. module: commission_agent
+#: model:ir.ui.menu,name:commission_agent.menu_commission_agent
+msgid "Commissions"
+msgstr ""
+
+#. module: commission_agent
+#: model:ir.ui.menu,name:commission_agent.commission_agent_category
+msgid "Commissions (total)"
+msgstr ""
 
 #. module: commission_agent
 #: model_terms:ir.ui.view,arch_db:commission_agent.commission_agent_rule_form_view
@@ -514,6 +534,16 @@ msgid "Is invoiced"
 msgstr "Est facturé"
 
 #. module: commission_agent
+#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent__payment_state__is_partial
+msgid "Is partial"
+msgstr "Est partiellement payé"
+
+#. module: commission_agent
+#: model:ir.model.fields.selection,name:commission_agent.selection__commission_agent__payment_state__is_payed
+msgid "Is payed"
+msgstr "Est payé"
+
+#. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__is_specific_customer_rule
 msgid "Is specific customer rule"
 msgstr "Est une règle client spécifique"
@@ -713,6 +743,11 @@ msgstr "OU"
 #: model:ir.model.fields,field_description:commission_agent.field_commission_rule_condition__operation
 msgid "Operation"
 msgstr "Opération"
+
+#. module: commission_agent
+#: model:ir.model.fields,field_description:commission_agent.field_commission_agent__payment_state
+msgid "Payment state"
+msgstr "Statut paiement"
 
 #. module: commission_agent
 #: model:ir.model.fields,field_description:commission_agent.field_commission_agent_rule__discount_result_percent

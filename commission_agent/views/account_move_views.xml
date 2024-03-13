@@ -19,6 +19,10 @@
             <xpath expr="//field[@name='invoice_date']" position="after">
                 <field name="commission_date" />
             </xpath>
+            <xpath expr="//page[@name='other_info']/group[1]/group[@name='sale_info_group']/field[@name='invoice_user_id']" position="before">
+                <field name="commission_agent_id" readonly="1" force_save="1"/>
+                <field name="commission_freeze" />
+            </xpath>
         </field>
     </record>
 </odoo>
