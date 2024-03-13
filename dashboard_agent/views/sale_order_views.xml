@@ -142,6 +142,7 @@
                 <field name="restrict_custom_field" invisible="1" />
                 <field name="dashboard_product_commission" string="Commission / Article"
                        attrs="{'readonly': [('restrict_custom_field', '!=', False)], 'column_invisible': ['|', ('parent.dashboard_agent', '!=', True), ('parent.dashboard_commission_order', '==', True)]}"
+                       readonly="1"
                        force_save="1"
                 />
                 <field name="dashboard_price_commission" invisible="1" />
