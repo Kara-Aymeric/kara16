@@ -23,14 +23,18 @@ class ResPartner(models.Model):
     @api.onchange('agent_commission')
     def _onchange_agent_commission(self):
         """ Agent commission must be greater than 0. """
+        user = self.env.user
         if self.agent_commission <= 0:
-            raise ValidationError(_("Agent commission must be greater than 0."))
+            if not user.has_group('dashboard_agent.group_admin'):
+                raise ValidationError(_("Agent commission must be greater than 0."))
 
     @api.onchange('agent_discount_commission')
     def _onchange_agent_discount_commission(self):
         """ Agent discount commission must be greater than 0. """
+        user = self.env.user
         if self.agent_discount_commission <= 0:
-            raise ValidationError(_("Agent commission must be greater than 0."))
+            if not user.has_group('dashboard_agent.group_admin'):
+                raise ValidationError(_("Agent commission must be greater than 0."))
 
     @api.onchange('user_id')
     def _onchange_user_id(self):
