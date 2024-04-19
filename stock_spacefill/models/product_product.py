@@ -195,6 +195,8 @@ class ProductProduct(models.Model):
         
     def get_spacefill_packing(self):
         """return the spacefill packaging values"""
+        spacefill_pallet_qty = 0
+        spacefill_cardboard_box_qty = 0
         if self.packaging_ids:
             for package in self.packaging_ids:
                 if package.package_type_id.is_spacefill_cardboard_box:
