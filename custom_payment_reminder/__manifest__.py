@@ -11,9 +11,17 @@
     'installable': True,
     "depends": [
         'account',
+        'account_followup',
     ],
     'data': [
+        # Data
+        'data/account_followup_line_data.xml',
+
+        # Security
+        'security/ir.model.access.csv',
+
         # Views
+        'views/account_move_views.xml',
         'views/account_payment_term_views.xml',
         'views/res_partner_views.xml',
     ],
