@@ -6,14 +6,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-10 10:52+0000\n"
-"PO-Revision-Date: 2024-04-10 10:52+0000\n"
+"POT-Creation-Date: 2024-04-23 09:38+0000\n"
+"PO-Revision-Date: 2024-04-23 09:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: custom_payment_reminder
+#: model:ir.model.fields,help:custom_payment_reminder.field_res_partner__no_payment_reminder
+#: model:ir.model.fields,help:custom_payment_reminder.field_res_users__no_payment_reminder
+msgid ""
+"By activating this feature, you deactivate payment reminders for this "
+"contact"
+msgstr ""
+"En activant cette fonctionnalité, vous désactiver la relance de paiement pour ce contact"
+
+#. module: custom_payment_reminder
+#: model:ir.model,name:custom_payment_reminder.model_res_partner
+msgid "Contact"
+msgstr ""
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_account_payment_term__email_content_x1
@@ -31,6 +45,16 @@ msgid "Content X3"
 msgstr "Corps"
 
 #. module: custom_payment_reminder
+#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_content_x1
+#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_content_x2
+#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_content_x3
+#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_subject_x1
+#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_subject_x2
+#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_subject_x3
+msgid "Dynamic data (example: #clientname)"
+msgstr "Données dynamiques (exemple : #nomclient)"
+
+#. module: custom_payment_reminder
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.custom_view_payment_term_form
 msgid "Email 1"
 msgstr ""
@@ -44,6 +68,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.custom_view_payment_term_form
 msgid "Email 3"
 msgstr ""
+
+#. module: custom_payment_reminder
+#: model:ir.model.fields,field_description:custom_payment_reminder.field_res_partner__no_payment_reminder
+#: model:ir.model.fields,field_description:custom_payment_reminder.field_res_users__no_payment_reminder
+msgid "No payment reminder"
+msgstr "Pas de relance de paiement"
 
 #. module: custom_payment_reminder
 #: model:ir.model,name:custom_payment_reminder.model_account_payment_term
@@ -64,13 +94,3 @@ msgstr "Sujet"
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_account_payment_term__email_subject_x3
 msgid "Subject X3"
 msgstr "Sujet"
-
-#. module: custom_payment_reminder
-#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_content_x1
-#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_content_x2
-#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_content_x3
-#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_subject_x1
-#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_subject_x2
-#: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__email_subject_x3
-msgid "Dynamic data (example: #clientname)"
-msgstr "Données dynamiques (exemple : #nomclient)"
