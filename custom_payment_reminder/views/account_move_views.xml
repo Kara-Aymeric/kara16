@@ -7,25 +7,15 @@
         <field name="arch" type="xml">
             <xpath expr="//page[last()]" position="after">
                 <page name="payment_reminder" string="Payment reminder" attrs="{'invisible': [('move_type', '=', 'in_invoice')]}">
-                    <field name="payment_reminder_ids" nolabel="1" colspan="2">
-                        <tree create="false" delete="false">
-                            <!-- Nouveau modèle d'écriture des relances qui intercepte l'email envoyé pour ajouter la relance suivante -->
-                            <!-- Création auto de la relance X1 avec date de prochain rappel si client éligible sinon aucune relance -->
-<!--                            <field name="invoice_date" />-->
-<!--                            <field name="move_name" />-->
-<!--                            <field name="date_maturity" />-->
-<!--                            <field name="invoice_origin" />-->
-<!--                            <field name="Niveau de relance" />-->
-<!--                            <field name="Montant dû" />-->
-<!--                            <field name="Total en retard" />-->
-<!--                            <field name="Société" />-->
+                    <field create="false" delete="false" name="partner_payment_reminder_line" nolabel="1" colspan="2">
+                        <tree>
+                            <field name="move_id" />
+                            <field name="partner_id" />
                             <field name="invoice_date" />
-                            <field name="move_name" />
-                            <field name="date_maturity" widget="remaining_days"/>
                             <field name="invoice_origin" />
-                            <field name="expected_pay_date" />
-                            <field name="amount_residual_currency" />
-                            <field name="amount_currency" />
+                            <field name="date_maturity" widget="remaining_days"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         </tree>
                     </field>
                 </page>
