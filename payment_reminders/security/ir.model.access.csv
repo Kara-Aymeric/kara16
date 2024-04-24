@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_payment_reminders_user,access_payment_reminders_user,model_payment_reminders,,1,1,1,1
-access_payment_reminders_history_user,access_payment_reminders_history_user,model_payment_reminders_history,,1,1,1,1

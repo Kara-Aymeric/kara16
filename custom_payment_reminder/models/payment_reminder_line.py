@@ -13,6 +13,7 @@ class PaymentReminderLine(models.Model):
         string="Move",
         readonly=True,
         store=True,
+        copy=False,
     )
 
     partner_id = fields.Many2one(
@@ -20,33 +21,48 @@ class PaymentReminderLine(models.Model):
         string="Partner",
         related="move_id.partner_id",
         store=True,
+        copy=False,
     )
 
     invoice_date = fields.Date(
         string="Invoice date",
         related="move_id.invoice_date",
         store=True,
+        copy=False,
     )
 
     invoice_origin = fields.Char(
         string="Origin",
-        related="move_id.invoice_origin"
+        related="move_id.invoice_origin",
+        copy=False,
+    )
+
+    payment_reminder_id = fields.Many2one(
+        'payment.reminder',
+        string="Payment reminder",
+        required=True,
+        store=True,
+        copy=False,
+    )
+
+    date_maturity = fields.Date(
+        string='Due Date',
+        copy=False,
     )
 
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',
         related="move_id.currency_id",
-        store=True
+        store=True,
+        copy=False,
     )
 
     amount_residual = fields.Monetary(
         string='Amount Due',
         related="move_id.amount_residual",
         store=True,
+        copy=False,
     )
 
-    date_maturity = fields.Date(
-        string='Due Date',
-        compute="_compute_date_maturity",
-    )
+
