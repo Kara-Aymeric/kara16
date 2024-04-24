@@ -8,9 +8,15 @@
                 <field name="move_id"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
+                <field name="invoice_origin"/>
+                <field name="payment_reminder_id"/>
                 <field name="date_maturity" widget="remaining_days"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="state"
+                    decoration-success="state == 'sent' or state == 'canceled'"
+                    decoration-warning="state == 'pending'"
+                    widget="badge" optional="show"/>
             </tree>
         </field>
     </record>
@@ -20,6 +26,10 @@
         <field name="model">payment.reminder.line</field>
         <field name="arch" type="xml">
             <form string="Payment reminder">
+                <header>
+                    <button name="action_force_payment_reminder" type="object" string="Payment reminder" class="btn-primary" states="pending,sent"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,sent,canceled"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -33,6 +43,7 @@
                             <field name="invoice_date" />
                             <field name="invoice_origin" />
                             <field name="date_maturity" widget="remaining_days"/>
+                            <field name="payment_reminder_id"/>
                             <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                         </group>
                     </group>
