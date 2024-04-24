@@ -5,7 +5,8 @@
         <field name="model">payment.reminder.line</field>
         <field name="arch" type="xml">
             <tree string="Payment reminder">
-                <field name="move_id"/>
+                <field name="name"/>
+                <field name="move_id" invisible="1"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
                 <field name="payment_reminder_id"/>
@@ -29,16 +30,18 @@
             <form string="Payment reminder">
                 <header>
                     <button name="action_force_payment_reminder" type="object" string="Payment reminder" class="btn-primary" states="pending,sent"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="pending" data-hotkey="z"/>
                     <field name="state" widget="statusbar" statusbar_visible="pending,sent,canceled"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="move_id" />
+                            <field name="name" />
                         </h1>
                     </div>
                     <group name="information" string="Information">
                         <group>
+                            <field name="move_id" />
                             <field name="currency_id" invisible="1"/>
                             <field name="partner_id" />
                             <field name="invoice_date" />

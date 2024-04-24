@@ -9,6 +9,15 @@ class PaymentReminderLine(models.Model):
     _description = "Payment Reminder Line"
     _order = "id desc"
 
+    name = fields.Char(
+        string="Name",
+        default="New",
+        readonly=True,
+        required=True,
+        store=True,
+        copy=False,
+    )  # ex: R1_FAC/2024/00018
+
     move_id = fields.Many2one(
         'account.move',
         string="Move",
@@ -62,7 +71,7 @@ class PaymentReminderLine(models.Model):
     date_reminder = fields.Date(
         string='Reminder date',
         compute="_compute_date_reminder",
-        readonly=True,
+        readonly=False,
         store=True,
         copy=False,
     )
@@ -158,6 +167,25 @@ class PaymentReminderLine(models.Model):
     @api.model
     def _check_payment_reminder(self):
         pass
+
+    def action_view_payment_reminder_line(self):
+        self.ensure_one()
+        context = dict(self.env.context)
+
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'payment.reminder.line',
+            'views': [(self.env.ref('custom_payment_reminder.view_payment_reminder_line_form').id, 'form')],
+            'res_id': self.id,
+            'target': 'current',
+            'context': context,
+        }
+
+    def action_cancel(self):
+        """ Cancel payment reminder """
+        self.ensure_one()
+        self.write({'state': "canceled"})
 
     # @api.model
     # def _check_payment_reminder(self):
