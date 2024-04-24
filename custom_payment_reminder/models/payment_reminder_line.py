@@ -2,10 +2,10 @@
 from odoo import api, fields, models
 
 
-class PartnerPaymentReminderLine(models.Model):
-    _name = "partner.payment.reminder.line"
+class PaymentReminderLine(models.Model):
+    _name = "payment.reminder.line"
     _inherit = ["portal.mixin", "mail.thread", "mail.activity.mixin", "utm.mixin"]
-    _description = "Partner Payment Reminder Line"
+    _description = "Payment Reminder Line"
     _order = "id desc"
 
     move_id = fields.Many2one(
@@ -47,6 +47,6 @@ class PartnerPaymentReminderLine(models.Model):
     )
 
     date_maturity = fields.Date(
-        string='Due Date'
+        string='Due Date',
+        compute="_compute_date_maturity",
     )
-

@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[last()]" position="after">
                 <page name="payment_reminder" string="Payment reminder" attrs="{'invisible': [('move_type', '=', 'in_invoice')]}">
-                    <field create="false" delete="false" name="partner_payment_reminder_line" nolabel="1" colspan="2">
+                    <field name="payment_reminder_line" create="false" delete="false" nolabel="1" colspan="2">
                         <tree>
                             <field name="move_id" />
                             <field name="partner_id" />

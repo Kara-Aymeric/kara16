@@ -10,12 +10,13 @@
     'license': "LGPL-3",
     'installable': True,
     "depends": [
+        'base',
         'account',
-        'account_followup',
     ],
     'data': [
         # Data
-        'data/account_followup_line_data.xml',
+        'data/ir_cron_data.xml',
+        'data/payment_reminder_data.xml',
 
         # Security
         'security/ir.model.access.csv',
@@ -23,7 +24,9 @@
         # Views
         'views/account_move_views.xml',
         'views/account_payment_term_views.xml',
-        'views/partner_payment_reminder_line_views.xml',
+        'views/payment_reminder_line_views.xml',
+        'views/payment_reminder_views.xml',
+        'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
     ],
 }

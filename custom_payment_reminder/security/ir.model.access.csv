@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_partner_payment_reminder_line,access_partner_payment_reminder_line,model_partner_payment_reminder_line,base.group_user,1,1,1,1
+access_payment_reminder,access_payment_reminder,model_payment_reminder,base.group_user,1,1,1,1
+access_payment_reminder_history,access_payment_reminder_history,model_payment_reminder_history,base.group_user,1,1,1,1
+access_payment_reminder_line,access_payment_reminder_line,model_payment_reminder_line,base.group_user,1,1,1,1
