@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime, timedelta
 from odoo import api, fields, models
 
 
@@ -51,7 +52,16 @@ class PaymentReminderLine(models.Model):
     )
 
     date_maturity = fields.Date(
-        string='Due Date',
+        string='Due date',
+        compute="_compute_date_maturity",
+        readonly=True,
+        store=True,
+        copy=False,
+    )
+
+    date_reminder = fields.Date(
+        string='Reminder date',
+        compute="_compute_date_reminder",
         readonly=True,
         store=True,
         copy=False,
@@ -107,6 +117,24 @@ class PaymentReminderLine(models.Model):
         for line in self:
             if line.move_id:
                 line.invoice_origin = line.move_id.invoice_origin
+
+    @api.depends('move_id', 'move_id.invoice_date_due')
+    def _compute_date_maturity(self):
+        """ Compute invoice date due """
+        for line in self:
+            if line.move_id:
+                line.date_maturity = line.move_id.invoice_date_due
+
+    @api.depends('payment_reminder_id', 'date_maturity')
+    def _compute_date_reminder(self):
+        """ Compute date reminder """
+        for line in self:
+            date_reminder = False
+            if line.payment_reminder_id and line.date_maturity:
+                if line.payment_reminder_id.mail_template_id:
+                    date_reminder = line.date_maturity + timedelta(days=line.payment_reminder_id.days)
+
+            line.date_reminder = date_reminder
 
     @api.depends('move_id', 'move_id.currency_id')
     def _compute_currency_id(self):
