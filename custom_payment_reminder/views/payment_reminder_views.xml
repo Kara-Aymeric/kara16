@@ -35,7 +35,7 @@
                         </group>
                     </group>
                     <div class="card bg-info" style="background-color: #D9EDF7 !important;color: #43809C;">
-                        <div class="card-body"><strong>Note: </strong>You can select a positive or negative value. You can also leave 0. The reminder will be made on the day of the billing date</div>
+                        <div class="card-body"><strong>Note: </strong>You can select a positive or negative value. You can also leave 0. However, the reminder will be made on the day of the due date.</div>
                     </div>
                 </sheet>
             </form>

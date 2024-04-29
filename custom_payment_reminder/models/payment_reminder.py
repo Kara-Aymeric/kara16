@@ -10,23 +10,27 @@ class PaymentReminder(models.Model):
 
     name = fields.Char(
         string="Name",
-        readonly=True,
+        readonly=False,
+        copy=False,
     )
 
     days = fields.Integer(
         string="Days",
         help="You can enter a positive or negative value here",
+        copy=False,
     )
 
     mail_template_id = fields.Many2one(
         "mail.template",
         string="Mail Template",
+        copy=False,
     )
 
     company_id = fields.Many2one(
         comodel_name='res.company',
         default=lambda self: self.env.company,
         index=True,
+        copy=False,
     )
 
     sequence = fields.Integer(
@@ -39,5 +43,6 @@ class PaymentReminder(models.Model):
 
     active = fields.Boolean(
         default=True,
-        help="By unchecking the active field, you can hide a record without deleting it."
+        help="By unchecking the active field, you can hide a record without deleting it.",
+        copy=False,
     )

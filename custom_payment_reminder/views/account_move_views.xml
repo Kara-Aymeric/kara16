@@ -18,6 +18,10 @@
                                 decoration-success="state == 'sent' or state == 'canceled'"
                                 decoration-warning="state == 'pending'"
                                 widget="badge" optional="show"/>
+                            <field name="invoice_payment_status"
+                                decoration-success="invoice_payment_status == 'paid'"
+                                decoration-info="invoice_payment_status == 'unpaid'"
+                                widget="badge" optional="show"/>
                             <button
                                 string="View detail"
                                 name="action_view_payment_reminder_line"
