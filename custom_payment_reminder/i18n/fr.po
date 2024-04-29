@@ -512,7 +512,7 @@ msgstr "Conditions de paiement"
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_tree
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_tree
 msgid "Payment reminder"
-msgstr "Relance de paiement"
+msgstr "Relances de paiement"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_account_payment_term__payment_reminder_id1
@@ -540,7 +540,7 @@ msgstr "Email de rappel de paiement envoyé pour %s"
 #: model:ir.actions.act_window,name:custom_payment_reminder.action_payment_reminder_line
 #: model:ir.ui.menu,name:custom_payment_reminder.payment_reminder_line_menu
 msgid "Payment reminder line"
-msgstr "Ligne de relance de paiement"
+msgstr "Relances de paiement"
 
 #. module: custom_payment_reminder
 #: model:ir.actions.server,name:custom_payment_reminder.ir_cron_payment_reminder_line_ir_actions_server
