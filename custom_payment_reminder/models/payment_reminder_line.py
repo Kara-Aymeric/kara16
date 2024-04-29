@@ -263,7 +263,18 @@ class PaymentReminderLine(models.Model):
     def action_force_payment_reminder(self):
         """ Force end payment reminder """
         self.ensure_one()
-        pass
+        level_reminder = self.payment_reminder_id.sequence
+        next_payment_reminder_id = self.env['payment.reminder'].search([('sequence', '=', level_reminder + 1)])
+        # self._send_payment_reminder_mail()
+        msg = _("Payment reminder email sent for %s", self.payment_reminder_id.name)
+        self.move_id.message_post(body=msg)
+        self.message_post(body=_("Force send email"))
+        self.write({'state': "sent"})
+        if next_payment_reminder_id and not self.partner_id.no_payment_reminder:
+            self.copy({
+                'move_id': self.move_id.id,
+                'payment_reminder_id': next_payment_reminder_id.id,
+            })
 
     @api.model
     def _check_payment_reminder(self):
@@ -292,6 +303,7 @@ class PaymentReminderLine(models.Model):
                         line.move_id.message_post(body=msg)
                         if next_payment_reminder_id and not line.partner_id.no_payment_reminder:
                             line.copy({
+                                'move_id': line.move_id.id,
                                 'payment_reminder_id': next_payment_reminder_id.id,
                             })
 
