@@ -16,6 +16,7 @@
     'data': [
         # Data
         'data/ir_cron_data.xml',
+        'data/mail_template_data.xml',
         'data/payment_reminder_data.xml',
 
         # Security

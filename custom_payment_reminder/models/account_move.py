@@ -24,6 +24,7 @@ class AccountMove(models.Model):
                                        or payment_term_id.payment_reminder_id3)
 
             if payment_reminder_id and self.company_id.id == payment_reminder_id.company_id.id:
+
                 # Create payment reminder line
                 vals = {
                     'move_id': self.id,

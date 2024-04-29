@@ -11,12 +11,13 @@ class PaymentReminderLine(models.Model):
 
     name = fields.Char(
         string="Name",
-        default="New",
+        default=lambda self: _('New'),
+        index='trigram',
         readonly=True,
         required=True,
         store=True,
         copy=False,
-    )  # ex: R1_FAC/2024/00018
+    )
 
     move_id = fields.Many2one(
         'account.move',
@@ -93,6 +94,15 @@ class PaymentReminderLine(models.Model):
         copy=False,
     )
 
+    payment_term_id = fields.Many2one(
+        'account.payment.term',
+        string="Payment term",
+        compute="_compute_payment_term_id",
+        readonly=True,
+        store=True,
+        copy=False,
+    )
+
     manual_reminder = fields.Boolean(
         string="Manual reminder",
         readonly=True,
@@ -107,6 +117,22 @@ class PaymentReminderLine(models.Model):
         readonly=True,
         store=True,
         copy=False,
+    )
+
+    email_subject = fields.Char(
+        string="Subject",
+        help="Subject retrieved automatically from the associated payment condition. "
+             "This subject will be sent at the time of the reminder",
+        copy=False,
+        store=True,
+    )
+
+    email_content = fields.Html(
+        string="Content",
+        help="Email retrieved automatically from the associated payment condition. "
+             "This email will be sent at the time of the reminder",
+        copy=False,
+        store=True,
     )
 
     state = fields.Selection(
@@ -175,13 +201,22 @@ class PaymentReminderLine(models.Model):
             if line.move_id:
                 line.amount_residual = line.move_id.amount_residual
 
+    @api.depends('move_id', 'move_id.invoice_payment_term_id')
+    def _compute_payment_term_id(self):
+        """ Compute payment term id """
+        for line in self:
+            payment_term_id = False
+            if line.move_id and line.move_id.invoice_payment_term_id:
+                payment_term_id = line.move_id.invoice_payment_term_id
+            line.payment_term_id = payment_term_id.id
+
     def _get_invoice_not_payed(self, company_ids):
         """ Get invoice not payed for check payment reminder """
         domain = [
             ('state', '=', "posted"),
             ('move_type', '=', "out_invoice"),
             ('payment_state', 'not in', ["in_payment", "paid", "reversed"]),
-            ('company_id', 'in', company_ids),
+            ('company_id', 'in', company_ids.ids),
         ]
         return self.env['account.move'].search(domain)
 
@@ -238,6 +273,19 @@ class PaymentReminderLine(models.Model):
         """ Cancel payment reminder """
         self.ensure_one()
         self.write({'state': "canceled"})
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """ Surcharge create method """
+        for vals in vals_list:
+            if vals.get('name', _("New")) == _("New"):
+                payment_reminder_id = self.env['payment.reminder'].browse([vals.get('payment_reminder_id', False)])
+                move_id = self.env['account.move'].browse([vals.get('move_id', False)])
+                sequence = payment_reminder_id.sequence if payment_reminder_id else False
+                move_name = move_id.name if move_id else False
+                vals['name'] = _("RP%s_%s", sequence, move_name) or _("New")
+
+        return super().create(vals_list)
 
     # @api.model
     # def _check_payment_reminder(self):

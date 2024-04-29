@@ -15,6 +15,7 @@
                 <field name="currency_id" invisible="1"/>
                 <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="invoice_origin"/>
+<!--                <field name="payment_term_id"/>-->
                 <field name="state"
                     decoration-success="state == 'sent' or state == 'canceled'"
                     decoration-warning="state == 'pending'"
@@ -43,6 +44,7 @@
                         <group>
                             <field name="manual_reminder" />
                             <field name="move_id" />
+                            <field name="payment_term_id" />
                             <field name="currency_id" invisible="1"/>
                             <field name="partner_id" />
                             <field name="invoice_date" />
@@ -53,6 +55,14 @@
                             <field name="invoice_origin" />
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Prepare email to send" name="prepare_email">
+                            <group>
+                                <field name="email_subject" />
+                                <field name="email_content" />
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>
