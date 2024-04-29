@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime, timedelta
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class PaymentReminderLine(models.Model):
@@ -93,6 +93,22 @@ class PaymentReminderLine(models.Model):
         copy=False,
     )
 
+    manual_reminder = fields.Boolean(
+        string="Manual reminder",
+        readonly=True,
+        store=True,
+        copy=False,
+    )
+
+    company_id = fields.Many2one(
+        'res.company',
+        string="Company",
+        index=True,
+        readonly=True,
+        store=True,
+        copy=False,
+    )
+
     state = fields.Selection(
         selection=[
             ("pending", "Pending"),
@@ -159,6 +175,16 @@ class PaymentReminderLine(models.Model):
             if line.move_id:
                 line.amount_residual = line.move_id.amount_residual
 
+    def _get_invoice_not_payed(self, company_ids):
+        """ Get invoice not payed for check payment reminder """
+        domain = [
+            ('state', '=', "posted"),
+            ('move_type', '=', "out_invoice"),
+            ('payment_state', 'not in', ["in_payment", "paid", "reversed"]),
+            ('company_id', 'in', company_ids),
+        ]
+        return self.env['account.move'].search(domain)
+
     def action_force_payment_reminder(self):
         """ Force end payment reminder """
         self.ensure_one()
@@ -166,7 +192,33 @@ class PaymentReminderLine(models.Model):
 
     @api.model
     def _check_payment_reminder(self):
-        pass
+        """ """
+        company_ids = self.env['res.company'].search([('is_payment_reminder', '=', True)])
+        if company_ids:
+            # For first CRON. After it's state change who generate first payment reminder
+            invoice_ids = self._get_invoice_not_payed(company_ids)
+            for invoice in invoice_ids:
+                if not invoice.payment_reminder_line:
+                    invoice._create_payment_reminder_line(manual_reminder=True)
+
+            for line in self:
+                today_date = datetime.today().date()
+                payment_reminder_id = line.payment_reminder_id
+                level_reminder = payment_reminder_id.sequence
+                next_payment_reminder_id = self.env['payment.reminder'].search([('sequence', '=', level_reminder+1)])
+                if line.date_reminder == today_date and line.state == 'pending':
+                    # Send mail to customer
+                    success_send_mail = line._send_payment_reminder_mail()
+                    if success_send_mail:
+                        line.write({
+                            'state': "sent",
+                        })
+                        msg = _("Payment reminder email sent for %s", payment_reminder_id.name)
+                        line.move_id.message_post(body=msg)
+                        if next_payment_reminder_id and not line.partner_id.no_payment_reminder:
+                            line.copy({
+                                'payment_reminder_id': next_payment_reminder_id.id,
+                            })
 
     def action_view_payment_reminder_line(self):
         self.ensure_one()

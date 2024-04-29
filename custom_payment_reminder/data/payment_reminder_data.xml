@@ -5,16 +5,19 @@
             <field name="name">Relance de paiement X1</field>
             <field name="company_id">2</field>
             <field name="days">50</field>
+            <field name="sequence">1</field>
         </record>
         <record id="payment_reminder_x2" model="payment.reminder">
             <field name="name">Relance de paiement X2</field>
             <field name="company_id">2</field>
             <field name="days">100</field>
+            <field name="sequence">2</field>
         </record>
         <record id="payment_reminder_x3" model="payment.reminder">
             <field name="name">Relance de paiement X3</field>
             <field name="company_id">2</field>
             <field name="days">150</field>
+            <field name="sequence">3</field>
         </record>
     </data>
 </odoo>

@@ -29,6 +29,14 @@ class PaymentReminder(models.Model):
         index=True,
     )
 
+    sequence = fields.Integer(
+        string="Sequence",
+        help="Define priority on reminder levels",
+        readonly=True,
+        store=True,
+        copy=False,
+    )
+
     active = fields.Boolean(
         default=True,
         help="By unchecking the active field, you can hide a record without deleting it."

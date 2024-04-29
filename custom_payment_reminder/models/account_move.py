@@ -13,22 +13,25 @@ class AccountMove(models.Model):
         readonly=False
     )
 
-    def _create_payment_reminder_line(self):
+    def _create_payment_reminder_line(self, manual_reminder=False):
         """ Create record for next payment reminder """
-        payment_reminder_id = False
-        payment_term_id = self.invoice_payment_term_id
-        if payment_term_id:
-            payment_reminder_id = (payment_term_id.payment_reminder_id1
-                                   or payment_term_id.payment_reminder_id2
-                                   or payment_term_id.payment_reminder_id3)
+        if not self.partner_id.no_payment_reminder:
+            payment_reminder_id = False
+            payment_term_id = self.invoice_payment_term_id
+            if payment_term_id:
+                payment_reminder_id = (payment_term_id.payment_reminder_id1
+                                       or payment_term_id.payment_reminder_id2
+                                       or payment_term_id.payment_reminder_id3)
 
-        if payment_reminder_id and self.company_id.id == payment_reminder_id.company_id.id:
-            # Create payment reminder line
-            vals = {
-                'move_id': self.id,
-                'payment_reminder_id': payment_reminder_id.id,
-            }
-            return self.payment_reminder_line.create(vals)
+            if payment_reminder_id and self.company_id.id == payment_reminder_id.company_id.id:
+                # Create payment reminder line
+                vals = {
+                    'move_id': self.id,
+                    'payment_reminder_id': payment_reminder_id.id,
+                    'manual_reminder': manual_reminder,
+                }
+                return self.payment_reminder_line.create(vals)
+            return False
         return False
 
     def write(self, vals):
