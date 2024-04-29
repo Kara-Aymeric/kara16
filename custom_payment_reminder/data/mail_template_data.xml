@@ -7,7 +7,7 @@
             <field name="subject">Payment reminder</field>
             <field name="body_html">
 <![CDATA[
-Writing here your text !
+Leave blank !
 ]]>
             </field>
         </record>

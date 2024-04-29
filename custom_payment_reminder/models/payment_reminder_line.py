@@ -139,6 +139,14 @@ class PaymentReminderLine(models.Model):
         store=True,
     )
 
+    cancel_payment_reminder = fields.Boolean(
+        string="Cancel payment reminder",
+        help="By activating this box, the sending of emails for this reminder will not be carried out.",
+        readonly=False,
+        store=True,
+        copy=False,
+    )
+
     state = fields.Selection(
         selection=[
             ("pending", "Pending"),
@@ -147,6 +155,20 @@ class PaymentReminderLine(models.Model):
         ],
         string="State",
         default="pending",
+        tracking=True,
+        readonly=True,
+        store=True,
+        copy=False,
+    )
+
+    invoice_payment_status = fields.Selection(
+        selection=[
+            ("unpaid", "Unpaid"),
+            ("paid", "Paid"),
+        ],
+        string="Payment state",
+        compute="_compute_invoice_payment_status",
+        tracking=True,
         readonly=True,
         store=True,
         copy=False,
@@ -250,6 +272,17 @@ class PaymentReminderLine(models.Model):
                         if line.payment_term_id.payment_reminder_id3 else False
             line.email_content = email_content
 
+    @api.depends('move_id', 'move_id.payment_state')
+    def _compute_invoice_payment_status(self):
+        """ Compute invoice payment status """
+        for line in self:
+            payment_state = "unpaid"
+            if line.move_id:
+                if line.move_id.payment_state in ["in_payment", "paid"]:
+                    payment_state = "paid"
+
+            line.invoice_payment_status = payment_state
+
     def _get_invoice_not_payed(self, company_ids):
         """ Get invoice not payed for check payment reminder """
         domain = [
@@ -268,7 +301,7 @@ class PaymentReminderLine(models.Model):
         # self._send_payment_reminder_mail()
         msg = _("Payment reminder email sent for %s", self.payment_reminder_id.name)
         self.move_id.message_post(body=msg)
-        self.message_post(body=_("Force send email"))
+        self.message_post(body=_("Manual sending of the reminder by email carried out"))
         self.write({'state': "sent"})
         if next_payment_reminder_id and not self.partner_id.no_payment_reminder:
             self.copy({
@@ -325,6 +358,11 @@ class PaymentReminderLine(models.Model):
         """ Cancel payment reminder """
         self.ensure_one()
         self.write({'state': "canceled"})
+
+    def action_pending(self):
+        """ Pending payment reminder """
+        self.ensure_one()
+        self.write({'state': "pending"})
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-29 07:44+0000\n"
-"PO-Revision-Date: 2024-04-29 07:44+0000\n"
+"POT-Creation-Date: 2024-04-29 13:09+0000\n"
+"PO-Revision-Date: 2024-04-29 13:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,13 +20,13 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"Writing here your text !\n"
+"Leave blank !\n"
 "\n"
 "            "
 msgstr ""
 "\n"
 "\n"
-"Ecrire votre texte ici !\n"
+"Laisser vide !\n"
 "\n"
 "            "
 
@@ -34,10 +34,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_form
 msgid ""
 "<strong>Note: </strong>You can select a positive or negative value. You can "
-"also leave 0. The reminder will be made on the day of the billing date"
+"also leave 0. However, the reminder will be made on the day of the due date."
 msgstr ""
-"<strong>Remarque : </strong>Vous pouvez sélectionner une valeur positive ou négative. Vous pouvez "
-"laissez également 0. Le rappel sera effectué le jour de la date de facturation"
+"<strong>Remarque : </strong>Vous pouvez sélectionner une valeur positive ou "
+"négative. Vous pouvez laissez également 0. Cependant, le rappel sera "
+"effectué le jour de la date d'échéance."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__access_warning
@@ -67,7 +68,7 @@ msgstr "Activités"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr ""
+msgstr "Activité Exception Décoration"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_state
@@ -77,7 +78,7 @@ msgstr "Statut d'activité"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "Icône de type d'activité"
 
 #. module: custom_payment_reminder
 #: model:mail.template,name:custom_payment_reminder.payment_reminder_email_template
@@ -95,9 +96,23 @@ msgid "Amount Due"
 msgstr "Montant dû"
 
 #. module: custom_payment_reminder
+#: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
+msgid "Are you sure ?"
+msgstr "Êtes-vous sûr ?"
+
+#. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_attachment_count
 msgid "Attachment Count"
 msgstr "Nombre de pièces jointes"
+
+#. module: custom_payment_reminder
+#: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__cancel_payment_reminder
+msgid ""
+"By activating this box, the sending of emails for this reminder will not be "
+"carried out."
+msgstr ""
+"En activant cette case, l'envoi d'email pour ce rappel ne sera pas "
+"effectué."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_res_partner__no_payment_reminder
@@ -110,11 +125,23 @@ msgstr ""
 "pour ce contact"
 
 #. module: custom_payment_reminder
+#: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
+msgid ""
+"By canceling this reminder, you also cancel the following ones for this "
+"invoice.                             If you wish to cancel only this "
+"reminder, check the relevant box"
+msgstr ""
+"En annulant ce rappel, vous annulez également les suivants pour cette "
+"facture. Si vous souhaitez annuler uniquement celui-ci, "
+"veuillez cochez la case correspondante"
+
+#. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder__active
 msgid ""
 "By unchecking the active field, you can hide a record without deleting it."
 msgstr ""
-"En décochant le champ actif, vous pouvez masquer un enregistrement sans le supprimer."
+"En décochant le champ actif, vous pouvez masquer un enregistrement sans le "
+"supprimer."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__campaign_id
@@ -125,6 +152,11 @@ msgstr "Campagne"
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
 msgid "Cancel"
 msgstr "Annuler"
+
+#. module: custom_payment_reminder
+#: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__cancel_payment_reminder
+msgid "Cancel payment reminder"
+msgstr "Annuler le rappel de paiement"
 
 #. module: custom_payment_reminder
 #. odoo-python
@@ -201,12 +233,12 @@ msgstr "Client"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__access_url
 msgid "Customer Portal URL"
-msgstr ""
+msgstr "URL du portail client"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_history__mail_reminder_date
 msgid "Date the reminder email was sent"
-msgstr "Date d'envoi de l'e-mail de rappel"
+msgstr "Date d'envoi de l'email de rappel"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder__days
@@ -257,17 +289,24 @@ msgstr "Abonnés"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Abonnés (Partenaires)"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "Icône géniale de police, par exemple. fa-tasks"
+
+#. module: custom_payment_reminder
+#. odoo-python
+#: code:addons/custom_payment_reminder/models/payment_reminder_line.py:0
+#, python-format
+msgid "Manual sending of the reminder by email carried out"
+msgstr "Envoi manuel de la relance par email effectuée"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "A un message"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder__id
@@ -279,12 +318,12 @@ msgstr ""
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Icône"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Icône pour indiquer une activité d'exception."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_account_payment_term__payment_reminder_id1
@@ -295,24 +334,24 @@ msgid ""
 "sure to configure your reminder email correctly."
 msgstr ""
 "Si une valeur est renseignée, le rappel de paiement choisi sera actif. "
-"Assurez-vous de configurer correctement votre e-mail de rappel."
+"Assurez-vous de configurer correctement votre email de rappel."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Si cette case est cochée, les nouveaux messages nécessitent votre attention."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__message_has_error
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Si coché, certains messages ont une erreur de livraison."
 
 #. module: custom_payment_reminder
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_form
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
 msgid "Information"
-msgstr ""
+msgstr "Informations"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_history__invoice_id
@@ -325,9 +364,14 @@ msgid "Invoice date"
 msgstr "Date de facture"
 
 #. module: custom_payment_reminder
+#: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
+msgid "Invoice payed"
+msgstr "Facture payée"
+
+#. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Est Abonné"
 
 #. module: custom_payment_reminder
 #: model:ir.model,name:custom_payment_reminder.model_account_move
@@ -339,21 +383,21 @@ msgstr "Pièce comptable"
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_history____last_update
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder__write_uid
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_history__write_uid
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Dernière modification par"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder__write_date
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_history__write_date
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Dernière mise à jour le"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__payment_reminder_id
@@ -377,18 +421,19 @@ msgstr "Pièces jointes"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__manual_reminder
+#: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
 msgid "Manual reminder"
 msgstr "Relance manuelle"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__medium_id
 msgid "Medium"
-msgstr ""
+msgstr "Moyen"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Erreur de livraison du message"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_ids
@@ -403,7 +448,7 @@ msgstr "Facture"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Date limite de mon activité"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder__name
@@ -424,22 +469,22 @@ msgstr "Nouveau"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Prochain événement du calendrier d'activités"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Date limite de la prochaine activité"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Résumé de l'activité suivante"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Type d'activité suivante"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_res_partner__no_payment_reminder
@@ -450,27 +495,32 @@ msgstr "Pas de relance de paiement"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Nombre d'actions"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Nombre d'erreurs"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Nombre de messages nécessitant une action"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Nombre de messages avec erreur de livraison"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__invoice_origin
 msgid "Origin"
 msgstr "Origine"
+
+#. module: custom_payment_reminder
+#: model:ir.model.fields.selection,name:custom_payment_reminder.selection__payment_reminder_line__invoice_payment_status__paid
+msgid "Paid"
+msgstr "Payée"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__partner_id
@@ -532,6 +582,7 @@ msgstr "Relance de paiement 3"
 #. module: custom_payment_reminder
 #. odoo-python
 #: code:addons/custom_payment_reminder/models/payment_reminder_line.py:0
+#: code:addons/custom_payment_reminder/models/payment_reminder_line.py:0
 #, python-format
 msgid "Payment reminder email sent for %s"
 msgstr "Email de rappel de paiement envoyé pour %s"
@@ -549,6 +600,11 @@ msgid "Payment reminder: Due payment date"
 msgstr "Relance de paiement : date d'échéance du paiement"
 
 #. module: custom_payment_reminder
+#: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__invoice_payment_status
+msgid "Payment state"
+msgstr "Statut paiement"
+
+#. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__payment_term_id
 msgid "Payment term"
 msgstr "Condition de paiement"
@@ -561,7 +617,7 @@ msgstr "En attente"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__access_url
 msgid "Portal Access URL"
-msgstr ""
+msgstr "URL d'accès au portail"
 
 #. module: custom_payment_reminder
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
@@ -615,17 +671,17 @@ msgstr "Historique relances"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Utilisateur responsable"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Erreur de livraison SMS"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__access_token
 msgid "Security Token"
-msgstr ""
+msgstr "Jeton de sécurité"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields.selection,name:custom_payment_reminder.selection__payment_reminder_line__state__sent
@@ -638,6 +694,11 @@ msgid "Sequence"
 msgstr "Séquence"
 
 #. module: custom_payment_reminder
+#: model_terms:ir.ui.view,arch_db:custom_payment_reminder.view_payment_reminder_line_form
+msgid "Set to pending"
+msgstr "Mettre en attente"
+
+#. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__source_id
 msgid "Source"
 msgstr ""
@@ -645,7 +706,7 @@ msgstr ""
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__state
 msgid "State"
-msgstr "État"
+msgstr "État relance"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__activity_state
@@ -655,6 +716,10 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Statut basé sur les activités\n"
+"En retard : la date d'échéance est déjà dépassée\n"
+"Aujourd'hui : la date de l'activité est aujourd'hui\n"
+"Planifié : activités futures."
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__email_subject
@@ -691,11 +756,13 @@ msgid ""
 "This is a name that helps you keep track of your different campaign efforts,"
 " e.g. Fall_Drive, Christmas_Special"
 msgstr ""
+"C'est un nom qui vous aide à suivre vos différents efforts de campagne"
+" par exemple Fall_Drive, Christmas_Special"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__medium_id
 msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
-msgstr ""
+msgstr "Il s'agit du mode de livraison, par ex. Carte postale, e-mail ou bannière publicitaire"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__source_id
@@ -703,11 +770,18 @@ msgid ""
 "This is the source of the link, e.g. Search Engine, another domain, or name "
 "of email list"
 msgstr ""
+"Il s'agit de la source du lien, par exemple un moteur de recherche, un autre domaine ou un nom "
+"de la liste de diffusion"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Type d’activité exceptionnelle enregistrée."
+
+#. module: custom_payment_reminder
+#: model:ir.model.fields.selection,name:custom_payment_reminder.selection__payment_reminder_line__invoice_payment_status__unpaid
+msgid "Unpaid"
+msgstr "Non payée"
 
 #. module: custom_payment_reminder
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.custom_account_view_move_form
@@ -717,12 +791,12 @@ msgstr "Voir détail"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Messages du site Web"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder_line__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Historique des communications du site Web"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,help:custom_payment_reminder.field_payment_reminder__days
