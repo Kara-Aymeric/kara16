@@ -7,22 +7,31 @@
         <field name="arch" type="xml">
             <xpath expr="//form/sheet" position="inside">
                 <notebook>
-                    <page name="payment_reminder_email1" string="Email 1">
+                    <page name="payment_reminder_email1" string="Reminder 1">
                         <group>
-                            <field name="email_subject_x1" />
-                            <field name="email_content_x1" />
+                            <field name="payment_reminder_id1" />
+                        </group>
+                        <group>
+                            <field name="email_subject_x1" attrs="{'required': [('payment_reminder_id1', '!=', False)]}"/>
+                            <field name="email_content_x1" attrs="{'required': [('payment_reminder_id1', '!=', False)]}"/>
                         </group>
                     </page>
-                    <page name="payment_reminder_email2" string="Email 2">
+                    <page name="payment_reminder_email2" string="Reminder 2">
                         <group>
-                            <field name="email_subject_x2" />
-                            <field name="email_content_x2" />
+                            <field name="payment_reminder_id2" />
+                        </group>
+                        <group>
+                            <field name="email_subject_x2" attrs="{'required': [('payment_reminder_id2', '!=', False)]}"/>
+                            <field name="email_content_x2" attrs="{'required': [('payment_reminder_id2', '!=', False)]}"/>
                         </group>
                     </page>
-                    <page name="payment_reminder_email3" string="Email 3">
+                    <page name="payment_reminder_email3" string="Reminder 3">
                         <group>
-                            <field name="email_subject_x3" />
-                            <field name="email_content_x3" />
+                            <field name="payment_reminder_id3" />
+                        </group>
+                        <group>
+                            <field name="email_subject_x3" attrs="{'required': [('payment_reminder_id3', '!=', False)]}"/>
+                            <field name="email_content_x3" attrs="{'required': [('payment_reminder_id3', '!=', False)]}"/>
                         </group>
                     </page>
                 </notebook>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="custom_account_view_move_form" model="ir.ui.view">
+        <field name="name">custom account view move form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page name="payment_reminder" string="Payment reminder" attrs="{'invisible': [('move_type', '=', 'in_invoice')]}">
+                    <field name="payment_reminder_line" nolabel="1" colspan="2">
+                        <tree editable="bottom" delete="false">
+                            <field name="payment_reminder_id"/>
+                            <field name="date_maturity" widget="remaining_days"/>
+                            <field name="date_reminder" />
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="state"
+                                decoration-success="state == 'sent' or state == 'canceled'"
+                                decoration-warning="state == 'pending'"
+                                widget="badge" optional="show"/>
+                            <button
+                                string="View detail"
+                                name="action_view_payment_reminder_line"
+                                type="object"
+                                class="oe_highlight"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
