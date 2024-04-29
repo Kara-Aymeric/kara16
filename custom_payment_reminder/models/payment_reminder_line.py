@@ -123,6 +123,8 @@ class PaymentReminderLine(models.Model):
         string="Subject",
         help="Subject retrieved automatically from the associated payment condition. "
              "This subject will be sent at the time of the reminder",
+        compute="_compute_email_subject",
+        readonly=False,
         copy=False,
         store=True,
     )
@@ -131,6 +133,8 @@ class PaymentReminderLine(models.Model):
         string="Content",
         help="Email retrieved automatically from the associated payment condition. "
              "This email will be sent at the time of the reminder",
+        compute="_compute_email_content",
+        readonly=False,
         copy=False,
         store=True,
     )
@@ -209,6 +213,42 @@ class PaymentReminderLine(models.Model):
             if line.move_id and line.move_id.invoice_payment_term_id:
                 payment_term_id = line.move_id.invoice_payment_term_id
             line.payment_term_id = payment_term_id.id
+
+    @api.depends('payment_term_id', 'payment_reminder_id')
+    def _compute_email_subject(self):
+        """ Compute email subject """
+        for line in self:
+            email_subject = False
+            if line.payment_term_id and line.payment_reminder_id:
+                level = line.payment_reminder_id.sequence
+                if level == 1:
+                    email_subject = line.payment_term_id.email_subject_x1 \
+                        if line.payment_term_id.payment_reminder_id1 else False
+                elif level == 2:
+                    email_subject = line.payment_term_id.email_subject_x2 \
+                        if line.payment_term_id.payment_reminder_id2 else False
+                elif level == 3:
+                    email_subject = line.payment_term_id.email_subject_x3 \
+                        if line.payment_term_id.payment_reminder_id3 else False
+            line.email_subject = email_subject
+
+    @api.depends('payment_term_id', 'payment_reminder_id')
+    def _compute_email_content(self):
+        """ Compute email content """
+        for line in self:
+            email_content = False
+            if line.payment_term_id and line.payment_reminder_id:
+                level = line.payment_reminder_id.sequence
+                if level == 1:
+                    email_content = line.payment_term_id.email_content_x1 \
+                        if line.payment_term_id.payment_reminder_id1 else False
+                elif level == 2:
+                    email_content = line.payment_term_id.email_content_x2 \
+                        if line.payment_term_id.payment_reminder_id2 else False
+                elif level == 3:
+                    email_content = line.payment_term_id.email_content_x3 \
+                        if line.payment_term_id.payment_reminder_id3 else False
+            line.email_content = email_content
 
     def _get_invoice_not_payed(self, company_ids):
         """ Get invoice not payed for check payment reminder """

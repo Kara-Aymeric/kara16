@@ -7,15 +7,15 @@
             <tree string="Payment reminder">
                 <field name="name"/>
                 <field name="move_id" invisible="1"/>
-                <field name="partner_id"/>
-                <field name="invoice_date"/>
                 <field name="payment_reminder_id"/>
+                <field name="partner_id"/>
+                <field name="payment_term_id"/>
+                <field name="invoice_date"/>
                 <field name="date_maturity" widget="remaining_days"/>
                 <field name="date_reminder"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="invoice_origin"/>
-<!--                <field name="payment_term_id"/>-->
                 <field name="state"
                     decoration-success="state == 'sent' or state == 'canceled'"
                     decoration-warning="state == 'pending'"
