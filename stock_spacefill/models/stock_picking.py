@@ -480,8 +480,8 @@ class StockPicking(models.Model):
                 if picking.check_spacefill_status():
                     picking.export_order_cancel_to_spacefill()
                     picking.update_status_spacefill_with_lot()
-                else:
-                    raise UserError(_('You can not cancel a picking managed by Spacefill'))
+                # else:
+                #    raise UserError(_('You can not cancel a picking managed by Spacefill'))
         res = super(StockPicking, self).action_cancel()
         return res
 
