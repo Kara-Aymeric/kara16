@@ -439,7 +439,7 @@ class PaymentReminderLine(models.Model):
                             ('move_id', '=', line.move_id.id),
                             ('payment_reminder_id', '=', next_payment_reminder_id.id)
                         ]):
-                            self.copy({
+                            line.copy({
                                 'move_id': line.move_id.id,
                                 'payment_reminder_id': next_payment_reminder_id.id,
                             })
