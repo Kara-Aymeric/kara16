@@ -35,12 +35,13 @@
         <field name="arch" type="xml">
             <form string="Payment reminder">
                 <header>
-                    <button name="action_force_payment_reminder" type="object" string="Manual reminder" class="btn-primary" states="pending,sent"/>
+                    <button name="action_force_payment_reminder" type="object" string="Manual reminder" class="btn-primary"
+                            states="pending,sent" confirm="Are you sure ? You will send a reminder email to your customer"/>
                     <button name="action_cancel" type="object" string="Cancel" states="pending" data-hotkey="z"
                             confirm="By canceling this reminder, you also cancel the following ones for this invoice.
                             If you wish to cancel only this reminder, check the relevant box"/>
-                    <button name="action_pending" type="object" string="Set to pending" states="canceled" confirm="Are you sure ?"/>
-                    <field name="state" widget="statusbar" statusbar_visible="pending,sent,canceled"/>
+                    <button name="action_pending" type="object" string="Set to pending" states="blocked,canceled" confirm="Are you sure ?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,sent,blocked,canceled"/>
                 </header>
                 <sheet>
                     <field name="invoice_payment_status" invisible="1"/>
@@ -62,6 +63,7 @@
                             <field name="date_reminder" />
                             <field name="payment_reminder_id"/>
                             <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="invoice_origin" />
                             <field name="cancel_payment_reminder" />
                         </group>
                     </group>

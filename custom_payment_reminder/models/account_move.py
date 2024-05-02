@@ -37,6 +37,7 @@ class AccountMove(models.Model):
 
     def write(self, vals):
         """ Surcharge write method """
+        res = super(AccountMove, self).write(vals)
         for move in self:
             if 'state' in vals:
                 if move.company_id and move.company_id.is_payment_reminder:
@@ -57,4 +58,4 @@ class AccountMove(models.Model):
                                     body=_("Cancel reminder '%s'", line.payment_reminder_id.name)
                                 )
 
-        return super(AccountMove, self).write(vals)
+        return res
