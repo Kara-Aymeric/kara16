@@ -59,19 +59,19 @@
                             <field name="currency_id" invisible="1"/>
                             <field name="partner_id" />
                             <field name="invoice_date" />
-                            <field name="date_maturity" widget="remaining_days"/>
+                            <field name="date_maturity" widget="remaining_days" attrs="{'readonly': [('state', 'not in', ['pending', 'sent'])]}" />
                             <field name="date_reminder" />
                             <field name="payment_reminder_id"/>
                             <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="invoice_origin" />
-                            <field name="cancel_payment_reminder" />
+                            <field name="cancel_payment_reminder" attrs="{'readonly': [('state', 'not in', ['pending', 'sent'])]}" />
                         </group>
                     </group>
                     <notebook>
                         <page string="Prepare email to send" name="prepare_email">
                             <group>
-                                <field name="email_subject" />
-                                <field name="email_content" />
+                                <field name="email_subject" attrs="{'readonly': [('state', 'not in', ['pending', 'sent'])]}" />
+                                <field name="email_content" attrs="{'readonly': [('state', 'not in', ['pending', 'sent'])]}" />
                             </group>
                         </page>
                     </notebook>

@@ -12,6 +12,7 @@
     "depends": [
         'base',
         'account',
+        'dashboard_agent',
     ],
     'data': [
         # Data
