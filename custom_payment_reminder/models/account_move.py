@@ -44,7 +44,7 @@ class AccountMove(models.Model):
                     if vals.get('state', False) == 'posted':
                         payment_reminder_line_id = move._create_payment_reminder_line()
                         if payment_reminder_line_id:
-                            msg = _("Prepare reminder '%s' created", payment_reminder_line_id.payment_reminder_id.name)
+                            msg = _("Forecast reminder '%s' created", payment_reminder_line_id.payment_reminder_id.name)
                             move.message_post(body=msg)
 
                     if vals.get('state', False) in ['draft', 'cancel']:

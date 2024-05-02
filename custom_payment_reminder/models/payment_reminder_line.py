@@ -417,7 +417,8 @@ class PaymentReminderLine(models.Model):
 
             for line in self.env['payment.reminder.line'].sudo().search([
                 ('state', '=', 'pending'),
-                ('invoice_payment_status', '=', 'unpaid')]
+                ('invoice_payment_status', '=', 'unpaid'),
+                ('manual_reminder', '=', False)]
             ):
                 today_date = datetime.today().date()
                 payment_reminder_id = line.payment_reminder_id
@@ -427,7 +428,7 @@ class PaymentReminderLine(models.Model):
                     # Send mail to customer
                     line._send_payment_reminder_mail(payment_reminder_id, line.email_subject, line.email_content)
                     line.move_id.message_post(body=_("Payment reminder email sent for %s", payment_reminder_id.name))
-                    line.message_post(body=_("Manual sending of the reminder by email carried out"))
+                    line.message_post(body=_("Automatic sending of the reminder by email carried out"))
                     line.write({
                         'state': "sent",
                     })
