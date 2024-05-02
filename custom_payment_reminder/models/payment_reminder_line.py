@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class PaymentReminderLine(models.Model):
@@ -151,6 +152,7 @@ class PaymentReminderLine(models.Model):
         selection=[
             ("pending", "Pending"),
             ("sent", "Sent"),
+            ("blocked", "Blocked"),
             ("canceled", "Canceled"),
         ],
         string="State",
@@ -298,6 +300,54 @@ class PaymentReminderLine(models.Model):
                     payment_state = "paid"
 
             line.invoice_payment_status = payment_state
+            if line.state == "sent" and line.invoice_payment_status == "paid":
+                line.state = "blocked"
+            if line.state == "pending" and line.invoice_payment_status == "paid":
+                line.unlink()
+
+    def _send_payment_reminder_mail(self, payment_reminder_id, subject, body):
+        """ Send mail to customer """
+        # Get mail template id
+        mail_template_id = payment_reminder_id.mail_template_id
+        if not mail_template_id:
+            raise ValidationError(
+                _("It is necessary to have an email template configured into payment reminder")
+            )
+
+        # Check info mail template
+        email_from = mail_template_id.email_from
+        partner_to = mail_template_id.partner_to
+        if not email_from and not partner_to:
+            raise ValidationError(
+                _("No sender and recipient configured into email template to payment reminder")
+            )
+
+        # Prepare email data
+        email_values = {
+            'subject': subject,
+            'body_html': body,
+        }
+
+        # Send mail
+        email_sent = mail_template_id.send_mail(self.id, True, email_values=email_values)
+        mail_id = self.env['mail.mail'].browse([email_sent])
+        if mail_id:
+            # Get state
+            state_value = ""
+            for key, val in self.env['mail.mail']._fields['state']._description_selection(self.env):
+                if mail_id.state in key:
+                    state_value = val
+                    break
+
+            # Prepare body message for chatter
+            body_message = """
+            <b>Statut :</b> """+state_value+"""<br/><br/>
+            <b>Sujet : </b>"""+mail_id.subject+"""<br/>
+            -----
+            """+mail_id.body_html
+
+            # Add info into chatter
+            self.message_post(body=body_message)
 
     def _get_invoice_not_payed(self, company_ids):
         """ Get invoice not payed for check payment reminder """
@@ -309,21 +359,41 @@ class PaymentReminderLine(models.Model):
         ]
         return self.env['account.move'].search(domain)
 
+    def _create_partner_reminder_history(self):
+        """ Create history into partner profile """
+        history_id = self.env['payment.reminder.history'].create({
+            'partner_id': self.partner_id.id,
+            'invoice_id': self.move_id.id,
+            'mail_reminder_date': fields.date.today(),
+            'payment_reminder_line_id': self.id,
+        })
+
+        return history_id
+
     def action_force_payment_reminder(self):
         """ Force end payment reminder """
         self.ensure_one()
-        level_reminder = self.payment_reminder_id.sequence
+        payment_reminder_id = self.payment_reminder_id
+        level_reminder = payment_reminder_id.sequence
         next_payment_reminder_id = self.env['payment.reminder'].search([('sequence', '=', level_reminder + 1)])
-        # self._send_payment_reminder_mail()
-        msg = _("Payment reminder email sent for %s", self.payment_reminder_id.name)
-        self.move_id.message_post(body=msg)
+        self._send_payment_reminder_mail(payment_reminder_id, self.email_subject, self.email_content)
+        self.move_id.message_post(body=_("Payment reminder email sent for %s", self.payment_reminder_id.name))
         self.message_post(body=_("Manual sending of the reminder by email carried out"))
-        self.write({'state': "sent"})
+        self.write({
+            'date_reminder': fields.Date.today(),
+            'state': "sent",
+        })
+        history_id = self._create_partner_reminder_history()
+        if history_id:
+            self.message_post(body=_("History partner created"))
         if next_payment_reminder_id and not self.partner_id.no_payment_reminder:
-            self.copy({
-                'move_id': self.move_id.id,
-                'payment_reminder_id': next_payment_reminder_id.id,
-            })
+            if not self.sudo().search([
+                ('move_id', '=', self.move_id.id), ('payment_reminder_id', '=', next_payment_reminder_id.id)
+            ]):
+                self.copy({
+                    'move_id': self.move_id.id,
+                    'payment_reminder_id': next_payment_reminder_id.id,
+                })
 
     @api.model
     def _check_clear_payment_reminder(self):
@@ -389,6 +459,14 @@ class PaymentReminderLine(models.Model):
         self.ensure_one()
         self.write({'state': "pending"})
 
+    def write(self, vals):
+        """ Surcharge write method """
+        for line in self:
+            if vals.get('cancel_payment_reminder', False):
+                vals['state'] = "blocked"
+
+        return super(PaymentReminderLine, self).write(vals)
+
     @api.model_create_multi
     def create(self, vals_list):
         """ Surcharge create method """
@@ -401,76 +479,3 @@ class PaymentReminderLine(models.Model):
                 vals['name'] = _("RP%s_%s", sequence, move_name) or _("New")
 
         return super().create(vals_list)
-
-    # @api.model
-    # def _check_payment_reminder(self):
-    #     """This method will call when scheduler will executed"""
-    #     # Fetch only those payment reminders records which company's
-    #     # payment reminder is enabled.
-    #     payment_reminder_recs = self.sudo().search(
-    #         [("company_id.is_payment_reminder", "=", True)]
-    #     )
-    #     all_invoice_recs = (
-    #         self.env["account.move"]
-    #         .sudo()
-    #         .search([("state", "=", "posted"), ("move_type", "=", "out_invoice")])
-    #     )
-    #     # Fetch current date
-    #     today_date = datetime.today().date()
-    #     for payment_reminder_rec in payment_reminder_recs:
-    #         company_id = payment_reminder_rec.company_id.id
-    #         if payment_reminder_rec.reminder_selection == "before_due_date":
-    #             due_date = today_date + timedelta(days=payment_reminder_rec.days)
-    #             # date converted into odoo system's date format to filter
-    #             # invoices with that due date.
-    #             email_subject = (
-    #                 "Notification: "
-    #                 + str(payment_reminder_rec.days)
-    #                 + " days remaining for due date"
-    #             )
-    #
-    #         else:
-    #             due_date = today_date - timedelta(days=payment_reminder_rec.days)
-    #             # date converted into odoo system's date format to filter
-    #             # invoices with that due date.
-    #             email_subject = (
-    #                 "Notification: "
-    #                 + str(payment_reminder_rec.days)
-    #                 + " days had been passed for due date"
-    #             )
-    #         # Filter invoices with current payment reminder's company_id and
-    #         # due date.
-    #         invoice_recs = all_invoice_recs.with_context(
-    #             due_date=due_date, company_id=company_id
-    #         ).filtered(
-    #             lambda invoice: invoice.invoice_date_due == invoice._context["due_date"]
-    #             and invoice.company_id.id == invoice._context["company_id"]
-    #         )
-    #
-    #         for invoice_rec in invoice_recs:
-    #             # Send mail to customer.
-    #             template = payment_reminder_rec.mail_template_id.sudo().with_context(
-    #                 subject=email_subject,
-    #                 customer=invoice_rec.partner_id.name,
-    #                 invoice_number=invoice_rec.name,
-    #                 due_date=invoice_rec.invoice_date_due,
-    #                 amount_due=invoice_rec.amount_residual,
-    #                 remaining_days=payment_reminder_rec.days,
-    #             )
-    #             template.send_mail(payment_reminder_rec.id, force_send=True)
-    #             invoice_rec.partner_id.partner_payment_reminders_ids = [
-    #                 (
-    #                     0,
-    #                     0,
-    #                     {
-    #                         "partner_id": invoice_rec.partner_id.id,
-    #                         "invoice_id": invoice_rec.id,
-    #                         "mail_date": today_date.strftime(
-    #                             DEFAULT_SERVER_DATE_FORMAT
-    #                         ),
-    #                         "email_template_id": payment_reminder_rec.mail_template_id.id,
-    #                         "due_date": invoice_rec.invoice_date_due,
-    #                         "company_id": invoice_rec.company_id.id,
-    #                     },
-    #                 )
-    #             ]
