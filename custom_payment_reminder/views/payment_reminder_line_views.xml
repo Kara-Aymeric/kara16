@@ -37,7 +37,7 @@
                 <header>
                     <button name="action_force_payment_reminder" type="object" string="Manual reminder" class="btn-primary"
                             states="pending,sent" confirm="Are you sure ? You will send a reminder email to your customer"/>
-                    <button name="action_cancel" type="object" string="Cancel" states="pending" data-hotkey="z"
+                    <button name="action_cancel" type="object" string="Cancel" states="pending,sent" data-hotkey="z"
                             confirm="By canceling this reminder, you also cancel the following ones for this invoice.
                             If you wish to cancel only this reminder, check the relevant box"/>
                     <button name="action_pending" type="object" string="Set to pending" states="blocked,canceled" confirm="Are you sure ?"/>
