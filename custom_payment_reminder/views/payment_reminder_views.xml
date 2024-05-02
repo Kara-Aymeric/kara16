@@ -27,6 +27,7 @@
                     <group name="information" string="Information">
                         <group>
                             <field name="mail_template_id" required="1"/>
+                            <field name="attach_invoice"/>
                         </group>
                         <group>
                             <field name="sequence"/>

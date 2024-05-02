@@ -41,6 +41,12 @@ class PaymentReminder(models.Model):
         copy=False,
     )
 
+    attach_invoice = fields.Boolean(
+        string="Attach invoice",
+        store=True,
+        copy=False,
+    )
+
     active = fields.Boolean(
         default=True,
         help="By unchecking the active field, you can hide a record without deleting it.",
