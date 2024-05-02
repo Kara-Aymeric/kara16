@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_payment_reminder_line_tree" model="ir.ui.view">
+        <field name="name">view payment reminder line tree</field>
+        <field name="model">payment.reminder.line</field>
+        <field name="arch" type="xml">
+            <tree string="Payment reminder">
+                <field name="name"/>
+                <field name="move_id" invisible="1"/>
+                <field name="payment_reminder_id"/>
+                <field name="partner_id"/>
+                <field name="payment_term_id"/>
+                <field name="invoice_date"/>
+                <field name="date_maturity" widget="remaining_days"/>
+                <field name="date_reminder"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="invoice_origin"/>
+                <field name="state"
+                    decoration-success="state == 'sent'"
+                    decoration-warning="state == 'pending'"
+                    decoration-danger="state == 'canceled'"
+                    widget="badge" optional="show"/>
+                <field name="invoice_payment_status"
+                    decoration-success="invoice_payment_status == 'paid'"
+                    decoration-info="invoice_payment_status == 'unpaid'"
+                    widget="badge" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_payment_reminder_line_form" model="ir.ui.view">
+        <field name="name">view payment reminder line form</field>
+        <field name="model">payment.reminder.line</field>
+        <field name="arch" type="xml">
+            <form string="Payment reminder">
+                <header>
+                    <button name="action_force_payment_reminder" type="object" string="Manual reminder" class="btn-primary"
+                            states="pending,sent" confirm="Are you sure ? You will send a reminder email to your customer"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="pending" data-hotkey="z"
+                            confirm="By canceling this reminder, you also cancel the following ones for this invoice.
+                            If you wish to cancel only this reminder, check the relevant box"/>
+                    <button name="action_pending" type="object" string="Set to pending" states="blocked,canceled" confirm="Are you sure ?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="pending,sent,blocked,canceled"/>
+                </header>
+                <sheet>
+                    <field name="invoice_payment_status" invisible="1"/>
+                    <widget name="web_ribbon" title="Invoice payed" bg_color="bg-success" attrs="{'invisible': [('invoice_payment_status', '!=', 'paid')]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group name="information" string="Information">
+                        <group>
+                            <field name="manual_reminder" />
+                            <field name="move_id" />
+                            <field name="payment_term_id" />
+                            <field name="currency_id" invisible="1"/>
+                            <field name="partner_id" />
+                            <field name="invoice_date" />
+                            <field name="date_maturity" widget="remaining_days"/>
+                            <field name="date_reminder" />
+                            <field name="payment_reminder_id"/>
+                            <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="invoice_origin" />
+                            <field name="cancel_payment_reminder" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Prepare email to send" name="prepare_email">
+                            <group>
+                                <field name="email_subject" />
+                                <field name="email_content" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_payment_reminder_line" model="ir.actions.act_window">
+        <field name="name">Payment reminder line</field>
+        <field name="res_model">payment.reminder.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_view_payment_reminder_line_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="custom_payment_reminder.view_payment_reminder_line_tree"/>
+        <field name="act_window_id" ref="action_payment_reminder_line"/>
+    </record>
+
+    <record id="action_view_payment_reminder_line_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="custom_payment_reminder.view_payment_reminder_line_form"/>
+        <field name="act_window_id" ref="action_payment_reminder_line"/>
+    </record>
+
+    <menuitem id="payment_reminder_line_menu"
+              parent="account.menu_finance_receivables"
+              name="Payment reminder line"
+              action="custom_payment_reminder.action_payment_reminder_line"
+              sequence="19"/>
+
+</odoo>

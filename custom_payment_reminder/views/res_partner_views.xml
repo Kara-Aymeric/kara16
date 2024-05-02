@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="custom_view_partner_form" model="ir.ui.view">
+        <field name="name">custom.view.partner.form</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']//field[@name='team_id']" position="before">
+                <field name="no_payment_reminder" />
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page name='customer_payment_reminder' string="Reminder history">
+                    <field name="payment_reminder_history_ids" readonly="1" force_save="1">
+                        <tree>
+                            <field name="mail_reminder_date" />
+                            <field name="invoice_id" />
+                            <field name="payment_reminder_line_id" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
