@@ -236,25 +236,41 @@ class PaymentReminderLine(models.Model):
                 payment_term_id = line.move_id.invoice_payment_term_id
             line.payment_term_id = payment_term_id.id
 
-    @api.depends('payment_term_id', 'payment_reminder_id')
+    def _replace_label_for_email(self, html_content):
+        """ Replace labels in HTML content for email """
+        label_vals = {
+            '#nomclient': self.partner_id.name,
+            '#numerofacture': self.move_id.name,
+            '#montant': str(self.move_id.amount_total),
+            '#montantdu': str(self.amount_residual),
+            '#datefacture': self.invoice_date.strftime("%d/%m/%Y") if self.invoice_date else "",
+            '#dateecheance': self.date_maturity.strftime("%d/%m/%Y") if self.date_maturity else "",
+        }
+
+        for label, value in label_vals.items():
+            html_content = html_content.replace(label, str(value))
+
+        return html_content
+
+    @api.depends('payment_term_id', 'payment_reminder_id', 'move_id', 'partner_id')
     def _compute_email_subject(self):
         """ Compute email subject """
         for line in self:
             email_subject = False
-            if line.payment_term_id and line.payment_reminder_id:
+            if line.payment_term_id and line.payment_reminder_id and line.move_id:
                 level = line.payment_reminder_id.sequence
                 if level == 1:
-                    email_subject = line.payment_term_id.email_subject_x1 \
+                    email_subject = line._replace_label_for_email(line.payment_term_id.email_subject_x1) \
                         if line.payment_term_id.payment_reminder_id1 else False
                 elif level == 2:
-                    email_subject = line.payment_term_id.email_subject_x2 \
+                    email_subject = line._replace_label_for_email(line.payment_term_id.email_subject_x2) \
                         if line.payment_term_id.payment_reminder_id2 else False
                 elif level == 3:
-                    email_subject = line.payment_term_id.email_subject_x3 \
+                    email_subject = line._replace_label_for_email(line.payment_term_id.email_subject_x3) \
                         if line.payment_term_id.payment_reminder_id3 else False
             line.email_subject = email_subject
 
-    @api.depends('payment_term_id', 'payment_reminder_id')
+    @api.depends('payment_term_id', 'payment_reminder_id', 'move_id', 'partner_id')
     def _compute_email_content(self):
         """ Compute email content """
         for line in self:
@@ -262,13 +278,13 @@ class PaymentReminderLine(models.Model):
             if line.payment_term_id and line.payment_reminder_id:
                 level = line.payment_reminder_id.sequence
                 if level == 1:
-                    email_content = line.payment_term_id.email_content_x1 \
+                    email_content = line._replace_label_for_email(line.payment_term_id.email_content_x1) \
                         if line.payment_term_id.payment_reminder_id1 else False
                 elif level == 2:
-                    email_content = line.payment_term_id.email_content_x2 \
+                    email_content = line._replace_label_for_email(line.payment_term_id.email_content_x2) \
                         if line.payment_term_id.payment_reminder_id2 else False
                 elif level == 3:
-                    email_content = line.payment_term_id.email_content_x3 \
+                    email_content = line._replace_label_for_email(line.payment_term_id.email_content_x3) \
                         if line.payment_term_id.payment_reminder_id3 else False
             line.email_content = email_content
 
