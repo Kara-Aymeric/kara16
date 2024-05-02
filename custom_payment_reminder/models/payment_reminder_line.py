@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
@@ -154,9 +154,9 @@ class PaymentReminderLine(models.Model):
             ("sent", "Sent"),
             ("blocked", "Blocked"),
             ("canceled", "Canceled"),
+            ("ghost", "Ghost"),
         ],
         string="State",
-        default="pending",
         tracking=True,
         readonly=True,
         store=True,
@@ -302,7 +302,7 @@ class PaymentReminderLine(models.Model):
             line.invoice_payment_status = payment_state
             if line.state == "sent" and line.invoice_payment_status == "paid":
                 line.state = "blocked"
-            if line.state == "pending" and line.invoice_payment_status == "paid":
+            if line.state in ["pending", "ghost"] and line.invoice_payment_status == "paid":
                 line.unlink()
 
     def _send_payment_reminder_mail(self, payment_reminder_id, subject, body):
