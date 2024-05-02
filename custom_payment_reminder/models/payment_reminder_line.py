@@ -376,25 +376,24 @@ class PaymentReminderLine(models.Model):
         payment_reminder_id = self.payment_reminder_id
         level_reminder = payment_reminder_id.sequence
         next_payment_reminder_id = self.env['payment.reminder'].search([('sequence', '=', level_reminder + 1)])
-        success_send_mail = self._send_payment_reminder_mail(payment_reminder_id, self.email_subject, self.email_content)
-        if success_send_mail:
-            self.move_id.message_post(body=_("Payment reminder email sent for %s", self.payment_reminder_id.name))
-            self.message_post(body=_("Manual sending of the reminder by email carried out"))
-            self.write({
-                'date_reminder': fields.Date.today(),
-                'state': "sent",
-            })
-            history_id = self._create_partner_reminder_history()
-            if history_id:
-                self.message_post(body=_("History partner created"))
-            if next_payment_reminder_id and not self.partner_id.no_payment_reminder:
-                if not self.sudo().search([
-                    ('move_id', '=', self.move_id.id), ('payment_reminder_id', '=', next_payment_reminder_id.id)
-                ]):
-                    self.copy({
-                        'move_id': self.move_id.id,
-                        'payment_reminder_id': next_payment_reminder_id.id,
-                    })
+        self._send_payment_reminder_mail(payment_reminder_id, self.email_subject, self.email_content)
+        self.move_id.message_post(body=_("Payment reminder email sent for %s", self.payment_reminder_id.name))
+        self.message_post(body=_("Manual sending of the reminder by email carried out"))
+        self.write({
+            'date_reminder': fields.Date.today(),
+            'state': "sent",
+        })
+        history_id = self._create_partner_reminder_history()
+        if history_id:
+            self.message_post(body=_("History partner created"))
+        if next_payment_reminder_id and not self.partner_id.no_payment_reminder:
+            if not self.sudo().search([
+                ('move_id', '=', self.move_id.id), ('payment_reminder_id', '=', next_payment_reminder_id.id)
+            ]):
+                self.copy({
+                    'move_id': self.move_id.id,
+                    'payment_reminder_id': next_payment_reminder_id.id,
+                })
 
     @api.model
     def _check_clear_payment_reminder(self):
@@ -426,25 +425,24 @@ class PaymentReminderLine(models.Model):
                 next_payment_reminder_id = self.env['payment.reminder'].search([('sequence', '=', level_reminder+1)])
                 if line.date_reminder == today_date and line.state == 'pending':
                     # Send mail to customer
-                    success_send_mail = line._send_payment_reminder_mail(payment_reminder_id, line.email_subject, line.email_content)
-                    if success_send_mail:
-                        line.move_id.message_post(body=_("Payment reminder email sent for %s", payment_reminder_id.name))
-                        line.message_post(body=_("Manual sending of the reminder by email carried out"))
-                        line.write({
-                            'state': "sent",
-                        })
-                        history_id = line._create_partner_reminder_history()
-                        if history_id:
-                            line.message_post(body=_("History partner created"))
-                        if next_payment_reminder_id and not line.partner_id.no_payment_reminder:
-                            if not self.sudo().search([
-                                ('move_id', '=', line.move_id.id),
-                                ('payment_reminder_id', '=', next_payment_reminder_id.id)
-                            ]):
-                                self.copy({
-                                    'move_id': line.move_id.id,
-                                    'payment_reminder_id': next_payment_reminder_id.id,
-                                })
+                    line._send_payment_reminder_mail(payment_reminder_id, line.email_subject, line.email_content)
+                    line.move_id.message_post(body=_("Payment reminder email sent for %s", payment_reminder_id.name))
+                    line.message_post(body=_("Manual sending of the reminder by email carried out"))
+                    line.write({
+                        'state': "sent",
+                    })
+                    history_id = line._create_partner_reminder_history()
+                    if history_id:
+                        line.message_post(body=_("History partner created"))
+                    if next_payment_reminder_id and not line.partner_id.no_payment_reminder:
+                        if not self.sudo().search([
+                            ('move_id', '=', line.move_id.id),
+                            ('payment_reminder_id', '=', next_payment_reminder_id.id)
+                        ]):
+                            self.copy({
+                                'move_id': line.move_id.id,
+                                'payment_reminder_id': next_payment_reminder_id.id,
+                            })
 
     def action_view_payment_reminder_line(self):
         self.ensure_one()
