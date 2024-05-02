@@ -62,6 +62,7 @@
                             <field name="date_reminder" />
                             <field name="payment_reminder_id"/>
                             <field name="amount_residual" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="invoice_origin" />
                             <field name="cancel_payment_reminder" />
                         </group>
                     </group>
