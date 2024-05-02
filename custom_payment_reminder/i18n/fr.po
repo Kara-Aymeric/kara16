@@ -448,10 +448,16 @@ msgstr "Relance manuelle"
 #. module: custom_payment_reminder
 #. odoo-python
 #: code:addons/custom_payment_reminder/models/payment_reminder_line.py:0
-#: code:addons/custom_payment_reminder/models/payment_reminder_line.py:0
 #, python-format
 msgid "Manual sending of the reminder by email carried out"
 msgstr "Envoi manuel de la relance par email effectuée"
+
+#. module: custom_payment_reminder
+#. odoo-python
+#: code:addons/custom_payment_reminder/models/payment_reminder_line.py:0
+#, python-format
+msgid "Automatic sending of the reminder by email carried out"
+msgstr "Envoi automatique de la relance par email effectuée"
 
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_line__medium_id
@@ -671,8 +677,8 @@ msgstr "Préparation email à envoyer"
 #. odoo-python
 #: code:addons/custom_payment_reminder/models/account_move.py:0
 #, python-format
-msgid "Prepare reminder '%s' created"
-msgstr "Préparation relance '%s' créé"
+msgid "Forecast reminder '%s' created"
+msgstr "Prévision de relance '%s' créé"
 
 #. module: custom_payment_reminder
 #. odoo-python
