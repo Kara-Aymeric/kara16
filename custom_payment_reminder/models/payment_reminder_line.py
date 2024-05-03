@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import base64
+import re
 from datetime import datetime, timedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
@@ -305,7 +307,7 @@ class PaymentReminderLine(models.Model):
             if line.state in ["pending", "ghost"] and line.invoice_payment_status == "paid":
                 line.unlink()
 
-    def _send_payment_reminder_mail(self, payment_reminder_id, subject, body):
+    def _send_payment_reminder_mail(self, payment_reminder_id, subject, body, move_id):
         """ Send mail to customer """
         # Get mail template id
         mail_template_id = payment_reminder_id.mail_template_id
@@ -322,10 +324,26 @@ class PaymentReminderLine(models.Model):
                 _("No sender or recipient configured into email template to payment reminder")
             )
 
+        # Get PDF invoice if option is active
+        attachment_id = False
+        if payment_reminder_id.attach_invoice:
+            invoice_report = self.env['ir.actions.report']._render_qweb_pdf("account.account_invoices", move_id.id)[0]
+            invoice_report = base64.b64encode(invoice_report)
+            invoice_name = f"{move_id.name.replace('/', '_')}.pdf"
+            attachment_id = self.env['ir.attachment'].create({
+                'name': invoice_name,
+                'type': 'binary',
+                'datas': invoice_report,
+                'res_model': 'account.move',
+                'res_id': move_id.id,
+                'mimetype': 'application/pdf'
+            })
+
         # Prepare email data
         email_values = {
             'subject': subject,
             'body_html': body,
+            'attachment_ids': [(6, 0, [attachment_id.id])] if attachment_id else False,
         }
 
         # Send mail
@@ -376,7 +394,7 @@ class PaymentReminderLine(models.Model):
         payment_reminder_id = self.payment_reminder_id
         level_reminder = payment_reminder_id.sequence
         next_payment_reminder_id = self.env['payment.reminder'].search([('sequence', '=', level_reminder + 1)])
-        self._send_payment_reminder_mail(payment_reminder_id, self.email_subject, self.email_content)
+        self._send_payment_reminder_mail(payment_reminder_id, self.email_subject, self.email_content, self.move_id)
         self.move_id.message_post(body=_("Payment reminder email sent for %s", self.payment_reminder_id.name))
         self.message_post(body=_("Manual sending of the reminder by email carried out"))
         self.write({
@@ -428,8 +446,12 @@ class PaymentReminderLine(models.Model):
                 if line.date_reminder == today_date:
                     if line.state == 'pending':
                         # Send mail to customer
-                        line._send_payment_reminder_mail(payment_reminder_id, line.email_subject, line.email_content)
-                        line.move_id.message_post(body=_("Payment reminder email sent for %s", payment_reminder_id.name))
+                        line._send_payment_reminder_mail(
+                            payment_reminder_id, line.email_subject, line.email_content, line.move_id
+                        )
+                        line.move_id.message_post(
+                            body=_("Payment reminder email sent for %s", payment_reminder_id.name)
+                        )
                         line.message_post(body=_("Automatic sending of the reminder by email carried out"))
                         line.write({
                             'state': "sent",
