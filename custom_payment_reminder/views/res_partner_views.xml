@@ -9,7 +9,7 @@
                 <field name="no_payment_reminder" />
             </xpath>
             <xpath expr="//page[last()]" position="after">
-                <page name='customer_payment_reminder' string="Reminder history" attrs="{'invisible': [('restrict_agent_field', '=', True)]}">
+                <page name='customer_payment_reminder' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','!=',False)]}">
                     <field name="payment_reminder_history_ids" readonly="1" force_save="1">
                         <tree>
                             <field name="mail_reminder_date" />
@@ -17,6 +17,11 @@
                             <field name="payment_reminder_line_id" groups="dashboard_agent.group_admin"/>
                         </tree>
                     </field>
+                </page>
+                <page name='customer_payment_reminder_disable' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','=',False)]}">
+                    <div>
+                        <p>History is managed on<button name="open_commercial_entity" type="object" string="the parent company" class="oe_link"/></p>
+                    </div>
                 </page>
             </xpath>
         </field>
