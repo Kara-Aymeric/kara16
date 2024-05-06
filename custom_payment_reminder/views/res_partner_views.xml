@@ -6,7 +6,7 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='sales_purchases']//field[@name='team_id']" position="before">
-                <field name="no_payment_reminder" />
+                <field name="no_payment_reminder" force_save="1" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
             </xpath>
             <xpath expr="//page[last()]" position="after">
                 <page name='customer_payment_reminder' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','!=',False)]}">
