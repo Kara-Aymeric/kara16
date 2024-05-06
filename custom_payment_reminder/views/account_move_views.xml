@@ -8,7 +8,7 @@
             <xpath expr="//page[last()]" position="after">
                 <page name="payment_reminder" string="Payment reminder" attrs="{'invisible': [('move_type', '=', 'in_invoice')]}">
                     <field name="payment_reminder_line" nolabel="1" colspan="2">
-                        <tree editable="bottom" delete="false">
+                        <tree editable="bottom" create="false" delete="false">
                             <field name="payment_reminder_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
                             <field name="date_maturity" widget="remaining_days"/>
                             <field name="date_reminder" readonly="1" force_save="1"/>
@@ -29,6 +29,7 @@
                                 type="object"
                                 class="oe_highlight"/>
                         </tree>
+                        <form></form>
                     </field>
                 </page>
             </xpath>

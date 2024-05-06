@@ -418,7 +418,7 @@ class PaymentReminderLine(models.Model):
     def _check_clear_payment_reminder(self):
         """ Clear payment reminder line if invoice is paid and state line is pending """
         for line in self.env['payment.reminder.line'].sudo().search([
-            ('state', '=', 'pending'),
+            ('state', '=', "pending", "ghost"),
             ('invoice_payment_status', '=', 'paid')]
         ):
             line.unlink()
