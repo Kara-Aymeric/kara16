@@ -26,3 +26,17 @@ class PaymentReminderHistory(models.Model):
         "payment.reminder.line",
         string="Reminder detail"
     )
+
+    def action_view_payment_reminder_line(self):
+        self.ensure_one()
+        context = dict(self.env.context)
+
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'payment.reminder.line',
+            'views': [(self.env.ref('custom_payment_reminder.view_payment_reminder_line_form').id, 'form')],
+            'res_id': self.payment_reminder_line_id.id,
+            'target': 'current',
+            'context': context,
+        }

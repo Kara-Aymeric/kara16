@@ -11,11 +11,18 @@
             <xpath expr="//page[last()]" position="after">
                 <page name='customer_payment_reminder' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','!=',False)]}">
                     <field name="payment_reminder_history_ids" readonly="1" force_save="1">
-                        <tree>
+                        <tree editable="bottom" create="false" delete="false">
                             <field name="mail_reminder_date" />
                             <field name="invoice_id" />
-                            <field name="payment_reminder_line_id" groups="dashboard_agent.group_admin"/>
+                            <field name="payment_reminder_line_id" />
+                            <button
+                                string="View detail"
+                                name="action_view_payment_reminder_line"
+                                groups="dashboard_agent.group_admin"
+                                type="object"
+                                class="oe_highlight"/>
                         </tree>
+                        <form></form>
                     </field>
                 </page>
                 <page name='customer_payment_reminder_disable' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','=',False)]}">

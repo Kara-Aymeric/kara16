@@ -727,7 +727,7 @@ msgstr "Date de relance"
 #. module: custom_payment_reminder
 #: model:ir.model.fields,field_description:custom_payment_reminder.field_payment_reminder_history__payment_reminder_line_id
 msgid "Reminder detail"
-msgstr "Détail relance"
+msgstr "Relance"
 
 #. module: custom_payment_reminder
 #: model_terms:ir.ui.view,arch_db:custom_payment_reminder.custom_view_partner_form
