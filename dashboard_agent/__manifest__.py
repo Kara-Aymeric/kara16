@@ -23,7 +23,7 @@
         'purchase',
         'l10n_fr',
         'mail',
-        'woo_user_connector'
+        'woo_user_connector',
     ],
     'data': [
         # Data
