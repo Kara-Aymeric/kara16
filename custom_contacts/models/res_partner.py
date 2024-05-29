@@ -39,13 +39,13 @@ class ResPartner(models.Model):
     # Comments
     logistic_comment = fields.Html(string="Comment", translate=True)
 
-    # @api.constrains('phone', 'mobile')
-    # def _constrains_phone_mobile(self):
-    #     """ Check if telephone number before save contact profile """
-    #     if not self.phone and not self.mobile:
-    #         raise ValidationError(
-    #             "Merci de renseigner un numéro de téléphone."
-    #         )
+    @api.constrains('phone', 'mobile')
+    def _constrains_phone_mobile(self):
+        """ Check if telephone number before save contact profile """
+        if not self.phone and not self.mobile:
+            raise ValidationError(
+                "Merci de renseigner un numéro de téléphone."
+            )
 
     def _check_schedule_format(self, data):
         """ Request format : 00h00 - 00h00 or 00H00 - 00H00 """
