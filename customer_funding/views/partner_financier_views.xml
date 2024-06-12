@@ -8,6 +8,7 @@
                 <field name="partner_id" required="1"/>
                 <field name="description"/>
                 <field name="add_auto_partner"/>
+                <field name="product_id"/>
             </tree>
         </field>
     </record>

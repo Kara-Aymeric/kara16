@@ -1,0 +1,204 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* customer_funding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-12 20:01+0000\n"
+"PO-Revision-Date: 2024-06-12 20:01+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__active
+msgid "Active"
+msgstr "Actif/ve"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__add_auto_partner
+msgid "Add auto on partner"
+msgstr "Ajout auto sur contact"
+
+#. module: customer_funding
+#: model:ir.model.fields,help:customer_funding.field_partner_financier__add_auto_partner
+msgid "Add automatic when partner create"
+msgstr "Ajout automatique lorsqu'un contact est créé"
+
+#. module: customer_funding
+#: model:ir.ui.menu,name:customer_funding.menu_agorane_config
+msgid "Agorane - Configuration"
+msgstr ""
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__base_credit
+msgid "Base credit"
+msgstr "Crédit de base"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_account_payment_term__fees_based_on
+msgid "Based on"
+msgstr "Basée sur"
+
+#. module: customer_funding
+#: model:ir.model.fields,help:customer_funding.field_partner_financier__active
+msgid ""
+"By unchecking the active field, you can hide a record without deleting it."
+msgstr ""
+"En décochant ce champ actif, vous masquez l'enregistrement sans le supprimer."
+
+#. module: customer_funding
+#: model:ir.model,name:customer_funding.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__create_uid
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__create_uid
+msgid "Created by"
+msgstr "Crée par"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__create_date
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__create_date
+msgid "Created on"
+msgstr "Crée le"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_res_partner__credit_customer_ids
+#: model:ir.model.fields,field_description:customer_funding.field_res_users__credit_customer_ids
+msgid "Credits customer"
+msgstr "Crédits client"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__currency_id
+msgid "Currency"
+msgstr "Devise"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__current_credit
+msgid "Current credit"
+msgstr "Crédit en cours"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__date_update_base_credit
+msgid "Date update base credit"
+msgstr "Date MAJ crédit de base"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__description
+msgid "Description"
+msgstr ""
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__display_name
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__eligibility
+msgid "Eligibility"
+msgstr "Éligibilité"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_account_payment_term__partner_financier_id
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__partner_financier_id
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__partner_id
+msgid "Financier"
+msgstr "Financeur"
+
+#. module: customer_funding
+#: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
+msgid "Financing"
+msgstr "Financements"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__id
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__id
+msgid "ID"
+msgstr ""
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__invoice_ids
+msgid "Invoices"
+msgstr "Factures"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer____last_update
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__write_uid
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__write_date
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_account_payment_term__management_fees
+msgid "Management fees (%)"
+msgstr "Frais de gestion (%)"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_partner_financier__product_id
+msgid "Management fees product"
+msgstr "Produit frais de gestion"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: customer_funding
+#: model:ir.model,name:customer_funding.model_credit_customer
+#: model:ir.model,name:customer_funding.model_partner_financier
+msgid "Partner Financier"
+msgstr "Financeur Partenaire"
+
+#. module: customer_funding
+#: model:ir.ui.menu,name:customer_funding.partner_financier_config_menu
+msgid "Partner financier"
+msgstr "Financeurs partenaires"
+
+#. module: customer_funding
+#: model:ir.actions.act_window,name:customer_funding.action_partner_financier_config
+msgid "Partners Financiers"
+msgstr "Financeurs partenaires"
+
+#. module: customer_funding
+#: model:ir.model,name:customer_funding.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Conditions de paiement"
+
+#. module: customer_funding
+#: model:ir.model.fields.selection,name:customer_funding.selection__account_payment_term__fees_based_on__total_amount_purchase
+msgid "Purchase TTC"
+msgstr "Achat TTC"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_credit_customer__remaining_credit
+msgid "Remaining credit"
+msgstr "Crédit restant"
+
+#. module: customer_funding
+#: model:ir.model.fields.selection,name:customer_funding.selection__account_payment_term__fees_based_on__total_amount_sale
+msgid "Sale TTC"
+msgstr "Vente TTC"
+
+#. module: customer_funding
+#: model:ir.model.fields,help:customer_funding.field_credit_customer__invoice_ids
+msgid "Target invoices for calcul credit"
+msgstr "Factures cibles pour le calcul du crédit"
