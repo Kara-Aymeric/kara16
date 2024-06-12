@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="partner_financier_tree_view" model="ir.ui.view">
+        <field name="name">partner.financier.tree.view</field>
+        <field name="model">partner.financier</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="false">
+                <field name="partner_id" required="1"/>
+                <field name="description"/>
+                <field name="add_auto_partner"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_financier_config" model="ir.actions.act_window">
+        <field name="name">Partners Financiers</field>
+        <field name="res_model">partner.financier</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_agorane_config"
+              name="Agorane - Configuration"
+              sequence="35"
+              parent="account.menu_finance_configuration"
+              groups="base.group_system"
+    />
+
+    <menuitem id="partner_financier_config_menu"
+              name="Partner financier"
+              parent="customer_funding.menu_agorane_config"
+              action="customer_funding.action_partner_financier_config"
+    />
+
+</odoo>
