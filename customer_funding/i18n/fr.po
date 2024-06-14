@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-12 20:01+0000\n"
-"PO-Revision-Date: 2024-06-12 20:01+0000\n"
+"POT-Creation-Date: 2024-06-14 13:24+0000\n"
+"PO-Revision-Date: 2024-06-14 13:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,8 @@ msgstr "Basée sur"
 msgid ""
 "By unchecking the active field, you can hide a record without deleting it."
 msgstr ""
-"En décochant ce champ actif, vous masquez l'enregistrement sans le supprimer."
+"En décochant ce champ actif, vous masquez l'enregistrement sans le "
+"supprimer."
 
 #. module: customer_funding
 #: model:ir.model,name:customer_funding.model_res_partner
@@ -171,12 +172,12 @@ msgstr "Financeur Partenaire"
 #. module: customer_funding
 #: model:ir.ui.menu,name:customer_funding.partner_financier_config_menu
 msgid "Partner financier"
-msgstr "Financeurs partenaires"
+msgstr "Financeurs partenaire"
 
 #. module: customer_funding
 #: model:ir.actions.act_window,name:customer_funding.action_partner_financier_config
 msgid "Partners Financiers"
-msgstr "Financeurs partenaires"
+msgstr "Financeurs Partenaire"
 
 #. module: customer_funding
 #: model:ir.model,name:customer_funding.model_account_payment_term
@@ -202,3 +203,8 @@ msgstr "Vente TTC"
 #: model:ir.model.fields,help:customer_funding.field_credit_customer__invoice_ids
 msgid "Target invoices for calcul credit"
 msgstr "Factures cibles pour le calcul du crédit"
+
+#. module: customer_funding
+#: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
+msgid "View invoices"
+msgstr "Voir factures"
