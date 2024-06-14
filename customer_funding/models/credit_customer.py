@@ -60,3 +60,12 @@ class CreditCustomer(models.Model):
         """ Get remaining credit """
         for credit in self:
             credit.remaining_credit = credit.base_credit - credit.current_credit
+
+    def action_view_invoices(self):
+        """ View invoices """
+        self.ensure_one()
+        invoices = self.invoice_ids
+        action = self.env['ir.actions.act_window']._for_xml_id('account.action_move_out_invoice_type')
+        action['domain'] = [('id', 'in', invoices.ids)]
+
+        return action
