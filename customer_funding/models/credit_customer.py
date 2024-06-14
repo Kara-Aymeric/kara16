@@ -42,16 +42,38 @@ class CreditCustomer(models.Model):
     invoice_ids = fields.Many2many(
         'account.move',
         string="Invoices",
+        compute="_compute_invoice_ids",
+        store=True,
         help="Target invoices for calcul credit"
     )
 
-    @api.depends('invoice_ids', 'invoice_ids.amount_paid')
+    @api.depends('partner_id', 'partner_id.invoice_ids.state', 'partner_financier_id', 'eligibility')
+    def _compute_invoice_ids(self):
+        """ Compute invoices """
+        for credit in self:
+            invoice_ids = False
+            if credit.partner_id and credit.partner_financier_id and credit.eligibility:
+                # Get all payment terms to financier
+                payment_terms_ids = self.env['account.payment.term'].search([
+                    ('partner_financier_id', '=', credit.partner_financier_id.id)]
+                )
+
+                # Get all invoices associated payment terms
+                partner_invoice_ids = self.partner_id.invoice_ids.filtered(
+                    lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted"
+                )
+                invoice_ids = [(6, 0, partner_invoice_ids.ids)]
+
+            credit.invoice_ids = invoice_ids
+
+    @api.depends('eligibility', 'invoice_ids', 'invoice_ids.amount_residual')
     def _compute_current_credit(self):
-        """ Get total amount payed """
+        """ Get total amount residual """
         for credit in self:
             current_credit = 0
-            for invoice in credit.invoice_ids:
-                current_credit += invoice.amount_paid
+            if credit.eligibility:
+                for invoice in credit.invoice_ids:
+                    current_credit += invoice.amount_residual
 
             credit.current_credit = current_credit
 
