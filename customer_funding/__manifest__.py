@@ -7,9 +7,12 @@
     'description': """Gestion des financements clients""",
     'website': 'https://hennet-solutions.fr',
     'license': 'LGPL-3',
-    'depends': ['account', 'contacts', 'sale'],
+    'depends': [
+        'account',
+        'contacts',
+        'sale'
+    ],
     'data': [
-
         # Security
         'security/ir.model.access.csv',
 
@@ -17,6 +20,6 @@
         'views/account_payment_term_views.xml',
         'views/res_partner_views.xml',
         'views/partner_financier_views.xml',
-        # 'views/sale_order_views.xml',
+        'views/sale_order_views.xml',
     ],
 }

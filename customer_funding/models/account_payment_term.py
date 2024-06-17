@@ -5,6 +5,10 @@ from odoo import fields, models
 class AccountPaymentTerm(models.Model):
     _inherit = "account.payment.term"
 
+    partner_funding = fields.Boolean(
+        string="Partner funding",
+    )
+
     partner_financier_id = fields.Many2one(
         'partner.financier',
         string="Financier"
