@@ -6,6 +6,7 @@
         <field name="model">sale.order</field>
         <field name="arch" type="xml">
             <xpath expr="//header" position="after">
+                <field name="remaining_credit" invisible="1" />
                 <field name="show_credit" invisible="1" />
                 <div class="alert alert-info text-center" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('show_credit', '!=', True)]}">
                     <bold>Remaining credit <field name="remaining_credit" /></bold>

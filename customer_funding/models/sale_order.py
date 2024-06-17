@@ -55,7 +55,7 @@ class SaleOrder(models.Model):
     def _constrains_state_confirm_order(self):
         """ Allows to control if remaining credit is more than total amount order """
         for order in self:
-            if order.state not in ("draft", "cancel"):
+            if order.state not in ("draft", "cancel") and order.remaining_credit != 0:
                 if order.remaining_credit < order.amount_total:
                     raise UserError(
                         _("The remaining credit is more than total amount order, "
@@ -121,6 +121,6 @@ class SaleOrder(models.Model):
                 self.create_purchase_invoice_line(
                     partner_financier_id, purchase_invoice_id, self.name, self.partner_id, self.payment_term_id
                 )
-                self.message_post(body=_("Invoice line created on this purchase invoice"))
+                self.message_post(body=_("Line created on purchase invoice"))
 
         return res

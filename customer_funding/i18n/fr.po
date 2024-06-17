@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-14 13:24+0000\n"
-"PO-Revision-Date: 2024-06-14 13:24+0000\n"
+"POT-Creation-Date: 2024-06-17 13:26+0000\n"
+"PO-Revision-Date: 2024-06-17 13:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Actif/ve"
 #. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_partner_financier__add_auto_partner
 msgid "Add auto on partner"
-msgstr "Ajout auto sur contact"
+msgstr "Ajout automatique sur contact"
 
 #. module: customer_funding
 #: model:ir.model.fields,help:customer_funding.field_partner_financier__add_auto_partner
@@ -126,6 +126,13 @@ msgid "ID"
 msgstr ""
 
 #. module: customer_funding
+#. odoo-python
+#: code:addons/customer_funding/models/sale_order.py:0
+#, python-format
+msgid "Line created on purchase invoice"
+msgstr "Ligne créée sur facture d'achat"
+
+#. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_credit_customer__invoice_ids
 msgid "Invoices"
 msgstr "Factures"
@@ -175,6 +182,11 @@ msgid "Partner financier"
 msgstr "Financeurs partenaire"
 
 #. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_account_payment_term__partner_funding
+msgid "Partner funding"
+msgstr "Activer financeur partenaire"
+
+#. module: customer_funding
 #: model:ir.actions.act_window,name:customer_funding.action_partner_financier_config
 msgid "Partners Financiers"
 msgstr "Financeurs Partenaire"
@@ -185,12 +197,43 @@ msgid "Payment Terms"
 msgstr "Conditions de paiement"
 
 #. module: customer_funding
+#. odoo-python
+#: code:addons/customer_funding/models/sale_order.py:0
+#, python-format
+msgid ""
+"Please configure the product corresponding to the management fees to "
+"continue"
+msgstr ""
+"Veuillez configurer le produit correspondant aux frais de gestion pour "
+"continuer"
+
+#. module: customer_funding
+#. odoo-python
+#: code:addons/customer_funding/models/sale_order.py:0
+#, python-format
+msgid ""
+"Problem with partner financier configuration. Many records exists for one "
+"financier"
+msgstr ""
+"Problème avec la configuration du partenaire financier. Plusieurs enregistrements existent pour un "
+"financier"
+
+#. module: customer_funding
 #: model:ir.model.fields.selection,name:customer_funding.selection__account_payment_term__fees_based_on__total_amount_purchase
 msgid "Purchase TTC"
 msgstr "Achat TTC"
 
 #. module: customer_funding
+#. odoo-python
+#: code:addons/customer_funding/models/sale_order.py:0
+#, python-format
+msgid "Purchase invoice %s created"
+msgstr "Facture d'achat %s créée"
+
+#. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_credit_customer__remaining_credit
+#: model:ir.model.fields,field_description:customer_funding.field_sale_order__remaining_credit
+#: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_order_form
 msgid "Remaining credit"
 msgstr "Crédit restant"
 
@@ -200,9 +243,30 @@ msgid "Sale TTC"
 msgstr "Vente TTC"
 
 #. module: customer_funding
+#: model:ir.model,name:customer_funding.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_sale_order__show_credit
+msgid "Show credit"
+msgstr "Voir crédit"
+
+#. module: customer_funding
 #: model:ir.model.fields,help:customer_funding.field_credit_customer__invoice_ids
 msgid "Target invoices for calcul credit"
 msgstr "Factures cibles pour le calcul du crédit"
+
+#. module: customer_funding
+#. odoo-python
+#: code:addons/customer_funding/models/sale_order.py:0
+#, python-format
+msgid ""
+"The remaining credit is more than total amount order, please change the "
+"payment terms or wait for the credit to be released"
+msgstr ""
+"Le crédit restant est supérieur au montant total de la commande, veuillez modifier la "
+"conditions de paiement ou attendre le déblocage du crédit"
 
 #. module: customer_funding
 #: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
