@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
+
 
 
 class SaleOrder(models.Model):
@@ -16,7 +18,12 @@ class SaleOrder(models.Model):
         compute="_compute_show_credit"
     )
 
-    @api.depends('partner_id', 'payment_term_id', 'payment_term_id.partner_funding')
+    @api.depends(
+        'partner_id',
+        'partner_id.credit_customer_ids.remaining_credit',
+        'payment_term_id',
+        'payment_term_id.partner_funding'
+    )
     def _compute_remaining_credit(self):
         """ Compute remaining credit for show """
         for order in self:
@@ -43,4 +50,13 @@ class SaleOrder(models.Model):
 
             order.show_credit = show_credit
 
-
+    @api.constrains('state')
+    def _constrains_state_confirm_order(self):
+        """ Allows to control if remaining credit is more than total amount order """
+        for order in self:
+            if order.state not in ("draft", "cancel"):
+                if order.remaining_credit < order.amount_total:
+                    raise UserError(
+                        _("The remaining credit is more than total amount order, "
+                          "please change the payment terms or wait for the credit to be released")
+                    )
