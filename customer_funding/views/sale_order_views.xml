@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="custom_view_order_form" model="ir.ui.view">
+        <field name="name">custom.view.order.form</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <field name="show_credit" invisible="1" />
+                <div class="alert alert-info text-center" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('show_credit', '!=', True)]}">
+                    <bold>Remaining credit <field name="remaining_credit" /></bold>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
