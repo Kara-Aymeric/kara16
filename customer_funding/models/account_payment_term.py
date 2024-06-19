@@ -9,6 +9,11 @@ class AccountPaymentTerm(models.Model):
         string="Partner funding",
     )
 
+    deferred_payment = fields.Boolean(
+        string="Deferred payment",
+        help="This option is useful if you want to update the customer's credit",
+    )
+
     partner_financier_id = fields.Many2one(
         'partner.financier',
         string="Financier"
