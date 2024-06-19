@@ -53,12 +53,12 @@ class CreditCustomer(models.Model):
         for credit in self:
             invoice_ids = False
             if credit.partner_id and credit.partner_financier_id and credit.eligibility:
-                # Get all payment terms to financier
+                # Get all payment terms to financier and deferred payment
                 payment_terms_ids = self.env['account.payment.term'].search([
-                    ('partner_financier_id', '=', credit.partner_financier_id.id)]
+                    ('partner_financier_id', '=', credit.partner_financier_id.id), ('deferred_payment', '=', True)]
                 )
 
-                # Get all invoices associated payment terms
+                # Get all invoices associated payment terms deferred
                 partner_invoice_ids = self.partner_id.invoice_ids.filtered(
                     lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted"
                 )
