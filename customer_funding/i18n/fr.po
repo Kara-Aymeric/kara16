@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-17 13:26+0000\n"
-"PO-Revision-Date: 2024-06-17 13:26+0000\n"
+"POT-Creation-Date: 2024-06-19 07:06+0000\n"
+"PO-Revision-Date: 2024-06-19 07:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Actif/ve"
 #. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_partner_financier__add_auto_partner
 msgid "Add auto on partner"
-msgstr "Ajout automatique sur contact"
+msgstr "Ajout auto sur contact"
 
 #. module: customer_funding
 #: model:ir.model.fields,help:customer_funding.field_partner_financier__add_auto_partner
@@ -92,6 +92,11 @@ msgid "Date update base credit"
 msgstr "Date MAJ crédit de base"
 
 #. module: customer_funding
+#: model:ir.model.fields,field_description:customer_funding.field_account_payment_term__deferred_payment
+msgid "Deferred payment"
+msgstr "Paiement différé"
+
+#. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_partner_financier__description
 msgid "Description"
 msgstr ""
@@ -126,13 +131,6 @@ msgid "ID"
 msgstr ""
 
 #. module: customer_funding
-#. odoo-python
-#: code:addons/customer_funding/models/sale_order.py:0
-#, python-format
-msgid "Line created on purchase invoice"
-msgstr "Ligne créée sur facture d'achat"
-
-#. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_credit_customer__invoice_ids
 msgid "Invoices"
 msgstr "Factures"
@@ -154,6 +152,13 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:customer_funding.field_partner_financier__write_date
 msgid "Last Updated on"
 msgstr "Dernière mise à jour le"
+
+#. module: customer_funding
+#. odoo-python
+#: code:addons/customer_funding/models/sale_order.py:0
+#, python-format
+msgid "Line created on purchase invoice"
+msgstr "Ligne créée sur facture d'achat"
 
 #. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_account_payment_term__management_fees
@@ -215,8 +220,8 @@ msgid ""
 "Problem with partner financier configuration. Many records exists for one "
 "financier"
 msgstr ""
-"Problème avec la configuration du partenaire financier. Plusieurs enregistrements existent pour un "
-"financier"
+"Problème avec la configuration du partenaire financier. Plusieurs "
+"enregistrements existent pour un financier"
 
 #. module: customer_funding
 #: model:ir.model.fields.selection,name:customer_funding.selection__account_payment_term__fees_based_on__total_amount_purchase
@@ -265,8 +270,13 @@ msgid ""
 "The remaining credit is more than total amount order, please change the "
 "payment terms or wait for the credit to be released"
 msgstr ""
-"Le crédit restant est supérieur au montant total de la commande, veuillez modifier la "
-"conditions de paiement ou attendre le déblocage du crédit"
+"Le crédit restant est supérieur au montant total de la commande, veuillez "
+"modifier la conditions de paiement ou attendre le déblocage du crédit"
+
+#. module: customer_funding
+#: model:ir.model.fields,help:customer_funding.field_account_payment_term__deferred_payment
+msgid "This option is useful if you want to update the customer's credit"
+msgstr "Cette option est utile si vous souhaitez mettre à jour le crédit du client"
 
 #. module: customer_funding
 #: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
