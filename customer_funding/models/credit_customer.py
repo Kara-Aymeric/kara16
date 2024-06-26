@@ -70,14 +70,14 @@ class CreditCustomer(models.Model):
 
                 # For partner
                 partner_invoice_ids = self.partner_id.invoice_ids.filtered(
-                    lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted"
+                    lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted" and x.move_type == "out_invoice"
                 )
                 all_invoices += partner_invoice_ids.ids
 
                 # For child_ids partner
                 for child in credit.partner_id.child_ids:
                     child_invoice_ids = child.invoice_ids.filtered(
-                        lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted"
+                        lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted" and x.move_type == "out_invoice"
                     )
                     all_invoices += child_invoice_ids.ids
 

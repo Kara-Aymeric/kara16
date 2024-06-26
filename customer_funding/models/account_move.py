@@ -50,23 +50,24 @@ class AccountMove(models.Model):
     def action_post(self):
         """ Surcharge base method """
         res = super(AccountMove, self).action_post()
-        if self.invoice_payment_term_id and self.invoice_payment_term_id.partner_financier_id:
-            partner_financier_id = self.invoice_payment_term_id.partner_financier_id
+        if self.move_type == "out_invoice":
+            if self.invoice_payment_term_id and self.invoice_payment_term_id.partner_financier_id:
+                partner_financier_id = self.invoice_payment_term_id.partner_financier_id
 
-            # Check control
-            if len(partner_financier_id) > 1:
-                raise UserError(
-                    _("Problem with partner financier configuration. Many records exists for one financier"))
-            if not partner_financier_id.product_id:
-                raise UserError(_("Please configure the product corresponding to the management fees to continue"))
+                # Check control
+                if len(partner_financier_id) > 1:
+                    raise UserError(
+                        _("Problem with partner financier configuration. Many records exists for one financier"))
+                if not partner_financier_id.product_id:
+                    raise UserError(_("Please configure the product corresponding to the management fees to continue"))
 
-            purchase_invoice_id = self.create_purchase_invoice(partner_financier_id.partner_id)
-            if purchase_invoice_id:
-                self.message_post(body=_("Purchase invoice %s created", purchase_invoice_id.name))
-                self.create_purchase_invoice_line(
-                    partner_financier_id, purchase_invoice_id, self.invoice_origin,
-                    self.partner_id, self.invoice_payment_term_id
-                )
-                self.message_post(body=_("Line created on purchase invoice"))
+                purchase_invoice_id = self.create_purchase_invoice(partner_financier_id.partner_id)
+                if purchase_invoice_id:
+                    self.message_post(body=_("Purchase invoice %s created", purchase_invoice_id.name))
+                    self.create_purchase_invoice_line(
+                        partner_financier_id, purchase_invoice_id, self.invoice_origin,
+                        self.partner_id, self.invoice_payment_term_id
+                    )
+                    self.message_post(body=_("Line created on purchase invoice"))
 
         return res
