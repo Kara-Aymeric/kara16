@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 07:06+0000\n"
-"PO-Revision-Date: 2024-06-19 07:06+0000\n"
+"POT-Creation-Date: 2024-06-26 13:35+0000\n"
+"PO-Revision-Date: 2024-06-26 13:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Actif/ve"
 #. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_partner_financier__add_auto_partner
 msgid "Add auto on partner"
-msgstr "Ajout auto sur contact"
+msgstr "Ajout automatique sur contact"
 
 #. module: customer_funding
 #: model:ir.model.fields,help:customer_funding.field_partner_financier__add_auto_partner
@@ -125,6 +125,11 @@ msgid "Financing"
 msgstr "Financements"
 
 #. module: customer_funding
+#: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
+msgid "Financing is managed on"
+msgstr "Les financements sont gérés par "
+
+#. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_credit_customer__id
 #: model:ir.model.fields,field_description:customer_funding.field_partner_financier__id
 msgid "ID"
@@ -134,6 +139,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:customer_funding.field_credit_customer__invoice_ids
 msgid "Invoices"
 msgstr "Factures"
+
+#. module: customer_funding
+#: model:ir.model,name:customer_funding.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
 
 #. module: customer_funding
 #: model:ir.model.fields,field_description:customer_funding.field_credit_customer____last_update
@@ -155,7 +165,7 @@ msgstr "Dernière mise à jour le"
 
 #. module: customer_funding
 #. odoo-python
-#: code:addons/customer_funding/models/sale_order.py:0
+#: code:addons/customer_funding/models/account_move.py:0
 #, python-format
 msgid "Line created on purchase invoice"
 msgstr "Ligne créée sur facture d'achat"
@@ -197,13 +207,18 @@ msgid "Partners Financiers"
 msgstr "Financeurs Partenaire"
 
 #. module: customer_funding
+#: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
+msgid "No access !"
+msgstr "Pas d'accès !"
+
+#. module: customer_funding
 #: model:ir.model,name:customer_funding.model_account_payment_term
 msgid "Payment Terms"
 msgstr "Conditions de paiement"
 
 #. module: customer_funding
 #. odoo-python
-#: code:addons/customer_funding/models/sale_order.py:0
+#: code:addons/customer_funding/models/account_move.py:0
 #, python-format
 msgid ""
 "Please configure the product corresponding to the management fees to "
@@ -214,7 +229,7 @@ msgstr ""
 
 #. module: customer_funding
 #. odoo-python
-#: code:addons/customer_funding/models/sale_order.py:0
+#: code:addons/customer_funding/models/account_move.py:0
 #, python-format
 msgid ""
 "Problem with partner financier configuration. Many records exists for one "
@@ -230,7 +245,7 @@ msgstr "Achat TTC"
 
 #. module: customer_funding
 #. odoo-python
-#: code:addons/customer_funding/models/sale_order.py:0
+#: code:addons/customer_funding/models/account_move.py:0
 #, python-format
 msgid "Purchase invoice %s created"
 msgstr "Facture d'achat %s créée"
@@ -276,9 +291,15 @@ msgstr ""
 #. module: customer_funding
 #: model:ir.model.fields,help:customer_funding.field_account_payment_term__deferred_payment
 msgid "This option is useful if you want to update the customer's credit"
-msgstr "Cette option est utile si vous souhaitez mettre à jour le crédit du client"
+msgstr ""
+"Cette option est utile si vous souhaitez mettre à jour le crédit du client"
 
 #. module: customer_funding
 #: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
 msgid "View invoices"
 msgstr "Voir factures"
+
+#. module: customer_funding
+#: model_terms:ir.ui.view,arch_db:customer_funding.custom_view_partner_form
+msgid "the parent company"
+msgstr "la société parente"

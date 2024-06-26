@@ -23,7 +23,7 @@
                                     type="object" />
                         </tree>
                         <form>
-                            <p>Pas d'accès !</p>
+                            <p>No access !</p>
                         </form>
                     </field>
                 </page>
