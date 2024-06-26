@@ -31,11 +31,16 @@ class SaleOrder(models.Model):
             remaining_credit = 0.0
             if order.partner_id and order.payment_term_id:
                 if order.payment_term_id.partner_funding and order.payment_term_id.partner_financier_id:
-                    credit_customer_id = self.env['credit.customer'].search(
-                        [('partner_id', '=', order.partner_id.id),
-                         ('partner_financier_id', '=', order.payment_term_id.partner_financier_id.id),
-                         ('eligibility', '=', True)]
-                    )
+                    domain = [
+                        ('partner_financier_id', '=', order.payment_term_id.partner_financier_id.id),
+                        ('eligibility', '=', True)
+                    ]
+                    if order.partner_id.parent_id:
+                        domain += [('partner_id', '=', order.partner_id.parent_id.id)]
+                    else:
+                        domain += [('partner_id', '=', order.partner_id.id)]
+
+                    credit_customer_id = self.env['credit.customer'].search(domain)
                     if credit_customer_id:
                         remaining_credit = credit_customer_id.remaining_credit
 

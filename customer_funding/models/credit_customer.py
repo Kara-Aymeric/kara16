@@ -47,7 +47,14 @@ class CreditCustomer(models.Model):
         help="Target invoices for calcul credit"
     )
 
-    @api.depends('partner_id', 'partner_id.invoice_ids.state', 'partner_financier_id', 'eligibility')
+    @api.depends(
+        'partner_id',
+        'partner_id.child_ids',
+        'partner_id.invoice_ids.state',
+        'partner_id.child_ids.invoice_ids.state',
+        'partner_financier_id',
+        'eligibility'
+    )
     def _compute_invoice_ids(self):
         """ Compute invoices """
         for credit in self:
@@ -59,10 +66,22 @@ class CreditCustomer(models.Model):
                 )
 
                 # Get all invoices associated payment terms deferred
+                all_invoices = []
+
+                # For partner
                 partner_invoice_ids = self.partner_id.invoice_ids.filtered(
                     lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted"
                 )
-                invoice_ids = [(6, 0, partner_invoice_ids.ids)]
+                all_invoices += partner_invoice_ids.ids
+
+                # For child_ids partner
+                for child in credit.partner_id.child_ids:
+                    child_invoice_ids = child.invoice_ids.filtered(
+                        lambda x: x.invoice_payment_term_id in payment_terms_ids and x.state == "posted"
+                    )
+                    all_invoices += child_invoice_ids.ids
+
+                invoice_ids = [(6, 0, all_invoices)]
 
             credit.invoice_ids = invoice_ids
 
