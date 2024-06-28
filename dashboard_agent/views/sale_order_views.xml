@@ -181,10 +181,6 @@
                        groups="dashboard_agent.group_principal_agent,dashboard_agent.group_admin,dashboard_agent.group_external_agent" />
             </xpath>
 
-            <field name="start_date" position="attributes">
-                <attribute name="attrs">{'invisible': [('restrict_custom_field', '!=', False)]}</attribute>
-            </field>
-
             <group name="sale_reporting" position="attributes">
                 <attribute name="attrs">{'invisible': [('restrict_custom_field_d2r', '!=', False)]}</attribute>
             </group>
