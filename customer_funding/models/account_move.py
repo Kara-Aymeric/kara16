@@ -25,6 +25,24 @@ class AccountMove(models.Model):
             based_on = payment_term_id.fees_based_on
             if based_on == "total_amount_sale":
                 return self.amount_total * (payment_term_id.management_fees/100)
+            elif based_on == "total_amount_purchase":
+                # Get origin order
+                order_id = self.env['sale.order'].sudo().search([('name', '=', self.invoice_origin)])
+                if order_id:
+                    # Get purchase order
+                    purchase_order_id = self.env['purchase.order'].sudo().search([('origin', '=', order_id.name)])
+                    if purchase_order_id:
+                        # Get invoice_ids
+                        purchase_invoice_ids = purchase_order_id.invoice_ids
+                        purchase_invoice_amount_total = 0
+                        for invoice_id in purchase_invoice_ids:
+                            purchase_invoice_amount_total += invoice_id.amount_total
+
+                        return purchase_invoice_amount_total * (payment_term_id.management_fees/100)
+                    return False
+                return False
+            return False
+        return False
 
     def create_purchase_invoice_line(
             self, partner_financier_id, purchase_invoice_id, order_name, customer_id, payment_term_id
@@ -35,10 +53,11 @@ class AccountMove(models.Model):
         product_id = self.env['product.product'].search([('product_tmpl_id', '=', product_template_id.id)])
 
         # Compute price unit
-        price_unit = self.calculation_price_unit_line(payment_term_id)
+        price_unit_calculation = self.calculation_price_unit_line(payment_term_id)
 
         if product_id:
             product_name = f"{order_name} - {customer_id.name} - {payment_term_id.name}"
+            price_unit = price_unit_calculation if price_unit_calculation else 0
             new_line = self.env['account.move.line'].create({
                 'move_id': purchase_invoice_id.id,
                 'product_id': product_id.id,
