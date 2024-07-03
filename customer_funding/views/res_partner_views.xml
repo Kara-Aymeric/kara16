@@ -15,8 +15,8 @@
                             <field name="base_credit" widget="monetary" options="{'currency_field': 'currency_id'}" attrs="{'readonly': [('eligibility', '!=', True)], 'required': [('eligibility', '=', True)]}"/>
                             <field name="date_update_base_credit" attrs="{'readonly': [('eligibility', '!=', True)], 'required': [('eligibility', '=', True)]}"/>
                             <field name="current_credit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                            <field name="remaining_credit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                            <field name="invoice_ids" widget="many2many_tags" />
+                            <field name="remaining_credit" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+                            <field name="invoice_ids" widget="many2many_tags" invisible="1"/>
                             <button name="action_view_invoices"
                                     string="View invoices"
                                     class="btn-primary"
