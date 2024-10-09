@@ -1,0 +1,277 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sh_import_pricelist
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-02 08:07+0000\n"
+"PO-Revision-Date: 2021-02-02 08:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_supplier_info_wizard
+msgid "<i class=\"fa fa-download\"/> CSV file"
+msgstr "<i class=\"fa fa-download\"/> ملف CSV"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_supplier_info_wizard
+msgid "<i class=\"fa fa-download\"/> Excel file"
+msgstr "<i class=\"fa fa-download\"/> ملف اكسل"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_supplier_info_wizard
+msgid "<strong>Download Sample:</strong>"
+msgstr "<strong>نموذج التحميل:</strong>"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+msgid "All Products"
+msgstr "جميع المنتجات"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__sh_applied_on
+msgid "Applied On"
+msgstr "تم التطبيق"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_supplier_info_wizard
+msgid "Apply"
+msgstr "تطبيق"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__product_by__barcode
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__product_by__barcode
+msgid "Barcode"
+msgstr "الرمز الشريطي"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__sh_base
+msgid "Based On"
+msgstr "مرتكز على"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__import_type__csv
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__import_type__csv
+msgid "CSV File"
+msgstr "ملف CSV"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_supplier_info_wizard
+msgid "Cancel"
+msgstr "يلغي"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__company_id
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__company_id
+msgid "Company"
+msgstr "شركة"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__sh_compute_price
+msgid "Compute Price"
+msgstr "سعر الحساب"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_base__standard_price
+msgid "Cost"
+msgstr "كلفة"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__sh_country_group_ids
+msgid "Country Groups"
+msgstr "مجموعات البلدان"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__create_uid
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__create_uid
+msgid "Created by"
+msgstr "انشأ من قبل"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__create_date
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__create_date
+msgid "Created on"
+msgstr "تم إنشاؤها على"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__display_name
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__import_type__excel
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__import_type__excel
+msgid "Excel File"
+msgstr "ملف اكسل"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__file
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__file
+msgid "File"
+msgstr "ملف"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_compute_price__fixed
+msgid "Fixed Price"
+msgstr "سعر ثابت"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_compute_price__formula
+msgid "Formula"
+msgstr "معادلة"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__id
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__id
+msgid "ID"
+msgstr "هوية شخصية"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__import_type
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__import_type
+msgid "Import File Type"
+msgstr "نوع ملف الاستيراد"
+
+#. module: sh_import_pricelist
+#: model:ir.model,name:sh_import_pricelist.model_sh_import_sale_pricelist
+msgid "Import Pricelist wizard"
+msgstr "معالج استيراد قائمة الأسعار"
+
+#. module: sh_import_pricelist
+#: model:ir.actions.act_window,name:sh_import_pricelist.sh_import_pricelist_action
+#: model:ir.ui.menu,name:sh_import_pricelist.sh_import_pricelist_menu
+#: model:res.groups,name:sh_import_pricelist.group_import_sales_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+msgid "Import Sales Pricelist"
+msgstr "استيراد قائمة أسعار المبيعات"
+
+#. module: sh_import_pricelist
+#: model:ir.model,name:sh_import_pricelist.model_import_supplier_info_wizard
+msgid "Import Supplier Info Wizard"
+msgstr "معالج استيراد معلومات المورد"
+
+#. module: sh_import_pricelist
+#: model:ir.actions.act_window,name:sh_import_pricelist.sh_import_supplier_info_action
+#: model:ir.ui.menu,name:sh_import_pricelist.sh_import_supplier_info_menu
+#: model:res.groups,name:sh_import_pricelist.sh_vendor_pricelist_group
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_supplier_info_wizard
+msgid "Import Vendor Pricelist"
+msgstr "استيراد قائمة أسعار البائع"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__product_by__int_ref
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__product_by__int_ref
+msgid "Internal Reference"
+msgstr "المرجع الداخلي"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard____last_update
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist____last_update
+msgid "Last Modified on"
+msgstr "تاريخ آخر تعديل"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__write_uid
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__write_date
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__product_by__name
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__product_by__name
+msgid "Name"
+msgstr "اسم"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_base__pricelist
+msgid "Other Pricelist"
+msgstr "قائمة أسعار أخرى"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_compute_price__percentage
+msgid "Percentage (discount)"
+msgstr "النسبة المئوية (خصم)"
+
+#. module: sh_import_pricelist
+#: model_terms:ir.ui.view,arch_db:sh_import_pricelist.sh_import_pricelist_wizard
+msgid "Price Computation"
+msgstr "حساب السعر"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_applied_on__1_product
+msgid "Product"
+msgstr "المنتج"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__product_by
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_sh_import_sale_pricelist__product_by
+msgid "Product By"
+msgstr "المنتج من قبل"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_applied_on__2_product_category
+msgid "Product Category"
+msgstr "فئة المنتج"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields,field_description:sh_import_pricelist.field_import_supplier_info_wizard__product_model
+msgid "Product Model"
+msgstr "موديل المنتج"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__product_model__pro_tmpl
+msgid "Product Template"
+msgstr "نموذج المنتج"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_applied_on__0_product_variant
+msgid "Product Variant"
+msgstr "متغير المنتج"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__import_supplier_info_wizard__product_model__pro_var
+msgid "Product Variants"
+msgstr "متغيرات المنتج"
+
+#. module: sh_import_pricelist
+#: model:ir.model.fields.selection,name:sh_import_pricelist.selection__sh_import_sale_pricelist__sh_base__list_price
+msgid "Sales Price"
+msgstr "سعر المبيعات"
+
+#. module: sh_import_pricelist
+#: code:addons/sh_import_pricelist/wizard/import_sale_pricelist_wizard.py:0
+#: code:addons/sh_import_pricelist/wizard/import_vendor_pricelist_wizard.py:0
+#, python-format
+msgid "Sorry, Your file does not match with our format "
+msgstr "عذرًا ، ملف csv الخاص بك لا يتوافق مع التنسيق الخاص بنا"
+
+#. module: sh_import_pricelist
+#: code:addons/sh_import_pricelist/wizard/import_sale_pricelist_wizard.py:0
+#, python-format
+msgid "Sorry, Your excel file does not match with our format"
+msgstr "عذرًا ، ملف Excel الخاص بك لا يتوافق مع تنسيقنا"
+
+#. module: sh_import_pricelist
+#: code:addons/sh_import_pricelist/wizard/import_vendor_pricelist_wizard.py:0
+#, python-format
+msgid "Sorry, Your excel file does not match with our format "
+msgstr "عذرًا ، ملف Excel الخاص بك لا يتوافق مع تنسيقنا"
