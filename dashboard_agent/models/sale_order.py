@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
+_logger = logging.getLogger(__name__)
 
 READONLY_FIELD_STATES = {
     state: [('readonly', True)]
@@ -135,9 +137,13 @@ class SaleOrder(models.Model):
         for order in self:
             dashboard_agent = False
             user_id = order.user_id
-            if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
-                    'dashboard_agent.group_principal_agent') or not user_id.share:
+            _logger.info("Share %s", user_id.share)
+            if not user_id.share:
                 dashboard_agent = True
+
+            # if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
+            #         'dashboard_agent.group_principal_agent') or not user_id.share:
+            #     dashboard_agent = True
 
             order.dashboard_agent = dashboard_agent
 
