@@ -136,7 +136,7 @@ class SaleOrder(models.Model):
             dashboard_agent = False
             user_id = order.user_id
             if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
-                    'dashboard_agent.group_principal_agent'):
+                    'dashboard_agent.group_principal_agent') or not user_id.share:
                 dashboard_agent = True
 
             order.dashboard_agent = dashboard_agent
