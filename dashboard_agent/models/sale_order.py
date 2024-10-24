@@ -137,13 +137,9 @@ class SaleOrder(models.Model):
         for order in self:
             dashboard_agent = False
             user_id = order.user_id
-            _logger.info("Share %s", user_id.share)
-            if not user_id.share:
+            if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
+                    'dashboard_agent.group_principal_agent') or user_id.share:
                 dashboard_agent = True
-
-            # if user_id.has_group('dashboard_agent.group_external_agent') or user_id.has_group(
-            #         'dashboard_agent.group_principal_agent') or not user_id.share:
-            #     dashboard_agent = True
 
             order.dashboard_agent = dashboard_agent
 
