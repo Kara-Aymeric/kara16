@@ -5,20 +5,32 @@ from odoo import api, fields, models
 class CrmLead(models.Model):
     _inherit = "crm.lead"
 
-    stage_change_delta_ids = fields.One2many(
-        "stage.change.delta", "lead_id", string="Stage change delta"
+    stage_tracking_ids = fields.One2many(
+        "stage.tracking", "lead_id", string="Stage tracking"
     )
 
-    pricelist_id = fields.Many2one('product.pricelist', related="partner_id.property_product_pricelist")
+    pricelist_id = fields.Many2one(
+        'product.pricelist', related="partner_id.property_product_pricelist"
+    )
 
-    def _create_stage_change_delta(self, lead):
-        """ Create stage change delta for lead """
+    partner_typology_id = fields.Many2one(
+        'partner.typology', string="Typology", required=True,
+        store=True, related="partner_id.partner_typology_id"
+    )
+
+    partner_typology_id2 = fields.Many2one(
+        'partner.typology', string="Specificity",
+        store=True, related="partner_id.partner_typology_id2"
+    )
+
+    def _create_stage_tracking(self, lead):
+        """ Create stage tracking for lead """
         old_stage_id = False
-        previous_record = self.env['stage.change.delta'].search([('lead_id', '=', lead.id)], order="id desc", limit=1)
+        previous_record = self.env['stage.tracking'].search([('lead_id', '=', lead.id)], order="id desc", limit=1)
         if previous_record and previous_record.stage_id:
             old_stage_id = previous_record.stage_id.id
 
-        state_change_delta_id = self.env['stage.change.delta'].create({
+        stage_tracking_id = self.env['stage.tracking'].create({
             'date': fields.Datetime.now(),
             'stage_id': lead.stage_id.id,
             'old_stage_id': old_stage_id,
@@ -31,7 +43,7 @@ class CrmLead(models.Model):
         """ Surcharge create method """
         leads = super().create(vals_list)
         for lead in leads:
-            self._create_stage_change_delta(lead)
+            self._create_stage_tracking(lead)
 
         return leads
 
@@ -40,6 +52,6 @@ class CrmLead(models.Model):
         res = super().write(vals)
         if "stage_id" in vals:
             for lead in self:
-                self._create_stage_change_delta(lead)
+                self._create_stage_tracking(lead)
 
         return res

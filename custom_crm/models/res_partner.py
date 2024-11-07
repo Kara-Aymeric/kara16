@@ -25,6 +25,7 @@ class ResPartner(models.Model):
     @api.onchange('partner_typology_id')
     def _onchange_partner_typology_id(self):
         if self.partner_typology_id:
+            self.partner_typology_id2 = False
             return {'domain': {'partner_typology_id2': [('parent_id', '=', self.partner_typology_id.id)]}}
         else:
             return {'domain': {'partner_typology_id2': [('parent_id', '!=', False)]}}

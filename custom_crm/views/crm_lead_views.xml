@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[last()]" position="after">
                 <page name="state_tracking" string="State tracking">
-                    <field name="stage_change_delta_ids" readonly="1" force_save="1">
+                    <field name="stage_tracking_ids" readonly="1" force_save="1">
                         <tree delete="false">
                             <field name="date" />
                             <field name="old_stage_id" />
@@ -19,6 +19,8 @@
                 </page>
             </xpath>
             <field name="lost_reason_id" position="before">
+                <field name="partner_typology_id" widget="selection_badge"/>
+                <field name="partner_typology_id2" widget="selection_badge" attrs="{'invisible': [('partner_typology_id', '=', False)]}"/>
                 <field name="pricelist_id" />
             </field>
         </field>

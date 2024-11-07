@@ -18,7 +18,7 @@ class PartnerTypology(models.Model):
         store=True)
     parent_path = fields.Char(index=True, unaccent=False)
     parent_id = fields.Many2one('partner.typology', 'Parent Typology', index=True, ondelete='cascade')
-    child_id = fields.One2many('partner.typology', 'parent_id', 'Child Categories')
+    child_id = fields.One2many('partner.typology', 'parent_id', 'Child Typologies')
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
