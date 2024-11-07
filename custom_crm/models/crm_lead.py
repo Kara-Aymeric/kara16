@@ -9,6 +9,8 @@ class CrmLead(models.Model):
         "stage.change.delta", "lead_id", string="Stage change delta"
     )
 
+    pricelist_id = fields.Many2one('product.pricelist', related="partner_id.property_product_pricelist")
+
     def _create_stage_change_delta(self, lead):
         """ Create stage change delta for lead """
         old_stage_id = False

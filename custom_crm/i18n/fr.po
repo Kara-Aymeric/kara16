@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e-20240624\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 22:54+0000\n"
-"PO-Revision-Date: 2024-11-06 22:54+0000\n"
+"POT-Creation-Date: 2024-11-07 06:32+0000\n"
+"PO-Revision-Date: 2024-11-07 06:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -81,6 +81,11 @@ msgid "Old stage"
 msgstr "Ancienne étape"
 
 #. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_crm_lead__pricelist_id
+msgid "Pricelist"
+msgstr "Liste de prix"
+
+#. module: custom_crm
 #: model:ir.model,name:custom_crm.model_stage_change_delta
 #: model:ir.model.fields,field_description:custom_crm.field_crm_lead__stage_change_delta_ids
 msgid "Stage change delta"
@@ -90,6 +95,15 @@ msgstr "Suivi delta changement d'étape"
 #: model_terms:ir.ui.view,arch_db:custom_crm.custom_crm_lead_view_form
 msgid "State tracking"
 msgstr "Suivi d'étapes"
+
+#. module: custom_crm
+#: model:ir.model.fields,help:custom_crm.field_crm_lead__pricelist_id
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr ""
+"Cette grille tarifaire sera utilisée, à la place de celle par défaut, pour les ventes au "
+"partenaire actuel"
 
 #. module: custom_crm
 #: model:ir.model.fields,field_description:custom_crm.field_stage_change_delta__user_id
