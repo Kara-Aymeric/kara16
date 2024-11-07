@@ -8,11 +8,26 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     partner_typology_id = fields.Many2one(
-        'partner.typology', string="Typology", required=True
+        'partner.typology', string="Typology", required=True, domain=[('parent_id', '=', False)]
     )
-    partner_typology_id2 = fields.Many2many(
-        'partner.typology', string="Typology 2"
+
+    partner_typology_id2 = fields.Many2one(
+        'partner.typology', string="Specificity", domain=[('parent_id', '!=', False)]
     )
+
+    collaboration = fields.Selection(
+        [('not_active', 'Not active'), ('active', 'Active')],
+        default="not_active", tracking=True, string="Collaboration"
+    )
+
+    code_discount = fields.Char(string="Code discount")
+
+    @api.onchange('partner_typology_id')
+    def _onchange_partner_typology_id(self):
+        if self.partner_typology_id:
+            return {'domain': {'partner_typology_id2': [('parent_id', '=', self.partner_typology_id.id)]}}
+        else:
+            return {'domain': {'partner_typology_id2': [('parent_id', '!=', False)]}}
 
     # def _define_partner_ref(self):
     #     """ Define partner ref """

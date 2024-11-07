@@ -12,6 +12,7 @@ class PartnerTypology(models.Model):
     _order = 'complete_name'
 
     name = fields.Char(string="Name", index='trigram')
+    code = fields.Char(string="Code", help="Allows to add prefix into reference to contact", required=True)
     complete_name = fields.Char(
         'Complete Name', compute='_compute_complete_name', recursive=True,
         store=True)

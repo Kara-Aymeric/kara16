@@ -22,8 +22,8 @@
         <field name="priority">9</field>
         <field name="arch" type="xml">
             <field name="vat" position="before">
-                <field name="partner_typology_id" />
-                <field name="partner_typology_id2" widget="many2many_tags"/>
+                <field name="partner_typology_id" widget="selection_badge"/>
+                <field name="partner_typology_id2" widget="selection_badge" attrs="{'invisible': [('partner_typology_id', '=', False)]}"/>
             </field>
         </field>
     </record>

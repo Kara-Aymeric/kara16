@@ -171,8 +171,8 @@ msgstr "Typologie"
 #. module: custom_crm
 #: model:ir.model.fields,field_description:custom_crm.field_res_partner__partner_typology_id2
 #: model:ir.model.fields,field_description:custom_crm.field_res_users__partner_typology_id2
-msgid "Typology 2"
-msgstr "Typologie 2"
+msgid "Specificity"
+msgstr "Spécificité"
 
 #. module: custom_crm
 #: model:ir.model.fields,field_description:custom_crm.field_stage_change_delta__user_id
