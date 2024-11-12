@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e-20240624\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-07 14:49+0000\n"
-"PO-Revision-Date: 2024-11-07 14:49+0000\n"
+"POT-Creation-Date: 2024-11-12 11:37+0000\n"
+"PO-Revision-Date: 2024-11-12 11:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,12 @@ msgid "Lead/Opportunity"
 msgstr "Piste/opportunité"
 
 #. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_res_partner__listprice_update_date
+#: model:ir.model.fields,field_description:custom_crm.field_res_users__listprice_update_date
+msgid "Listprice update date"
+msgstr "Date MAJ liste prix"
+
+#. module: custom_crm
 #: model:ir.model.fields,field_description:custom_crm.field_partner_typology__name
 msgid "Name"
 msgstr "Nom"
@@ -200,7 +206,7 @@ msgstr ""
 #. module: custom_crm
 #: model:ir.ui.menu,name:custom_crm.menu_config_partner_typologies
 msgid "Typologies"
-msgstr "Typologies"
+msgstr ""
 
 #. module: custom_crm
 #: model:ir.model.fields,field_description:custom_crm.field_crm_lead__partner_typology_id
