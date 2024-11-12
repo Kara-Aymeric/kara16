@@ -50,12 +50,6 @@ msgid "Agorane - Agent commission"
 msgstr "Agorane - Commission agent"
 
 #. module: woo_user_connector
-#: model:ir.model.fields,field_description:woo_user_connector.field_res_partner__allow_flexible_payment
-#: model:ir.model.fields,field_description:woo_user_connector.field_res_users__allow_flexible_payment
-msgid "Allow flexible payment"
-msgstr "Autorise paiement flexible"
-
-#. module: woo_user_connector
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_config_settings__agent_commission
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_partner__agent_commission
 #: model:ir.model.fields,field_description:woo_user_connector.field_res_users__agent_commission
