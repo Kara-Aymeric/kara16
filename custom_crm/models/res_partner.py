@@ -1,18 +1,50 @@
 # -*- coding: utf-8 -*-
-import re
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
     partner_typology_id = fields.Many2one(
-        'partner.typology', string="Typology", required=True
+        'partner.typology', string="Typology", required=True, domain=[('parent_id', '=', False)]
     )
-    partner_typology_id2 = fields.Many2many(
-        'partner.typology', string="Typology 2"
+
+    partner_typology_id2 = fields.Many2one(
+        'partner.typology', string="Specificity", domain=[('parent_id', '!=', False)]
     )
+
+    collaboration = fields.Selection(
+        [('not_active', 'Not active'), ('active', 'Active')],
+        string="Collaboration", compute='_compute_collaboration', store=True,
+    )
+    listprice_update_date = fields.Date(string="Listprice update date", compute='_compute_listprice_update_date')
+    code_discount = fields.Char(string="Code discount")
+
+    @api.depends('invoice_ids.state', 'parent_id.invoice_ids.state', 'child_ids.invoice_ids.state')
+    def _compute_collaboration(self):
+        """ Collaboration is active if partner, parent, or children have posted invoices """
+        for partner in self:
+            all_invoices = partner.invoice_ids | partner.parent_id.invoice_ids | partner.child_ids.invoice_ids
+            has_posted_invoice = any(inv.state == 'posted' for inv in all_invoices)
+            partner.collaboration = 'active' if has_posted_invoice else 'not_active'
+
+    @api.depends('property_product_pricelist', 'property_product_pricelist.write_date')
+    def _compute_listprice_update_date(self):
+        """ Compute date update pricelist """
+        for partner in self:
+            listprice_update_date = False
+            if partner.property_product_pricelist:
+                listprice_update_date = partner.property_product_pricelist.write_date
+
+            partner.listprice_update_date = listprice_update_date
+
+    @api.onchange('partner_typology_id')
+    def _onchange_partner_typology_id(self):
+        if self.partner_typology_id:
+            self.partner_typology_id2 = False
+            return {'domain': {'partner_typology_id2': [('parent_id', '=', self.partner_typology_id.id)]}}
+        else:
+            return {'domain': {'partner_typology_id2': [('parent_id', '!=', False)]}}
 
     # def _define_partner_ref(self):
     #     """ Define partner ref """

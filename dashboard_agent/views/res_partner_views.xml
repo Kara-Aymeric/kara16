@@ -82,10 +82,6 @@
                 <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)], 'invisible': [('restrict_agent_field', '=', True)]}</attribute>
                 <attribute name="force_save">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='allow_flexible_payment']" position="attributes">
-                <attribute name="attrs">{'readonly': [('restrict_custom_field', '=', True)]}</attribute>
-                <attribute name="force_save">1</attribute>
-            </xpath>
         </field>
     </record>
 

@@ -2,10 +2,10 @@
 from odoo import api, fields, models
 
 
-class StageChangeDelta(models.Model):
-    _name = "stage.change.delta"
+class StageTracking(models.Model):
+    _name = "stage.tracking"
     _rec_name = "stage_id"
-    _description = "Stage change delta"
+    _description = "Stage Tracking"
 
     date = fields.Date(string="Date")
     stage_id = fields.Many2one("crm.stage", string="New stage")

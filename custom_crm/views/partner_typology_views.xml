@@ -25,7 +25,9 @@
         <field name="priority">1</field>
         <field name="arch" type="xml">
             <tree string="Partner Typologies">
-                <field name="display_name" string="Typology"/>
+                <field name="complete_name"/>
+                <field name="name" string="Typology"/>
+                <field name="code"/>
             </tree>
         </field>
     </record>
@@ -35,7 +37,8 @@
         <field name="model">partner.typology</field>
         <field name="arch" type="xml">
             <search string="Partner Typologies">
-                <field name="name" string="Typologies"/>
+                <field name="name" string="Typology"/>
+                <field name="code"/>
                 <field name="parent_id"/>
             </search>
         </field>

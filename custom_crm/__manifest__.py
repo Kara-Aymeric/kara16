@@ -9,7 +9,7 @@
     'version': '16.0.24.11.06',
     'license': "LGPL-3",
     'installable': True,
-    'depends': ['base', 'contacts', 'crm', 'product'],
+    'depends': ['base', 'contacts', 'crm', 'product', 'account'],
     'data': [
         # Security
         'security/ir.model.access.csv',

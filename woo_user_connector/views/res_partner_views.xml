@@ -8,7 +8,6 @@
             <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="after">
                 <field name="agent_commission" />
                 <field name="agent_discount_commission" />
-                <field name="allow_flexible_payment" />
             </xpath>
         </field>
     </record>

@@ -22,8 +22,23 @@
         <field name="priority">9</field>
         <field name="arch" type="xml">
             <field name="vat" position="before">
-                <field name="partner_typology_id" />
-                <field name="partner_typology_id2" widget="many2many_tags"/>
+                <field name="partner_typology_id" widget="selection_badge"/>
+                <field name="partner_typology_id2" widget="selection_badge" attrs="{'invisible': [('partner_typology_id', '=', False)]}"/>
+                <field name="collaboration" force_save="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Account view -->
+    <record id="view_partner_property_form" model="ir.ui.view">
+        <field name="name">view partner property form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="priority">9</field>
+        <field name="arch" type="xml">
+            <field name="property_account_position_id" position="after">
+                <field name="listprice_update_date" />
+                <field name="code_discount" />
             </field>
         </field>
     </record>

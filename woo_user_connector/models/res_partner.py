@@ -16,10 +16,6 @@ class ResPartner(models.Model):
         tracking=True
     )
 
-    allow_flexible_payment = fields.Boolean(
-        string="Allow flexible payment"
-    )
-
     @api.onchange('agent_commission')
     def _onchange_agent_commission(self):
         """ Agent commission must be greater than 0. """
