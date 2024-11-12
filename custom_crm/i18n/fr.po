@@ -1,0 +1,236 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* custom_crm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e-20240624\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-12 11:37+0000\n"
+"PO-Revision-Date: 2024-11-12 11:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: custom_crm
+#: model:ir.model.fields.selection,name:custom_crm.selection__res_partner__collaboration__active
+msgid "Active"
+msgstr "Actif"
+
+#. module: custom_crm
+#: model:ir.model.fields,help:custom_crm.field_partner_typology__code
+msgid "Allows to add prefix into reference to contact"
+msgstr "Permet d'ajouter un préfixe à la référence du contact"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__child_id
+msgid "Child Typologies"
+msgstr "Typologies enfants"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__code
+msgid "Code"
+msgstr ""
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_res_partner__code_discount
+#: model:ir.model.fields,field_description:custom_crm.field_res_users__code_discount
+msgid "Code discount"
+msgstr "Code promo"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_res_partner__collaboration
+#: model:ir.model.fields,field_description:custom_crm.field_res_users__collaboration
+msgid "Collaboration"
+msgstr ""
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__complete_name
+msgid "Complete Name"
+msgstr "Nom complet"
+
+#. module: custom_crm
+#: model:ir.model,name:custom_crm.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__create_uid
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__create_uid
+msgid "Created by"
+msgstr "Crée par"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__create_date
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__create_date
+msgid "Created on"
+msgstr "Crée le"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__date
+msgid "Date"
+msgstr ""
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__delta
+msgid "Delta (days)"
+msgstr "Delta (jours)"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__display_name
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__id
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__id
+msgid "ID"
+msgstr ""
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology____last_update
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__write_uid
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__write_uid
+msgid "Last Updated by"
+msgstr "Dernière modification par"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__write_date
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__lead_id
+msgid "Lead"
+msgstr "Opportunité"
+
+#. module: custom_crm
+#: model:ir.model,name:custom_crm.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Piste/opportunité"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_res_partner__listprice_update_date
+#: model:ir.model.fields,field_description:custom_crm.field_res_users__listprice_update_date
+msgid "Listprice update date"
+msgstr "Date MAJ liste prix"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__stage_id
+msgid "New stage"
+msgstr "Nouvelle étape"
+
+#. module: custom_crm
+#: model:ir.model.fields.selection,name:custom_crm.selection__res_partner__collaboration__not_active
+msgid "Not active"
+msgstr "Non actif"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__old_stage_id
+msgid "Old stage"
+msgstr "Ancienne étape"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__parent_path
+msgid "Parent Path"
+msgstr "Chemin parent"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_partner_typology__parent_id
+msgid "Parent Typology"
+msgstr "Typologie parente"
+
+#. module: custom_crm
+#: model:ir.actions.act_window,name:custom_crm.partner_typology_action
+#: model_terms:ir.ui.view,arch_db:custom_crm.partner_typology_search_view
+#: model_terms:ir.ui.view,arch_db:custom_crm.partner_typology_tree_view
+msgid "Partner Typologies"
+msgstr "Typologies"
+
+#. module: custom_crm
+#: model:ir.model,name:custom_crm.model_partner_typology
+msgid "Partner Typology"
+msgstr "Typologie"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_crm_lead__pricelist_id
+msgid "Pricelist"
+msgstr "Liste de prix"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_crm_lead__partner_typology_id2
+#: model:ir.model.fields,field_description:custom_crm.field_res_partner__partner_typology_id2
+#: model:ir.model.fields,field_description:custom_crm.field_res_users__partner_typology_id2
+msgid "Specificity"
+msgstr "Spécificité"
+
+#. module: custom_crm
+#: model:ir.model,name:custom_crm.model_stage_tracking
+msgid "Stage Tracking"
+msgstr "Suivi d'étape"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_crm_lead__stage_tracking_ids
+msgid "Stage tracking"
+msgstr "Suivi d'étape"
+
+#. module: custom_crm
+#: model_terms:ir.ui.view,arch_db:custom_crm.custom_crm_lead_view_form
+msgid "State tracking"
+msgstr "Suivi d'étapes"
+
+#. module: custom_crm
+#: model:ir.model.fields,help:custom_crm.field_crm_lead__pricelist_id
+msgid ""
+"This pricelist will be used, instead of the default one, for sales to the "
+"current partner"
+msgstr ""
+"Cette grille tarifaire sera utilisée, à la place de celle par défaut, pour "
+"les ventes au partenaire actuel"
+
+#. module: custom_crm
+#: model:ir.ui.menu,name:custom_crm.menu_config_partner_typologies
+msgid "Typologies"
+msgstr ""
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_crm_lead__partner_typology_id
+#: model:ir.model.fields,field_description:custom_crm.field_res_partner__partner_typology_id
+#: model:ir.model.fields,field_description:custom_crm.field_res_users__partner_typology_id
+#: model_terms:ir.ui.view,arch_db:custom_crm.partner_typology_form_view
+#: model_terms:ir.ui.view,arch_db:custom_crm.partner_typology_search_view
+#: model_terms:ir.ui.view,arch_db:custom_crm.partner_typology_tree_view
+msgid "Typology"
+msgstr "Typologie"
+
+#. module: custom_crm
+#: model:ir.model.fields,field_description:custom_crm.field_stage_tracking__user_id
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: custom_crm
+#. odoo-python
+#: code:addons/custom_crm/models/partner_typology.py:0
+#, python-format
+msgid "You cannot create recursive typologies."
+msgstr "Vous ne pouvez pas créer de typologies récursives."
+
+#. module: custom_crm
+#: model_terms:ir.ui.view,arch_db:custom_crm.partner_typology_form_view
+msgid "e.g. Customer"
+msgstr "Ex: Client"
