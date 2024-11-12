@@ -21,6 +21,8 @@
                             <field name="woo_weight_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="woo_packing_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}"/>
                             <field name="woo_sync"/>
+                            <field name="woo_image_filename" invisible="1"/>
+                            <field name="woo_image_file" filename="woo_image_filename"/>
                         </group>
                     </group>
                 </page>
