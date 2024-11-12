@@ -75,6 +75,9 @@ class ProductTemplate(models.Model):
         tracking=True
     )
 
+    woo_image_filename = fields.Char(string="Image filename")
+    woo_image_file = fields.Binary(string="Image")
+
     @api.depends('name')
     def _compute_woo_name(self):
         """ Get principal product template name """
