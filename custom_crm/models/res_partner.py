@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-import re
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
@@ -17,10 +15,28 @@ class ResPartner(models.Model):
 
     collaboration = fields.Selection(
         [('not_active', 'Not active'), ('active', 'Active')],
-        default="not_active", tracking=True, string="Collaboration"
+        string="Collaboration", compute='_compute_collaboration', store=True,
     )
-
+    listprice_update_date = fields.Date(string="Listprice update date", compute='_compute_listprice_update_date')
     code_discount = fields.Char(string="Code discount")
+
+    @api.depends('invoice_ids.state', 'parent_id.invoice_ids.state', 'child_ids.invoice_ids.state')
+    def _compute_collaboration(self):
+        """ Collaboration is active if partner, parent, or children have posted invoices """
+        for partner in self:
+            all_invoices = partner.invoice_ids | partner.parent_id.invoice_ids | partner.child_ids.invoice_ids
+            has_posted_invoice = any(inv.state == 'posted' for inv in all_invoices)
+            partner.collaboration = 'active' if has_posted_invoice else 'not_active'
+
+    @api.depends('property_product_pricelist', 'property_product_pricelist.write_date')
+    def _compute_listprice_update_date(self):
+        """ Compute date update pricelist """
+        for partner in self:
+            listprice_update_date = False
+            if partner.property_product_pricelist:
+                listprice_update_date = partner.property_product_pricelist.write_date
+
+            partner.listprice_update_date = listprice_update_date
 
     @api.onchange('partner_typology_id')
     def _onchange_partner_typology_id(self):
