@@ -35,6 +35,7 @@ class ResPartner(models.Model):
     pedestrian_street = fields.Selection(selection=selection, string="Pedestrian street", default='no')
     prior_authorisation = fields.Selection(selection=selection, string="Prior authorization required", default='no')
     appointment = fields.Selection(selection=selection, string="Appointment", default='no')
+    pallet_exchange = fields.Selection(selection=selection, string="Pallet exchange", default='no')
 
     # Comments
     logistic_comment = fields.Html(string="Comment", translate=True)
