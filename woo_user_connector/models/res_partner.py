@@ -16,6 +16,8 @@ class ResPartner(models.Model):
         tracking=True
     )
 
+    website_account = fields.Boolean(string="Website account")
+
     @api.onchange('agent_commission')
     def _onchange_agent_commission(self):
         """ Agent commission must be greater than 0. """
