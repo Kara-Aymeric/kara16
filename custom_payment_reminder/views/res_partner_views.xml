@@ -5,25 +5,27 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='sales_purchases']//field[@name='team_id']" position="before">
-                <field name="no_payment_reminder" force_save="1" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
-            </xpath>
             <xpath expr="//page[last()]" position="after">
                 <page name='customer_payment_reminder' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','!=',False)]}">
-                    <field name="payment_reminder_history_ids" readonly="1" force_save="1">
-                        <tree editable="bottom" create="false" delete="false">
-                            <field name="mail_reminder_date" />
-                            <field name="invoice_id" />
-                            <field name="payment_reminder_line_id" />
-                            <button
-                                string="View detail"
-                                name="action_view_payment_reminder_line"
-                                groups="dashboard_agent.group_admin"
-                                type="object"
-                                class="oe_highlight"/>
-                        </tree>
-                        <form></form>
-                    </field>
+                    <group>
+                        <field name="no_payment_reminder" force_save="1" attrs="{'readonly': [('parent_id', '!=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="payment_reminder_history_ids" readonly="1" force_save="1" colspan="2" nolabel="1">
+                            <tree editable="bottom" create="false" delete="false">
+                                <field name="mail_reminder_date" />
+                                <field name="invoice_id" />
+                                <field name="payment_reminder_line_id" />
+                                <button
+                                    string="View detail"
+                                    name="action_view_payment_reminder_line"
+                                    groups="dashboard_agent.group_admin"
+                                    type="object"
+                                    class="oe_highlight"/>
+                            </tree>
+                            <form></form>
+                        </field>
+                    </group>
                 </page>
                 <page name='customer_payment_reminder_disable' string="Reminder history" attrs="{'invisible': ['|', ('restrict_agent_field', '=', True), ('parent_id','=',False)]}">
                     <div>
