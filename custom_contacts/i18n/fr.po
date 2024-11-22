@@ -77,7 +77,7 @@ msgstr "Vendredi matin"
 #. module: custom_contacts
 #: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
 msgid "Logistic"
-msgstr "Logistique"
+msgstr "Infos Logistique"
 
 #. module: custom_contacts
 #: model_terms:ir.ui.view,arch_db:custom_contacts.kara_contact_view_partner_form
@@ -115,6 +115,7 @@ msgstr "Besoin de Hayon"
 #: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__semi_trailer__no
 #: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__unloading_dock__no
 #: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__van__no
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__pallet_exchange__no
 msgid "No"
 msgstr "Non"
 
@@ -216,6 +217,12 @@ msgid "Unloading dock"
 msgstr "Quai de déchargement"
 
 #. module: custom_contacts
+#: model:ir.model.fields,field_description:custom_contacts.field_res_partner__pallet_exchange
+#: model:ir.model.fields,field_description:custom_contacts.field_res_users__pallet_exchange
+msgid "Pallet exchange"
+msgstr "Échange de palette"
+
+#. module: custom_contacts
 #: model:ir.model.fields,field_description:custom_contacts.field_res_partner__van
 #: model:ir.model.fields,field_description:custom_contacts.field_res_users__van
 msgid "Van"
@@ -246,5 +253,6 @@ msgstr "Mercredi matin"
 #: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__semi_trailer__yes
 #: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__unloading_dock__yes
 #: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__van__yes
+#: model:ir.model.fields.selection,name:custom_contacts.selection__res_partner__pallet_exchange__yes
 msgid "Yes"
 msgstr "Oui"
