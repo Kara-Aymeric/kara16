@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -19,6 +19,7 @@ class ResPartner(models.Model):
     )
     listprice_update_date = fields.Date(string="Listprice update date", compute='_compute_listprice_update_date')
     code_discount = fields.Char(string="Code discount")
+    ref = fields.Char(tracking=True)
 
     @api.depends('invoice_ids.state', 'parent_id.invoice_ids.state', 'child_ids.invoice_ids.state')
     def _compute_collaboration(self):
@@ -46,27 +47,35 @@ class ResPartner(models.Model):
         else:
             return {'domain': {'partner_typology_id2': [('parent_id', '!=', False)]}}
 
-    # def _define_partner_ref(self):
-    #     """ Define partner ref """
-    #     partner_ref = ""
-    #     for partner in self:
-    #         partner_ref = f"{partner.id}"
-    #         partner_ref = self.env['ir.sequence'].next_by_code('customer.reference') or _('New')
-    #         partner_same_ref = self.env['res.partner'].search_count([('ref', '=', partner_ref)])
-    #         if partner_same_ref:
-    #             raise ValidationError(
-    #                 _("There is already an identical reference. "
-    #                   "Please change value sequence 'customer.reference' manually into settings "
-    #                   "or contact your administrator.")
-    #             )
-    #
-    #         return partner_ref
-    #
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     """ Surcharge create method """
-    #     partners = super(ResPartner, self).create(vals_list)
-    #     for partner in partners:
-    #         partner.ref = partner._define_partner_ref()
-    #
-    #     return partners
+    def _define_partner_ref(self):
+        """ Define partner ref """
+        for partner in self:
+            initial_partner = partner.name[:2].upper()
+            typo_code = (
+                partner.partner_typology_id2.code
+                if partner.partner_typology_id2
+                else partner.partner_typology_id.code
+            )
+            # Format the partner ID with leading zeros to ensure 6 digits
+            formatted_id = str(partner.id).zfill(6)
+            partner_ref = f"{initial_partner}{typo_code}{formatted_id}"
+
+            return partner_ref
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """ Surcharge create method """
+        partners = super(ResPartner, self).create(vals_list)
+        for partner in partners:
+            partner.ref = partner._define_partner_ref()
+
+        return partners
+
+    def write(self, vals):
+        """ Surcharge write method """
+        res = super(ResPartner, self).write(vals)
+        if "name" in vals or "partner_typology_id" in vals or "partner_typology_id2" in vals:
+            for partner in self:
+                partner.ref = partner._define_partner_ref()
+
+        return res
