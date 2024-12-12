@@ -9,14 +9,16 @@
     'version': '16.0.24.11.06',
     'license': "LGPL-3",
     'installable': True,
-    'depends': ['base', 'contacts', 'crm', 'product', 'account'],
+    'depends': ['base', 'contacts', 'crm', 'product', 'account', 'sale'],
     'data': [
         # Security
         'security/ir.model.access.csv',
 
         # Views
+        'views/account_move_views.xml',
         'views/crm_lead_views.xml',
         'views/partner_typology_views.xml',
         'views/res_partner_views.xml',
+        'views/sale_order_views.xml',
     ],
 }

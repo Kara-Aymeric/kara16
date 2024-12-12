@@ -20,8 +20,8 @@
                 </page>
             </xpath>
             <field name="lost_reason_id" position="before">
-                <field name="partner_typology_id" widget="selection_badge"/>
-                <field name="partner_typology_id2" widget="selection_badge" attrs="{'invisible': [('partner_typology_id', '=', False)]}"/>
+                <field name="partner_typology_id" />
+                <field name="partner_typology_id2" attrs="{'invisible': [('partner_typology_id', '=', False)]}"/>
                 <field name="pricelist_id" />
             </field>
         </field>
